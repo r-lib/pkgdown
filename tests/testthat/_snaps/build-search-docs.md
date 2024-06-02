@@ -1,10 +1,12 @@
-# url_node gives informative error
+# build sitemap only messages when it updates
 
     Code
-      url_node("<")
-    Condition
-      Error in `url_node()`:
-      ! Failed to wrap URL "<"
-      Caused by error in `read_xml.raw()`:
-      ! StartTag: invalid element name [68]
+      build_sitemap(pkg)
+    Message
+      -- Building sitemap ------------------------------------------------------------
+      Writing `sitemap.xml`
+    Code
+      build_sitemap(pkg)
+    Message
+      -- Building sitemap ------------------------------------------------------------
 

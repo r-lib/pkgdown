@@ -13,7 +13,7 @@ build_home_index <- function(pkg = ".", quiet = TRUE) {
   } else {
     cli::cli_inform("Reading {src_path(path_rel(src_path, pkg$src_path))}")
     local_options_link(pkg, depth = 0L)
-    data$index <- markdown_body(src_path)
+    data$index <- markdown_body(pkg, src_path)
   }
 
   cur_digest <- file_digest(dst_path)
@@ -124,7 +124,7 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
   needs_components <- setdiff(structure, names(default_components))
   custom_yaml <- config_pluck_sidebar_components(pkg, needs_components, call = call)  
   custom_components <- purrr::map(custom_yaml, function(x) {
-    sidebar_section(x$title, markdown_text_block(x$text))
+    sidebar_section(x$title, markdown_text_block(pkg, x$text))
   })
   components <- modify_list(default_components, custom_components)
 
@@ -189,26 +189,40 @@ sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
   )
 }
 
-#' @importFrom memoise memoise
-NULL
-
-cran_link <- memoise(function(pkg) {
+cran_link <- function(pkg) {
   if (!has_internet()) {
     return(NULL)
   }
 
   cran_url <- paste0("https://cloud.r-project.org/package=", pkg)
-
-  if (!httr::http_error(cran_url)) {
+  req <- httr2::request(cran_url)
+  req <- req_pkgdown_cache(req)
+  req <- httr2::req_error(req, function(resp) FALSE)
+  resp <- httr2::req_perform(req)
+  if (!httr2::resp_is_error(resp)) {
     return(list(repo = "CRAN", url = cran_url))
   }
 
   # bioconductor always returns a 200 status, redirecting to /removed-packages/
   bioc_url <- paste0("https://www.bioconductor.org/packages/", pkg)
-  req <- httr::RETRY("HEAD", bioc_url, quiet = TRUE)
-  if (!httr::http_error(req) && !grepl("removed-packages", req$url)) {
+  req <- httr2::request(bioc_url)
+  req <- req_pkgdown_cache(req)
+  req <- httr2::req_error(req, function(resp) FALSE)
+  req <- httr2::req_retry(req, max_tries = 3)
+  resp <- httr2::req_perform(req)
+
+  if (!httr2::resp_is_error(resp) && !grepl("removed-packages", httr2::resp_url(resp))) {
     return(list(repo = "Bioconductor", url = bioc_url))
   }
 
   NULL
-})
+}
+
+req_pkgdown_cache <- function(req) {
+  cache_path <- dir_create(path(tools::R_user_dir("pkgdown", "cache"), "http"))
+  httr2::req_cache(
+    req,
+    path = cache_path,
+    max_age = 86400 # 1 day
+  )
+}

@@ -114,7 +114,7 @@ build_news_multi <- function(pkg = ".") {
   news_paged <- tibble::tibble(
     version = levels(page),
     file_out = paste0("news-", version, ".html"),
-    contents = news[c("html", "version", "anchor")] %>% split(page)
+    contents = split(news[c("html", "version", "anchor")], page)
   )
 
   render_news <- function(version, file_out, contents) {
@@ -131,13 +131,13 @@ build_news_multi <- function(pkg = ".") {
       path("news", file_out),
     )
   }
-  news_paged %>% purrr::pmap(render_news)
+  purrr::pwalk(news_paged, render_news)
 
   render_page(
     pkg,
     "news-index",
     list(
-      versions = news_paged %>% purrr::transpose(),
+      versions = purrr::transpose(news_paged),
       pagetitle = tr_("News")
     ),
     path("news", "index.html")
@@ -146,8 +146,8 @@ build_news_multi <- function(pkg = ".") {
 
 utils::globalVariables(".")
 
-data_news <- function(pkg = list()) {
-  html <- markdown_body(path(pkg$src_path, "NEWS.md"))
+data_news <- function(pkg = list(), call = caller_env() ) {
+  html <- markdown_body(pkg, path(pkg$src_path, "NEWS.md"))
   xml <- xml2::read_html(html)
   downlit::downlit_html_node(xml)
 
@@ -158,19 +158,16 @@ data_news <- function(pkg = list()) {
   }
   sections <- sections[!footnotes]
 
-  levels <- sections %>%
-    xml2::xml_find_first(".//h1|.//h2|.//h3|.//h4|.//h5") %>%
-    xml2::xml_name()
+  headings <- xml2::xml_find_first(sections, ".//h1|.//h2|.//h3|.//h4|.//h5")
+  levels <- xml2::xml_name(headings)
   ulevels <- unique(levels)
   if (!identical(ulevels, "h1") && !identical(ulevels, "h2")) {
-    cli::cli_abort(
-      c(
-        "Invalid NEWS.md: inconsistent use of section headings.",
-        i = "Top-level headings must be either all <h1> or all <h2>.",
-        i = "See {.help pkgdown::build_news} for more details."
-      ),
-      call = caller_env()
+    msg <- c(
+      "inconsistent use of section headings.",
+      i = "Top-level headings must be either all <h1> or all <h2>.",
+      i = "See {.help pkgdown::build_news} for more details."
     )
+    config_abort(pkg, msg, path = "NEWS.md", call = call)
   }
   if (ulevels == "h1") {
     # Bump every heading down a level so to get a single <h1> for the page title
@@ -183,10 +180,11 @@ data_news <- function(pkg = list()) {
   sections <- sections[!is.na(versions)]
 
   if (length(sections) == 0) {
-    cli::cli_warn(c(
-      "No version headings found in {src_path('NEWS.md')}",
+    msg <- c(
+      "no version headings found",
       i = "See {.help pkgdown::build_news} for expected structure."
-    ))
+    )
+    config_warn(pkg, msg, path = "NEWS.md", call = call)
   }
 
   versions <- versions[!is.na(versions)]
@@ -197,16 +195,16 @@ data_news <- function(pkg = list()) {
   } else {
     timeline <- NULL
   }
-
-  html <- sections %>%
-    purrr::walk2(
-      versions,
-      tweak_news_heading,
-      timeline = timeline,
-      bs_version = pkg$bs_version
-    ) %>%
-    purrr::map_chr(as.character, options = character()) %>%
-    purrr::map_chr(repo_auto_link, pkg = pkg)
+  
+  purrr::walk2(
+    sections,
+    versions,
+    tweak_news_heading,
+    timeline = timeline,
+    bs_version = pkg$bs_version
+  )
+  html <- purrr::map_chr(sections, as.character, options = character())
+  html <- purrr::map_chr(html, repo_auto_link, pkg = pkg)
 
   anchors <- xml2::xml_attr(sections, "id")
   news <- tibble::tibble(
@@ -274,13 +272,16 @@ pkg_timeline <- function(package) {
   }
 
   url <- paste0("https://crandb.r-pkg.org/", package, "/all")
+  req <- httr2::request(url)
+  req <- httr2::req_retry(req, max_tries = 3)
+  req <- httr2::req_error(req, function(resp) FALSE)
 
-  resp <- httr::RETRY("GET", url, quiet = TRUE)
-  if (httr::http_error(resp)) {
+  resp <- httr2::req_perform(req)
+  if (httr2::resp_is_error(resp)) {
     return(NULL)
   }
 
-  content <- httr::content(resp)
+  content <- httr2::resp_body_json(resp)
   timeline <- content$timeline
 
   data.frame(

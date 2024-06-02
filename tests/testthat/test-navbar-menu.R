@@ -74,6 +74,12 @@ test_that("can specify link target", {
   )
 })
 
+test_that("can construct theme menu", {
+  pkg <- local_pkgdown_site(meta = list(template = list(bootstrap = 5, `light-switch` = TRUE)))
+  lightswitch <- navbar_components(pkg)$lightswitch
+  expect_snapshot(cat(navbar_html(lightswitch)))
+})
+
 test_that("simple components don't change without warning", {
   expect_snapshot({
     cat(navbar_html(menu_heading("a")))

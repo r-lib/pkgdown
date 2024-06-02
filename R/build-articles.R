@@ -77,7 +77,7 @@
 #' the navbar, it will link directly to the articles index instead of
 #' providing a drop-down.
 #'
-#' # Get started
+#' ## Get started
 #' Note that a vignette with the same name as the package (e.g.,
 #' `vignettes/pkgdown.Rmd` or `vignettes/articles/pkgdown.Rmd`) automatically
 #' becomes a top-level "Get started" link, and will not appear in the articles
@@ -86,12 +86,29 @@
 #' (If your package name includes a `.`, e.g. `pack.down`, use a `-` in the
 #' vignette name, e.g. `pack-down.Rmd`.)
 #'
-#' ## Missing topics
+#' ## Missing articles
 #'
 #' pkgdown will warn if there are (non-internal) articles that aren't listed
 #' in the articles index. You can suppress such warnings by listing the
 #' affected articles in a section with `title: internal` (case sensitive);
 #' this section will not be displayed on the index page.
+#' 
+#' ## External articles
+#'
+#' You can link to arbitrary additional articles by adding an 
+#' `external-articles` entry to `_pkgdown.yml`. It should contain an array
+#' of objects with fields `name`, `title`, `href`, and `description`. 
+#'
+#' ```yaml
+#' external-articles:
+#' - name: subsampling
+#'   title: Subsampling for Class Imbalances
+#'   description: Improve model performance in imbalanced data sets through undersampling or oversampling.
+#'   href: https://www.tidymodels.org/learn/models/sub-sampling/
+#' ```
+#' 
+#' If you've defined a custom articles index, you'll need to include the name
+#' in one of the `contents` fields.
 #'
 #' # External files
 #' pkgdown differs from base R in its handling of external files. When building
@@ -174,6 +191,7 @@
 #' @param preview If `TRUE`, or `is.na(preview) && interactive()`, will preview
 #'   freshly generated section in browser.
 #' @export
+#' @order 1
 build_articles <- function(pkg = ".",
                            quiet = TRUE,
                            lazy = TRUE,
@@ -204,165 +222,11 @@ build_articles <- function(pkg = ".",
   preview_site(pkg, "articles", preview = preview)
 }
 
-#' @export
-#' @rdname build_articles
-#' @param name Name of article to render. This should be either a path
-#'   relative to `vignettes/` without extension, or `index` or `README`.
-#' @param data Additional data to pass on to template.
-#' @param new_process Build the article in a clean R process? The default,
-#'   `TRUE`, ensures that every article is build in a fresh environment, but
-#'   you may want to set it to `FALSE` to make debugging easier.
-build_article <- function(name,
-                          pkg = ".",
-                          data = list(),
-                          lazy = FALSE,
-                          seed = 1014L,
-                          new_process = TRUE,
-                          quiet = TRUE) {
-
-  pkg <- as_pkgdown(pkg)
-
-  # Look up in pkg vignette data - this allows convenient automatic
-  # specification of depth, output destination, and other parameters that
-  # allow code sharing with building of the index.
-  vig <- match(name, pkg$vignettes$name)
-  if (is.na(vig)) {
-    cli::cli_abort(
-      "Can't find article {.file {name}}"
-    )
-  }
-
-  input <- pkg$vignettes$file_in[vig]
-  output_file <- pkg$vignettes$file_out[vig]
-  depth <- pkg$vignettes$depth[vig]
-
-  input_path <- path_abs(input, pkg$src_path)
-  output_path <- path_abs(output_file, pkg$dst_path)
-
-  if (lazy && !out_of_date(input_path, output_path)) {
-    return(invisible())
-  }
-
-  local_envvar_pkgdown(pkg)
-  local_options_link(pkg, depth = depth)
-
-  front <- rmarkdown::yaml_front_matter(input_path)
-  # Take opengraph from article's yaml front matter
-  front_opengraph <- check_open_graph(front$opengraph, input)
-  data$opengraph <- modify_list(data$opengraph, front_opengraph)
-
-  # Allow users to opt-in to their own template
-  ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")
-  as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
-
-  default_data <- list(
-    pagetitle = escape_html(front$title),
-    toc = toc <- front$toc %||% TRUE,
-    opengraph = list(description = front$description %||% pkg$package),
-    source = repo_source(pkg, input),
-    filename = path_file(input),
-    output_file = output_file,
-    as_is = as_is
-  )
-  data <- modify_list(default_data, data)
-
-  if (as_is) {
-    format <- NULL
-
-    if (identical(ext, "html")) {
-      data$as_is <- TRUE
-      template <- rmarkdown_template(pkg, "article", depth = depth, data = data)
-      output <- rmarkdown::default_output_format(input_path)
-
-      # Override defaults & values supplied in metadata
-      options <- list(
-        template = template$path,
-        self_contained = FALSE
-      )
-      if (output$name != "rmarkdown::html_vignette") {
-        # Force to NULL unless overridden by user
-        options$theme <- output$options$theme
-      }
-    } else {
-      options <- list()
-    }
-  } else {
-    format <- build_rmarkdown_format(
-      pkg = pkg,
-      name = "article",
-      depth = depth,
-      data = data,
-      toc = TRUE
-    )
-    options <- NULL
-  }
-
-  render_rmarkdown(
-    pkg,
-    input = input,
-    output = output_file,
-    output_format = format,
-    output_options = options,
-    seed = seed,
-    new_process = new_process,
-    quiet = quiet,
-    call = quote(build_article())
-  )
-}
-
-build_rmarkdown_format <- function(pkg,
-                                   name,
-                                   depth = 1L,
-                                   data = list(),
-                                   toc = TRUE) {
-
-  template <- rmarkdown_template(pkg, name, depth = depth, data = data)
-
-  out <- rmarkdown::html_document(
-    toc = toc,
-    toc_depth = 2,
-    self_contained = FALSE,
-    theme = NULL,
-    template = template$path,
-    anchor_sections = FALSE,
-    extra_dependencies = bs_theme_deps_suppress()
-  )
-  out$knitr$opts_chunk <- fig_opts_chunk(pkg$figures, out$knitr$opts_chunk)
-
-  old_pre <- out$pre_knit
-  width <- config_pluck_number_whole(pkg, "code.width", default = 80)
-
-  out$pre_knit <- function(...) {
-    options(width = width)
-    if (is.function(old_pre)) {
-      old_pre(...)
-    }
-  }
-
-  attr(out, "__cleanup") <- template$cleanup
-
-  out
-}
-
-# Generates pandoc template format by rendering
-# inst/template/article-vignette.html
-# Output is a path + environment; when the environment is garbage collected
-# the path will be deleted
-rmarkdown_template <- function(pkg, name, data, depth) {
-  path <- tempfile(fileext = ".html")
-  render_page(pkg, name, data, path, depth = depth, quiet = TRUE)
-
-  # Remove template file when format object is GC'd
-  e <- env()
-  reg.finalizer(e, function(e) file_delete(path))
-
-  list(path = path, cleanup = e)
-}
-
 # Articles index ----------------------------------------------------------
 
 #' @export
 #' @rdname build_articles
+#' @order 3
 build_articles_index <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
@@ -373,30 +237,30 @@ build_articles_index <- function(pkg = ".") {
     data = data_articles_index(pkg),
     path = path("articles", "index.html")
   )
+  invisible()
 }
 
 data_articles_index <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
-  meta <- config_pluck_list(
-    pkg,
-    "articles",
-    default = default_articles_index(pkg),
+  articles <- data_articles(pkg, is_index = TRUE, call = call)
+  index <- config_pluck_list(pkg, "articles", call = call) %||%
+    default_articles_index(pkg)
+  sections <- unwrap_purrr_error(purrr::imap(
+    index,
+    data_articles_index_section,
+    articles = articles,
+    pkg = pkg,
     call = call
-  )
-
-  sections <- unwrap_purrr_error(meta %>%
-    purrr::imap(data_articles_index_section, pkg = pkg, call = call) %>%
-    purrr::compact())
+  ))
 
   # Check for unlisted vignettes
-  listed <- sections %>%
-    purrr::map("contents") %>%
-    purrr::map(. %>% purrr::map_chr("name")) %>%
-    purrr::flatten_chr() %>%
-    unique()
+  all_names <- purrr::map(sections, function(section) {
+    purrr::map_chr(section$contents, "name")
+  })
+  listed <- unique(purrr::list_c(all_names))
 
-  missing <- setdiff(pkg$vignettes$name, listed)
+  missing <- setdiff(articles$name, listed)
   # Exclude get started vignette or article #2150
   missing <- missing[!article_is_intro(missing, package = pkg$package)]
 
@@ -417,10 +281,89 @@ data_articles_index <- function(pkg = ".", call = caller_env()) {
   ))
 }
 
-data_articles_index_section <- function(section, index, pkg, call = caller_env()) {
+data_articles <- function(pkg = ".", is_index = FALSE, call = caller_env()) {
+  pkg <- as_pkgdown(pkg)
+
+  internal <- tibble::tibble(
+    name = pkg$vignettes$name,
+    title = pkg$vignettes$title,
+    href = pkg$vignettes$file_out,
+    description = pkg$vignettes$description,
+  )
+  if (is_index) {
+    internal$href <- path_rel(internal$href, "articles")
+  }
+
+  external <- config_pluck_external_articles(pkg, call = call)
+  articles <- rbind(internal, external)
+
+  articles$description <- lapply(articles$description, markdown_text_block, pkg = pkg)
+
+  # Hack data structure so we can use select_topics()
+  articles$alias <- as.list(articles$name)
+  articles$internal <- FALSE
+
+  articles
+}
+
+config_pluck_external_articles <- function(pkg, call = caller_env()) {
+  external <- config_pluck_list(pkg, "external-articles", call = call)
+  if (is.null(external)) {
+    return(tibble::tibble(
+      name = character(),
+      title = character(),
+      href = character(),
+      description = character()
+    ))
+  }
+
+  for (i in seq_along(external)) {
+    config_check_list(
+      external[[i]],
+      has_names = c("name", "title", "href", "description"),
+      error_path = paste0("external-articles[", i, "]"),
+      error_pkg = pkg,
+      error_call = call
+    )
+    config_check_string(
+      external[[i]]$name,
+      error_path = paste0("external-articles[", i, "].name"),
+      error_pkg = pkg,
+      error_call = call
+    )
+    config_check_string(
+      external[[i]]$title,
+      error_path = paste0("external-articles[", i, "].title"),
+      error_pkg = pkg,
+      error_call = call
+    )
+    config_check_string(
+      external[[i]]$href,
+      error_path = paste0("external-articles[", i, "].href"),
+      error_pkg = pkg,
+      error_call = call
+    )
+    config_check_string(
+      external[[i]]$description,
+      error_path = paste0("external-articles[", i, "].description"),
+      error_pkg = pkg,
+      error_call = call
+    )
+  }
+
+  tibble::tibble(
+    name = purrr::map_chr(external, "name"),
+    title = purrr::map_chr(external, "title"),
+    href = purrr::map_chr(external, "href"),
+    description = purrr::map_chr(external, "description")
+  )
+}
+
+data_articles_index_section <- function(section, index, articles, pkg, call = caller_env()) {
   config_check_list(
     section,
     error_path = paste0("articles[", index, "]"),
+    has_names = c("title", "contents"),
     error_pkg = pkg,
     error_call = call
   )
@@ -431,9 +374,9 @@ data_articles_index_section <- function(section, index, pkg, call = caller_env()
     error_call = call
   )
   title <- markdown_text_inline(
+    pkg,
     section$title,
     error_path = paste0("articles[", index, "].title"),
-    error_pkg = pkg,
     error_call = call
   )
 
@@ -448,37 +391,25 @@ data_articles_index_section <- function(section, index, pkg, call = caller_env()
     index,
     pkg,
     prefix = "articles",
-    quote(build_articles())
+    call = call
   )
 
   # Match topics against any aliases
-  in_section <- select_vignettes(section$contents, pkg$vignettes)
-  section_vignettes <- pkg$vignettes[in_section, ]
-  contents <- tibble::tibble(
-    name = section_vignettes$name,
-    path = path_rel(section_vignettes$file_out, "articles"),
-    title = section_vignettes$title,
-    description = lapply(section_vignettes$description, markdown_text_block),
+  idx <- select_topics(
+    section$contents,
+    articles,
+    error_path = paste0("articles[", index, "].contents"),
+    error_pkg = pkg,
+    error_call = call
   )
-
+  contents <- articles[idx, , drop = FALSE]
 
   list(
     title = title,
-    desc = markdown_text_block(section$desc),
+    desc = markdown_text_block(pkg, section$desc),
     class = section$class,
     contents = purrr::transpose(contents)
   )
-}
-
-# Quick hack: create the same structure as for topics so we can use
-# the existing select_topics()
-select_vignettes <- function(match_strings, vignettes) {
-  topics <- tibble::tibble(
-    name = vignettes$name,
-    alias = as.list(vignettes$name),
-    internal = FALSE
-  )
-  select_topics(match_strings, topics)
 }
 
 default_articles_index <- function(pkg = ".") {

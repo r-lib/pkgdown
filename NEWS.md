@@ -1,5 +1,16 @@
 # pkgdown (development version)
 
+* `pkgdown_sitrep()`/`check_pkgdown()` now check that you have up-to-date favicons if you have a package logo.
+* pkgdown now uses httr2 instead of httr (#2600).
+* New `template.math-rendering` allows you to control how math is rendered across your site. The default uses `mathml` which is low-dependency, but has the lowest fidelity. You can also use `mathjax`, the previous default, and `katex`, a faster alternative. (#1966).
+* Mathjax now uses version 3.2.2.
+* `build_sitemap()` no longer includes redirected pages (#2582).
+* All external assets (JS, CSS, fonts) are now directly included in the site instead of fetched from external CDN (@salim-b, #2249)
+* `build_reference_index()` now displays function lifecycle badges next to the function name (#2123). The badges are extracted only from the function description. You can now also use `has_lifecycle()` to select functions by their lifecycle status.
+* `build_articles()` now recognises a new `external-articles` top-level field that allows you to define articles that live in other packages (#2028).
+* New light switch makes it easy for users to switch between light and dark themes for the website (based on work in bslib by @gadenbuie). For now this behaviour is opt-in with `template.light-switch: true` but in the future we may turn it on automatically. See the customization vignette for details (#1696).
+* The search dropdown has been tweaked to look more like the other navbar menu items (#2338).
+* `vignette("search")` has been removed since BS3 is deprecated and all the BS5 docs are also included in `build_search()` (#2564).
 * YAML validation has been substantially improved so you should get much clearer errors if you have made a mistake (#1927). Please file an issue if you find a case where the error message is not helpful.
 * `template_reference()` and `template_article()` now only add backticks to function names if needed (#2561).
 * Custom navbars that specify `icon` but not `aria-label` will now generate a message reminding you to provide one for to improve accessibility (#2533).

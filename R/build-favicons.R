@@ -39,11 +39,10 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
   }
 
   cli::cli_inform(c(
-    i = "Building favicons with {.url https://realfavicongenerator.net} ..."
+    i = "Building favicons with {.url https://realfavicongenerator.net}..."
   ))
 
   logo <- readBin(logo_path, what = "raw", n = file_info(logo_path)$size)
-
   json_request <- list(
     "favicon_generation" = list(
       "api_key" = "87d5cd739b05c00416c4a19cd14a8bb5632ea563",
@@ -65,19 +64,17 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
       )
     )
   )
+  req <- httr2::request("https://realfavicongenerator.net/api/favicon")
+  req <- httr2::req_body_json(req, json_request)
 
-  resp <- httr::RETRY(
-    "POST",
-    "https://realfavicongenerator.net/api/favicon",
-    body = json_request,
-    encode = "json",
-    quiet = TRUE
+  withCallingHandlers(
+    resp <- httr2::req_perform(req),
+    error = function(e) {
+      cli::cli_abort("API request failed.", parent = e)
+    }
   )
-  if (httr::http_error(resp)) {
-    cli::cli_abort("API request failed.", call = caller_env())
-  }
 
-  content <- httr::content(resp)
+  content <- httr2::resp_body_json(resp)
   result <- content$favicon_generation_result
 
   if (!identical(result$result$status, "success")) {
@@ -85,22 +82,19 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
   }
 
   tmp <- withr::local_tempfile()
-  result <- httr::RETRY(
-    "GET",
-    result$favicon$package_url,
-    httr::write_disk(tmp, overwrite = TRUE),
-    quiet = TRUE
-  )
+  req <- httr2::request(result$favicon$package_url)
+  resp <- httr2::req_perform(req, tmp)
 
-  tryCatch({
-    utils::unzip(tmp, exdir = path(pkg$src_path, "pkgdown", "favicon"))
-  },
-  warning = function(e) {
-    cli::cli_abort("Your logo file couldn't be processed and may be corrupt.", parent = e)
-  },
-  error = function(e) {
-    cli::cli_abort("Your logo file couldn't be processed and may be corrupt.", parent = e)
-  })
+  withCallingHandlers(
+    paths <- utils::unzip(tmp, exdir = path(pkg$src_path, "pkgdown", "favicon")),
+    warning = function(e) {
+      cli::cli_abort("Your logo file couldn't be processed and may be corrupt.", parent = e)
+    },
+    error = function(e) {
+      cli::cli_abort("Your logo file couldn't be processed and may be corrupt.", parent = e)
+    }
+  )
+  cli::cli_inform(c("v" = "Added {.path {sort(path_file(paths))}}."))
 
   invisible()
 }
@@ -118,6 +112,9 @@ copy_favicons <- function(pkg = ".") {
 
 has_favicons <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
+  unname(file_exists(path_favicons(pkg)))
+}
 
-  unname(file_exists(path(pkg$src_path, "pkgdown", "favicon")))
+path_favicons <- function(pkg) {
+  path(pkg$src_path, "pkgdown", "favicon")
 }

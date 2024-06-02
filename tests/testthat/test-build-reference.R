@@ -19,10 +19,10 @@ test_that("examples_env runs pre and post code", {
 })
 
 test_that("examples_env sets width", {
-  pkg <- local_pkgdown_site(test_path("assets/reference"), "
-    code:
-      width: 50
-  ")
+  pkg <- local_pkgdown_site(
+    test_path("assets/reference"),
+    list(code = list(width = 50))
+  )
   dir_create(path(pkg$dst_path, "reference"))
 
   examples_env(pkg)
@@ -30,10 +30,10 @@ test_that("examples_env sets width", {
 })
 
 test_that("test usage ok on rendered page", {
-  pkg <- local_pkgdown_site(test_path("assets/reference"), "
-      template:
-        bootstrap: 3
-    ")
+  pkg <- local_pkgdown_site(
+    test_path("assets/reference"),
+    list(template = list(bootstrap = 3))
+  )
   suppressMessages(init_site(pkg))
   suppressMessages(build_reference(pkg, topics = "c"))
 
@@ -50,7 +50,10 @@ test_that("test usage ok on rendered page", {
 })
 
 test_that(".Rd without usage doesn't get Usage section", {
-  pkg <- local_pkgdown_site(test_path("assets/reference"))
+  pkg <- local_pkgdown_site(
+    test_path("assets/reference"),
+    list(template = list(bootstrap = 3))
+  )
   suppressMessages(init_site(pkg))
   suppressMessages(build_reference(pkg, topics = "e"))
 
@@ -58,10 +61,7 @@ test_that(".Rd without usage doesn't get Usage section", {
   expect_equal(xpath_length(html, "//div[@id='ref-usage']"), 0)
   clean_site(pkg, quiet = TRUE)
 
-  pkg <- local_pkgdown_site(test_path("assets/reference"), "
-      template:
-        bootstrap: 5
-    ")
+  pkg <- local_pkgdown_site(test_path("assets/reference"))
   suppressMessages(init_site(pkg))
   suppressMessages(build_reference(pkg, topics = "e"))
   html <- xml2::read_html(path(pkg$dst_path, "reference", "e.html"))
@@ -99,11 +99,8 @@ test_that("examples are reproducible by default, i.e. 'seed' is respected", {
   suppressMessages(init_site(pkg))
   suppressMessages(build_reference(pkg, topics = "f"))
 
-  examples <- xml2::read_html(path(pkg$dst_path, "reference", "f.html")) %>%
-    rvest::html_node("code .r-out") %>%
-    rvest::html_text() %>%
-    # replace line feeds with whitespace to make output platform independent
-    gsub("\r", "", .)
+  html <- xml2::read_html(path(pkg$dst_path, "reference", "f.html"))
+  examples <- xpath_text(html, ".//code//*[contains(@class, 'r-out')]")
 
   expect_snapshot(cat(examples))
 })

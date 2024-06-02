@@ -52,8 +52,22 @@
     Message
       x Icon "fa-question" lacks an `aria-label`.
       i Specify `aria-label` to make the icon accessible to screen readers.
-      i Learn more in `vignette(accessibility)`.
+      i Learn more in `vignette(pkgdown::accessibility)`.
       This message is displayed once every 8 hours.
+
+# can construct theme menu
+
+    Code
+      cat(navbar_html(lightswitch))
+    Output
+      <li class="nav-item dropdown">
+        <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+        <ul class="dropdown-menu" aria-labelledby="dropdown-lightswitch">
+          <li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+          <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+          <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+        </ul>
+      </li>
 
 # simple components don't change without warning
 

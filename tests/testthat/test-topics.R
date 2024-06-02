@@ -1,3 +1,14 @@
+select_topics_ <- function(topic, topics, check = TRUE) {
+  pkg <- local_pkgdown_site()
+  select_topics(
+    topic,
+    topics,
+    check = check,
+    error_path = "reference[1].contents",
+    error_pkg = pkg
+  )
+}
+
 test_that("bad inputs give informative warnings", {
   topics <- tibble::tribble(
     ~name, ~alias,        ~internal,  ~concepts,
@@ -5,13 +16,13 @@ test_that("bad inputs give informative warnings", {
   )
 
   expect_snapshot(error = TRUE, {
-    t <- select_topics("x + ", topics)
-    t <- select_topics("y", topics)
-    t <- select_topics("paste(1)", topics)
-    t <- select_topics("starts_with", topics)
-    t <- select_topics("1", topics)
+    select_topics_("x + ", topics)
+    select_topics_("y", topics)
+    select_topics_("paste(1)", topics)
+    select_topics_("starts_with", topics)
+    select_topics_("1", topics)
 
-    t <- select_topics("starts_with('y')", topics, check = TRUE)
+    select_topics_("starts_with('y')", topics)
   })
 })
 
@@ -22,8 +33,8 @@ test_that("selector functions validate their inputs", {
   )
 
   expect_snapshot(error = TRUE, {
-    t <- select_topics("starts_with('x', 'y')", topics)
-    t <- select_topics("starts_with(c('x', 'y'))", topics)
+    select_topics_("starts_with('x', 'y')", topics)
+    select_topics_("starts_with(c('x', 'y'))", topics)
   })
 })
 
@@ -45,20 +56,20 @@ test_that("can select by name or alias", {
     "c::d", "d",
   )
 
-  expect_equal(select_topics("x", topics), 1)
-  expect_equal(select_topics("'x'", topics), 1)
-  expect_equal(select_topics("a1", topics), 1)
-  expect_equal(select_topics("a2", topics), 1)
-  expect_equal(select_topics("c::d", topics), 4)
+  expect_equal(select_topics_("x", topics), 1)
+  expect_equal(select_topics_("'x'", topics), 1)
+  expect_equal(select_topics_("a1", topics), 1)
+  expect_equal(select_topics_("a2", topics), 1)
+  expect_equal(select_topics_("c::d", topics), 4)
 
   # Even if name is non-syntactic
-  expect_equal(select_topics("a-b", topics), 3)
-  expect_equal(select_topics("b-a", topics), 3)
+  expect_equal(select_topics_("a-b", topics), 3)
+  expect_equal(select_topics_("b-a", topics), 3)
 
   # Or missing
   expect_snapshot(error = TRUE, {
-    select_topics("a4", topics)
-    select_topics("c::a", topics)
+    select_topics_("a4", topics)
+    select_topics_("c::a", topics)
   })
 })
 
@@ -70,7 +81,7 @@ test_that("selection preserves original order", {
     "b",   "b1"
   )
 
-  expect_equal(select_topics(c("a", "b1", "x"), topics), c(2, 3, 1))
+  expect_equal(select_topics_(c("a", "b1", "x"), topics), c(2, 3, 1))
 })
 
 test_that("can select by name", {
@@ -83,14 +94,14 @@ test_that("can select by name", {
   )
   topics$alias <- as.list(topics$alias)
 
-  expect_equal(select_topics("starts_with('a')", topics), 1)
-  expect_equal(select_topics("ends_with('a')", topics), 1)
-  expect_equal(select_topics("contains('a')", topics), 1)
-  expect_equal(select_topics("matches('[a]')", topics), 1)
+  expect_equal(select_topics_("starts_with('a')", topics), 1)
+  expect_equal(select_topics_("ends_with('a')", topics), 1)
+  expect_equal(select_topics_("contains('a')", topics), 1)
+  expect_equal(select_topics_("matches('[a]')", topics), 1)
 
   # Match internal when requested
-  expect_equal(select_topics("starts_with('b')", topics), c(2, 3))
-  expect_equal(select_topics("starts_with('b', internal = TRUE)", topics), 2:4)
+  expect_equal(select_topics_("starts_with('b')", topics), c(2, 3))
+  expect_equal(select_topics_("starts_with('b', internal = TRUE)", topics), 2:4)
 })
 
 test_that("can select by presense or absence of concept", {
@@ -102,9 +113,9 @@ test_that("can select by presense or absence of concept", {
   )
   topics$alias <- as.list(topics$alias)
 
-  expect_equal(select_topics("has_concept('a')", topics), c(1, 2))
-  expect_equal(select_topics("lacks_concept('b')", topics), c(1, 3))
-  expect_equal(select_topics("lacks_concepts(c('a', 'b'))", topics), 3)
+  expect_equal(select_topics_("has_concept('a')", topics), c(1, 2))
+  expect_equal(select_topics_("lacks_concept('b')", topics), c(1, 3))
+  expect_equal(select_topics_("lacks_concepts(c('a', 'b'))", topics), 3)
 })
 
 test_that("can select by keyword", {
@@ -114,9 +125,19 @@ test_that("can select by keyword", {
     "b2",  "b2",          FALSE,      c("a", "b"),
   )
   topics$alias <- as.list(topics$alias)
-  expect_equal(select_topics("has_keyword('a')", topics), c(1, 2))
-  expect_equal(select_topics("has_keyword('b')", topics), c(2))
-  expect_equal(select_topics("has_keyword('c')", topics), integer())
+  expect_equal(select_topics_("has_keyword('a')", topics), c(1, 2))
+  expect_equal(select_topics_("has_keyword('b')", topics), c(2))
+  expect_equal(select_topics_("has_keyword('c')", topics, check = FALSE), integer())
+})
+
+test_that("can select by lifecycle", {
+  topics <- tibble::tribble(
+    ~name, ~alias,        ~internal,  ~keywords, ~lifecycle,
+    "b1",  "b1",          FALSE,      "a",         list("stable"),
+    "b2",  "b2",          FALSE,      c("a", "b"), NULL
+  )
+  expect_equal(select_topics_("has_lifecycle('stable')", topics), 1)
+  expect_equal(select_topics_("has_lifecycle('deprecated')", topics, check = FALSE), integer())
 })
 
 test_that("can combine positive and negative selections", {
@@ -128,12 +149,12 @@ test_that("can combine positive and negative selections", {
     "d",   "d",           TRUE,
   )
 
-  expect_equal(select_topics("-x", topics), c(2, 3))
-  expect_equal(select_topics(c("-x", "-a"), topics), 3)
-  expect_equal(select_topics(c("-x", "x"), topics), c(2, 3, 1))
-  expect_equal(select_topics(c("a", "x", "-a"), topics), 1)
+  expect_equal(select_topics_("-x", topics), c(2, 3))
+  expect_equal(select_topics_(c("-x", "-a"), topics), 3)
+  expect_equal(select_topics_(c("-x", "x"), topics), c(2, 3, 1))
+  expect_equal(select_topics_(c("a", "x", "-a"), topics), 1)
 
-  expect_error(select_topics("c(a, -x)", topics), "all negative or all positive")
+  expect_snapshot(select_topics_("c(a, -x)", topics), error = TRUE)
 })
 
 test_that("an unmatched selection generates a warning", {
@@ -146,34 +167,38 @@ test_that("an unmatched selection generates a warning", {
   )
 
   expect_snapshot(error = TRUE,
-    select_topics(c("a", "starts_with('unmatched')"), topics, check = TRUE),
+    select_topics_(c("a", "starts_with('unmatched')"), topics),
   )
 })
 
 test_that("uses funs or aliases", {
-  topics <- tibble::tribble(
-    ~name, ~funs,         ~alias,        ~file_out, ~title,
-    "x",   character(),   c("x1", "x2"), "x.html",  "X",
-    "y",   c("y1", "y2"), "y3",          "y.html",   "Y"
+  pkg <- local_pkgdown_site()
+  pkg$topics <- tibble::tribble(
+    ~name, ~funs,         ~alias,        ~file_out, ~title, ~lifecycle,
+    "x",   character(),   c("x1", "x2"), "x.html",  "X", NULL,
+    "y",   c("y1", "y2"), "y3",          "y.html",  "Y", NULL
   )
 
-  out <- section_topics(c("x", "y"), topics, ".")
+  out <- section_topics(pkg, c("x", "y"), error_path = "reference[1].contents")
   expect_equal(out$aliases, list(c("x1", "x2"), c("y1", "y2")))
 })
-
 
 test_that("full topic selection process works", {
   pkg <- local_pkgdown_site(test_path("assets/reference"))
 
   # can mix local and remote
-  out <- section_topics(c("a", "base::mean"), pkg$topics, pkg$src_path)
+  out <- section_topics(
+    pkg,
+    c("a", "base::mean"),
+    error_path = "reference[1].contents"
+  )
   expect_equal(unname(out$name), c("a", "base::mean"))
 
   # concepts and keywords work
   out <- section_topics(
+    pkg,
     c("has_concept('graphics')", "has_keyword('foo')"),
-    pkg$topics,
-    pkg$src_path
+    error_path = "reference[1].contents"
   )
   expect_equal(unname(out$name), c("b", "a"))
 })
@@ -188,12 +213,12 @@ test_that("an unmatched selection with a matched selection does not select every
   )
 
   expect_equal(
-    select_topics(c("a", "starts_with('unmatched')"), topics, check = FALSE),
+    select_topics_(c("a", "starts_with('unmatched')"), topics, check = FALSE),
     2
   )
 
   expect_equal(
-    select_topics(c("starts_with('unmatched')", "a"), topics, check = FALSE),
+    select_topics_(c("starts_with('unmatched')", "a"), topics, check = FALSE),
     2
   )
 })

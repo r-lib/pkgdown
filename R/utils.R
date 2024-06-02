@@ -13,9 +13,7 @@ up_path <- function(depth) {
 }
 
 dir_depth <- function(x) {
-  x %>%
-    strsplit("") %>%
-    purrr::map_int(function(x) sum(x == "/"))
+  purrr::map_int(strsplit(x, ""), function(x) sum(x == "/"))
 }
 
 invert_index <- function(x) {
