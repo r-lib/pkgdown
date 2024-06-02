@@ -21,7 +21,8 @@ ext_topics <- function(match_strings) {
     source = NA_character_,
     keywords = list(character()), # used for has_keyword()
     concepts = list(character()), # used for has_concept()
-    internal = FALSE
+    internal = FALSE,
+    lifecycle = list(NULL)        # used for has_lifecycle
   )
 }
 

@@ -26,11 +26,11 @@ Imports:
     desc (>= 1.4.0),
     digest,
     downlit (>= 0.4.0),
+    fontawesome,
     fs (>= 1.4.0),
-    httr (>= 1.4.2),
+    httr2 (>= 1.0.0),
     jsonlite,
-    magrittr,
-    memoise,
+    openssl,
     purrr (>= 1.0.0),
     ragg,
     rlang (>= 1.1.0),
@@ -52,12 +52,10 @@ Suggests:
     lifecycle,
     magick,
     methods,
-    openssl,
     pkgload (>= 1.0.2),
     rsconnect,
     rstudioapi,
     rticles,
-    rvest,
     sass,
     testthat (>= 3.1.3),
     tools
@@ -67,7 +65,7 @@ Config/Needs/website: usethis, servr
 Config/potools/style: explicit
 Config/testthat/edition: 3
 Config/testthat/parallel: true
-Config/testthat/start-first: build-articles, build-reference
+Config/testthat/start-first: build-article, build-reference
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1

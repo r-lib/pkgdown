@@ -122,14 +122,17 @@
     Code
       data_navbar(pkg)
     Output
+      $bg
+      [1] "light"
+      
       $type
-      [1] "default"
+      [1] "light"
       
       $left
-      [1] "<li>\n  <a href=\"reference/index.html\">Reference</a>\n</li>\n<li>\n  <a href=\"news/index.html\">Changelog</a>\n</li>"
+      [1] "<li class=\"nav-item\"><a class=\"nav-link\" href=\"reference/index.html\">Reference</a></li>\n<li class=\"nav-item\"><a class=\"nav-link\" href=\"news/index.html\">Changelog</a></li>"
       
       $right
-      [1] "<li>\n  <a href=\"https://github.com/r-lib/pkgdown/\">\n    <span class=\"fab fa-github fa-lg\"></span>\n     \n  </a>\n</li>"
+      [1] "<li class=\"nav-item\"><form class=\"form-inline\" role=\"search\">\n <input class=\"form-control\" type=\"search\" name=\"search-input\" id=\"search-input\" autocomplete=\"off\" aria-label=\"Search site\" placeholder=\"Search for\" data-search-index=\"search.json\"> \n</form></li>\n<li class=\"nav-item\"><a class=\"nav-link\" href=\"https://github.com/r-lib/pkgdown/\" aria-label=\"GitHub\"><span class=\"fa fab fa-github fa-lg\"></span></a></li>"
       
 
 # data_navbar() can re-order default elements
@@ -149,8 +152,11 @@
     Code
       data_navbar(pkg)
     Output
+      $bg
+      [1] "light"
+      
       $type
-      [1] "default"
+      [1] "light"
       
       $left
       [1] ""
@@ -159,24 +165,19 @@
       [1] ""
       
 
-# data_navbar() errors with bad side specifications
+# data_navbar_() errors with bad yaml specifications
 
     Code
-      data_navbar(pkg)
+      data_navbar_(navbar = list(structure = list(left = 1)))
     Condition
       Error in `navbar_links()`:
-      ! navbar.structure.left must be a character vector, not the number 1.
-      i Edit _pkgdown.yml to fix the problem.
-
-# data_navbar() errors with bad left/right
-
+      ! In _pkgdown.yml, navbar.structure.left must be a character vector, not the number 1.
     Code
-      data_navbar(pkg)
+      data_navbar_(navbar = list(right = "github"))
     Condition
       Error in `data_template()`:
-      ! navbar is incorrectly specified.
+      ! In _pkgdown.yml, navbar is incorrectly specified.
       i See details in `vignette(pkgdown::customise)`.
-      i Edit _pkgdown.yml to fix the problem.
 
 # render_navbar_links BS3 & BS4 default
 

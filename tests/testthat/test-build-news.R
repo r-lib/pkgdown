@@ -11,11 +11,7 @@ test_that("data_news works as expected for h1 & h2", {
   )
   lines_h2 <- gsub("^#", "##", lines_h1)
 
-  pkg <- local_pkgdown_site(meta = "
-    template:
-      bootstrap: 5
-  ")
-
+  pkg <- local_pkgdown_site()
   write_lines(lines_h1, path(pkg$src_path, "NEWS.md"))
   expect_snapshot_output(data_news(pkg)[c("version", "page", "anchor")])
 
@@ -27,11 +23,7 @@ test_that("data_news works as expected for h1 & h2", {
 test_that("multi-page news are rendered", {
   skip_if_no_pandoc()
 
-  pkg <- local_pkgdown_site(meta = "
-    news:
-      one_page: false
-    "
-  )
+  pkg <- local_pkgdown_site(meta = list(news = list(one_page = FALSE)))
   write_lines(path(pkg$src_path, "NEWS.md"), text = c(
     "# testpackage 2.0", "",
     "* bullet (#222 @someone)", "",
@@ -49,14 +41,21 @@ test_that("multi-page news are rendered", {
   expect_snapshot(build_news(pkg))
 
   # test that index links are correct
-  lines <- read_lines(path(pkg$dst_path, "news", "index.html"))
-  expect_true(any(grepl("<a href=\"news-2.0.html\">Version 2.0</a>", lines)))
+  lines <- xml2::read_html(path(pkg$dst_path, "news", "index.html"))
+  expect_equal(
+    xpath_attr(lines, "//main//a", "href"),
+    c("news-2.0.html", "news-1.1.html", "news-1.0.html")
+  )
+  expect_equal(
+    xpath_text(lines, "//main//a"),
+    c("Version 2.0", "Version 1.1", "Version 1.0")
+  )
 
   # test single page structure
-  lines <- read_lines(path(pkg$dst_path, "news", "news-1.0.html"))
-  expect_true(any(grepl("<h1 data-toc-skip>Changelog <small>1.0</small></h1>", lines)))
+  lines <- xml2::read_html(path(pkg$dst_path, "news", "news-1.0.html"))
+  expect_equal(xpath_text(lines, ".//h1"), "Version 1.0")
+  expect_equal(xpath_text(lines, ".//main//h2"), c("testpackage 1.0.0", "testpackage 1.0.1"))
 })
-
 
 test_that("github links are added to news items", {
   skip_if_no_pandoc()
@@ -241,16 +240,14 @@ test_that("news can contain footnotes", {
 test_that("data_news warns if no headings found", {
   skip_if_no_pandoc()
 
-  lines <- c(
-    "# mypackage", "",
-    "## mypackage foo", "",
-    "## mypackage bar", ""
+  pkg <- local_pkgdown_site()
+  write_lines(
+    path = path(pkg$src_path, "NEWS.md"),
+    c(
+      "# mypackage", "",
+      "## mypackage foo", "",
+      "## mypackage bar", ""
+    )
   )
-  pkg <- local_pkgdown_site(meta = "
-    template:
-      bootstrap: 5
-  ")
-
-  write_lines(lines, path(pkg$src_path, "NEWS.md"))
   expect_snapshot(. <- data_news(pkg))
 })

@@ -68,81 +68,60 @@ test_that("can control articles navbar through articles meta", {
 
 test_that("data_navbar() works by default", {
   pkg <- local_pkgdown_site(meta = list(
-    news = list(one_page = FALSE, cran_dates = FALSE),
     repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
   ))
-  write_lines(path(pkg$src_path, "NEWS.md"), text = c(
-    "# testpackage 2.0", "",
-    "* bullet (#222 @someone)"
-  ))
+  file_touch(path(pkg$src_path, "NEWS.md"))
 
-  pkg <- local_pkgdown_site(pkg)
   expect_snapshot(data_navbar(pkg))
 })
 
 test_that("data_navbar() can re-order default elements", {
-  pkg <- local_pkgdown_site(meta = "
-    template:
-      bootstrap: 5
-    repo:
-      url:
-        home: https://github.com/r-lib/pkgdown/
-
-    navbar:
-      structure:
-        left: [github, search]
-        right: [news]
-  ")
+  pkg <- local_pkgdown_site(meta = list(
+    repo = list(url = list(home = "https://github.com/r-lib/pkgdown/")),
+    navbar = list(
+      structure = list(
+        left = c("github", "search"),
+        right = "news"
+      )
+    )
+  ))
   file_create(path(pkg$src_path, "NEWS.md"))
 
   expect_snapshot(data_navbar(pkg)[c("left", "right")])
 })
 
 test_that("data_navbar() can remove elements", {
-  pkg <- local_pkgdown_site(meta = "
-    repo:
-      url:
-        home: https://github.com/r-lib/pkgdown/
-
-    navbar:
-      structure:
-        left: github
-        right: ~
-  ")
+  pkg <- local_pkgdown_site(meta = list(
+    navbar = list(
+      structure = list(
+        left = c("github", "search"),
+        right = list()
+      )
+    )
+  ))
 
   expect_equal(data_navbar(pkg)$right, "")
 })
 
 test_that("data_navbar() works with empty side", {
-  pkg <- local_pkgdown_site(meta = "
-    navbar:
-      structure:
-        left: []
-        right: []
-  ")
-
+  pkg <- local_pkgdown_site(
+    meta = list(navbar = list(structure = list(left = list(), right = list())))
+  )
+  
    expect_snapshot(data_navbar(pkg))
  })
 
-test_that("data_navbar() errors with bad side specifications", {
-  pkg <- local_pkgdown_site(meta = "
-    navbar:
-      structure:
-        left: 1
-  ")
+test_that("data_navbar_() errors with bad yaml specifications", {
+  data_navbar_ <- function(...) {
+    pkg <- local_pkgdown_site(meta = list(...))
+    data_navbar(pkg)
+  }
 
-  expect_snapshot(data_navbar(pkg), error = TRUE)
+  expect_snapshot(error = TRUE, {
+    data_navbar_(navbar = list(structure = list(left = 1)))
+    data_navbar_(navbar = list(right = "github"))
+  })
 })
-
-test_that("data_navbar() errors with bad left/right", {
-  pkg <- local_pkgdown_site(meta = "
-    navbar:
-      right: [github]
-  ")
-
-   expect_snapshot(data_navbar(pkg), error = TRUE)
-})
-
 
 test_that("for bs4, default bg and type come from bootswatch", {
   style <- navbar_style(bs_version = 5)
@@ -158,7 +137,6 @@ test_that("for bs4, default bg and type come from bootswatch", {
   style <- navbar_style(list(bg = "primary", type = "light"), bs_version = 5)
   expect_equal(style, list(bg = "primary", type = "light"))
 })
-
 
 test_that("render_navbar_links BS3 & BS4 default", {
   x <- list(

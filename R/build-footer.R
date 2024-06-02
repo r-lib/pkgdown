@@ -8,8 +8,8 @@ data_footer <- function(pkg = ".", call = caller_env()) {
   meta_structure <- config_pluck_list(pkg, "footer.structure", call = call)
   structure <- modify_list(footnote_structure(), meta_structure)
 
-  left <- markdown_text_block(paste0(components[structure$left], collapse = " "))
-  right <- markdown_text_block(paste0(components[structure$right], collapse = " "))
+  left <- markdown_text_block(pkg, paste0(components[structure$left], collapse = " "))
+  right <- markdown_text_block(pkg, paste0(components[structure$right], collapse = " "))
 
   list(left = left, right = right)
 }
@@ -24,9 +24,8 @@ footnote_components <- function(pkg = ".", call = caller_env()) {
     default = default_roles(),
     call = call
   )
-  authors <- data_authors(pkg, roles = roles)$main %>%
-    purrr::map_chr("name") %>%
-    paste(collapse = ", ")
+  authors <- data_authors(pkg, roles = roles)$main
+  authors_str <- paste(purrr::map_chr(authors, "name"), collapse = ", ")
 
   prefix <- config_pluck_string(
     pkg,
@@ -34,7 +33,7 @@ footnote_components <- function(pkg = ".", call = caller_env()) {
     default = tr_("Developed by"),
     call = call
   )
-  developed_by <- paste0(trimws(prefix), " ", authors, ".")
+  developed_by <- paste0(trimws(prefix), " ", authors_str, ".")
 
   # pkgdown
   built_with <- sprintf(

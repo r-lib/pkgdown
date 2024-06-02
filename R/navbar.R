@@ -2,16 +2,24 @@ data_navbar <- function(pkg = ".", depth = 0L) {
   pkg <- as_pkgdown(pkg)
 
   navbar <- config_pluck(pkg, "navbar")
-
-  style <- navbar_style(
-    navbar = navbar,
-    theme = get_bslib_theme(pkg),
-    bs_version = pkg$bs_version
-  )
-
+  
+  if (uses_lightswitch(pkg)) {
+    style <- NULL
+  } else {
+    style <- navbar_style(
+      navbar = navbar,
+      theme = get_bslib_theme(pkg),
+      bs_version = pkg$bs_version
+    )
+  }
+  
   links <- navbar_links(pkg, depth = depth)
 
   c(style, links)
+}
+
+uses_lightswitch <- function(pkg) {
+  config_pluck_bool(pkg, "template.light-switch", default = FALSE)
 }
 
 # Default navbar ----------------------------------------------------------
@@ -21,7 +29,7 @@ navbar_style <- function(navbar = list(), theme = "_default", bs_version = 3) {
     list(type = navbar$type %||% "default")
   } else {
     # bg is usually light, dark, or primary, but can use any .bg-*
-    bg <- navbar$bg %||% purrr::pluck(bootswatch_bg, theme, .default = "light")
+    bg <- navbar$bg %||% bootswatch_bg[[theme]] %||% "light"
     type <- navbar$type %||% if (bg == "light") "light" else "dark"
 
     list(bg = bg, type = type)
@@ -31,7 +39,7 @@ navbar_style <- function(navbar = list(), theme = "_default", bs_version = 3) {
 navbar_structure <- function() {
   print_yaml(list(
     left = c("intro", "reference", "articles", "tutorials", "news"),
-    right = c("search", "github")
+    right = c("search", "github", "lightswitch")
   ))
 }
 
@@ -125,6 +133,20 @@ navbar_components <- function(pkg = ".") {
     menu$search <- menu_search()
   }
 
+  if (uses_lightswitch(pkg)) {
+    menu$lightswitch <- menu_submenu(
+      text = NULL,
+      icon = "fa-sun",
+      label = tr_("Light switch"),
+      id = "lightswitch",
+      list(
+        menu_theme(tr_("Light"), icon = "fa-sun", theme = "light"),
+        menu_theme(tr_("Dark"), icon = "fa-moon", theme = "dark"),
+        menu_theme(tr_("Auto"), icon = "fa-adjust", theme = "auto")
+      )
+    )
+  }
+
   if (!is.null(pkg$tutorials)) {
     menu$tutorials <- menu_submenu(
       tr_("Tutorials"),
@@ -165,24 +187,31 @@ navbar_articles <- function(pkg = ".") {
       menu_links(vignettes$title, vignettes$file_out)
     )
   } else {
-    articles <- config_pluck(pkg, "articles")
+    articles_index <- config_pluck(pkg, "articles")
+    articles <- data_articles(pkg)
 
-    navbar <- purrr::keep(articles, ~ has_name(.x, "navbar"))
+    navbar <- purrr::keep(articles_index, ~ has_name(.x, "navbar"))
     if (length(navbar) == 0) {
       # No articles to be included in navbar so just link to index
       menu$articles <- menu_link(tr_("Articles"), "articles/index.html")
     } else {
-      sections <- lapply(navbar, function(section) {
-        vig <- pkg$vignettes[select_vignettes(section$contents, pkg$vignettes), , drop = FALSE]
+      sections <- purrr::imap(navbar, function(section, index) {
+        idx <- select_topics(
+          section$contents,
+          articles,
+          error_pkg = pkg,
+          error_path = paste0("articles[", index, "].contents")
+        )
+        vig <- articles[idx, , drop = FALSE]
         vig <- vig[vig$name != pkg$package, , drop = FALSE]
         c(
           if (!is.null(section$navbar)) list(menu_separator(), menu_heading(section$navbar)),
-          menu_links(vig$title, vig$file_out)
+          menu_links(vig$title, vig$href)
         )
       })
       children <- unlist(sections, recursive = FALSE, use.names = FALSE)
 
-      if (length(navbar) != length(articles)) {
+      if (length(navbar) != length(articles_index)) {
         children <- c(
           children,
           list(
@@ -221,7 +250,7 @@ pkg_navbar_vignettes <- function(name = character(),
   title <- title %||% paste0("Title ", name)
   file_out <- file_out %||% paste0(name, ".html")
 
-  tibble::tibble(name = name, title = title, file_out)
+  tibble::tibble(name = name, title = title, file_out, description = "desc")
 }
 
 
@@ -229,7 +258,7 @@ pkg_navbar_vignettes <- function(name = character(),
 
 # Scraped from bootswatch preivews, see code in
 # <https://github.com/r-lib/pkgdown/issues/1758>
-bootswatch_bg <- c(
+bootswatch_bg <- list(
   "_default" = "light",
   cerulean = "primary",
   cosmo = "primary",

@@ -122,6 +122,7 @@ test_that("source link is added to citation page", {
   local_citation_activate(path)
 
   pkg <- local_pkgdown_site(path)
+  suppressMessages(init_site(pkg))
   suppressMessages(build_home(pkg))
 
   lines <- read_lines(path(pkg$dst_path, "authors.html"))
@@ -137,11 +138,7 @@ test_that("multiple citations all have HTML and BibTeX formats", {
 })
 
 test_that("bibtex is escaped", {
-  pkg <- local_pkgdown_site(meta = "
-    template:
-      bslib:
-        version: 5
-  ")
+  pkg <- local_pkgdown_site()
   dir_create(path(pkg$src_path, "inst"))
   write_lines(path = path(pkg$src_path, "inst", "CITATION"), c(
     'citEntry(',

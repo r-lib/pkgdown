@@ -35,42 +35,30 @@ build_sitemap <- function(pkg = ".") {
   }
 
   urls <- paste0(url, get_site_paths(pkg))
-
-  doc <- xml2::read_xml(
-    paste0("<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'></urlset>")
+  doc <- paste0(
+    "<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>\n",
+    paste0("<url><loc>", escape_html(urls), "</loc></url>\n", collapse = ""),
+    "</urlset>\n"
   )
 
-  url_nodes <- unwrap_purrr_error(purrr::map(urls, url_node))
-  for (url in url_nodes) {
-    xml2::xml_add_child(doc, url)
-  }
-
-  xml_path <- path(pkg$dst_path, "sitemap.xml")
-  cli::cli_inform("Writing {dst_path(path_rel(xml_path, pkg$dst_path))}")
-
-  xml2::write_xml(doc, file = xml_path)
-
+  write_if_different(pkg, doc, "sitemap.xml", check = FALSE)
   invisible()
 }
 
-url_node <- function(url) {
-  withCallingHandlers(
-    xml2::read_xml(
-      paste0("<url><loc>", url, "</loc></url>")
-    ),
-    error = function(err) {
-      cli::cli_abort("Failed to wrap URL {.str {url}}", parent = err)
-    }
-  )
-}
-
 #' Build search index
+#' 
+#' @description
+#' Generate a JSON search index from the built site. This is used by 
+#' [fuse.js](https://www.fusejs.io/) to provide a javascript powered search for
+#' BS5 powered pkgdown sites.
 #'
-#' Build a JSON file encompassing all HTML pages, for use by the search script.
+#' NB: `build_search()` is called automatically by [build_site()]; you don't 
+#' need call it yourself. This page documents how it works and its customisation
+#' options.
 #'
 #' # YAML config
-#' You can exclude some paths from the search index.
-#' Below we exclude the changelog from the search index.
+#' You can exclude some paths from the search index using `search.exclude`.
+#' Below we exclude the changelog from the search index:
 #'
 #' ```yaml
 #' search:
@@ -149,8 +137,8 @@ news_search_index <- function(path, pkg) {
 file_search_index <- function(path, pkg) {
   html <- xml2::read_html(path(pkg$dst_path, path), encoding = "UTF-8")
   # Get page title
-  title <- xml2::xml_find_first(html, ".//meta[@property='og:title']") %>%
-    xml2::xml_attr("content")
+  title_element <- xml2::xml_find_first(html, ".//meta[@property='og:title']")
+  title <- xml2::xml_attr(title_element, "content")
 
   # Get contents minus logo
   node <- xml2::xml_find_all(html, ".//main")
@@ -307,6 +295,9 @@ get_site_paths <- function(pkg) {
   paths_rel <- path_rel(paths, pkg$dst_path)
 
   # do not include dev package website in search index / sitemap
-  dev_destination <- meta_development(pkg$meta, pkg$version)$destination
-  paths_rel[!path_has_parent(paths_rel, "dev")]
+  paths_rel <- paths_rel[!path_has_parent(paths_rel, pkg$development$destination)]
+
+  # do not include redirects
+  redirects <- purrr::map_chr(data_redirects(pkg, has_url = TRUE), 1)
+  setdiff(paths_rel, redirects)
 }

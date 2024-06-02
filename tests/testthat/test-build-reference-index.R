@@ -88,15 +88,16 @@ test_that("gives informative errors", {
 })
 
 test_that("can exclude topics", {
-  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
-    reference:
-    - title: Exclude
-      contents: [a, b, -a]
-    - title: Exclude multiple
-      contents: [a, b, c, -matches('a|b')]
-    - title: Everything else
-      contents: [a, c, e, '?']
-  ")
+  pkg <- local_pkgdown_site(
+    test_path("assets/reference"),
+    list(
+      reference = list(
+        list(title = "Exclude", contents = c("a", "b", "-a")),
+        list(title = "Exclude multiple", contents = c("a", "b", "c", "-matches('a|b')")),
+        list(title = "Everything else", contents = c("a", "c", "e", "?"))
+      )
+    )
+  )
 
   ref <- data_reference_index(pkg)
   # row 1 is the title row
@@ -107,21 +108,22 @@ test_that("can exclude topics", {
 })
 
 test_that("can use a topic from another package", {
-  meta <- list(reference = list(list(
-    title = "bla",
-    contents = c("a", "b", "c", "e", "?", "rlang::is_installed()", "bslib::bs_add_rules")
+  pkg <- local_pkgdown_site(meta = list(reference = list(
+    list(title = "bla", contents = c("rlang::is_installed()", "bslib::bs_add_rules"))
   )))
-  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
 
   expect_snapshot(data_reference_index(pkg))
 })
 
 test_that("can use a selector name as a topic name", {
-  meta <- list(reference = list(list(
-    title = "bla",
-    contents = c("matches", "matches('A')")
-  )))
-  pkg <- as_pkgdown(test_path("assets/reference-selector"), override = meta)
+  pkg <- local_pkgdown_site(
+    test_path("assets/reference-selector"),
+    list(
+      reference = list(
+        list(title = "bla", contents = c("matches", "matches('A')"))
+      )
+    )
+  )
 
   expect_snapshot(data_reference_index(pkg))
 })

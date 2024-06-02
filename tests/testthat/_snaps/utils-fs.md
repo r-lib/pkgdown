@@ -7,3 +7,11 @@
       ! Template package "missing" is not installed.
       i Please install before continuing.
 
+# out_of_date works as expected
+
+    Code
+      out_of_date("doesntexist", temp1)
+    Condition
+      Error:
+      ! 'doesntexist' does not exist
+

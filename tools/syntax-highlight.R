@@ -57,10 +57,10 @@ theme_df <- function(theme) {
   fg <- pluck(theme, "text-color")
 
   df <- purrr::map_df(theme$`text-styles`, compact, .id = "name")
-  df %>%
-    rename(color = any_of("text-color"), background = any_of("background-color")) %>%
-    mutate(class = class[name], name = name, `selected-text-color` = NULL) %>%
-    arrange(class) %>%
+  df |>
+    rename(color = any_of("text-color"), background = any_of("background-color")) |>
+    mutate(class = class[name], name = name, `selected-text-color` = NULL) |>
+    arrange(class) |>
     structure(bg = bg, fg = fg)
 }
 
@@ -82,9 +82,9 @@ safe_format <- function(x) {
 }
 
 theme_as_css <- function(df, path = stdout()) {
-  css <- df %>%
-    filter(!is.na(class)) %>%
-    mutate(name = safe_format(name), class = safe_format(class)) %>%
+  css <- df |>
+    filter(!is.na(class)) |>
+    mutate(name = safe_format(name), class = safe_format(class)) |>
     pmap_chr(style_to_css)
 
   attrs <- attributes(df)
@@ -114,14 +114,14 @@ json <- gh::gh("/repos/{owner}/{repo}/contents/{path}",
   path = "src/resources/pandoc/highlight-styles"
 )
 
-theme_names <- json %>% map_chr("name")
+theme_names <- json |> map_chr("name")
 if (!exists("theme_json")) {
   theme_json <- map(theme_names, read_theme)
   names(theme_json) <- theme_names
 }
 iwalk(theme_json, save_theme)
 
-# themes <- theme_names %>% set_names() %>% map_df(theme_df, .id = "theme")
-# themes %>% count(name, sort = T)
-# themes %>% count(theme, is.na(color)) %>% print(n = Inf)
-# themes %>% filter(is.na(class)) %>% print(n = Inf)
+# themes <- theme_names |> set_names() |> map_df(theme_df, .id = "theme")
+# themes |> count(name, sort = T)
+# themes |> count(theme, is.na(color)) |> print(n = Inf)
+# themes |> filter(is.na(class)) |> print(n = Inf)
