@@ -42,7 +42,7 @@ test_that("config_check_list gives informative errors", {
 
 test_that("creates messages on github", {
   pkg <- local_pkgdown_site()
-  withr::local_envvar(GITHUB_ACTIONS = 'foo', IN_PKGDOWN = "true")
+  withr::local_envvar(GITHUB_ACTIONS = 'foo', TESTTHAT = "false")
   expect_true(is_GH())
 
   expect_snapshot(error = TRUE, {
