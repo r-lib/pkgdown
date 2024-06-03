@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* New `vignette("non-english")` that discusses non-English sites including how to submit new translations (#2605).
 * `build_reference()` now generates the usage that users actually type for infix and replacement methods (#2303).
 * @olivroy is now a pkgdown author in recognition of his contributions. 
 * `pkgdown_sitrep()`/`check_pkgdown()` now check that you have up-to-date favicons if you have a package logo.
