@@ -281,12 +281,12 @@ gh_message <- function(type, pkg, path, message, envir = caller_env()) {
   }
 
   message <- purrr::map_chr(message, cli::format_inline, .envir = envir)
-  cat("::", type, " file=", path, ",title=pkgdown sitrep::", one_line(message), "\n", sep = "")
+  cat("::", type, " file=", path, ",line=1,endLine=1,,title=pkgdown sitrep::", one_line(message), "\n", sep = "")
 }
 
 one_line <- function(x) {
   x <- paste0(x, collapse = "\n")
-  x <- strsplit(x, "\n")[[1]]
+  x <- strsplit(x, "\n")[[1]][[1]]
   x <- gsub("::", "%3A%3A", x)
   x
 }
