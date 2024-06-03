@@ -281,7 +281,7 @@ gh_message <- function(type, pkg, path, message, envir = caller_env()) {
   }
 
   message <- purrr::map_chr(message, cli::format_inline, .envir = envir)
-  cat("::", type, " file=", path, ",line=1,endLine=1,,title=pkgdown sitrep::", one_line(message), "\n", sep = "")
+  cat("::", type, " file=", path, ",line=1,endLine=1,title=pkgdown sitrep::", one_line(message), "\n", sep = "")
 }
 
 one_line <- function(x) {
