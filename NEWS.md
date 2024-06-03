@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* @olivroy is now a pkgdown author in recognition of his contributions. 
 * `pkgdown_sitrep()`/`check_pkgdown()` now check that you have up-to-date favicons if you have a package logo.
 * pkgdown now uses httr2 instead of httr (#2600).
 * New `template.math-rendering` allows you to control how math is rendered across your site. The default uses `mathml` which is low-dependency, but has the lowest fidelity. You can also use `mathjax`, the previous default, and `katex`, a faster alternative. (#1966).
