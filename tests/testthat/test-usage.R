@@ -54,6 +54,13 @@ test_that("default methods get custom text", {
   expect_equal(out[1], "# Default S4 method")
 })
 
+test_that("non-syntactic functions get backquoted, not escaped", {
+  out <- rd2html("\\S3method{<}{foo}(x, y)")
+  expect_equal(out[[2]], "`<`(x, y)")
+
+  out <- rd2html("\\S4method{bar<-}{foo}(x, y)")
+  expect_equal(out[[2]], "`bar<-`(x, y)")
+})
 
 # Reference index --------------------------------------------------------------
 

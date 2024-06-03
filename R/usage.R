@@ -16,8 +16,11 @@ as_html.tag_S3method <- function(x, ...) method_usage(x, "S3")
 as_html.tag_S4method <- function(x, ...) method_usage(x, "S4")
 
 method_usage <- function(x, type) {
-  fun <- as_html(x[[1]])
-  class <- as_html(x[[2]])
+  # Despite these being called from the as_html() generic, the target isn't
+  # actually HTML, but R code, which is turned into HTML by the syntax
+  # highlighting in as as_data.tag_usage()
+  fun <- as_html(x[[1]], escape = FALSE)
+  class <- as_html(x[[2]], escape = FALSE)
 
   if (x[[2]] == "default") {
     method <- sprintf(tr_("# Default %s method"), type)
@@ -25,6 +28,9 @@ method_usage <- function(x, type) {
     method <- sprintf(tr_("# %s method for class '%s'"), type, class)
   }
 
+  if (!is_syntactic(fun)) {
+    fun <- paste0("`", fun, "`")
+  }
   paste0(method, "\n", fun)
 }
 
