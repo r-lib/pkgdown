@@ -2,17 +2,26 @@
 # Reference --------------------------------------------------------------------
 
 test_that("usage escapes special characters", {
+  # parseable
+  expect_equal(usage2text("# <"), "# &lt;")
+  #unparseable
+  expect_equal(usage2text("<"), "&lt;")
+})
 
-  usage2html <- function(x) {
-    rd <- rd_text(paste0("\\usage{", x, "}"), FALSE)[[1]]
-    as_data(rd)
-  }
+test_that("usage re-renders non-syntactic calls", {
+  expect_equal(usage2text("`<`(x, y)"), "x &lt; y")
+  expect_equal(usage2text("`[`(x, y)"), "x[y]")
+})
 
+test_that("usage doesn't re-renders syntactic calls", {
+  expect_equal(usage2text("foo(x , y) # hi"), "foo(x , y) # hi")
+})
+
+test_that("usage generates user facing code for S3/S4 infix/replacement methods", {
   expect_snapshot({
-    "Parseable"
-    cat(strip_html_tags(usage2html("# <>\nx")))
-    "Unparseable"
-    cat(strip_html_tags(usage2html("# <>\n<")))
+    cat(usage2text("\\S3method{$}{indexed_frame}(x, name)"))
+    cat(usage2text("\\method{[[}{indexed_frame}(x, i) <- value"))
+    cat(usage2text("\\S4method{>=}{MyType,numeric}(e1, e2)"))
   })
 })
 

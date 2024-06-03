@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* Methods that use `<` or `>` no longer generate invalid R code in the usage section (#2303).
+* `build_reference()` now generates the usage that users actually type for infix and replacement methods (#2303).
 * @olivroy is now a pkgdown author in recognition of his contributions. 
 * `pkgdown_sitrep()`/`check_pkgdown()` now check that you have up-to-date favicons if you have a package logo.
 * pkgdown now uses httr2 instead of httr (#2600).
