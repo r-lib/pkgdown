@@ -47,7 +47,7 @@ test_that("Jira issues are automatically linked", {
 # repo_source -------------------------------------------------------------
 
 test_that("repo_source() truncates automatically", {
-  local_mocked_bindings(git_current_branch = function(...) "main")
+  withr::local_envvar(GITHUB_REF = "HEAD")
   pkg <- list(repo = repo_meta_gh_like("https://github.com/r-lib/pkgdown"))
 
   expect_snapshot({
@@ -69,14 +69,13 @@ test_that("repo_source() is robust to trailing slash", {
 })
 
 test_that("repo_source() uses the branch setting in meta", {
-  local_mocked_bindings(git_current_branch = function(...) "main")
   pkg <- local_pkgdown_site(
     meta = list(repo = list(branch = "main")),
     desc = list(URL = "https://github.com/r-lib/pkgdown")
   )
   expect_match(
     repo_source(pkg, "a"),
-    "https://github.com/r-lib/pkgdown/blob/main/a"
+    "https://github.com/r-lib/pkgdown/tree/HEAD/a"
   )
 })
 
@@ -108,6 +107,14 @@ test_that("can find gitlab url", {
   url <- "https://gitlab.com/msberends/AMR"
   pkg <- local_pkgdown_site(desc = list(URL = url))
   expect_equal(package_repo(pkg), repo_meta_gh_like(url))
+})
+
+test_that("uses GITHUB_REF if set", {
+  withr::local_envvar(GITHUB_REF = "refs/pull/1/merge")
+  expect_equal(
+    repo_meta_gh_like("https://github.com/r-lib/pkgdown")$url$source,
+    "https://github.com/r-lib/pkgdown/tree/refs/pull/1/merge/"
+  )
 })
 
 test_that("GitLab subgroups are properly parsed", {
@@ -155,8 +162,4 @@ test_that("repo_type detects repo type", {
   expect_equal(repo_type2("https://gitlab.com/r-lib/pkgdown"), "gitlab")
   expect_equal(repo_type2("https://gitlab.r-lib.com/pkgdown"), "gitlab")
   expect_equal(repo_type2(NULL), "other")
-})
-
-test_that("current branch is accurate", {
-  expect_equal(git_current_branch(), "default-branch")
 })
