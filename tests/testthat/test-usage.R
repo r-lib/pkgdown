@@ -27,7 +27,7 @@ test_that("usage generates user facing code for S3/S4 infix/replacement methods"
 
 test_that("S4 methods gets comment", {
   out <- rd2html("\\S4method{fun}{class}(x, y)")
-  expect_equal(out[1], "# S4 metho`d for class 'class'")
+  expect_equal(out[1], "# S4 method for class 'class'")
   expect_equal(out[2], "fun(x, y)")
 })
 
