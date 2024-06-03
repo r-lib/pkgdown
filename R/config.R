@@ -275,15 +275,18 @@ gh_error <- function(pkg, path, message, envir = caller_env()) {
   gh_message("error", pkg, path, message, envir = envir)
 }
 gh_message <- function(type, pkg, path, message, envir = caller_env()) {
-  # Want to appear only on GH, but not in pkgdown's tests
+  # Want to appear only on GH, but not in tests
   if (!is_GH() || is_testing()) {
     return()
   }
 
   message <- purrr::map_chr(message, cli::format_inline, .envir = envir)
-  cat("::", type, " file=", path, "::", one_line(message), "\n", sep = "")
+  cat("::", type, " file=", path, ",title=pkgdown sitrep::", one_line(message), "\n", sep = "")
 }
 
 one_line <- function(x) {
-  gsub("\n", "%0A", paste0(x, collapse = "%0A"))
+  x <- paste0(x, collapse = "%0A")
+  x <- gsub("\n", "%0A", x)
+  x <- gsub("::", "%3A%3A", x)
+  x
 }
