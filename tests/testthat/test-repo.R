@@ -156,3 +156,7 @@ test_that("repo_type detects repo type", {
   expect_equal(repo_type2("https://gitlab.r-lib.com/pkgdown"), "gitlab")
   expect_equal(repo_type2(NULL), "other")
 })
+
+test_that("current branch is accurate", {
+  expect_equal(git_current_branch(), "default-branch")
+})
