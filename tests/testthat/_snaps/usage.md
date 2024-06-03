@@ -1,15 +1,18 @@
-# usage escapes special characters
+# usage generates user facing code for S3/S4 infix/replacement methods
 
     Code
-      # Parseable
-      cat(strip_html_tags(usage2html("# <>\nx")))
+      cat(usage2text("\\S3method{$}{indexed_frame}(x, name)"))
     Output
-      # &lt;&gt;
-      x
+      # S3 method for class 'indexed_frame'
+      x$name
     Code
-      # Unparseable
-      cat(strip_html_tags(usage2html("# <>\n<")))
+      cat(usage2text("\\method{[[}{indexed_frame}(x, i) <- value"))
     Output
-      # &lt;&gt;
-      &lt;
+      # S3 method for class 'indexed_frame'
+      x[[i]] &lt;- value
+    Code
+      cat(usage2text("\\S4method{>=}{MyType,numeric}(e1, e2)"))
+    Output
+      # S4 method for class 'MyType,numeric'
+      e1 &gt;= e2
 
