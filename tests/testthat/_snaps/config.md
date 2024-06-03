@@ -32,14 +32,14 @@
 
     Code
       config_abort(pkg, "Error")
-    Message
+    Output
       ::error file=_pkgdown.yml::Error
     Condition
       Error:
       ! In _pkgdown.yml, Error
     Code
       config_abort(pkg, "Warning")
-    Message
+    Output
       ::error file=_pkgdown.yml::Warning
     Condition
       Error:
