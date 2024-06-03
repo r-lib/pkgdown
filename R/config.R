@@ -287,7 +287,7 @@ gh_message <- function(type, pkg, path, message, envir = caller_env()) {
   body <- one_line(message[-1])
 
    if (length(message) == 1) {
-    cli::cli_inform("::{type} file={path},title={head}")
+    cli::cli_inform("::{type} file={path}::{head}")
   } else {
     cli::cli_inform("::{type} file={path},title={head}::{body}")
   }
