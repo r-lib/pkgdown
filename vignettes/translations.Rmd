@@ -1,5 +1,5 @@
 ---
-title: "Non-English sites"
+title: "Translations"
 output: rmarkdown::html_vignette
 description: > 
   If your documentation is written in a language other than English, you can 
