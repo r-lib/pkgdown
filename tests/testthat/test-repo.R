@@ -47,6 +47,7 @@ test_that("Jira issues are automatically linked", {
 # repo_source -------------------------------------------------------------
 
 test_that("repo_source() truncates automatically", {
+  local_mocked_bindings(git_current_branch = function(...) "main")
   pkg <- list(repo = repo_meta_gh_like("https://github.com/r-lib/pkgdown"))
 
   expect_snapshot({
@@ -68,6 +69,7 @@ test_that("repo_source() is robust to trailing slash", {
 })
 
 test_that("repo_source() uses the branch setting in meta", {
+  local_mocked_bindings(git_current_branch = function(...) "main")
   pkg <- local_pkgdown_site(
     meta = list(repo = list(branch = "main")),
     desc = list(URL = "https://github.com/r-lib/pkgdown")
@@ -153,27 +155,4 @@ test_that("repo_type detects repo type", {
   expect_equal(repo_type2("https://gitlab.com/r-lib/pkgdown"), "gitlab")
   expect_equal(repo_type2("https://gitlab.r-lib.com/pkgdown"), "gitlab")
   expect_equal(repo_type2(NULL), "other")
-})
-
-test_that("can get default branch from gh", {
-  expect_equal(
-    gh_default_branch("https://github.com", "r-lib", "pkgdown"),
-    "main"
-  )
-  # HW last touched in 2010, so unlikely to change
-  expect_equal(
-    gh_default_branch("https://github.com", "hadley", "mutatr"),
-    "master"
-  )
-})
-
-test_that("fallbacks to HEAD for gitlab and probelmatic urls", {
-  expect_equal(
-    gh_default_branch("https://gitlab.com", "r-lib", "pkgdown"),
-    "HEAD"
-  )
-  expect_equal(
-    gh_default_branch("https://github.com", "r-lib", "xxxxxxxxxxx"),
-    "HEAD"
-  )
 })
