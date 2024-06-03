@@ -16,7 +16,7 @@ Description: Generate an attractive and useful website from a source
     and more to 'HTML' making it easy to share information about your
     package online.
 License: MIT + file LICENSE
-URL: https://pkgdown.r-lib.org/, https://github.com/r-lib/pkgdown
+URL: https://pkgdown.r-lib.org/, https://github.com/r-lib/pkgdown/
 BugReports: https://github.com/r-lib/pkgdown/issues
 Depends:
     R (>= 3.6)

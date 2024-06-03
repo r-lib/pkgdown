@@ -69,18 +69,22 @@ package_repo <- function(pkg) {
     return(repo)
   }
 
-  # Otherwise try and guess from `BugReports` (1st priority) and `URL`s (2nd priority)
-  urls <- c(
-    sub("/issues/?", "/", pkg$desc$get_field("BugReports", default = character())),
-    pkg$desc$get_urls()
-  )
-
-  gh_links <- grep("^https?://git(hub|lab)\\..+/", urls, value = TRUE)
+  gh_links <- package_gh_links(pkg)
   if (length(gh_links) > 0) {
     return(repo_meta_gh_like(gh_links[[1]], branch))
   }
 
   NULL
+}
+
+package_gh_links <- function(pkg) {
+  # Otherwise try and guess from `BugReports` (1st priority) and `URL`s (2nd priority)
+  urls <- c(
+    sub("/issues/?", "/", pkg$desc$get_field("BugReports", default = character())),
+    pkg$desc$get_urls()
+  )
+  
+  unique(grep("^https?://git(hub|lab)\\..+/", urls, value = TRUE))
 }
 
 repo_meta <- function(home = NULL, source = NULL, issue = NULL, user = NULL) {
@@ -95,8 +99,10 @@ repo_meta <- function(home = NULL, source = NULL, issue = NULL, user = NULL) {
 }
 
 repo_meta_gh_like <- function(link, branch = NULL) {
-  gh <- parse_github_like_url(link)
-  branch <- branch %||% "HEAD"
+  branch <- 
+
+
+  branch <- gh_default_branch(gh$host, gh$owner, gh$repo)
   repo_meta(
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/"),
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/blob/", branch, "/"),
@@ -106,12 +112,15 @@ repo_meta_gh_like <- function(link, branch = NULL) {
 }
 
 parse_github_like_url <- function(link) {
-  supports_subgroups <- grepl("^https?://gitlab\\.", link)
   rx <- paste0(
     "^",
     "(?<host>https?://[^/]+)/",
     "(?<owner>[^/]+)/",
-    "(?<repo>[^#", "/"[!supports_subgroups], "]+)/"
+    "(?<repo>[^#", "/"[!is_gitlab_url(link)], "]+)/"
   )
   re_match(sub("([^/]$)", "\\1/", link), rx)
+}
+
+is_gitlab_url <- function(url) {
+  grepl("^https?://gitlab\\.", url)
 }
