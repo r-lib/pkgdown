@@ -75,7 +75,7 @@ test_that("repo_source() uses the branch setting in meta", {
   )
   expect_match(
     repo_source(pkg, "a"),
-    "https://github.com/r-lib/pkgdown/tree/HEAD/a"
+    "https://github.com/r-lib/pkgdown/blob/main/a"
   )
 })
 
@@ -109,12 +109,19 @@ test_that("can find gitlab url", {
   expect_equal(package_repo(pkg), repo_meta_gh_like(url))
 })
 
-test_that("uses GITHUB_REF if set", {
-  withr::local_envvar(GITHUB_REF = "refs/pull/1/merge")
+test_that("uses GITHUB env vars if set", {
+  withr::local_envvar(GITHUB_REF_NAME = "abc")
   expect_equal(
     repo_meta_gh_like("https://github.com/r-lib/pkgdown")$url$source,
-    "https://github.com/r-lib/pkgdown/tree/refs/pull/1/merge/"
+    "https://github.com/r-lib/pkgdown/blob/abc/"
   )
+
+  withr::local_envvar(GITHUB_HEAD_REF = "xyz")
+  expect_equal(
+    repo_meta_gh_like("https://github.com/r-lib/pkgdown")$url$source,
+    "https://github.com/r-lib/pkgdown/blob/xyz/"
+  )
+
 })
 
 test_that("GitLab subgroups are properly parsed", {

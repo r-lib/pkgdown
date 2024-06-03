@@ -96,14 +96,30 @@ repo_meta <- function(home = NULL, source = NULL, issue = NULL, user = NULL) {
 
 repo_meta_gh_like <- function(link, branch = NULL) {
   gh <- parse_github_like_url(link)
-  ref <- Sys.getenv("GITHUB_REF", "HEAD")
+  branch <- branch %||% gha_current_branch()
 
   repo_meta(
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/"),
-    paste0(gh$host, "/", gh$owner, "/", gh$repo, "/tree/", ref, "/"),
+    paste0(gh$host, "/", gh$owner, "/", gh$repo, "/blob/", branch, "/"),
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/issues/"),
     paste0(gh$host, "/")
   )
+}
+
+gha_current_branch <- function() {
+  # Only set in pull requests
+  ref <- Sys.getenv("GITHUB_HEAD_REF")
+  if (ref != "") {
+    return(ref)
+  }
+  
+  # Set everywhere but might not be a branch
+  ref <- Sys.getenv("GITHUB_REF_NAME")
+  if (ref != "") {
+    return(ref)
+  }
+  
+  "HEAD"
 }
 
 parse_github_like_url <- function(link) {
