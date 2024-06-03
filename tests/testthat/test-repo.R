@@ -47,6 +47,7 @@ test_that("Jira issues are automatically linked", {
 # repo_source -------------------------------------------------------------
 
 test_that("repo_source() truncates automatically", {
+  withr::local_envvar(GITHUB_HEAD_REF = "HEAD")
   pkg <- list(repo = repo_meta_gh_like("https://github.com/r-lib/pkgdown"))
 
   expect_snapshot({
@@ -81,6 +82,7 @@ test_that("repo_source() uses the branch setting in meta", {
 # package_repo ------------------------------------------------------------
 
 test_that("can find github from BugReports or URL", {
+  withr::local_envvar(GITHUB_HEAD_REF = "HEAD")
   expected <- repo_meta_gh_like("https://github.com/r-lib/pkgdown")
 
   pkg <- local_pkgdown_site(desc = list(
@@ -103,9 +105,25 @@ test_that("can find github from BugReports or URL", {
 })
 
 test_that("can find gitlab url", {
+  withr::local_envvar(GITHUB_HEAD_REF = "HEAD")
   url <- "https://gitlab.com/msberends/AMR"
   pkg <- local_pkgdown_site(desc = list(URL = url))
   expect_equal(package_repo(pkg), repo_meta_gh_like(url))
+})
+
+test_that("uses GITHUB env vars if set", {
+  withr::local_envvar(GITHUB_HEAD_REF = NA, GITHUB_REF_NAME = "abc")
+  expect_equal(
+    repo_meta_gh_like("https://github.com/r-lib/pkgdown")$url$source,
+    "https://github.com/r-lib/pkgdown/blob/abc/"
+  )
+
+  withr::local_envvar(GITHUB_HEAD_REF = "xyz")
+  expect_equal(
+    repo_meta_gh_like("https://github.com/r-lib/pkgdown")$url$source,
+    "https://github.com/r-lib/pkgdown/blob/xyz/"
+  )
+
 })
 
 test_that("GitLab subgroups are properly parsed", {
@@ -124,6 +142,8 @@ test_that("GitLab subgroups are properly parsed", {
 })
 
 test_that("can find github enterprise url", {
+  withr::local_envvar(GITHUB_HEAD_REF = "HEAD")
+
   url <- "https://github.acme.com/roadrunner/speed"
   pkg <- local_pkgdown_site(desc = list(BugReports = url))
   expect_equal(package_repo(pkg), repo_meta_gh_like(url))
