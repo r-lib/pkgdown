@@ -275,8 +275,8 @@ gh_error <- function(pkg, path, message, envir = caller_env()) {
   gh_message("error", pkg, path, message, envir = envir)
 }
 gh_message <- function(type, pkg, path, message, envir = caller_env()) {
-  # Want to appear only on GH, but not in tests
-  if (!is_GH() || is_testing()) {
+  # Want to appear only on GH and only when building the package
+  if (!is_GH() || !in_pkgdown()) {
     return()
   }
 
