@@ -13,8 +13,9 @@ articles:
   pkgdown: pkgdown.html
   test/rendering: test/rendering.html
   test/short: test/short.html
+  translations: translations.html
   test/widgets: test/widgets.html
-last_built: 2024-06-03T15:47Z
+last_built: 2024-06-03T17:14Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles

@@ -41,6 +41,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/customise.html">Customise your site</a></li>
+    <li><a class="dropdown-item" href="../articles/translations.html">Translations</a></li>
     <li><a class="dropdown-item" href="../articles/accessibility.html">Accessibility</a></li>
     <li><a class="dropdown-item" href="../articles/linking.html">Auto-linking</a></li>
     <li><a class="dropdown-item" href="../articles/metadata.html">Metadata</a></li>
@@ -131,38 +132,6 @@ to control the overall appearance of your site:</p>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="at">  </span><span class="fu">bootswatch</span><span class="kw">:</span><span class="at"> cerulean</span></span></code></pre></div>
 <p>You can learn more about controlling the appearance of your site in
 <code><a href="../articles/customise.html">vignette("customise")</a></code>.</p>
-<div class="section level3">
-<h3 id="language">Language<a class="anchor" aria-label="anchor" href="#language"></a>
-</h3>
-<p>If your documentation (<code>.Rd</code> and <code>.Rmd</code>) is
-written in a language other than English, declare it by setting setting
-<code>lang</code> to the <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" class="external-link">two letter
-language code</a> for your language:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> fr</span></span></code></pre></div>
-<p>This will be used to set the language of the web page and to
-translate the English words that pkgdown generates on your site. Current
-available translations are:</p>
-<ul>
-<li>
-<code>ca</code>: Catalan</li>
-<li>
-<code>de</code>: German</li>
-<li>
-<code>dk</code>: Danish</li>
-<li>
-<code>es</code>: Spanish</li>
-<li>
-<code>fr</code>: French</li>
-<li>
-<code>ko</code>: Korean</li>
-<li>
-<code>pt</code>: Portuguese</li>
-<li>
-<code>tr</code>: Turkish</li>
-<li>
-<code>zh_CN</code>: Chinese (simplified)</li>
-</ul>
-</div>
 </div>
 <div class="section level2">
 <h2 id="accessibility">Accessibility<a class="anchor" aria-label="anchor" href="#accessibility"></a>
@@ -209,23 +178,23 @@ field in <code>_pkgdown.yml</code>.</p>
 <code>desc</code> (description) fields.</li>
 <li>A list of topics defined by a <code>contents</code> field.</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">reference</span><span class="kw">:</span></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Connecting to Spark"</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">  desc</span><span class="kw">: </span><span class="ch">&gt;</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>    Functions for installing Spark components and managing</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>    connections to Spark</span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_config</span></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_connect</span></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_disconnect</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_install</span></span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_log</span></span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reading and Writing Data"</span></span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="at">  </span><span class="fu">desc</span><span class="kw">:</span><span class="at"> </span><span class="st">"Functions for reading and writing Spark DataFrames."</span></span>
-<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span></span>
-<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("spark_read")</span></span>
-<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("spark_write")</span></span>
-<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> matches("saveload")</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">reference</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Connecting to Spark"</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">  desc</span><span class="kw">: </span><span class="ch">&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    Functions for installing Spark components and managing</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    connections to Spark</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_config</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_connect</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_disconnect</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_install</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> spark_log</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reading and Writing Data"</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="at">  </span><span class="fu">desc</span><span class="kw">:</span><span class="at"> </span><span class="st">"Functions for reading and writing Spark DataFrames."</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("spark_read")</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> starts_with("spark_write")</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> matches("saveload")</span></span></code></pre></div>
 <p>Note the use of <code>starts_with()</code> to select all functions
 with a common prefix. You can also use <code>ends_with()</code> and
 <code>matches()</code>. See complete details in
@@ -264,15 +233,15 @@ your <code>NEWS.md</code> is formatted using level one headings
 (<code>#</code>) to specify package name and version number, and level
 two headings (<code>##</code>) to provide topical organization for each
 release.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu"># pkgdown 1.1.0</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">## Bug Fixes</span></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="ss">* </span>Lots of them</span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="fu"># pkgdown 1.0.0</span></span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="ss">* </span>This is the first release of pkgdown.</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu"># pkgdown 1.1.0</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">## Bug Fixes</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="ss">* </span>Lots of them</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="fu"># pkgdown 1.0.0</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="ss">* </span>This is the first release of pkgdown.</span></code></pre></div>
 <p>See more suggestions for writing news bullets in the <a href="https://style.tidyverse.org/news.html" class="external-link">tidyverse style
 guide</a>.</p>
 <p>See <code><a href="../reference/build_news.html">?build_news</a></code> for more customisation options including
