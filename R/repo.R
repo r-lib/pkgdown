@@ -63,7 +63,7 @@ package_repo <- function(pkg) {
   # Use metadata if available
   repo <- config_pluck_list(pkg, "repo")
   url <- config_pluck_list(pkg, "repo.url")
-  branch <- config_pluck_string(pkg, "repo.branch", default = "HEAD")
+  
 
   if (!is.null(url)) {
     return(repo)
@@ -77,6 +77,7 @@ package_repo <- function(pkg) {
 
   gh_links <- grep("^https?://git(hub|lab)\\..+/", urls, value = TRUE)
   if (length(gh_links) > 0) {
+    branch <- config_pluck_string(pkg, "repo.branch")
     return(repo_meta_gh_like(gh_links[[1]], branch))
   }
 
