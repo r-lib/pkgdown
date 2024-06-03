@@ -438,9 +438,16 @@ pre, pre code {
   word-wrap: normal;
 }
 
-[data-bs-theme="dark"] pre {
-  background-color: RGBA(var(--bs-body-color-rgb), 0.1);
-  border-color: var(--bs-border-color);
+// Default dark mode styling does not look good for code
+[data-bs-theme="dark"] {
+  pre, code {
+    background-color: RGBA(var(--bs-body-color-rgb), 0.1); 
+  }
+  // don't double apply transparency
+  pre code {
+    background: transparent;
+  }
+
 }
 
 code {
