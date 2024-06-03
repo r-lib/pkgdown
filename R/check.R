@@ -43,9 +43,11 @@ pkgdown_sitrep <- function(pkg = ".") {
   }
 
   error_to_sitrep("URLs", check_urls(pkg))
+  error_to_sitrep("Favicons", check_favicons(pkg))
   error_to_sitrep("Open graph metadata", data_open_graph(pkg))
   error_to_sitrep("Articles metadata", data_articles_index(pkg))
   error_to_sitrep("Reference metadata", data_reference_index(pkg))
+
 }
 
 error_to_sitrep <- function(title, code) {
@@ -76,19 +78,36 @@ check_urls <- function(pkg = ".", call = caller_env()) {
   url <- pkg$meta[["url"]]
 
   if (is.null(url)) {
-    cli::cli_abort(
-      c("{config_path(pkg)} lacks {.field url}.", details),
-      call = call
-    )
+    config_abort(pkg, c("{.field url} is missing.", details), call = call)
   } else {
     desc_urls <- pkg$desc$get_urls()
     desc_urls <- sub("/$", "", desc_urls)
-
     if (!pkg$meta[["url"]] %in% desc_urls) {
-      cli::cli_abort(
-        c("{.file DESCRIPTION} {.field URL} lacks package url ({url}).", details),
-        call = call
-      )
+      msg <- "{.field URL} is missing package url ({url})."
+      config_abort(pkg, c(msg, details), path = "DESCRIPTION", call = call)
     }
+  }
+}
+
+check_favicons <- function(pkg) {
+  if (!has_logo(pkg)) {
+    return()
+  }
+
+  if (has_favicons(pkg)) {
+    logo <- find_logo(pkg$src_path)
+    favicon <- path(path_favicons(pkg), "favicon.ico")
+
+    if (out_of_date(logo, favicon)) {
+      cli::cli_abort(c(
+        "Package logo is newer than favicons.",
+        i = "Do you need to rerun {.run [build_favicons()](pkgdown::build_favicons())}?"
+      ))
+    }
+  } else {
+    cli::cli_abort(c(
+      "Found package logo but not favicons.",
+      i = "Do you need to run {.run [build_favicons()](pkgdown::build_favicons())}?"
+    ))
   }
 }

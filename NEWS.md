@@ -1,6 +1,9 @@
 # pkgdown (development version)
 
 * New `vignette("non-english")` that discusses non-English sites including how to submit new translations (#2605).
+* `build_reference()` now generates the usage that users actually type for infix and replacement methods (#2303).
+* @olivroy is now a pkgdown author in recognition of his contributions. 
+* `pkgdown_sitrep()`/`check_pkgdown()` now check that you have up-to-date favicons if you have a package logo.
 * pkgdown now uses httr2 instead of httr (#2600).
 * New `template.math-rendering` allows you to control how math is rendered across your site. The default uses `mathml` which is low-dependency, but has the lowest fidelity. You can also use `mathjax`, the previous default, and `katex`, a faster alternative. (#1966).
 * Mathjax now uses version 3.2.2.

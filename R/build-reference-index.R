@@ -6,12 +6,8 @@ data_reference_index <- function(pkg = ".", error_call = caller_env()) {
     return(list())
   }
 
-  unwrap_purrr_error(
-    rows <- meta %>%
-      purrr::imap(data_reference_index_rows, pkg = pkg, call = error_call) %>%
-      purrr::compact() %>%
-      unlist(recursive = FALSE)
-  )
+  rows <- unwrap_purrr_error(purrr::imap(meta, data_reference_index_rows, pkg = pkg, call = error_call))
+  rows <- purrr::list_c(rows)
 
   has_icons <- purrr::some(rows, ~ .x$row_has_icons %||% FALSE)
 
@@ -64,7 +60,7 @@ check_contents <- function(contents, index, pkg, prefix, call = caller_env()) {
   is_null <- purrr::map_lgl(contents, is.null)
   if (any(is_null)) {
     j <- which(is_null)[1]
-    config_abort(pkg, "{.field {prefix}[{index}].contents}[{j}] is empty.", call = call)
+    config_abort(pkg, "{.field {prefix}[{index}].contents[{j}]} is empty.", call = call)
   }
 
   is_char <- purrr::map_lgl(contents, is.character)
@@ -73,7 +69,7 @@ check_contents <- function(contents, index, pkg, prefix, call = caller_env()) {
     config_abort(
       pkg,
       c(
-        "{.field {prefix}[{index}].contents}[{j}] must be a string.",
+        "{.field {prefix}[{index}].contents[{j}]} must be a string.",
         i = "You might need to add '' around special YAML values like 'N' or 'off'"
       ),
       call = call
@@ -115,7 +111,11 @@ data_reference_index_rows <- function(section, index, pkg, call = caller_env()) 
   }
 
   if (has_name(section, "contents")) {
-    topics <- section_topics(section$contents, pkg$topics, pkg$src_path)
+    topics <- section_topics(pkg,
+      section$contents,
+      error_path = paste0("reference[", index, "].contents"),
+      error_call = call
+    )
 
     names <- topics$name
     topics$name <- NULL
@@ -163,7 +163,7 @@ default_reference_index <- function(pkg = ".") {
 
 check_missing_topics <- function(rows, pkg, error_call = caller_env()) {
   # Cross-reference complete list of topics vs. topics found in index page
-  all_topics <- rows %>% purrr::map("names") %>% unlist(use.names = FALSE)
+  all_topics <- purrr::list_c(purrr::map(rows, "names"))
   in_index <- pkg$topics$name %in% all_topics
 
   missing <- !in_index & !pkg$topics$internal

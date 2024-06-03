@@ -56,9 +56,8 @@
       data_reference_index(pkg)
     Condition
       Error:
-      ! 3 topics missing from index: "c", "e", and "?".
+      ! In _pkgdown.yml, 3 topics missing from index: "c", "e", and "?".
       i Either use `@keywords internal` to drop from index, or
-      i Edit _pkgdown.yml to fix the problem.
 
 # gives informative errors
 
@@ -66,63 +65,53 @@
       data_reference_index_(1)
     Condition
       Error in `config_pluck_reference()`:
-      ! reference must be a list, not the number 1.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, reference must be a list, not the number 1.
     Code
       data_reference_index_(list(1))
     Condition
       Error in `data_reference_index_()`:
-      ! reference[1] must be a list, not the number 1.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, reference[1] must be a list, not the number 1.
     Code
       data_reference_index_(list(list(title = 1)))
     Condition
       Error in `data_reference_index_()`:
-      ! reference[1].title must be a string, not the number 1.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, reference[1].title must be a string, not the number 1.
     Code
       data_reference_index_(list(list(title = "a\n\nb")))
     Condition
       Error in `data_reference_index_()`:
-      ! reference[1].title must be inline markdown.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, reference[1].title must be inline markdown.
     Code
       data_reference_index_(list(list(subtitle = 1)))
     Condition
       Error in `data_reference_index_()`:
-      ! reference[1].subtitle must be a string, not the number 1.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, reference[1].subtitle must be a string, not the number 1.
     Code
       data_reference_index_(list(list(subtitle = "a\n\nb")))
     Condition
       Error in `data_reference_index_()`:
-      ! reference[1].subtitle must be inline markdown.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, reference[1].subtitle must be inline markdown.
     Code
       data_reference_index_(list(list(title = "bla", contents = 1)))
     Condition
       Error in `data_reference_index_()`:
-      ! reference[1].contents[1] must be a string.
+      ! In _pkgdown.yml, reference[1].contents[1] must be a string.
       i You might need to add '' around special YAML values like 'N' or 'off'
-      i Edit _pkgdown.yml to fix the problem.
     Code
       data_reference_index_(list(list(title = "bla", contents = NULL)))
     Condition
       Error in `data_reference_index_()`:
-      ! reference[1].contents is empty.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, reference[1].contents is empty.
     Code
       data_reference_index_(list(list(title = "bla", contents = list("a", NULL))))
     Condition
       Error in `data_reference_index_()`:
-      ! reference[1].contents[2] is empty.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, reference[1].contents[2] is empty.
     Code
       data_reference_index_(list(list(title = "bla", contents = list())))
     Condition
       Error in `data_reference_index_()`:
-      ! reference[1].contents is empty.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, reference[1].contents is empty.
     Code
       data_reference_index_(list(list(title = "bla", contents = "notapackage::lala")))
     Condition

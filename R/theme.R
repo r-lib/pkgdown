@@ -175,7 +175,10 @@ get_bslib_theme <- function(pkg) {
   check_bslib_theme(themes[[field]], pkg, field)
 }
 
-check_bslib_theme <- function(theme, pkg, field = "template.bootswatch", bs_version = pkg$bs_version) {
+check_bslib_theme <- function(theme,
+                              pkg,
+                              field = "template.bootswatch",
+                              bs_version = pkg$bs_version) {
   bslib_themes <- c(
     bslib::bootswatch_themes(bs_version),
     bslib::builtin_themes(bs_version),
@@ -191,7 +194,7 @@ check_bslib_theme <- function(theme, pkg, field = "template.bootswatch", bs_vers
   config_abort(
     pkg,
     c(
-      x = "Can't find Bootswatch/bslib theme preset {.val {theme}} ({.field {field}}).",
+      x = "{.field {field}} contains unknown Bootswatch/bslib theme {.val {theme}}.",
       i = "Using Bootstrap version {.val {bs_version}} ({.field template.bootstrap})."
     ),
     call = caller_env()

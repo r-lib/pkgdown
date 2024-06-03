@@ -112,6 +112,9 @@ copy_favicons <- function(pkg = ".") {
 
 has_favicons <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
+  unname(file_exists(path_favicons(pkg)))
+}
 
-  unname(file_exists(path(pkg$src_path, "pkgdown", "favicon")))
+path_favicons <- function(pkg) {
+  path(pkg$src_path, "pkgdown", "favicon")
 }

@@ -195,8 +195,14 @@ navbar_articles <- function(pkg = ".") {
       # No articles to be included in navbar so just link to index
       menu$articles <- menu_link(tr_("Articles"), "articles/index.html")
     } else {
-      sections <- lapply(navbar, function(section) {
-        vig <- articles[select_topics(section$contents, articles), , drop = FALSE]
+      sections <- purrr::imap(navbar, function(section, index) {
+        idx <- select_topics(
+          section$contents,
+          articles,
+          error_pkg = pkg,
+          error_path = paste0("articles[", index, "].contents")
+        )
+        vig <- articles[idx, , drop = FALSE]
         vig <- vig[vig$name != pkg$package, , drop = FALSE]
         c(
           if (!is.null(section$navbar)) list(menu_separator(), menu_heading(section$navbar)),

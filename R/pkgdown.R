@@ -18,7 +18,10 @@ local_envvar_pkgdown <- function(pkg, scope = parent.frame()) {
   )
 }
 
-local_pkgdown_site <- function(path = NULL, meta = list(), env = caller_env()) {
+local_pkgdown_site <- function(path = NULL,
+                               meta = list(),
+                               desc = list(),
+                               env = caller_env()) {
   check_string(path, allow_null = TRUE)
 
   dst_path <- withr::local_tempdir(.local_envir = env)
@@ -27,10 +30,12 @@ local_pkgdown_site <- function(path = NULL, meta = list(), env = caller_env()) {
   if (is.null(path)) {
     path <- withr::local_tempdir(.local_envir = env)
     
-    desc <- desc::desc("!new")
-    desc$set("Package", "testpackage")
-    desc$set("Title", "A test package")
-    desc$write(file = path(path, "DESCRIPTION"))
+    description <- desc::desc("!new")
+    description$set("Package", "testpackage")
+    description$set("Title", "A test package")
+    if (length(desc) > 0)
+      inject(description$set(!!!desc))
+    description$write(file = path(path, "DESCRIPTION"))
 
     # Default to BS5 only if template not specified
     meta$template <- meta$template %||% list(bootstrap = 5)

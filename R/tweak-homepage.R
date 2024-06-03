@@ -51,7 +51,7 @@ tweak_sidebar_html <- function(html, sidebar = TRUE, show_badges = TRUE) {
   # this extracts *and removes* badges from HTML
   badges <- badges_extract(html)
 
-  dev_status_html <- html %>% xml2::xml_find_first(".//div[@class='dev-status']")
+  dev_status_html <- xml2::xml_find_first(html, ".//div[@class='dev-status']")
   if (inherits(dev_status_html, "xml_missing")) {
     return(html)
   }
@@ -59,7 +59,7 @@ tweak_sidebar_html <- function(html, sidebar = TRUE, show_badges = TRUE) {
     xml2::xml_remove(dev_status_html)
   } else {
     list <- sidebar_section(tr_("Dev status"), badges)
-    list_html <- list %>% xml2::read_html(encoding = "UTF-8") %>% xml2::xml_find_first(".//div")
+    list_html <- xml2::xml_find_first(xml2::read_html(list, encoding = "UTF-8"), ".//div")
     xml2::xml_replace(dev_status_html, list_html)
   }
 

@@ -255,11 +255,10 @@ data_articles_index <- function(pkg = ".", call = caller_env()) {
   ))
 
   # Check for unlisted vignettes
-  listed <- sections %>%
-    purrr::map("contents") %>%
-    purrr::map(. %>% purrr::map_chr("name")) %>%
-    purrr::flatten_chr() %>%
-    unique()
+  all_names <- purrr::map(sections, function(section) {
+    purrr::map_chr(section$contents, "name")
+  })
+  listed <- unique(purrr::list_c(all_names))
 
   missing <- setdiff(articles$name, listed)
   # Exclude get started vignette or article #2150
@@ -396,7 +395,14 @@ data_articles_index_section <- function(section, index, articles, pkg, call = ca
   )
 
   # Match topics against any aliases
-  contents <- articles[select_topics(section$contents, articles), ]
+  idx <- select_topics(
+    section$contents,
+    articles,
+    error_path = paste0("articles[", index, "].contents"),
+    error_pkg = pkg,
+    error_call = call
+  )
+  contents <- articles[idx, , drop = FALSE]
 
   list(
     title = title,

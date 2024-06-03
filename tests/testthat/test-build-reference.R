@@ -99,11 +99,8 @@ test_that("examples are reproducible by default, i.e. 'seed' is respected", {
   suppressMessages(init_site(pkg))
   suppressMessages(build_reference(pkg, topics = "f"))
 
-  examples <- xml2::read_html(path(pkg$dst_path, "reference", "f.html")) %>%
-    rvest::html_node("code .r-out") %>%
-    rvest::html_text() %>%
-    # replace line feeds with whitespace to make output platform independent
-    gsub("\r", "", .)
+  html <- xml2::read_html(path(pkg$dst_path, "reference", "f.html"))
+  examples <- xpath_text(html, ".//code//*[contains(@class, 'r-out')]")
 
   expect_snapshot(cat(examples))
 })
