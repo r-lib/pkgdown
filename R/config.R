@@ -285,8 +285,8 @@ gh_message <- function(type, pkg, path, message, envir = caller_env()) {
 }
 
 one_line <- function(x) {
-  x <- paste0(x, collapse = "%0A")
-  x <- gsub("\n", "%0A", x)
+  x <- paste0(x, collapse = "\n")
+  x <- strsplit(x, "\n")[[1]]
   x <- gsub("::", "%3A%3A", x)
   x
 }
