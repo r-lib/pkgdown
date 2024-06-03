@@ -4,11 +4,14 @@
       pkgdown_sitrep(pkg)
     Message
       -- Sitrep ----------------------------------------------------------------------
-      x Bootstrap 3 is deprecated; please switch to Bootstrap 5.
+    Condition
+      Warning in `pkgdown_sitrep()`:
+      x In _pkgdown.yml, Bootstrap 3 is deprecated; please switch to Bootstrap 5.
       i Learn more at <https://www.tidyverse.org/blog/2021/12/pkgdown-2-0-0/#bootstrap-5>.
+    Message
       v URLs ok.
       x Favicons not ok.
-        Found package logo but not favicons.
+        In logo.png, found package logo but not favicons.
         Do you need to run `build_favicons()`?
       v Open graph metadata ok.
       v Articles metadata ok.
@@ -79,7 +82,7 @@
       check_favicons(pkg)
     Condition
       Error in `check_favicons()`:
-      ! Found package logo but not favicons.
+      ! In logo.svg, found package logo but not favicons.
       i Do you need to run `build_favicons()`?
 
 ---
@@ -88,6 +91,6 @@
       check_favicons(pkg)
     Condition
       Error in `check_favicons()`:
-      ! Package logo is newer than favicons.
+      ! In pkgdown/favicon/favicon.ico, favicon is older than package logo.
       i Do you need to rerun `build_favicons()`?
 

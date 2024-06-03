@@ -28,3 +28,20 @@
       ! In _pkgdown.yml, path must have components "y" and "z".
       1 missing component: "z".
 
+# creates messages on github
+
+    Code
+      config_abort(pkg, "Error")
+    Message
+      ::error file=_pkgdown.yml,title=Error
+    Condition
+      Error:
+      ! In _pkgdown.yml, Error
+    Code
+      config_abort(pkg, "Warning")
+    Message
+      ::error file=_pkgdown.yml,title=Warning
+    Condition
+      Error:
+      ! In _pkgdown.yml, Warning
+

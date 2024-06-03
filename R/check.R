@@ -36,10 +36,13 @@ pkgdown_sitrep <- function(pkg = ".") {
 
   pkg <- as_pkgdown(pkg)
   if (pkg$bs_version == 3) {
-    cli::cli_inform(c(
-      x = "Bootstrap 3 is deprecated; please switch to Bootstrap 5.",
-      i = "Learn more at {.url https://www.tidyverse.org/blog/2021/12/pkgdown-2-0-0/#bootstrap-5}."
-    ))
+    config_warn(
+      pkg,
+      c(
+          x = "Bootstrap 3 is deprecated; please switch to Bootstrap 5.",
+          i = "Learn more at {.url https://www.tidyverse.org/blog/2021/12/pkgdown-2-0-0/#bootstrap-5}."
+      )
+    )
   }
 
   error_to_sitrep("URLs", check_urls(pkg))
@@ -94,20 +97,28 @@ check_favicons <- function(pkg) {
     return()
   }
 
+  logo <- find_logo(pkg$src_path)
   if (has_favicons(pkg)) {
-    logo <- find_logo(pkg$src_path)
     favicon <- path(path_favicons(pkg), "favicon.ico")
 
     if (out_of_date(logo, favicon)) {
-      cli::cli_abort(c(
-        "Package logo is newer than favicons.",
-        i = "Do you need to rerun {.run [build_favicons()](pkgdown::build_favicons())}?"
-      ))
+      config_abort(
+        pkg, 
+        path = favicon,
+        c(
+          "favicon is older than package logo.",
+          i = "Do you need to rerun {.run [build_favicons()](pkgdown::build_favicons())}?"
+        )
+      )
     }
   } else {
-    cli::cli_abort(c(
-      "Found package logo but not favicons.",
-      i = "Do you need to run {.run [build_favicons()](pkgdown::build_favicons())}?"
-    ))
+    config_abort(
+      pkg,
+      path = logo,
+      c(
+        "found package logo but not favicons.",
+        i = "Do you need to run {.run [build_favicons()](pkgdown::build_favicons())}?"
+      )
+    )
   }
 }

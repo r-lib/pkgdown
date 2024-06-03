@@ -37,3 +37,17 @@ test_that("config_check_list gives informative errors", {
     config_check_list_(list(x = 1, y = 1), has_names = c("y", "z"))
   })
 })
+
+# config conditions ------------------------------------------------------------
+
+test_that("creates messages on github", {
+  pkg <- local_pkgdown_site()
+  withr::local_envvar(GITHUB_ACTIONS = 'foo') 
+  expect_true(is_GH())
+
+  expect_snapshot(error = TRUE, {
+    config_abort(pkg, "Error")
+    config_abort(pkg, "Warning")
+})
+
+})

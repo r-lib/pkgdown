@@ -225,7 +225,12 @@ config_abort <- function(pkg,
                          call = caller_env(),
                          .envir = caller_env()) {
   
-  message <- config_message(pkg, message, path)
+  # Not all projects necessary have a _pkgdown.yml (#2542)
+  path <- path %||% pkgdown_config_path(pkg) %||% "_pkgdown.yml"
+  path_rel <- config_path(path, pkg)
+  gh_error(pkg, path_rel, message, envir = .envir)
+  
+  message <- config_message(pkg, message, path, path_rel)
   cli::cli_abort(message, ..., call = call, .envir = .envir)
 }
 
@@ -236,20 +241,57 @@ config_warn <- function(pkg,
                         call = caller_env(),
                         .envir = caller_env()) {
   
-  message <- config_message(pkg, message, path)
+  # Not all projects necessary have a _pkgdown.yml (#2542)
+  path <- path %||% pkgdown_config_path(pkg) %||% "_pkgdown.yml"
+  path_rel <- config_path(path, pkg)
+  gh_warning(pkg, path_rel, message, envir = .envir)
+  
+  message <- config_message(pkg, message, path, path_rel)
   cli::cli_warn(message, ..., call = call, .envir = .envir)
 }
 
-config_message <- function(pkg, message, path = NULL) {
-  # Not all projects necessary have a _pkgdown.yml (#2542)
-  path <- path %||% pkgdown_config_path(pkg) %||% "_pkgdown.yml"
-  if (is_absolute_path(path)) {
-    path_label <- path_rel(path, pkg$src_path)
-  } else {
-    path_label <- path
-  }
-  
-  link <- cli::style_hyperlink(path_label, paste0("file://", path))  
+config_message <- function(pkg, message, path_link, path_label) {
+  link <- cli::style_hyperlink(path_label, paste0("file://", path_link))  
   message[[1]] <- paste0("In ", link, ", ", message[[1]])
   message
+}
+
+config_path <- function(path, pkg) {
+  if (is_absolute_path(path)) {
+    path_rel(path, pkg$src_path)
+  } else {
+    path
+  }
+}
+
+is_GH <- function() {
+  Sys.getenv("GITHUB_ACTIONS") != ""
+}
+
+gh_warning <- function(pkg, path, message, envir = caller_env()) {
+  gh_message("warning", pkg, path, message, envir = envir)
+}
+gh_error <- function(pkg, path, message, envir = caller_env()) {
+  gh_message("error", pkg, path, message, envir = envir)
+}
+gh_message <- function(type, pkg, path, message, envir = caller_env()) {
+  if (!is_GH()) {
+    return()
+  }
+
+  message <- purrr::map_chr(message, cli::format_inline, .envir = envir)
+
+  path <- as.character(path)
+  head <- one_line(message[[1]])
+  body <- one_line(message[-1])
+
+   if (length(message) == 1) {
+    cli::cli_inform("::{type} file={path},title={head}")
+  } else {
+    cli::cli_inform("::{type} file={path},title={head}::{body}")
+  }
+}
+
+one_line <- function(x) {
+  gsub("\n", "%0A", paste0(x, collapse = "%0A"))
 }
