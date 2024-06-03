@@ -281,16 +281,7 @@ gh_message <- function(type, pkg, path, message, envir = caller_env()) {
   }
 
   message <- purrr::map_chr(message, cli::format_inline, .envir = envir)
-
-  path <- as.character(path)
-  head <- one_line(message[[1]])
-  body <- one_line(message[-1])
-
-   if (length(message) == 1) {
-    cli::cli_inform("::{type} file={path}::{head}")
-  } else {
-    cli::cli_inform("::{type} file={path},title={head}::{body}")
-  }
+  cat("::", type, " file=", path, "::", one_line(message), "\n", sep = "")
 }
 
 one_line <- function(x) {
