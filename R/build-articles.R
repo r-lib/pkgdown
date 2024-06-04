@@ -174,8 +174,7 @@
 #'
 #' # Suppressing vignettes
 #' If you want [articles](https://r-pkgs.org/vignettes.html#sec-vignettes-article)
-#'  that are not vignettes, use `usethis::use_article()` either put them in
-#' subdirectories or list in `.Rbuildignore`. An articles link will be
+#' that are not vignettes, use `usethis::use_article()` to create it. An articles link will be
 #' automatically added to the default navbar if the vignettes directory is
 #' present: if you do not want this, you will need to customise the navbar. See
 #' [build_site()] details.

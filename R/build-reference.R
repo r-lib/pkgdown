@@ -83,7 +83,7 @@
 #' * `has_lifecycle("deprecated")` will select all topics with lifecycle 
 #'   deprecated.
 #'
-#' All functions (except for `has_keywords()`) automatically exclude internal
+#' All functions (except for `has_keyword()`) automatically exclude internal
 #' topics (i.e. those with `\keyword{internal}`). You can choose to include
 #' with (e.g.) `starts_with("build_", internal = TRUE)`.
 #'

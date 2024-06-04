@@ -63,10 +63,9 @@ reference:
   desc: These functions are useful for rapid iteration when you're working on a
     specific part of your site.
   contents:
-  - starts_with("build_")
-  - -build_site
-  - -build_site_github_pages
-  - -build_favicons
+  - has_concept("site components")
+  - build_search
+  - build_redirects
   - init_site
 
 - subtitle: Customisation
@@ -98,6 +97,7 @@ reference:
 
 redirects:
 - ["articles/search.html", "reference/build_search.html"]
+- ["articles/pkgdown.html#language", "articles/translations.html"]
 
 news:
   releases:

@@ -133,7 +133,7 @@ or \code{sass::font_face} (topic name).
 deprecated.
 }
 
-All functions (except for \code{has_keywords()}) automatically exclude internal
+All functions (except for \code{has_keyword()}) automatically exclude internal
 topics (i.e. those with \verb{\\keyword\{internal\}}). You can choose to include
 with (e.g.) \code{starts_with("build_", internal = TRUE)}.
 
