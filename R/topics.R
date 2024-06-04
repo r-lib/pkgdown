@@ -1,36 +1,54 @@
 # @return An integer vector giving selected topics
-select_topics <- function(match_strings, topics, check = FALSE) {
+select_topics <- function(match_strings,
+                          topics,
+                          check = FALSE,
+                          error_path,
+                          error_pkg,
+                          error_call = caller_env()) {
   n <- nrow(topics)
   if (length(match_strings) == 0) {
     return(integer())
   }
 
-  unwrap_purrr_error(
-    indexes <- purrr::map(match_strings, match_eval, env = match_env(topics))
-  )
+  indexes <- unwrap_purrr_error(purrr::imap(
+    match_strings,
+    match_eval,
+    env = match_env(topics),
+    error_path = error_path,
+    error_pkg = error_pkg,
+    error_call = error_call
+  ))
 
   # If none of the specified topics have a match, return no topics
   if (purrr::every(indexes, is_empty)) {
     if (check) {
-      cli::cli_abort(c(
-        "No topics matched in pkgdown config. No topics selected.",
-        i = "Run {.run usethis::edit_pkgdown_config()} to edit."
-        ),
-        call = caller_env()
-      )
+      msg <- "{.field {error_path}} failed to match any topics."
+      config_abort(error_pkg, msg, call = error_call)
     }
     return(integer())
   }
 
   no_match <- match_strings[purrr::map_lgl(indexes, rlang::is_empty)]
   if (check && length(no_match) > 0) {
-    topic_must("match a function or concept", toString(no_match))
+    topic_must(
+      "match a function or concept",
+      toString(no_match),
+      error_pkg = error_pkg, 
+      error_path = error_path, 
+      error_call = error_call
+    )
   }
 
   indexes <- purrr::discard(indexes, is_empty)
   # Combine integer positions; adding if +ve, removing if -ve
-  sel <- switch(
-    all_sign(indexes[[1]], match_strings[[1]]),
+  sign <- all_sign(
+    indexes[[1]],
+    match_strings[[1]],
+    error_pkg = error_pkg,
+    error_path = paste0(error_path, "[1]"),
+    error_call = error_call
+  )
+  sel <- switch(sign,
     "+" = integer(),
     "-" = seq_len(n)[!topics$internal]
   )
@@ -38,16 +56,23 @@ select_topics <- function(match_strings, topics, check = FALSE) {
   for (i in seq2(1, length(indexes))) {
     index <- indexes[[i]]
 
-    sel <- switch(all_sign(index, match_strings[[i]]),
-      "+" = union(sel, index),
-      "-" = setdiff(sel, -index)
+    sign <- all_sign(
+      indexes[[i]],
+      match_strings[[i]],
+      error_pkg = error_pkg,
+      error_path = paste0(error_path, "[", i, "]"),
+      error_call = error_call
+    )
+    sel <- switch(
+      sign,
+      "+" = union(sel, indexes[[i]]),
+      "-" = setdiff(sel, -indexes[[i]])
     )
   }
-
   sel
 }
 
-all_sign <- function(x, text) {
+all_sign <- function(x, text, error_pkg, error_path, error_call = caller_env()) {
   if (is.numeric(x)) {
     if (all(x < 0)) {
       return("-")
@@ -57,10 +82,10 @@ all_sign <- function(x, text) {
       return("+")
     }
   }
-
-  cli::cli_abort(
-    "Must be all negative or all positive: {.val {text}}",
-    call = caller_env()
+  config_abort(
+    error_pkg,
+    "{.field {error_path}} ({text}) must be all negative or all positive.",
+    call = error_call
   )
 }
 
@@ -90,13 +115,11 @@ match_env <- function(topics) {
   # dplyr-like matching functions
 
   any_alias <- function(f, ..., .internal = FALSE) {
-    alias_match <- topics$alias %>%
-      unname() %>%
-      purrr::map(f, ...) %>%
-      purrr::map_lgl(any)
-
-    name_match <- topics$name %>%
-      purrr::map_lgl(f, ...)
+    f <- as_function(f)
+    alias_match <- purrr::map_lgl(unname(topics$alias), function(x) {
+      any(f(x, ...))
+    })
+    name_match <- purrr::map_lgl(topics$name, f, ...)
 
     which((alias_match | name_match) & is_public(.internal))
   }
@@ -107,57 +130,56 @@ match_env <- function(topics) {
   fns$starts_with <- function(x, internal = FALSE) {
     check_string(x)
     check_bool(internal)
-   
+
     any_alias(~ grepl(paste0("^", x), .), .internal = internal)
   }
   fns$ends_with <- function(x, internal = FALSE) {
     check_string(x)
     check_bool(internal)
-   
+
     any_alias(~ grepl(paste0(x, "$"), .), .internal = internal)
   }
   fns$matches <- function(x, internal = FALSE) {
     check_string(x)
     check_bool(internal)
-   
+
     any_alias(~ grepl(x, .), .internal = internal)
   }
   fns$contains <- function(x, internal = FALSE) {
     check_string(x)
     check_bool(internal)
-   
+
     any_alias(~ grepl(x, ., fixed = TRUE), .internal = internal)
   }
   fns$has_keyword <- function(x) {
     check_character(x)
     which(purrr::map_lgl(topics$keywords, ~ any(. %in% x)))
   }
+  fns$has_lifecycle <- function(x) {
+    check_string(x)
+    which(purrr::map_lgl(topics$lifecycle, ~ any(. %in% x)))
+  }
   fns$has_concept <- function(x, internal = FALSE) {
     check_string(x)
     check_bool(internal)
 
-    match <- topics$concepts %>%
-      purrr::map(~ str_trim(.) == x) %>%
-      purrr::map_lgl(any)
-
+    match <- purrr::map_lgl(topics$concepts, ~ any(str_trim(.) == x))
     which(match & is_public(internal))
   }
   fns$lacks_concepts <- function(x, internal = FALSE) {
     check_character(x)
     check_bool(internal)
-   
-    nomatch <- topics$concepts %>%
-      purrr::map(~ match(str_trim(.), x, nomatch = FALSE)) %>%
-      purrr::map_lgl(~ length(.) == 0L | all(. == 0L))
-
-    which(nomatch & is_public(internal))
+    
+    match <- purrr::map_lgl(topics$concepts, ~ any(str_trim(.) == x))
+    which(!match & is_public(internal))
   }
   fns$lacks_concept <- fns$lacks_concepts
   out
 }
 
+match_eval <- function(string, index, env, error_pkg, error_path, error_call = caller_env()) {
+  error_path <- paste0(error_path, "[", index, "]")
 
-match_eval <- function(string, env) {
   # Early return in case string already matches symbol
   if (env_has(env, string)) {
     val <- env[[string]]
@@ -168,7 +190,13 @@ match_eval <- function(string, env) {
 
   expr <- tryCatch(parse_expr(string), error = function(e) NULL)
   if (is.null(expr)) {
-    topic_must("be valid R code", string)
+    topic_must(
+      "be valid R code",
+      string,
+      error_pkg = error_pkg, 
+      error_path = error_path, 
+      error_call = error_call
+    )
   }
 
   if (is_string(expr) || is_symbol(expr)) {
@@ -177,7 +205,13 @@ match_eval <- function(string, env) {
     if (is.integer(val)) {
       val
     } else {
-      topic_must("be a known topic name or alias", string)
+      topic_must(
+        "be a known topic name or alias",
+        string,
+        error_pkg = error_pkg, 
+        error_path = error_path, 
+        error_call = error_call
+      )
     }
   } else if (is_call(expr, "::")) {
     name <- paste0(expr[[2]], "::", expr[[3]])
@@ -185,46 +219,65 @@ match_eval <- function(string, env) {
     if (is.integer(val)) {
       val
     } else {
-      topic_must("be a known topic name or alias", string)
+      topic_must(
+        "be a known topic name or alias",
+        string,
+        error_pkg = error_pkg, 
+        error_path = error_path, 
+        error_call = error_call
+      )
     }
   } else if (is_call(expr)) {
     withCallingHandlers(
       eval(expr, env),
       error = function(e) {
-        cli::cli_abort(
-          "Failed to evaluate topic selector {.val {string}}.", 
+        config_abort(
+          error_pkg,
+          "{.field {error_path}} ({string}) failed to evaluate.",
           parent = e,
-          call = NULL
+          call = error_call
         )
       }
     )
   } else {
-    topic_must("be a string or function call", string)
+    topic_must(
+      "be a string or function call",
+      string,
+      error_pkg = error_pkg, 
+      error_path = error_path, 
+      error_call = error_call
+    )
   }
 }
 
-topic_must <- function(message, topic, ..., call = NULL) {
-  cli::cli_abort(c(
-    "Topic must {message}, not {.val {topic}}.",
-    i = "Run {.run usethis::edit_pkgdown_config()} to edit."
-    ),
-    ...,
-    call = call
-  )
+topic_must <- function(message, topic, error_pkg, error_path, error_call, ...) {
+  msg <- "{.field {error_path}} ({topic}) must {message}."
+  config_abort(error_pkg, msg, call = error_call, ...)
 }
 
-section_topics <- function(match_strings, topics, src_path) {
+section_topics <- function(pkg,
+                           match_strings,
+                           error_path,
+                           error_call = error_call()) {
   # Add rows for external docs
   ext_strings <- match_strings[grepl("::", match_strings, fixed = TRUE)]
-  topics <- rbind(topics, ext_topics(ext_strings))
+  topics <- rbind(pkg$topics, ext_topics(ext_strings))
 
-  selected <- topics[select_topics(match_strings, topics), , ]
+  idx <- select_topics(
+    match_strings,
+    topics,
+    error_pkg = pkg,
+    error_path = error_path,
+    error_call = error_call
+  )
+  selected <- topics[idx, , drop = FALSE]
 
   tibble::tibble(
     name = selected$name,
     path = selected$file_out,
     title = selected$title,
+    lifecycle = selected$lifecycle,
     aliases = purrr::map2(selected$funs, selected$alias, ~ if (length(.x) > 0) .x else .y),
-    icon = find_icons(selected$alias, path(src_path, "icons"))
+    icon = find_icons(selected$alias, path(pkg$src_path, "icons"))
   )
 }

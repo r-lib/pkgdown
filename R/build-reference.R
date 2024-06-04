@@ -80,6 +80,8 @@
 #'    captured by `has_concepts()`.
 #' * Topics from other installed packages, e.g. `rlang::is_installed()` (function name)
 #'  or `sass::font_face` (topic name).
+#' * `has_lifecycle("deprecated")` will select all topics with lifecycle 
+#'   deprecated.
 #'
 #' All functions (except for `has_keywords()`) automatically exclude internal
 #' topics (i.e. those with `\keyword{internal}`). You can choose to include
@@ -200,7 +202,7 @@ build_reference <- function(pkg = ".",
     lazy = lazy,
     examples_env = examples_env,
     run_dont_run = run_dont_run
-  )) 
+  ))
 
   preview_site(pkg, "reference", preview = preview)
 }
@@ -230,7 +232,7 @@ examples_env <- function(pkg, seed = 1014L, devel = TRUE, envir = parent.frame()
   post_path <- path_abs(path(pkg$src_path, "pkgdown", "post-reference.R"))
 
   withr::local_dir(path(pkg$dst_path, "reference"), .local_envir = envir)
-  width <- purrr::pluck(pkg, "meta", "code", "width", .default = 80)
+  width <- config_pluck_number_whole(pkg, "code.width", default = 80)
   withr::local_options(width = width, .local_envir = envir)
   withr::local_seed(seed, .local_envir = envir)
   if (requireNamespace("htmlwidgets", quietly = TRUE)) {
@@ -295,7 +297,7 @@ build_reference_topic <- function(topic,
     ),
     error = function(err) {
       cli::cli_abort(
-        "Failed to parse Rd in {.file {topic$file_in}}", 
+        "Failed to parse Rd in {.file {topic$file_in}}",
         parent = err,
         call = quote(build_reference())
       )
@@ -310,13 +312,13 @@ build_reference_topic <- function(topic,
     deps <- purrr::map(
       deps,
       htmltools::copyDependencyToDir,
-      outputDir = file.path(pkg$dst_path, "reference", "libs"),
+      outputDir = path(pkg$dst_path, "reference", "libs"),
       mustWork = FALSE
     )
     deps <- purrr::map(
       deps,
       htmltools::makeDependencyRelative,
-      basepath = file.path(pkg$dst_path, "reference"),
+      basepath = path(pkg$dst_path, "reference"),
       mustWork = FALSE
     )
     data$dependencies <- htmltools::renderDependencies(deps, c("file", "href"))
@@ -392,16 +394,12 @@ data_reference_topic <- function(topic,
     "seealso", "section", "author"
   ))
   sections <- topic$rd[tag_names %in% section_tags]
-  out$sections <- sections %>%
-    purrr::map(as_data) %>%
-    purrr::map(add_slug)
-
+  out$sections <- purrr::map(sections, function(section) {
+    data <- as_data(section)
+    data$slug <- make_slug(data$title)
+    data
+  })
   out
-}
-
-add_slug <- function(x) {
-  x$slug <- make_slug(x$title)
-  x
 }
 
 make_slug <- function(x) {

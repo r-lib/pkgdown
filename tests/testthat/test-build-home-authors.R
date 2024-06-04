@@ -4,7 +4,33 @@ test_that("authors page includes inst/AUTHORS", {
   suppressMessages(build_citation_authors(pkg))
 
   lines <- read_lines(path(pkg$dst_path, "authors.html"))
-  expect_true(any(grepl("<pre>Hello</pre>", lines)))
+  expect_match(lines, "<pre>Hello</pre>", all = FALSE)
+})
+
+test_that("data_authors validates yaml inputs", {
+  data_authors_ <- function(...) {
+    pkg <- local_pkgdown_site(meta = list(...))
+    data_authors(pkg)
+  }
+
+  expect_snapshot(error = TRUE, {
+    data_authors_(authors = 1)
+    data_authors_(template = list(authors = list(before = 1)))
+    data_authors_(template = list(authors = list(after = 1)))
+  })
+})
+
+test_that("data_home_sidebar_authors validates yaml inputs", {
+  data_home_sidebar_authors_ <- function(...) {
+    pkg <- local_pkgdown_site(meta = list(...))
+    data_home_sidebar_authors(pkg)
+  }
+
+  expect_snapshot(error = TRUE, {
+    data_home_sidebar_authors_(authors = list(sidebar = list(roles = 1)))
+    data_home_sidebar_authors_(authors = list(sidebar = list(before = 1)))
+    data_home_sidebar_authors_(authors = list(sidebar = list(before = "x\n\ny")))
+  })
 })
 
 # authors --------------------------------------------------------------------
@@ -96,6 +122,7 @@ test_that("source link is added to citation page", {
   local_citation_activate(path)
 
   pkg <- local_pkgdown_site(path)
+  suppressMessages(init_site(pkg))
   suppressMessages(build_home(pkg))
 
   lines <- read_lines(path(pkg$dst_path, "authors.html"))
@@ -108,4 +135,25 @@ test_that("multiple citations all have HTML and BibTeX formats", {
 
   citations <- data_citations(path)
   expect_snapshot_output(citations)
+})
+
+test_that("bibtex is escaped", {
+  pkg <- local_pkgdown_site()
+  dir_create(path(pkg$src_path, "inst"))
+  write_lines(path = path(pkg$src_path, "inst", "CITATION"), c(
+    'citEntry(',
+    '  entry = "Article",',
+    '  title="test special HTML characters: <&>",',
+    '  author="x",',
+    '  journal="x",',
+    '  year="2017",',
+    '  textVersion = ""',
+    ')'
+  ))
+
+  suppressMessages(init_site(pkg))
+  suppressMessages(build_citation_authors(pkg))
+  html <- xml2::read_html(path(pkg$dst_path, "authors.html"))
+
+  expect_match(xpath_text(html, "//pre"), "<&>", fixed = TRUE)
 })

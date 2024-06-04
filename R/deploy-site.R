@@ -65,7 +65,7 @@ deploy_site_github <- function(
   cli::cli_inform("Copying private key to {.file ssh_id_file}")
   write_lines(rawToChar(openssl::base64_decode(ssh_id)), ssh_id_file)
   cli::cli_inform("Setting private key permissions to 0600")
-  fs::file_chmod(ssh_id_file, "0600")
+  file_chmod(ssh_id_file, "0600")
 
   cli::cli_inform("Setting remote to use the ssh url")
 
@@ -79,7 +79,7 @@ deploy_site_github <- function(
     ...
   )
 
-  cli::cli_alert_success("Deploy completed")
+  cli::cli_inform(c(v = "Deploy completed"))
 }
 
 #' Build and deploy a site locally
@@ -110,8 +110,8 @@ deploy_to_branch <- function(pkg = ".",
                          github_pages = (branch == "gh-pages"),
                          ...,
                          subdir = NULL) {
-  dest_dir <- fs::dir_create(fs::file_temp())
-  on.exit(fs::dir_delete(dest_dir))
+  dest_dir <- dir_create(file_temp())
+  on.exit(dir_delete(dest_dir))
 
   if (!git_has_remote_branch(remote, branch)) {
     old_branch <- git_current_branch()
@@ -137,7 +137,7 @@ deploy_to_branch <- function(pkg = ".",
 
   site_dest_dir <-
     if (!is.null(subdir)) {
-      fs::dir_create(fs::path(dest_dir, subdir))
+      dir_create(path(dest_dir, subdir))
     } else {
       dest_dir
     }
@@ -145,7 +145,7 @@ deploy_to_branch <- function(pkg = ".",
   pkg <- as_pkgdown(pkg, override = list(destination = site_dest_dir))
 
   if (!is.null(subdir) && !is.null(pkg$meta$url)) {
-    pkg$meta$url <- file.path(pkg$meta$url, subdir)
+    pkg$meta$url <- path(pkg$meta$url, subdir)
   }
 
   build_site_github_pages(pkg, ..., clean = clean)
@@ -199,10 +199,9 @@ git <- function(..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
   callr::run("git", c(...), echo_cmd = echo_cmd, echo = echo, error_on_status = error_on_status)
 }
 
-construct_commit_message <- function(pkg, commit = ci_commit_sha()) {
+construct_commit_message <- function(pkg = ".", commit = ci_commit_sha()) {
   pkg <- as_pkgdown(pkg)
-  commit <- sprintf("%s@%s", pkg$version, substr(commit, 1, 7))
-  cli::cli_alert_success("Built site for {cli::col_yellow(pkg$package)}: {.emph {cli::col_green(commit)}}")
+  cli::format_inline("Built site for {pkg$package}@{pkg$version}: {substr(commit, 1, 7)}")
 }
 
 ci_commit_sha <- function() {

@@ -1,29 +1,35 @@
 test_that("empty yaml gets correct defaults", {
-  dev <- meta_development(list())
-  expect_equal(dev$mode, "default")
-  expect_equal(dev$in_dev, FALSE)
-  expect_equal(dev$version_label, "default")
+  pkg <- local_pkgdown_site()
+  expect_equal(pkg$development$mode, "default")
+  expect_equal(pkg$development$in_dev, FALSE)
+  expect_equal(pkg$development$version_label, "muted")
 })
 
 test_that("mode = auto uses version", {
-  dev <- meta_development(
-    list(development = list(mode = "auto")),
-    package_version("1.0.0.9000")
+  pkg <- local_pkgdown_site(
+    desc = list(Version = "0.0.9000"),
+    meta = list(development = list(mode = "auto"))
   )
-  expect_equal(dev$mode, "devel")
-  expect_equal(dev$in_dev, TRUE)
-  expect_equal(dev$version_label, "danger")
+  expect_equal(pkg$development$mode, "devel")
+  expect_equal(pkg$development$in_dev, TRUE)
+  expect_equal(pkg$development$version_label, "danger")
 })
 
 test_that("mode overrides version", {
-  dev <- meta_development(
-    list(development = list(mode = "release")),
-    package_version("1.0.0.9000")
+  pkg <- local_pkgdown_site(
+    desc = list(Version = "0.0.9000"),
+    meta = list(development = list(mode = "release"))
   )
 
-  expect_equal(dev$mode, "release")
-  expect_equal(dev$in_dev, FALSE)
-  expect_equal(dev$version_label, "default")
+  expect_equal(pkg$development$mode, "release")
+})
+
+test_that("env var overrides mode", {
+  withr::local_envvar("PKGDOWN_DEV_MODE" = "devel")
+  pkg <- local_pkgdown_site(
+    meta = list(development = list(mode = "release"))
+  )
+  expect_equal(pkg$development$mode, "devel")
 })
 
 test_that("dev_mode recognises basic version structure", {
@@ -40,11 +46,16 @@ test_that("dev_mode recognises basic version structure", {
   expect_equal(dev_mode_auto("1.0.0.9000"), "devel")
 })
 
-test_that("can override dev_mode with env var", {
-  withr::local_envvar("PKGDOWN_DEV_MODE" = "devel")
-  expect_equal(dev_mode("1.0", list()), "devel")
-})
+test_that("validates yaml", {
+  data_development_ <- function(...) {
+    local_pkgdown_site(meta = list(...) )
+  }
 
-test_that("bad mode yields good error", {
-  expect_snapshot(check_mode("foo"), error = TRUE)
+  expect_snapshot(error = TRUE, {
+    data_development_(development = 1)
+    data_development_(development = list(mode = 1))
+    data_development_(development = list(mode = "foo"))
+    data_development_(development = list(destination = 1))
+    data_development_(development = list(version_label = 1))
+  })
 })

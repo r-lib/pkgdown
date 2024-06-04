@@ -21,6 +21,8 @@ We'll start by discussing two techniques that only require tweaks to your `_pkgd
 We'll then discuss how to add additional HTML and other files.
 Next, we'll discuss how to give multiple sites the same style using a package, then finish up with some workflow advice.
 
+In terms of your `_pkgdown.yml`, this vignette focusses on the most important fields nested under `template` and `navbar`. To learn more about customising other aspect of the site, see the documentation for the indiviudal functions like `build_reference()`, `build_articles()`,  `build_home()`, `build_redirects()`, and `init_site()`. To learn about less important fields nested under `template`, see `build_site()`.
+
 ```{r setup}
 library(pkgdown)
 ```
@@ -43,6 +45,19 @@ Upgrading to Bootstrap 5 has a low chance of breaking your site unless you were 
 There are two ways to change the visual style of your site from `_pkgdown.yml`: using a pre-packaged bootswatch theme or customising theme variables with [bslib](https://rstudio.github.io/bslib/).
 The following sections show you how.
 
+Please note that pkgdown's default theme has been carefully optimised to be accessible, so if you make changes, make sure that to also read `vignette("accessibility")` to learn about potential accessibility pitfalls.
+
+### Light switch {#light-switch}
+
+You can provide a "light switch" to allow your uses to switch between dark and light themes by setting the `light-switch` template option to true:
+
+```yaml
+template:
+  light-switch: true
+```
+
+This will add a `lightswitch` component to the navbar, which defaults to appearing at the far right. This allows the user to select light mode, dark mode, or auto mode (which follows the system setting). The modes are applied using Bootstrap 5.3's [colours modes](https://getbootstrap.com/docs/5.3/customize/color-modes/) so are not separate themes, but a thin layer of colour customisation applied via CSS.
+
 ### Bootswatch themes
 
 The easiest way to change the entire appearance of your website is to use a [Bootswatch theme](https://bootswatch.com):
@@ -52,6 +67,8 @@ template:
   bootstrap: 5
   bootswatch: materia
 ```
+
+(Themes are unlikely to work with the light switch, but you can try it and see.)
 
 Changing the bootswatch theme affects both the HTML (via the navbar, more on that below) and the CSS, so you'll need to re-build your complete site with `build_site()` to fully appreciate the changes.
 While you're experimenting, you can speed things up by just rebuilding the home page and the CSS by running `build_home_index(); init_site()` (and then refreshing the browser).
@@ -93,7 +110,9 @@ template:
 You can customise other components by setting more specific bslib variables, taking advantage of inheritance where possible.
 For example, `table-border-color` defaults to `border-color` which defaults to `gray-300`.
 If you want to change the colour of all borders, you can set `border-color`; if you just want to change the colour of table borders, you can set `table-border-color`.
-You can find a full list of variables in `vignette("bs5-variables", package = "bslib")`.
+You can find a full list of variables in the [bslib docs](https://rstudio.github.io/bslib/articles/bs5-variables/index.html).
+
+If you're using the light switch, [many colours](https://getbootstrap.com/docs/5.3/customize/color-modes/#sass-variables) are available for customisation specifically for the dark theme.
 
 Theming with bslib is powered by `bslib::bs_theme()` and the `bslib` field is a direct translation of the arguments to that function.
 As a result, you can fully specify a bslib theme using the `template.bslib` field, making it easy to share YAML with the `output.html_document.theme` field [of an R Markdown document](https://rstudio.github.io/bslib/articles/theming/index.html).
@@ -185,6 +204,15 @@ template:
   theme: arrow-dark
 ```
 
+If you're using the light switch, you will want to provide a `theme` and a `theme-dark`:
+
+```yaml
+template:
+  light-switch: true
+  theme: gruvbox-light
+  theme-dark: gruvbox-dark
+```
+
 The foreground and background colours used for inline code are controlled by `code-color` and `code-bg` bslib variables.
 If you want inline code to match code blocks, you'll need to override the variables yourself, e.g.:
 
@@ -194,6 +222,15 @@ template:
   theme: arrow-dark  
   bslib:
     code-bg: "#2b2b2b"
+```
+
+### Math rendering
+
+By default, pkgdown will render math using mathml. mathml is the official standard for rendering math on the web, and requires no additional javascript or css dependencies. However, browser support for complex math is not always that good, so if you are including complex equations in your documentation, you may want to switch to either [`katex`](https://katex.org) or [`mathjax`](https://www.mathjax.org) by using the `template.math-rendering` field:
+
+```yaml
+template:
+  math-rendering: katex
 ```
 
 ### Navbar style
@@ -231,18 +268,19 @@ This is the default structure:
 navbar:
   structure:
     left:  [intro, reference, articles, tutorials, news]
-    right: [search, github]
+    right: [search, github, lightswitch]
 ```
 
-It makes use of the the six built-in components:
+It makes use of the the following built-in components:
 
 -   `intro`: "Get Started", which links to a vignette or article with the same name as the package[^dots].
 -   `reference`, if there are any `.Rd` files.
 -   `articles`, if there are any vignettes or articles.
 -   `tutorials`, if there any tutorials.
 -   `news`, if `NEWS.md` exists.
--   `search`, the search box (see `vignette("search")` for more details).
+-   `search`, the search box (see `?build_search` for more details).
 -   `github`, a link to the source repository (with an icon), if it can be automatically determined from the `DESCRIPTION`.
+-   `lightswitch`, a ["light switch"](#light-switch) to select light mode, dark mode, or auto mode.
 
 [^dots]: Note that dots (`.`) in the package name need to be replaced by hyphens (`-`) in the vignette filename to be recognized as the intro. That means for a
     package `foo.bar` the intro needs to be named `foo-bar.Rmd`.
@@ -279,14 +317,15 @@ navbar:
 Components uses the same syntax as [RMarkdown menus](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
 The elements of `menu` can be:
 
--   A link (`text` + `href`)
+-   Linked text (`text`, `href`, and an optional `target`). 
 
--   A heading (just `text`)
+-   A linked icon (`icon`, `aria-label`, `href`, and an optional `target`). 
+    You can find a list of available icons at [fontawesome](https://fontawesome.com/icons?d=gallery). Provide a text description of the icon in the `aria-label` field
+    for screenreader users.
 
--   A separator (`text: ——–`)
+-   A heading (just `text`).
 
-Instead of text, you can also use the name of an `icon`s from [fontawesome](https://fontawesome.com/icons?d=gallery).
-You should also provide a textual description in the `aria-label` field for screenreader users.
+-   A separator (`text: ——–`).
 
 To add a new component to the navbar, you need to modify both `structure` and `components`.
 For example, the following yaml adds a new "twitter" component that appears to the left of the github icon.

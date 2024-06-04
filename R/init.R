@@ -40,8 +40,8 @@ init_site <- function(pkg = ".") {
     build_bslib(pkg)
   }
 
-  if (has_logo(pkg) && !has_favicons(pkg)) {
-    # Building favicons is expensive, so we hopefully only do it once.
+  # Building favicons is expensive, so we hopefully only do it once, locally
+  if (has_logo(pkg) && !has_favicons(pkg) && !on_ci()) {
     build_favicons(pkg)
   }
   copy_favicons(pkg)
@@ -54,13 +54,13 @@ init_site <- function(pkg = ".") {
 
 copy_assets <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  template <- purrr::pluck(pkg$meta, "template", .default = list())
+  template <- config_pluck(pkg, "template")
 
   # pkgdown assets
   if (!identical(template$default_assets, FALSE)) {
     copy_asset_dir(
-      pkg, 
-      path_pkgdown(paste0("BS", pkg$bs_version, "/", "assets")), 
+      pkg,
+      path_pkgdown(paste0("BS", pkg$bs_version, "/", "assets")),
       src_root = path_pkgdown(),
       src_label = "<pkgdown>/"
     )
@@ -69,7 +69,7 @@ copy_assets <- function(pkg = ".") {
   # package assets
   if (!is.null(template$package)) {
     copy_asset_dir(
-      pkg, 
+      pkg,
       path_package_pkgdown("assets", template$package, pkg$bs_version),
       src_root = system_file(package = template$package),
       src_label = paste0("<", template$package, ">/")
@@ -95,7 +95,7 @@ copy_asset_dir <- function(pkg,
   }
 
   src_paths <- dir_ls(src_dir, recurse = TRUE)
-  src_paths <- src_paths[!fs::is_dir(src_paths)]
+  src_paths <- src_paths[!is_dir(src_paths)]
   if (!is.null(file_regexp)) {
     src_paths <- src_paths[grepl(file_regexp, path_file(src_paths))]
   }
@@ -138,7 +138,7 @@ build_site_meta <- function(pkg = ".") {
 site_meta <- function(pkg) {
   article_index <- article_index(pkg)
 
-  meta <- list(
+  yaml <- list(
     pandoc = as.character(rmarkdown::pandoc_version()),
     pkgdown = as.character(utils::packageDescription("pkgdown", fields = "Version")),
     pkgdown_sha = utils::packageDescription("pkgdown")$GithubSHA1,
@@ -146,14 +146,15 @@ site_meta <- function(pkg) {
     last_built = timestamp()
   )
 
-  if (!is.null(pkg$meta$url)) {
-    meta$urls <- list(
-      reference = paste0(pkg$meta$url, "/reference"),
-      article = paste0(pkg$meta$url, "/articles")
+  url <- config_pluck_string(pkg, "url")
+  if (!is.null(url)) {
+    yaml$urls <- list(
+      reference = paste0(url, "/reference"),
+      article = paste0(url, "/articles")
     )
   }
 
-  print_yaml(meta)
+  print_yaml(yaml)
 }
 
 is_non_pkgdown_site <- function(dst_path) {

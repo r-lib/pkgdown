@@ -60,59 +60,44 @@ test_that("warns if missing topics", {
   expect_snapshot(data_reference_index(pkg), error = TRUE)
 })
 
-test_that("default reference includes all functions", {
+test_that("default reference includes all functions, only escaping non-syntactic", {
   ref <- default_reference_index(test_path("assets/reference"))
-  expect_equal(ref[[1]]$contents, paste0("`", c(letters[1:3], "e", "?"), "`"))
+  expect_equal(ref[[1]]$contents, c("a", "b", "c", "e", "`?`"))
 })
 
-test_that("errors well when a content entry is empty", {
-  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - aname\n  - ")
-  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
+test_that("gives informative errors", {
+  data_reference_index_ <- function(x) {
+    pkg <- local_pkgdown_site(meta = list(reference = x))
+    data_reference_index(pkg)
+  }
 
-  expect_snapshot_error(build_reference_index(pkg))
-})
-
-test_that("errors well when a content entry is not a character", {
-  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - aname\n  - N")
-  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
-
-  expect_snapshot(build_reference_index(pkg), error = TRUE)
-})
-
-test_that("errors well when a content is totally empty", {
-  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents: ~")
-  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
-
-  expect_snapshot(build_reference_index(pkg), error = TRUE)
-})
-
-
-test_that("errors well when a content entry refers to a not installed package", {
-  skip_if_not_installed("cli", "3.1.0")
-
-  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - notapackage::lala")
-  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
-
-  expect_snapshot(build_reference_index(pkg), error = TRUE)
-})
-
-test_that("errors well when a content entry refers to a non existing function", {
-  meta <- yaml::yaml.load( "reference:\n- title: bla\n  contents:\n  - rlang::lala")
-  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
-
-  expect_snapshot(build_reference_index(pkg), error = TRUE)
+  expect_snapshot(error = TRUE, {
+    data_reference_index_(1)
+    data_reference_index_(list(1))
+    data_reference_index_(list(list(title = 1)))
+    data_reference_index_(list(list(title = "a\n\nb")))
+    data_reference_index_(list(list(subtitle = 1)))
+    data_reference_index_(list(list(subtitle = "a\n\nb")))
+    data_reference_index_(list(list(title = "bla", contents = 1)))
+    data_reference_index_(list(list(title = "bla", contents = NULL)) )
+    data_reference_index_(list(list(title = "bla", contents = list("a", NULL))))
+    data_reference_index_(list(list(title = "bla", contents = list())))
+    data_reference_index_(list(list(title = "bla", contents = "notapackage::lala")))
+    data_reference_index_(list(list(title = "bla", contents = "rlang::lala")))
+  })
 })
 
 test_that("can exclude topics", {
-  pkg <- local_pkgdown_site(test_path("assets/reference"), meta = "
-    reference:
-    - title: Exclude
-      contents: [a, b, -a]
-    - title: Exclude multiple
-      contents: [a, b, c, -matches('a|b')]
-    - title: Everything else
-      contents: [a, c, e, '?']
-  ")
+  pkg <- local_pkgdown_site(
+    test_path("assets/reference"),
+    list(
+      reference = list(
+        list(title = "Exclude", contents = c("a", "b", "-a")),
+        list(title = "Exclude multiple", contents = c("a", "b", "c", "-matches('a|b')")),
+        list(title = "Everything else", contents = c("a", "c", "e", "?"))
+      )
+    )
+  )
 
   ref <- data_reference_index(pkg)
   # row 1 is the title row
@@ -123,21 +108,22 @@ test_that("can exclude topics", {
 })
 
 test_that("can use a topic from another package", {
-  meta <- list(reference = list(list(
-    title = "bla",
-    contents = c("a", "b", "c", "e", "?", "rlang::is_installed()", "bslib::bs_add_rules")
+  pkg <- local_pkgdown_site(meta = list(reference = list(
+    list(title = "bla", contents = c("rlang::is_installed()", "bslib::bs_add_rules"))
   )))
-  pkg <- as_pkgdown(test_path("assets/reference"), override = meta)
 
   expect_snapshot(data_reference_index(pkg))
 })
 
 test_that("can use a selector name as a topic name", {
-  meta <- list(reference = list(list(
-    title = "bla",
-    contents = c("matches", "matches('A')")
-  )))
-  pkg <- as_pkgdown(test_path("assets/reference-selector"), override = meta)
+  pkg <- local_pkgdown_site(
+    test_path("assets/reference-selector"),
+    list(
+      reference = list(
+        list(title = "bla", contents = c("matches", "matches('A')"))
+      )
+    )
+  )
 
   expect_snapshot(data_reference_index(pkg))
 })

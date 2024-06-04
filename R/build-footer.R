@@ -1,27 +1,39 @@
-data_footer <- function(pkg = ".") {
+data_footer <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
-  meta_footer <- pkg$meta$footer
-  components <- modify_list(footnote_components(pkg), meta_footer$components)
-  structure <- modify_list(footnote_structure(), meta_footer$structure)
+  config_pluck_list(pkg, "footer", call = call)
+  meta_components <- config_pluck_list(pkg, "footer.components", call = call)
+  components <- modify_list(footnote_components(pkg, call = call), meta_components)
 
-  left <- markdown_text_block(paste0(components[structure$left], collapse = " "))
-  right <- markdown_text_block(paste0(components[structure$right], collapse = " "))
+  meta_structure <- config_pluck_list(pkg, "footer.structure", call = call)
+  structure <- modify_list(footnote_structure(), meta_structure)
+
+  left <- markdown_text_block(pkg, paste0(components[structure$left], collapse = " "))
+  right <- markdown_text_block(pkg, paste0(components[structure$right], collapse = " "))
 
   list(left = left, right = right)
 }
 
-footnote_components <- function(pkg = ".") {
+footnote_components <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
   # Authors
-  roles <- pkg$meta$authors$footer$roles %||% default_roles()
-  authors <- data_authors(pkg, roles = roles)$main %>%
-    purrr::map_chr("name") %>%
-    paste(collapse = ", ")
+  roles <- config_pluck_character(
+    pkg,
+    "authors.footer.roles",
+    default = default_roles(),
+    call = call
+  )
+  authors <- data_authors(pkg, roles = roles)$main
+  authors_str <- paste(purrr::map_chr(authors, "name"), collapse = ", ")
 
-  prefix <- pkg$meta$authors$footer$text %||% tr_("Developed by")
-  developed_by <- paste0(trimws(prefix), " ", authors, ".")
+  prefix <- config_pluck_string(
+    pkg,
+    "authors.footer.text",
+    default = tr_("Developed by"),
+    call = call
+  )
+  developed_by <- paste0(trimws(prefix), " ", authors_str, ".")
 
   # pkgdown
   built_with <- sprintf(

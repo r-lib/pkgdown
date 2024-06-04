@@ -5,7 +5,7 @@
       <h1>{{{pagetitle}}}</h1>
     </div>
 
-    {{#rows}}<div id="{{slug}}" class="section level2">
+    {{#rows}}<div {{#slug}}id="{{.}}"{{/slug}} class="section level2">
       {{#title}}<h2>{{{.}}}</h2>{{/title}}
       {{#subtitle}}<h3>{{{.}}}</h3>{{/subtitle}}
       {{#desc}}<div class="section-desc">{{{desc}}}</div>{{/desc}}
@@ -14,6 +14,7 @@
         <dt>
           {{#has_icons}}{{#icon}}<a class="icon" href="{{path}}"><img src="icons/{{{.}}}" alt=""/></a>{{/icon}}{{/has_icons}}
           {{#aliases}}<code><a href="{{path}}">{{{.}}}</a></code> {{/aliases}}
+          {{#lifecycle}}<span class="badge lifecycle lifecycle-{{.}}">{{.}}</span>{{/lifecycle}}
         </dt>
         <dd>{{{title}}}</dd>
       </dl>{{/topics}}
@@ -21,7 +22,7 @@
   </main>
 
   <aside class="col-md-3">
-    <nav id="toc">
+    <nav id="toc" aria-label="{{#translate}}{{toc}}{{/translate}}">
       <h2>{{#translate}}{{on_this_page}}{{/translate}}</h2>
     </nav>
   </aside>

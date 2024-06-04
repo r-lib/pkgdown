@@ -38,7 +38,7 @@ render_page <- function(pkg = ".", name, data, path, depth = NULL, quiet = FALSE
 }
 
 render_page_html <- function(pkg, name, data = list(), depth = 0L) {
-  data <- utils::modifyList(data_template(pkg, depth = depth), data)
+  data <- modify_list(data_template(pkg, depth = depth), data)
 
   # render template components
   pieces <- c(
@@ -63,6 +63,9 @@ render_page_html <- function(pkg, name, data = list(), depth = 0L) {
   template <- find_template("layout", name, pkg = pkg)
   rendered <- render_template(template, components)
 
+  # Strip trailing whitespace
+  rendered <- gsub("\\s+\n", "\n", rendered, perl = TRUE)
+
   xml2::read_html(rendered, encoding = "UTF-8")
 }
 
@@ -77,10 +80,12 @@ data_template <- function(pkg = ".", depth = 0L) {
     name = pkg$package,
     version = as.character(pkg$version)
   )
-  out$logo <- list(src = logo_path(pkg, depth = depth))
+  if (has_logo(pkg)) {
+    out$logo <- list(src = logo_path(pkg, depth = depth))
+  }
   out$site <- list(
     root = up_path(depth),
-    title = pkg$meta$title %||% pkg$package
+    title = config_pluck_string(pkg, "title", default = pkg$package)
   )
   out$year <- strftime(Sys.time(), "%Y")
 
@@ -96,7 +101,9 @@ data_template <- function(pkg = ".", depth = 0L) {
     version = tr_("Version"),
     examples = tr_("Examples"),
     citation = tr_("Citation"),
-    author_details = tr_("Additional details")
+    author_details = tr_("Additional details"),
+    toc = tr_("Table of contents"),
+    site_nav = tr_("Site navigation")
   )
 
   # Components that mostly end up in the <head>
@@ -106,8 +113,8 @@ data_template <- function(pkg = ".", depth = 0L) {
     css = path_first_existing(pkg$src_path, "pkgdown", "extra.css"),
     js = path_first_existing(pkg$src_path, "pkgdown", "extra.js")
   )
-  out$includes <- purrr::pluck(pkg, "meta", "template", "includes", .default = list())
-  out$yaml <- purrr::pluck(pkg, "meta", "template", "params", .default = list())
+  out$includes <- config_pluck(pkg, "template.includes")
+  out$yaml <- config_pluck(pkg, "template.params")
   # Force inclusion so you can reliably refer to objects inside yaml
   # in the mustache templates
   out$yaml$.present <- TRUE
@@ -121,19 +128,23 @@ data_template <- function(pkg = ".", depth = 0L) {
 
   out$navbar <- data_navbar(pkg, depth = depth)
   out$footer <- data_footer(pkg)
+  out$lightswitch <- uses_lightswitch(pkg)
+  out$uses_katex <- config_math_rendering(pkg) == "katex"
 
   print_yaml(out)
 }
 
-data_open_graph <- function(pkg = ".") {
+data_open_graph <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
-  og <- pkg$meta$template$opengraph %||% list()
-  og <- check_open_graph(og)
-  if (is.null(og$image) && !is.null(find_logo(pkg$src_path))) {
-    og$image <- list(src = path_file(find_logo(pkg$src_path)))
+  og <- config_pluck_list(pkg, "template.opengraph", default = list())
+  og <- check_open_graph(pkg, og, call = call)
+
+  logo <- find_logo(pkg$src_path)
+  if (is.null(og$image) && !is.null(logo)) {
+    og$image <- list(src = path_file(logo))
   }
   if (!is.null(og$image) && !grepl("^http", og$image$src)) {
-    site_url <- pkg$meta$url %||% "/"
+    site_url <- config_pluck(pkg, "url", default = "/")
     if (!grepl("/$", site_url)) {
       site_url <- paste0(site_url, "/")
     }
@@ -141,60 +152,55 @@ data_open_graph <- function(pkg = ".") {
     og$image$src <- paste0(site_url, og$image$src)
   }
 
-  og$twitter$creator <- og$twitter$creator %||% og$twitter$site
-  og$twitter$site <- og$twitter$site %||% og$twitter$creator
+  if (!is.null(og$twitter)) {
+    og$twitter$card <- og$twitter$card %||% "summary"
+    og$twitter$creator <- og$twitter$creator %||% og$twitter$site
+    og$twitter$site <- og$twitter$site %||% og$twitter$creator
+  }
+
   og
 }
 
-check_open_graph <- function(og) {
-  if (!is.list(og)) {
-    fog <- friendly_type_of(og)
-    cli::cli_abort(
-      "{.var opengraph} must be a list, not {.val fog}.",
-      call = caller_env()
-    )
+check_open_graph <- function(pkg, og, file_path = NULL, call = caller_env()) {
+  if (is.null(og)) {
+    return()
   }
+  
+  is_yaml <- is.null(file_path)
+  base_path <- if (is_yaml) "template.opengraph" else "opengraph"
+
+  check_open_graph_list(
+    pkg,
+    og,
+    file_path = file_path,
+    error_path = base_path,
+    error_call = call
+  )
+
   supported_fields <- c("image", "twitter")
   unsupported_fields <- setdiff(names(og), supported_fields)
   if (length(unsupported_fields)) {
-    cli::cli_warn(
-      "Unsupported {.var opengraph} field{?s}: {.val unsupported_fields}."
-    )
+    msg <- "{.field {base_path}} contains unsupported fields {.val {unsupported_fields}}."
+    config_warn(pkg, msg, path = file_path, call = call)
   }
-  if ("twitter" %in% names(og)) {
-    if (is.character(og$twitter) && length(og$twitter) == 1 && grepl("^@", og$twitter)) {
-      cli::cli_abort(
-        "The {.var opengraph: twitter} option must be a list.",
-        call = caller_env()
-      )
-    }
-    if (!is.list(og$twitter)) {
-      cli::cli_abort(
-        "The {.var opengraph: twitter} option must be a list.",
-        call = caller_env()
-      )
-    }
-    if (is.null(og$twitter$creator) && is.null(og$twitter$site)) {
-      cli::cli_abort(
-        "{.var opengraph: twitter} must include either {.val creator} or {.val site}.",
-        call = caller_env()
-      )
-    }
+  check_open_graph_list(
+    pkg,
+    og$twitter,
+    file_path = file_path,
+    error_path = paste0(base_path, ".twitter"),
+    error_call = call
+  )
+  if (!is.null(og$twitter) && is.null(og$twitter$creator) && is.null(og$twitter$site)) {
+    msg <- "{.field opengraph.twitter} must include either {.field creator} or {.field site}."
+    config_abort(pkg, msg, path = file_path, call = call)
   }
-  if ("image" %in% names(og)) {
-    if (is.character(og$image) && length(og$image) == 1) {
-      cli::cli_abort(
-        "The {.var opengraph: image} option must be a list.",
-        call = caller_env()
-      )
-    }
-    if (!is.list(og$image)) {
-      cli::cli_abort(
-        "The {.var opengraph: image} option must be a list.",
-        call = caller_env()
-      )
-    }
-  }
+  check_open_graph_list(
+    pkg,
+    og$image,
+    file_path = file_path,
+    error_path = paste0(base_path, ".image"),
+    error_call = call
+  )
   og[intersect(supported_fields, names(og))]
 }
 
@@ -204,6 +210,23 @@ render_template <- function(path, data) {
     return("")
 
   whisker::whisker.render(template, data)
+}
+
+check_open_graph_list <- function(pkg,
+                                  x,
+                                  file_path,
+                                  error_path,
+                                  error_call = caller_env()) {
+  if (is.list(x) || is.null(x)) {
+    return()
+  }
+  not <- obj_type_friendly(x)
+  config_abort(
+    pkg, 
+    "{.field {error_path}} must be a list, not {not}.",
+    path = file_path,
+    call = error_call
+  )
 }
 
 write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE) {
@@ -220,7 +243,7 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE)
   if (same_contents(full_path, contents)) {
     # touching the file to update its modification time
     # which is important for proper lazy behavior
-    fs::file_touch(full_path)
+    file_touch(full_path)
     return(FALSE)
   }
 
@@ -239,8 +262,8 @@ same_contents <- function(path, contents) {
   new_hash <- digest::digest(contents, serialize = FALSE)
 
   cur_contents <- paste0(read_lines(path), collapse = "\n")
-  cur_hash <-  digest::digest(cur_contents, serialize = FALSE)
-
+  cur_hash <- digest::digest(cur_contents, serialize = FALSE)
+  
   identical(new_hash, cur_hash)
 }
 
@@ -251,7 +274,6 @@ file_digest <- function(path) {
     "MISSING"
   }
 }
-
 
 made_by_pkgdown <- function(path) {
   if (!file_exists(path)) return(TRUE)

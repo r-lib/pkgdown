@@ -3,6 +3,10 @@ test_that("special characters are escaped", {
   expect_equal(out, "a &amp; b")
 })
 
+test_that("converts Rd unicode shortcuts", {
+  expect_snapshot(rd2html("``a -- b --- c''"))
+})
+
 test_that("simple tags translated to known good values", {
   # Simple insertions
   expect_equal(rd2html("\\ldots"), "...")

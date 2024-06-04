@@ -1,17 +1,13 @@
 data_reference_index <- function(pkg = ".", error_call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
-  meta <- pkg$meta[["reference"]] %||% default_reference_index(pkg)
+  meta <- config_pluck_reference(pkg, error_call)
   if (length(meta) == 0) {
     return(list())
   }
 
-  unwrap_purrr_error(
-    rows <- meta %>%
-      purrr::imap(data_reference_index_rows, pkg = pkg) %>%
-      purrr::compact() %>%
-      unlist(recursive = FALSE)
-  )
+  rows <- unwrap_purrr_error(purrr::imap(meta, data_reference_index_rows, pkg = pkg, call = error_call))
+  rows <- purrr::list_c(rows)
 
   has_icons <- purrr::some(rows, ~ .x$row_has_icons %||% FALSE)
 
@@ -25,33 +21,101 @@ data_reference_index <- function(pkg = ".", error_call = caller_env()) {
   ))
 }
 
-data_reference_index_rows <- function(section, index, pkg) {
+config_pluck_reference <- function(pkg, call = caller_env()) {
+  ref <- config_pluck_list(pkg, "reference", default = default_reference_index(pkg))
+
+  for (i in seq_along(ref)) {
+    section <- ref[[i]]
+    config_check_list(
+      section,
+      error_path = paste0("reference[", i, "]"),
+      error_pkg = pkg,
+      error_call = call
+    )
+    config_check_string(
+      section$title,
+      error_path = paste0("reference[", i, "].title"),
+      error_pkg = pkg,
+      error_call = call
+    )
+    config_check_string(
+      section$subtitle,
+      error_path = paste0("reference[", i, "].subtitle"),
+      error_pkg = pkg,
+      error_call = call
+    )
+    if (has_name(section, "contents")) {
+      check_contents(section$contents, i, pkg, prefix = "reference", call = call)
+    }
+  }
+
+  ref
+}
+
+check_contents <- function(contents, index, pkg, prefix, call = caller_env()) {
+  if (length(contents) == 0) {
+    config_abort(pkg, "{.field {prefix}[{index}].contents} is empty.", call = call)
+  }
+
+  is_null <- purrr::map_lgl(contents, is.null)
+  if (any(is_null)) {
+    j <- which(is_null)[1]
+    config_abort(pkg, "{.field {prefix}[{index}].contents[{j}]} is empty.", call = call)
+  }
+
+  is_char <- purrr::map_lgl(contents, is.character)
+  if (!all(is_char)) {
+    j <- which(!is_char)[1]
+    config_abort(
+      pkg,
+      c(
+        "{.field {prefix}[{index}].contents[{j}]} must be a string.",
+        i = "You might need to add '' around special YAML values like 'N' or 'off'"
+      ),
+      call = call
+    )
+  }
+}
+
+
+data_reference_index_rows <- function(section, index, pkg, call = caller_env()) {
   is_internal <- identical(section$title, "internal")
 
   rows <- list()
   if (has_name(section, "title")) {
     rows[[1]] <- list(
-      title = markdown_text_inline(section$title, pkg = pkg),
+      title = markdown_text_inline(
+        pkg,
+        section$title,
+        error_path = paste0("reference[", index, "].title"),
+        error_call = call
+      ),
       slug = make_slug(section$title),
-      desc = markdown_text_block(section$desc),
+      desc = markdown_text_block(pkg, section$desc),
       is_internal = is_internal
     )
   }
 
   if (has_name(section, "subtitle")) {
     rows[[2]] <- list(
-      subtitle = markdown_text_inline(section$subtitle, pkg = pkg),
+      subtitle = markdown_text_inline(
+        pkg,
+        section$subtitle,
+        error_path = paste0("reference[", index, "].subtitle"),
+        error_call = call
+      ),
       slug = make_slug(section$subtitle),
-      desc = markdown_text_block(section$desc),
+      desc = markdown_text_block(pkg, section$desc),
       is_internal = is_internal
     )
   }
 
-
   if (has_name(section, "contents")) {
-    id <- section$title %||% section$subtitle %||% index
-    check_contents(section$contents, id, pkg)
-    topics <- section_topics(section$contents, pkg$topics, pkg$src_path)
+    topics <- section_topics(pkg,
+      section$contents,
+      error_path = paste0("reference[", index, "].contents"),
+      error_call = call
+    )
 
     names <- topics$name
     topics$name <- NULL
@@ -65,39 +129,6 @@ data_reference_index_rows <- function(section, index, pkg) {
   }
 
   purrr::compact(rows)
-}
-
-check_contents <- function(contents, id, pkg) {
-  call <- quote(build_reference_index())
-
-  if (length(contents) == 0) {
-    config_abort(
-      pkg,
-      "Section {.val {id}}: {.field contents} is empty.",
-      call = call
-    )
-  }
-
-  is_null <- purrr::map_lgl(contents, is.null)
-  if (any(is_null)) {
-    config_abort(
-      pkg,
-      "Section {.val {id}}: contents {.field {which(is_null)}} is empty.",
-      call = call
-    )
-  }
-
-  is_char <- purrr::map_lgl(contents, is.character)
-  if (!all(is_char)) {
-    config_abort(
-      pkg,
-      c(
-        "Section {.val {id}}: {.field {which(!is_char)}} must be a character.",
-        i = "You might need to add '' around special YAML values like 'N' or 'off'"
-      ),
-      call = call
-    )
-  }
 }
 
 find_icons <- function(x, path) {
@@ -125,21 +156,21 @@ default_reference_index <- function(pkg = ".") {
   print_yaml(list(
     list(
       title = tr_("All functions"),
-      contents = paste0('`', exported$name, '`')
+      contents = auto_quote(unname(exported$name))
     )
   ))
 }
 
 check_missing_topics <- function(rows, pkg, error_call = caller_env()) {
   # Cross-reference complete list of topics vs. topics found in index page
-  all_topics <- rows %>% purrr::map("names") %>% unlist(use.names = FALSE)
+  all_topics <- purrr::list_c(purrr::map(rows, "names"))
   in_index <- pkg$topics$name %in% all_topics
 
   missing <- !in_index & !pkg$topics$internal
 
   if (any(missing)) {
     config_abort(
-      pkg, 
+      pkg,
       c(
         "{sum(missing)} topic{?s} missing from index: {.val {pkg$topics$name[missing]}}.",
         i = "Either use {.code @keywords internal} to drop from index, or"

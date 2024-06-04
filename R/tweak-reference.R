@@ -66,7 +66,7 @@ tweak_highlight_other <- function(div) {
   # many backticks to account for possible nested code blocks
   # like a Markdown code block with code chunks inside
   md <- paste0("``````", lang, "\n", xml2::xml_text(code), "\n``````")
-  html <- markdown_text(md)
+  html <- markdown_text(NULL, md)
 
   xml_replace_contents(code, xml2::xml_find_first(html, "body/div/pre/code"))
   TRUE

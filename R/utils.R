@@ -13,9 +13,7 @@ up_path <- function(depth) {
 }
 
 dir_depth <- function(x) {
-  x %>%
-    strsplit("") %>%
-    purrr::map_int(function(x) sum(x == "/"))
+  purrr::map_int(strsplit(x, ""), function(x) sum(x == "/"))
 }
 
 invert_index <- function(x) {
@@ -37,6 +35,10 @@ rstudio_save_all <- function() {
 }
 
 is_syntactic <- function(x) x == make.names(x)
+
+auto_quote <- function(x) {
+  ifelse(is_syntactic(x), x, paste0("`", x, "`"))
+}
 
 str_trim <- function(x) gsub("^\\s+|\\s+$", "", x)
 
@@ -87,7 +89,7 @@ skip_if_no_pandoc <- function(version = "1.12.3") {
 }
 
 has_internet <- function() {
-  return(getOption("pkgdown.internet", default = TRUE))
+  getOption("pkgdown.internet", default = TRUE)
 }
 
 # remove '' quoting
@@ -179,6 +181,10 @@ get_section_level <- function(section) {
 section_id <- function(section) {
   h <- xml2::xml_find_first(section, ".//h1|.//h2|.//h3|.//h4|.//h5|.//h6")
   xml2::xml_attr(h, "id")
+}
+
+on_ci <- function() {
+  isTRUE(as.logical(Sys.getenv("CI", "false")))
 }
 
 # yaml ------------------------------------------------------------

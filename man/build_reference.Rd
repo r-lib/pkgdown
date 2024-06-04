@@ -129,6 +129,8 @@ without those concepts. This is useful to capture topics not otherwise
 captured by \code{has_concepts()}.
 \item Topics from other installed packages, e.g. \code{rlang::is_installed()} (function name)
 or \code{sass::font_face} (topic name).
+\item \code{has_lifecycle("deprecated")} will select all topics with lifecycle
+deprecated.
 }
 
 All functions (except for \code{has_keywords()}) automatically exclude internal

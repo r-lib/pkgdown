@@ -1,5 +1,40 @@
 # pkgdown (development version)
 
+* `build_reference()` does a better job of parsing `\value{}` blocks (#2371).
+* When built on GitHub, source urls now use the name of the current upstream branch (rather than `HEAD`), which is more likely to generate correct links (#2597).
+* New `vignette("non-english")` that discusses non-English sites including how to submit new translations (#2605).
+* `build_reference()` now generates the usage that users actually type for infix and replacement methods (#2303).
+* @olivroy is now a pkgdown author in recognition of his contributions. 
+* `pkgdown_sitrep()`/`check_pkgdown()` now check that you have up-to-date favicons if you have a package logo.
+* pkgdown now uses httr2 instead of httr (#2600).
+* New `template.math-rendering` allows you to control how math is rendered across your site. The default uses `mathml` which is low-dependency, but has the lowest fidelity. You can also use `mathjax`, the previous default, and `katex`, a faster alternative. (#1966).
+* Mathjax now uses version 3.2.2.
+* `build_sitemap()` no longer includes redirected pages (#2582).
+* All external assets (JS, CSS, fonts) are now directly included in the site instead of fetched from external CDN (@salim-b, #2249)
+* `build_reference_index()` now displays function lifecycle badges next to the function name (#2123). The badges are extracted only from the function description. You can now also use `has_lifecycle()` to select functions by their lifecycle status.
+* `build_articles()` now recognises a new `external-articles` top-level field that allows you to define articles that live in other packages (#2028).
+* New light switch makes it easy for users to switch between light and dark themes for the website (based on work in bslib by @gadenbuie). For now this behaviour is opt-in with `template.light-switch: true` but in the future we may turn it on automatically. See the customization vignette for details (#1696).
+* The search dropdown has been tweaked to look more like the other navbar menu items (#2338).
+* `vignette("search")` has been removed since BS3 is deprecated and all the BS5 docs are also included in `build_search()` (#2564).
+* YAML validation has been substantially improved so you should get much clearer errors if you have made a mistake (#1927). Please file an issue if you find a case where the error message is not helpful.
+* `template_reference()` and `template_article()` now only add backticks to function names if needed (#2561).
+* Custom navbars that specify `icon` but not `aria-label` will now generate a message reminding you to provide one for to improve accessibility (#2533).
+* `init_site()` will no longer automatically build favicons on CI systems (e.g. GHA). This is an expensive operation that uses an external service so it should only be run locally (#2553).
+* `build_home_index()` now reports when rendering the home page (#2544).
+* Bootstrap 3 has been deprecated. It was superseded in December 2021, and now we're starting to more directly encourage folks to move away from it.
+* Improve HTML5 compliance (#2369):
+  * No longer support IE9 or earlier
+  * Strip trailing whitespace
+  * Label `<nav>`s and improve navbar html.
+* `build_home_index()` now renders math if you use it in your home page (#2263).
+* `build_home()` now correctly escapes special HTML characters in the bibtex citation (#2022).
+* BS5 templates no longer include empty link to logo when none exists (#2536).
+* `build_articles()` now reports if you are missing alt-text for any images (#2357).
+* `check_pkgdown()` and `pkgdown_sitrep()` have been unified so that they both report on the same problems. They now only differ in the style of their output: `pkgdown_sitrep()` reports whether each category is ok or not ok, while `check_pkgdown()` errors on the first issue (#2463).
+* `build_site()` automatically runs `pkgdown_sitrep()` at the start of the process (#2380).
+* New `vignette("accessibility")` describes what manual tasks you need to perform to make your site as accessible as possible (#2344).
+* `build_reference()` now automatically translates `--`, `---`, ``` `` ```, and `''` to their unicode equivalents (#2530).
+* Tweaked navbar display on mobile so that long titles in drop downs (e.g. article titles) are now wrapped, and the search input spans the full width (#2512).
 * `build_reference()` now supports `\Sexpr[results=verbatim]` (@bastistician, #2510).
 * `build_home()` no longer checks if the README is missing any images. This check is now performed in `build_site()`, after `build_articles()` so you can refer to images created by vignettes with warnings (#2194).
 * `build_home()` now includes the contents of `inst/AUTHORS` on the authors page (#2506).

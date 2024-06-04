@@ -13,18 +13,17 @@ build_citation_authors <- function(pkg = ".") {
     citations = data_citations(pkg),
     authors = unname(authors$all),
     inst = authors$inst,
+    before = authors$before,
+    after = authors$after,
     source = source
   )
-
-  data$before <- markdown_text_block(pkg$meta$authors$before)
-  data$after <- markdown_text_block(pkg$meta$authors$after)
 
   render_page(pkg, "citation-authors", data, "authors.html")
 }
 
-data_authors <- function(pkg = ".", roles = default_roles()) {
+data_authors <- function(pkg = ".", roles = default_roles(), call = caller_env()) {
   pkg <- as_pkgdown(pkg)
-  author_info <- pkg$meta$authors %||% list()
+  author_info <- config_pluck_list(pkg, "authors", default = list(), call = call)
 
   inst_path <- path(pkg$src_path, "inst", "AUTHORS")
   if (file_exists(inst_path)) {
@@ -33,28 +32,22 @@ data_authors <- function(pkg = ".", roles = default_roles()) {
     inst <- NULL
   }
 
-  all <- pkg %>%
-    pkg_authors() %>%
-    purrr::map(author_list, author_info, pkg = pkg)
+  authors_all <- pkg_authors(pkg)
+  authors_main <- pkg_authors(pkg, roles)
 
-  main <- pkg %>%
-    pkg_authors(roles) %>%
-    purrr::map(author_list, author_info, pkg = pkg)
-
+  all <- purrr::map(authors_all, author_list, author_info, pkg = pkg)
+  main <- purrr::map(authors_main, author_list, author_info, pkg = pkg)
   more_authors <- length(main) != length(all)
 
-  comments <- pkg %>%
-    pkg_authors() %>%
-    purrr::map(author_list, author_info, pkg = pkg) %>%
-    purrr::map("comment") %>%
-    purrr::compact() %>%
-    length() > 0
+  comments <- purrr::compact(purrr::map(all, "comment"))
 
   print_yaml(list(
     all = all,
     main = main,
     inst = inst,
-    needs_page = more_authors || comments || !is.null(inst)
+    needs_page = more_authors || length(comments) > 0 || !is.null(inst),
+    before = config_pluck_markdown_block(pkg, "template.authors.before", call = call),
+    after = config_pluck_markdown_block(pkg, "template.authors.after", call = call)
   ))
 }
 
@@ -78,20 +71,24 @@ pkg_authors <- function(pkg, role = NULL) {
   }
 }
 
-data_home_sidebar_authors <- function(pkg = ".") {
+data_home_sidebar_authors <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
-  roles <- pkg$meta$authors$sidebar$roles %||% default_roles()
-  data <- data_authors(pkg, roles)
 
-  authors <- data$main %>% purrr::map_chr(author_desc, comment = FALSE)
+  config_pluck_list(pkg, "authors.sidebar")
 
-  sidebar <- pkg$meta$authors$sidebar
-  bullets <- c(
-    markdown_text_inline(sidebar$before, "authors.sidebar.before", pkg = pkg),
-    authors,
-    markdown_text_inline(sidebar$after, "authors.sidebar.after", pkg = pkg)
+  roles <- config_pluck_character(
+    pkg,
+    "authors.sidebar.roles",
+    default = default_roles(),
+    call = call
   )
-
+  data <- data_authors(pkg, roles)
+  authors <- purrr::map_chr(data$main, author_desc, comment = FALSE)
+  
+  before <- config_pluck_markdown_inline(pkg, "authors.sidebar.before", call = call)
+  after <- config_pluck_markdown_inline(pkg, "authors.sidebar.after", call = call)
+  
+  bullets <- c(before, authors, after)
   if (data$needs_page) {
     bullets <- c(bullets, a(tr_("More about authors..."), "authors.html"))
   }
@@ -109,11 +106,8 @@ author_name <- function(x, authors, pkg) {
   author <- authors[[name]]
 
   if (!is.null(author$html)) {
-    name <- markdown_text_inline(
-      author$html,
-      paste0("authors.", name, ".html"),
-      pkg = pkg
-    )
+    error_path <- paste0("authors.", name, ".html")
+    name <- markdown_text_inline(pkg, author$html, error_path = error_path)
   }
 
   if (is.null(author$href)) {
@@ -219,17 +213,17 @@ create_citation_meta <- function(path) {
   path <- path(path, "DESCRIPTION")
 
   dcf <- read.dcf(path)
-  meta <- as.list(dcf[1, ])
+  desc <- as.list(dcf[1, ])
 
-  if (!is.null(meta$Encoding)) {
-    meta <- lapply(meta, iconv, from = meta$Encoding, to = "UTF-8")
+  if (!is.null(desc$Encoding)) {
+    desc <- lapply(desc, iconv, from = desc$Encoding, to = "UTF-8")
   } else {
-    meta$Encoding <- "UTF-8"
+    desc$Encoding <- "UTF-8"
   }
 
-  if (!is.null(meta$Title)) meta$Title <- str_squish(meta$Title)
+  if (!is.null(desc$Title)) desc$Title <- str_squish(desc$Title)
 
-  meta
+  desc
 }
 
 read_citation <- function(path = ".") {
@@ -292,7 +286,7 @@ citation_auto <- function(pkg) {
   )
 }
 
-# helpers -----------------------------------------------------------------
+# helpers -------------------------------------------------------------------------
 
 # Not strictly necessary, but produces a simpler data structure testing
 remove_orcid <- function(x) {

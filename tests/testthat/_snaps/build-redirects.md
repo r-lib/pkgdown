@@ -8,9 +8,13 @@
 # build_redirect() errors if one entry is not right.
 
     Code
-      build_redirect(c("old.html"), 5, pkg)
+      data_redirects_(redirects = "old.html")
     Condition
-      Error:
-      ! redirects[[5]] must be a character vector of length 2.
-      i Edit _pkgdown.yml to fix the problem.
+      Error in `data_redirects_()`:
+      ! In _pkgdown.yml, redirects must be a list, not the string "old.html".
+    Code
+      data_redirects_(redirects = list("old.html"))
+    Condition
+      Error in `data_redirects_()`:
+      ! In _pkgdown.yml, redirects[1] must be a character vector of length 2, not the string "old.html".
 

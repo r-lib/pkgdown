@@ -59,21 +59,26 @@ repo_auto_link <- function(pkg, text) {
 
 # Package data -------------------------------------------------------------
 
-package_repo <- function(desc, meta) {
+package_repo <- function(pkg) {
   # Use metadata if available
-  if (has_name(meta, "repo") && has_name(meta[["repo"]], "url")) {
-    return(meta[["repo"]])
+  repo <- config_pluck_list(pkg, "repo")
+  url <- config_pluck_list(pkg, "repo.url")
+  
+
+  if (!is.null(url)) {
+    return(repo)
   }
 
   # Otherwise try and guess from `BugReports` (1st priority) and `URL`s (2nd priority)
   urls <- c(
-    sub("/issues/?", "/", desc$get_field("BugReports", default = character())),
-    desc$get_urls()
+    sub("/issues/?", "/", pkg$desc$get_field("BugReports", default = character())),
+    pkg$desc$get_urls()
   )
 
   gh_links <- grep("^https?://git(hub|lab)\\..+/", urls, value = TRUE)
   if (length(gh_links) > 0) {
-    return(repo_meta_gh_like(gh_links[[1]], meta[["repo"]][["branch"]]))
+    branch <- config_pluck_string(pkg, "repo.branch")
+    return(repo_meta_gh_like(gh_links[[1]], branch))
   }
 
   NULL
@@ -92,13 +97,30 @@ repo_meta <- function(home = NULL, source = NULL, issue = NULL, user = NULL) {
 
 repo_meta_gh_like <- function(link, branch = NULL) {
   gh <- parse_github_like_url(link)
-  branch <- branch %||% "HEAD"
+  branch <- branch %||% gha_current_branch()
+
   repo_meta(
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/"),
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/blob/", branch, "/"),
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/issues/"),
     paste0(gh$host, "/")
   )
+}
+
+gha_current_branch <- function() {
+  # Only set in pull requests
+  ref <- Sys.getenv("GITHUB_HEAD_REF")
+  if (ref != "") {
+    return(ref)
+  }
+  
+  # Set everywhere but might not be a branch
+  ref <- Sys.getenv("GITHUB_REF_NAME")
+  if (ref != "") {
+    return(ref)
+  }
+  
+  "HEAD"
 }
 
 parse_github_like_url <- function(link) {

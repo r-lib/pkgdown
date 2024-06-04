@@ -68,7 +68,7 @@ context_set_scoped <- function(name, value, scope = parent.frame()) {
 
 article_index <- function(pkg) {
   set_names(
-    fs::path_rel(pkg$vignettes$file_out, "articles"),
+    path_rel(pkg$vignettes$file_out, "articles"),
     pkg$vignettes$name
   )
 }

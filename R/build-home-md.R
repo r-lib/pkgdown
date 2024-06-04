@@ -20,7 +20,7 @@ package_mds <- function(path, in_dev = FALSE) {
 
   # Do not build 404 page if in-dev
   if (in_dev) {
-    mds <- mds[fs::path_file(mds) != "404.md"]
+    mds <- mds[path_file(mds) != "404.md"]
   }
 
   # Remove files that don't need to be rendered
@@ -29,7 +29,7 @@ package_mds <- function(path, in_dev = FALSE) {
     "pull_request_template.md",
     "cran-comments.md"
   )
-  mds <- mds[!fs::path_file(mds) %in% no_render]
+  mds <- mds[!path_file(mds) %in% no_render]
 
   unname(mds)
 }
@@ -37,15 +37,15 @@ package_mds <- function(path, in_dev = FALSE) {
 render_md <- function(pkg, filename) {
   cli::cli_inform("Reading {src_path(path_rel(filename, pkg$src_path))}")
 
-  body <- markdown_body(filename, strip_header = TRUE)
-  path <- path_ext_set(basename(filename), "html")
+  body <- markdown_body(pkg, filename, strip_header = TRUE)
+  path <- path_ext_set(path_file(filename), "html")
 
   render_page(pkg, "title-body",
     data = list(
       pagetitle = attr(body, "title"),
       body = body,
       filename = filename,
-      source = repo_source(pkg, fs::path_rel(filename, pkg$src_path))
+      source = repo_source(pkg, path_rel(filename, pkg$src_path))
     ),
     path = path
   )

@@ -1,3 +1,38 @@
+# messages about reading and writing
+
+    Code
+      build_home_index(pkg)
+    Message
+      Reading 'DESCRIPTION'
+      Writing `index.html`
+    Code
+      build_home_index(pkg)
+    Message
+      Reading 'DESCRIPTION'
+
+# data_home() validates yaml metadata
+
+    Code
+      data_home_(home = 1)
+    Condition
+      Error in `data_home_()`:
+      ! In _pkgdown.yml, home must be a list, not the number 1.
+    Code
+      data_home_(home = list(title = 1))
+    Condition
+      Error in `data_home_()`:
+      ! In _pkgdown.yml, home.title must be a string, not the number 1.
+    Code
+      data_home_(home = list(description = 1))
+    Condition
+      Error in `data_home_()`:
+      ! In _pkgdown.yml, home.description must be a string, not the number 1.
+    Code
+      data_home_(template = list(trailing_slash_redirect = 1))
+    Condition
+      Error in `data_home_()`:
+      ! In _pkgdown.yml, template.trailing_slash_redirect must be true or false, not the number 1.
+
 # data_home_sidebar() works by default
 
     Code
@@ -46,11 +81,6 @@
     </ul>
     </div>
 
-# data_home_sidebar() errors well when no HTML file
-
-    home.sidebar.html specifies a file that doesn't exist ('file.html').
-    i Edit _pkgdown.yml to fix the problem.
-
 # data_home_sidebar() can get a custom markdown formatted component
 
     <div class="fancy-section">
@@ -72,36 +102,45 @@
 # data_home_sidebar() outputs informative error messages
 
     Code
-      data_home_sidebar(pkg)
+      data_home_sidebar_(html = 1)
     Condition
-      Error:
-      ! Can't find component home.sidebar.components.fancy.
-      i Edit _pkgdown.yml to fix the problem.
+      Error in `data_home_sidebar_()`:
+      ! In _pkgdown.yml, home.sidebar.html must be a string, not the number 1.
+    Code
+      data_home_sidebar_(structure = 1)
+    Condition
+      Error in `data_home_sidebar_()`:
+      ! In _pkgdown.yml, home.sidebar.structure must be a character vector, not the number 1.
+    Code
+      data_home_sidebar_(structure = "fancy")
+    Condition
+      Error in `data_home_sidebar_()`:
+      ! In _pkgdown.yml, home.sidebar.components must have component "fancy".
+      1 missing component: "fancy".
+    Code
+      data_home_sidebar_(structure = c("fancy", "cool"))
+    Condition
+      Error in `data_home_sidebar_()`:
+      ! In _pkgdown.yml, home.sidebar.components must have components "fancy" and "cool".
+      2 missing components: "fancy" and "cool".
+    Code
+      data_home_sidebar_(structure = "fancy", components = list(fancy = list(text = "bla")))
+    Condition
+      Error in `data_home_sidebar_()`:
+      ! In _pkgdown.yml, home.sidebar.components.fancy must have components "title" and "text".
+      1 missing component: "title".
+    Code
+      data_home_sidebar_(structure = "fancy", components = list(fancy = list()))
+    Condition
+      Error in `data_home_sidebar_()`:
+      ! In _pkgdown.yml, home.sidebar.components.fancy must have components "title" and "text".
+      2 missing components: "title" and "text".
 
----
+# data_home_sidebar() errors well when no HTML file
 
     Code
       data_home_sidebar(pkg)
     Condition
       Error:
-      ! Can't find components home.sidebar.components.fancy and home.sidebar.components.cool.
-      i Edit _pkgdown.yml to fix the problem.
-
----
-
-    Code
-      data_home_sidebar(pkg)
-    Condition
-      Error:
-      ! Can't find component home.sidebar.components.fancy.title.
-      i Edit _pkgdown.yml to fix the problem.
-
----
-
-    Code
-      data_home_sidebar(pkg)
-    Condition
-      Error:
-      ! Can't find components home.sidebar.components.fancy.title and home.sidebar.components.fancy.text.
-      i Edit _pkgdown.yml to fix the problem.
+      ! In _pkgdown.yml, home.sidebar.html specifies a file that doesn't exist ('file.html').
 

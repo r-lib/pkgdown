@@ -2,3 +2,5 @@
 *.R
 *.log
 *_files
+
+/.quarto/

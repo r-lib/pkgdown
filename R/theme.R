@@ -1,17 +1,34 @@
-build_bslib <- function(pkg = ".") {
+build_bslib <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
-  bs_theme <- bs_theme(pkg)
+  bs_theme <- bs_theme(pkg, call = call)
 
-  deps <- bslib::bs_theme_dependencies(bs_theme)
-  deps <- lapply(deps, htmltools::copyDependencyToDir, file.path(pkg$dst_path, "deps"))
+  cur_deps <- find_deps(pkg)
+  cur_digest <- purrr::map_chr(cur_deps, file_digest)
+
+  deps <- c(bslib::bs_theme_dependencies(bs_theme), external_dependencies(pkg))
+  deps <- lapply(deps, htmltools::copyDependencyToDir, path(pkg$dst_path, "deps"))
   deps <- lapply(deps, htmltools::makeDependencyRelative, pkg$dst_path)
+
+  new_deps <- find_deps(pkg)
+  new_digest <- purrr::map_chr(cur_deps, file_digest)
+
+  all_deps <- union(new_deps, cur_deps)
+  diff <- (cur_digest[all_deps] == new_digest[all_deps])
+  changed <- all_deps[!diff | is.na(diff)]
+
+  if (length(changed) > 0) {
+    withr::local_locale(LC_COLLATE = "C")
+    purrr::walk(sort(changed), function(dst) {
+      cli::cli_inform("Updating {dst_path(path_rel(dst, pkg$dst_path))}")
+    })
+  }
 
   head <- htmltools::renderDependencies(deps, srcType = "file")
   write_lines(head, data_deps_path(pkg))
 }
 
 data_deps <- function(pkg, depth) {
-  if (!file.exists(data_deps_path(pkg))) {
+  if (!file_exists(data_deps_path(pkg))) {
     cli::cli_abort(
       "Run {.fn pkgdown::init_site} first.",
       call = caller_env()
@@ -28,10 +45,19 @@ data_deps <- function(pkg, depth) {
 }
 
 data_deps_path <- function(pkg) {
-  file.path(pkg$dst_path, "deps", "data-deps.txt")
+  path(pkg$dst_path, "deps", "data-deps.txt")
 }
 
-bs_theme <- function(pkg = ".") {
+find_deps <- function(pkg) {
+  deps_path <- path(pkg$dst_path, "deps")
+  if (!dir_exists(deps_path)) {
+    character()
+  } else {
+    dir_ls(deps_path, type = "file", recurse = TRUE)
+  }
+}
+
+bs_theme <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
   bs_theme_args <- pkg$meta$template$bslib %||% list()
@@ -46,27 +72,40 @@ bs_theme <- function(pkg = ".") {
   bs_theme <- bslib::bs_remove(bs_theme, "bs3compat")
 
   # Add additional pkgdown rules
-  rules <- bs_theme_rules(pkg)
+  rules <- bs_theme_rules(pkg, call = call)
   files <- lapply(rules, sass::sass_file)
   bs_theme <- bslib::bs_add_rules(bs_theme, files)
+
+  # Add dark theme if needed
+  if (uses_lightswitch(pkg)) {
+   dark_theme <- config_pluck_string(pkg, "template.theme-dark", default = "arrow-dark")
+    check_theme(
+      dark_theme,
+      error_pkg = pkg,
+      error_path = "template.theme-dark",
+      error_call = call
+    )
+    path <- highlight_path(dark_theme)
+    css <- c('[data-bs-theme="dark"] {', read_lines(path), '}')
+    bs_theme <- bslib::bs_add_rules(bs_theme, css)
+  }
 
   bs_theme
 }
 
-bs_theme_rules <- function(pkg) {
+bs_theme_rules <- function(pkg, call = caller_env()) {
   paths <- path_pkgdown("BS5", "assets", "pkgdown.scss")
 
-  theme <- purrr::pluck(pkg, "meta", "template", "theme", .default = "arrow-light")
-  theme_path <- path_pkgdown("highlight-styles", paste0(theme, ".scss"))
-  if (!file_exists(theme_path)) {
-    cli::cli_abort(c(
-      "Unknown theme: {.val {theme}}",
-      i = "Valid themes are: {.val highlight_styles()}"
-    ), call = caller_env())
-  }
-  paths <- c(paths, theme_path)
-
-  package <- purrr::pluck(pkg, "meta", "template", "package")
+  theme <- config_pluck_string(pkg, "template.theme", default = "arrow-light")
+  check_theme(
+    theme,
+    error_pkg = pkg,
+    error_path = "template.theme",
+    error_call = call
+  )
+  paths <- c(paths, highlight_path(theme))
+  
+  package <- config_pluck_string(pkg, "template.package")
   if (!is.null(package)) {
     package_extra <- path_package_pkgdown("extra.scss", package, pkg$bs_version)
     if (file_exists(package_extra)) {
@@ -81,6 +120,25 @@ bs_theme_rules <- function(pkg) {
   }
 
   paths
+}
+
+check_theme <- function(theme,
+                        error_pkg,
+                        error_path,
+                        error_call = caller_env()) {
+
+   if (theme %in% highlight_styles()) {
+    return()
+   }
+   config_abort(
+     error_pkg,
+     "{.field {error_path}} uses theme {.val {theme}}",
+     call = error_call
+   )
+}
+
+highlight_path <- function(theme) {
+  path_pkgdown("highlight-styles", paste0(theme, ".scss"))
 }
 
 highlight_styles <- function() {
@@ -117,7 +175,10 @@ get_bslib_theme <- function(pkg) {
   check_bslib_theme(themes[[field]], pkg, field)
 }
 
-check_bslib_theme <- function(theme, pkg, field = "template.bootswatch", bs_version = pkg$bs_version) {
+check_bslib_theme <- function(theme,
+                              pkg,
+                              field = "template.bootswatch",
+                              bs_version = pkg$bs_version) {
   bslib_themes <- c(
     bslib::bootswatch_themes(bs_version),
     bslib::builtin_themes(bs_version),
@@ -133,7 +194,7 @@ check_bslib_theme <- function(theme, pkg, field = "template.bootswatch", bs_vers
   config_abort(
     pkg,
     c(
-      x = "Can't find Bootswatch/bslib theme preset {.val {theme}} ({.field {field}}).",
+      x = "{.field {field}} contains unknown Bootswatch/bslib theme {.val {theme}}.",
       i = "Using Bootstrap version {.val {bs_version}} ({.field template.bootstrap})."
     ),
     call = caller_env()

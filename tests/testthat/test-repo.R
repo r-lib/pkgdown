@@ -47,6 +47,7 @@ test_that("Jira issues are automatically linked", {
 # repo_source -------------------------------------------------------------
 
 test_that("repo_source() truncates automatically", {
+  withr::local_envvar(GITHUB_HEAD_REF = "HEAD")
   pkg <- list(repo = repo_meta_gh_like("https://github.com/r-lib/pkgdown"))
 
   expect_snapshot({
@@ -61,18 +62,17 @@ test_that("repo_source() is robust to trailing slash", {
 
   meta <- function(x) {
     list(repo = list(url = list(source = x)))
-  } 
+  }
   source <- "Source: <a href='http://example.com/a'><code>a</code></a>"
   expect_equal(repo_source(meta("http://example.com"), "a"), source)
   expect_equal(repo_source(meta("http://example.com/"), "a"), source)
 })
 
-# repo_source with alternate default branch -------------------------------
-
 test_that("repo_source() uses the branch setting in meta", {
-  desc <- desc::desc(text = c("URL: https://github.com/r-lib/pkgdown"))
-  pkg <- list(repo = package_repo(desc, list(repo = list(branch = "main"))))
-
+  pkg <- local_pkgdown_site(
+    meta = list(repo = list(branch = "main")),
+    desc = list(URL = "https://github.com/r-lib/pkgdown")
+  )
   expect_match(
     repo_source(pkg, "a"),
     "https://github.com/r-lib/pkgdown/blob/main/a"
@@ -82,85 +82,85 @@ test_that("repo_source() uses the branch setting in meta", {
 # package_repo ------------------------------------------------------------
 
 test_that("can find github from BugReports or URL", {
-  ref <- repo_meta_gh_like("https://github.com/r-lib/pkgdown")
+  withr::local_envvar(GITHUB_HEAD_REF = "HEAD")
+  expected <- repo_meta_gh_like("https://github.com/r-lib/pkgdown")
+
+  pkg <- local_pkgdown_site(desc = list(
+    URL = "https://github.com/r-lib/pkgdown"
+  ))
+  expect_equal(package_repo(pkg), expected)
 
   # BugReports beats URL
-  desc <- desc::desc(text = c(
-    "URL: https://github.com/r-lib/BLAHBLAH",
-    "BugReports: https://github.com/r-lib/pkgdown/issues"
+  pkg <- local_pkgdown_site(desc = list(
+    URL = "https://github.com/r-lib/BLAHBLAH",
+    BugReports = "https://github.com/r-lib/pkgdown/issues"
   ))
-  expect_equal(package_repo(desc, list()), ref)
-
-  desc <- desc::desc(text = c(
-    "URL: https://github.com/r-lib/pkgdown"
-  ))
-  expect_equal(package_repo(desc, list()), ref)
+  expect_equal(package_repo(pkg), expected)
 
   # URL can be in any position
-  desc <- desc::desc(text = c(
-    "URL: https://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown")
-  )
-  expect_equal(package_repo(desc, list()), ref)
+  pkg <- local_pkgdown_site(desc = list(
+    URL = "https://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown"
+  ))
+  expect_equal(package_repo(pkg), expected)
 })
 
 test_that("can find gitlab url", {
-  ref <- repo_meta_gh_like("https://gitlab.com/msberends/AMR")
-  desc <- desc::desc(text = c(
-    "BugReports: https://gitlab.com/msberends/AMR"
-  ))
-  expect_equal(package_repo(desc, list()), ref)
+  withr::local_envvar(GITHUB_HEAD_REF = "HEAD")
+  url <- "https://gitlab.com/msberends/AMR"
+  pkg <- local_pkgdown_site(desc = list(URL = url))
+  expect_equal(package_repo(pkg), repo_meta_gh_like(url))
+})
+
+test_that("uses GITHUB env vars if set", {
+  withr::local_envvar(GITHUB_HEAD_REF = NA, GITHUB_REF_NAME = "abc")
+  expect_equal(
+    repo_meta_gh_like("https://github.com/r-lib/pkgdown")$url$source,
+    "https://github.com/r-lib/pkgdown/blob/abc/"
+  )
+
+  withr::local_envvar(GITHUB_HEAD_REF = "xyz")
+  expect_equal(
+    repo_meta_gh_like("https://github.com/r-lib/pkgdown")$url$source,
+    "https://github.com/r-lib/pkgdown/blob/xyz/"
+  )
+
 })
 
 test_that("GitLab subgroups are properly parsed", {
-  issue_url <- function(text) {
-    package_repo(desc::desc(text = text), list())$url$issue
+  issue_url <- function(...) {
+    pkg <- local_pkgdown_site(desc = list(...))
+    pkg$repo$url$issue
   }
-  target <- "https://gitlab.com/salim_b/r/pkgs/pal/issues/"
-  # 1) from URL field, with and without trailing slash
-  expect_equal(
-    issue_url("URL: https://gitlab.com/salim_b/r/pkgs/pal/"),
-    target
-  )
-  expect_equal(
-    issue_url("URL: https://gitlab.com/salim_b/r/pkgs/pal"),
-    target
-  )
-  # 2) from BugReports field, with and without trailing slash
-  expect_equal(
-    issue_url("BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues/"),
-    target
-  )
-  expect_equal(
-    issue_url("BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues"),
-    target
-  )
-  # 3) from URL + BugReports
-  expect_equal(
-    issue_url(paste0(
-      "URL: https://gitlab.com/salim_b/r/pkgs/pal\n",
-      "BugReports: https://gitlab.com/salim_b/r/pkgs/pal/issues/"
-    )),
-    target
-  )
+
+  base <- "https://gitlab.com/salim_b/r/pkgs/pal"
+  expected <- paste0(base, "/issues/")
+  
+  expect_equal(issue_url(URL = base), expected)
+  expect_equal(issue_url(URL = paste0(base, "/")), expected)
+  expect_equal(issue_url(BugReports = paste0(base, "/issues")), expected)
+  expect_equal(issue_url(BugReports = paste0(base, "/issues/")), expected)
 })
 
 test_that("can find github enterprise url", {
-  ref <- repo_meta_gh_like("https://github.acme.com/roadrunner/speed")
-  desc <- desc::desc(text = c(
-    "BugReports: https://github.acme.com/roadrunner/speed"
-  ))
-  expect_equal(package_repo(desc, list()), ref)
+  withr::local_envvar(GITHUB_HEAD_REF = "HEAD")
+
+  url <- "https://github.acme.com/roadrunner/speed"
+  pkg <- local_pkgdown_site(desc = list(BugReports = url))
+  expect_equal(package_repo(pkg), repo_meta_gh_like(url))
 })
 
 test_that("meta overrides autodetection", {
-  ref <- repo_meta("https://github.com/r-lib/pkgdown/blob/main/")
-  desc <- desc::desc(text = "URL: https://github.com/r-lib/pkgdown")
-  expect_equal(package_repo(desc, list(repo = ref)), ref)
+  pkg <- local_pkgdown_site(
+    meta = list(repo = list(url = list(home = "http://one.com"))),
+    desc = list(URL = "http://two.com")
+  )
+
+  expect_equal(package_repo(pkg)$url$home, "http://one.com")
 })
 
 test_that("returns NULL if no urls found", {
-  desc <- desc::desc(text = "URL: https://pkgdown.r-lib.org")
-  expect_equal(package_repo(desc, list()), NULL)
+  pkg <- local_pkgdown_site(desc = list(URL = "https://pkgdown.r-lib.org"))
+  expect_equal(package_repo(pkg), NULL)
 })
 
 test_that("repo_type detects repo type", {

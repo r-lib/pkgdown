@@ -59,11 +59,11 @@ fig_save_args <- function() {
   default
 }
 
-meta_figures <- function(meta = list()) {
+meta_figures <- function(pkg) {
   default <- fig_save_args()
-  figures <- purrr::pluck(meta, "figures", .default = list())
+  figures <- config_pluck_list(pkg, "figures")
 
-  print_yaml(utils::modifyList(default, figures))
+  print_yaml(modify_list(default, figures))
 }
 
 #' Get current settings for figures
@@ -123,7 +123,7 @@ fig_opts_chunk <- function(figures, default) {
   figures$dev.args <- figures$dev.args %||% list()
   figures$dev.args$bg <- figures$bg %||% NA
 
-  utils::modifyList(default, figures)
+  modify_list(default, figures)
 }
 
 # Find graphics device ----------------------------------------------------

@@ -1,98 +1,78 @@
-# warns about missing images
+# validates articles yaml
 
     Code
-      build_articles(pkg)
-    Message
-      -- Building articles -----------------------------------------------------------
-      Writing `articles/index.html`
-      Reading vignettes/html-vignette.Rmd
-      Writing `articles/html-vignette.html`
+      data_articles_index_(1)
     Condition
-      Warning:
-      Missing images in 'vignettes/html-vignette.Rmd': 'kitten.jpg'
-      i pkgdown can only use images in 'man/figures' and 'vignettes'
+      Error in `data_articles_index_()`:
+      ! In _pkgdown.yml, articles must be a list, not the number 1.
+    Code
+      data_articles_index_(list(1))
+    Condition
+      Error in `data_articles_index_()`:
+      ! In _pkgdown.yml, articles[1] must be a list, not the number 1.
+    Code
+      data_articles_index_(list(list()))
+    Condition
+      Error in `data_articles_index_()`:
+      ! In _pkgdown.yml, articles[1] must have components "title" and "contents".
+      2 missing components: "title" and "contents".
+    Code
+      data_articles_index_(list(list(title = 1, contents = 1)))
+    Condition
+      Error in `data_articles_index_()`:
+      ! In _pkgdown.yml, articles[1].title must be a string, not the number 1.
+    Code
+      data_articles_index_(list(list(title = "a\n\nb", contents = 1)))
+    Condition
+      Error in `data_articles_index_()`:
+      ! In _pkgdown.yml, articles[1].title must be inline markdown.
+    Code
+      data_articles_index_(list(list(title = "a", contents = 1)))
+    Condition
+      Error in `data_articles_index_()`:
+      ! In _pkgdown.yml, articles[1].contents[1] must be a string.
+      i You might need to add '' around special YAML values like 'N' or 'off'
 
-# articles don't include header-attrs.js script
+# validates external-articles
 
     Code
-      path <- build_article("standard", pkg)
-    Message
-      Reading vignettes/standard.Rmd
-      Writing `articles/standard.html`
-
-# can build article that uses html_vignette
-
+      data_articles_(1)
+    Condition
+      Error in `data_articles_()`:
+      ! In _pkgdown.yml, external-articles must be a list, not the number 1.
     Code
-      expect_error(build_article("html-vignette", pkg), NA)
-    Message
-      Reading vignettes/html-vignette.Rmd
-      Writing `articles/html-vignette.html`
-
-# can override html_document() options
-
+      data_articles_(list(1))
+    Condition
+      Error in `data_articles_()`:
+      ! In _pkgdown.yml, external-articles[1] must be a list, not the number 1.
     Code
-      path <- build_article("html-document", pkg)
-    Message
-      Reading vignettes/html-document.Rmd
-      Writing `articles/html-document.html`
-
-# html widgets get needed css/js
-
+      data_articles_(list(list(name = "x")))
+    Condition
+      Error in `data_articles_()`:
+      ! In _pkgdown.yml, external-articles[1] must have components "name", "title", "href", and "description".
+      3 missing components: "title", "href", and "description".
     Code
-      path <- build_article("widget", pkg)
-    Message
-      Reading vignettes/widget.Rmd
-      Writing `articles/widget.html`
-
-# can override options with _output.yml
-
+      data_articles_(list(list(name = 1, title = "x", href = "x", description = "x")))
+    Condition
+      Error in `data_articles_()`:
+      ! In _pkgdown.yml, external-articles[1].name must be a string, not the number 1.
     Code
-      path <- build_article("html-document", pkg)
-    Message
-      Reading vignettes/html-document.Rmd
-      Writing `articles/html-document.html`
-
-# can set width
-
+      data_articles_(list(list(name = "x", title = 1, href = "x", description = "x")))
+    Condition
+      Error in `data_articles_()`:
+      ! In _pkgdown.yml, external-articles[1].title must be a string, not the number 1.
     Code
-      path <- build_article("width", pkg)
-    Message
-      Reading vignettes/width.Rmd
-      Writing `articles/width.html`
-
-# finds external resources referenced by R code in the article html
-
+      data_articles_(list(list(name = "x", title = "x", href = 1, description = "x")))
+    Condition
+      Error in `data_articles_()`:
+      ! In _pkgdown.yml, external-articles[1].href must be a string, not the number 1.
     Code
-      path <- build_article("resources", pkg)
-    Message
-      Reading vignettes/resources.Rmd
-      Writing `articles/resources.html`
-
-# BS5 article laid out correctly with and without TOC
-
-    Code
-      toc_true_path <- build_article("standard", pkg)
-    Message
-      Reading vignettes/standard.Rmd
-      Writing `articles/standard.html`
-
----
-
-    Code
-      toc_false_path <- build_article("toc-false", pkg)
-    Message
-      Reading vignettes/toc-false.Rmd
-      Writing `articles/toc-false.html`
+      data_articles_(list(list(name = "x", title = "x", href = "x", description = 1)))
+    Condition
+      Error in `data_articles_()`:
+      ! In _pkgdown.yml, external-articles[1].description must be a string, not the number 1.
 
 # articles in vignettes/articles/ are unnested into articles/
-
-    Code
-      path <- build_article("articles/nested", pkg)
-    Message
-      Reading vignettes/articles/nested.Rmd
-      Writing `articles/nested.html`
-
----
 
     Code
       build_redirects(pkg)
@@ -100,27 +80,11 @@
       -- Building redirects ----------------------------------------------------------
       Adding redirect from articles/articles/nested.html to articles/nested.html.
 
-# pkgdown deps are included only once in articles
-
-    Code
-      path <- build_article("html-deps", pkg)
-    Message
-      Reading vignettes/html-deps.Rmd
-      Writing `articles/html-deps.html`
-
 # warns about articles missing from index
 
     Code
       . <- data_articles_index(pkg)
     Condition
       Error:
-      ! 1 vignette missing from index: "c".
-      i Edit _pkgdown.yml to fix the problem.
-
-# output is reproducible by default, i.e. 'seed' is respected
-
-    Code
-      cat(output)
-    Output
-      ## [1] 0.080750138 0.834333037 0.600760886 0.157208442 0.007399441
+      ! In _pkgdown.yml, 1 vignette missing from index: "c".
 

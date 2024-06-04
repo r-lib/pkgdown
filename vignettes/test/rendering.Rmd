@@ -5,7 +5,8 @@ author: "Author is skipped from the TOC"
 date: "Date is skipped from the TOC"
 ---
 
-```{r include = FALSE}
+```{r}
+#| include: FALSE
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
@@ -20,6 +21,7 @@ Yay[^footnote]
 ## Figures
 
 ```{r}
+#| fig.alt: Test plot
 plot(1:10)
 ```
 
@@ -30,7 +32,7 @@ x <- readLines("test.txt")
 x
 ```
 
-![](bacon.jpg)
+![bacon](bacon.jpg)
 
 ## Details tag
 
@@ -59,7 +61,7 @@ Second paragraph
 |:---------------|:-----------|:-------:|:---------:|
 | Brightness     | Total brightness, total reflectance, spectral intensity | $$y = x^2$$ | test |
 
-## Mathjax
+## Math
 
 $$f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu^2)}{2\sigma^2}}$$
 
@@ -122,7 +124,8 @@ warning(cli::style_bold("This is bold"))
 ```
 Some text
 
-```{r, error = TRUE}
+```{r}
+#| error: TRUE
 stop(cli::style_italic("This is italic"))
 ```
 
@@ -170,6 +173,7 @@ blop
 something nice
 
 ```{r}
+#| fig.alt: Another test plot
 plot(1:42)
 ```
 

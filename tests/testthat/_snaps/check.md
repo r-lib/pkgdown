@@ -1,37 +1,93 @@
-# fails if reference index incomplete
+# sitrep complains about BS3
+
+    Code
+      pkgdown_sitrep(pkg)
+    Message
+      -- Sitrep ----------------------------------------------------------------------
+      x Bootstrap 3 is deprecated; please switch to Bootstrap 5.
+      i Learn more at <https://www.tidyverse.org/blog/2021/12/pkgdown-2-0-0/#bootstrap-5>.
+      v URLs ok.
+      x Favicons not ok.
+        Found package logo but not favicons.
+        Do you need to run `build_favicons()`?
+      v Open graph metadata ok.
+      v Articles metadata ok.
+      v Reference metadata ok.
+
+# sitrep reports all problems
+
+    Code
+      pkgdown_sitrep(pkg)
+    Message
+      -- Sitrep ----------------------------------------------------------------------
+      x URLs not ok.
+        In DESCRIPTION, URL is missing package url (http://test.org).
+        See details in `vignette(pkgdown::metadata)`.
+      v Favicons ok.
+      v Open graph metadata ok.
+      v Articles metadata ok.
+      x Reference metadata not ok.
+        In _pkgdown.yml, 1 topic missing from index: "?".
+        Either use `@keywords internal` to drop from index, or
+
+# checks fails on first problem
 
     Code
       check_pkgdown(pkg)
     Condition
       Error in `check_pkgdown()`:
-      ! 1 topic missing from index: "?".
-      i Either use `@keywords internal` to drop from index, or
-      i Edit _pkgdown.yml to fix the problem.
+      ! In DESCRIPTION, URL is missing package url (http://test.org).
+      i See details in `vignette(pkgdown::metadata)`.
 
-# fails if article index incomplete
+# both inform if everything is ok
 
     Code
-      check_pkgdown(pkg)
-    Condition
-      Error in `check_pkgdown()`:
-      ! 2 vignettes missing from index: "articles/nested" and "width".
-      i Edit _pkgdown.yml to fix the problem.
-
-# informs if everything is ok
-
+      pkgdown_sitrep(pkg)
+    Message
+      -- Sitrep ----------------------------------------------------------------------
+      v URLs ok.
+      v Favicons ok.
+      v Open graph metadata ok.
+      v Articles metadata ok.
+      v Reference metadata ok.
     Code
       check_pkgdown(pkg)
     Message
       v No problems found.
 
-# warn about missing images in readme
+# check_urls reports problems
 
     Code
-      check_built_site(pkg)
-    Message
-      -- Checking for problems -------------------------------------------------------
+      check_urls(pkg)
     Condition
-      Warning:
-      Missing images in 'README.md': 'articles/kitten.jpg'
-      i pkgdown can only use images in 'man/figures' and 'vignettes'
+      Error:
+      ! In _pkgdown.yml, url is missing.
+      i See details in `vignette(pkgdown::metadata)`.
+
+---
+
+    Code
+      check_urls(pkg)
+    Condition
+      Error:
+      ! In DESCRIPTION, URL is missing package url (https://testpackage.r-lib.org).
+      i See details in `vignette(pkgdown::metadata)`.
+
+# check_favicons reports problems
+
+    Code
+      check_favicons(pkg)
+    Condition
+      Error in `check_favicons()`:
+      ! Found package logo but not favicons.
+      i Do you need to run `build_favicons()`?
+
+---
+
+    Code
+      check_favicons(pkg)
+    Condition
+      Error in `check_favicons()`:
+      ! Package logo is newer than favicons.
+      i Do you need to rerun `build_favicons()`?
 

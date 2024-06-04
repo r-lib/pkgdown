@@ -19,17 +19,15 @@ test_that("build_redirect() works", {
 })
 
 test_that("build_redirect() errors if one entry is not right.", {
-  pkg <- list(
-    src_path = withr::local_tempdir(),
-    dst_path = withr::local_tempdir(),
-    meta = list(url = "https://example.com"),
-    prefix = "",
-    bs_version = 5
-  )
-  pkg <- structure(pkg, class = "pkgdown")
-  file_touch(file.path(pkg$src_path, "_pkgdown.yml"))
+  data_redirects_ <- function(...) {
+    pkg <- local_pkgdown_site(meta = list(...))
+    data_redirects(pkg)
+  }
 
-  expect_snapshot(build_redirect(c("old.html"), 5, pkg), error = TRUE)
+  expect_snapshot(error = TRUE, {
+    data_redirects_(redirects = "old.html")
+    data_redirects_(redirects = list("old.html"))
+  })
 })
 
 test_that("article_redirects() creates redirects for vignettes in vignettes/articles", {
@@ -65,6 +63,21 @@ test_that("generates redirects only for non-name aliases", {
   )
 })
 
+test_that("doesn't generates redirect for aliases that can't be file names", {
+  pkg <- list(
+    meta = list(url = "http://foo.com"),
+    topics = list(
+      name = "bar",
+      alias = list(c("bar", "baz", "[<-.baz")),
+      file_out = "bar.html"
+    )
+  )
+  expect_equal(
+    reference_redirects(pkg),
+    list(c("reference/baz.html", "reference/bar.html"))
+  )
+})
+
 test_that("never redirects away from existing topic", {
   pkg <- list(
     meta = list(url = "http://foo.com"),
@@ -91,4 +104,3 @@ test_that("no redirects if no aliases", {
   )
   expect_equal(reference_redirects(pkg), list())
 })
-

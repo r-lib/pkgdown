@@ -68,81 +68,60 @@ test_that("can control articles navbar through articles meta", {
 
 test_that("data_navbar() works by default", {
   pkg <- local_pkgdown_site(meta = list(
-    news = list(one_page = FALSE, cran_dates = FALSE),
     repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
   ))
-  write_lines(file.path(pkg$src_path, "NEWS.md"), text = c(
-    "# testpackage 2.0", "",
-    "* bullet (#222 @someone)"
-  ))
+  file_touch(path(pkg$src_path, "NEWS.md"))
 
-  pkg <- local_pkgdown_site(pkg)
   expect_snapshot(data_navbar(pkg))
 })
 
 test_that("data_navbar() can re-order default elements", {
-  pkg <- local_pkgdown_site(meta = "
-    template: 
-      bootstrap: 5
-    repo:
-      url:
-        home: https://github.com/r-lib/pkgdown/
-
-    navbar:
-      structure:
-        left: [github, search]
-        right: [news]
-  ")
-  file.create(file.path(pkg$src_path, "NEWS.md"))
+  pkg <- local_pkgdown_site(meta = list(
+    repo = list(url = list(home = "https://github.com/r-lib/pkgdown/")),
+    navbar = list(
+      structure = list(
+        left = c("github", "search"),
+        right = "news"
+      )
+    )
+  ))
+  file_create(path(pkg$src_path, "NEWS.md"))
 
   expect_snapshot(data_navbar(pkg)[c("left", "right")])
 })
 
 test_that("data_navbar() can remove elements", {
-  pkg <- local_pkgdown_site(meta = "
-    repo:
-      url:
-        home: https://github.com/r-lib/pkgdown/
+  pkg <- local_pkgdown_site(meta = list(
+    navbar = list(
+      structure = list(
+        left = c("github", "search"),
+        right = list()
+      )
+    )
+  ))
 
-    navbar:
-      structure:
-        left: github
-        right: ~
-  ")
-
-  expect_snapshot(data_navbar(pkg))
+  expect_equal(data_navbar(pkg)$right, "")
 })
 
 test_that("data_navbar() works with empty side", {
-  pkg <- local_pkgdown_site(meta = "
-    navbar:
-      structure:
-        left: []
-        right: []
-  ")
-
+  pkg <- local_pkgdown_site(
+    meta = list(navbar = list(structure = list(left = list(), right = list())))
+  )
+  
    expect_snapshot(data_navbar(pkg))
  })
 
-test_that("data_navbar() errors with bad side specifications", {
-  pkg <- local_pkgdown_site(meta = "
-    navbar:
-      structure:
-        left: 1
-  ")
+test_that("data_navbar_() errors with bad yaml specifications", {
+  data_navbar_ <- function(...) {
+    pkg <- local_pkgdown_site(meta = list(...))
+    data_navbar(pkg)
+  }
 
-  expect_snapshot(data_navbar(pkg), error = TRUE)
+  expect_snapshot(error = TRUE, {
+    data_navbar_(navbar = list(structure = list(left = 1)))
+    data_navbar_(navbar = list(right = "github"))
+  })
 })
-
-test_that("data_navbar() errors with bad left/right", {
-  pkg <- local_pkgdown_site(meta = "
-    navbar:
-      right: [github]
-  ")
-
-   expect_snapshot(data_navbar(pkg), error = TRUE)
-})
-
 
 test_that("for bs4, default bg and type come from bootswatch", {
   style <- navbar_style(bs_version = 5)
@@ -161,78 +140,35 @@ test_that("for bs4, default bg and type come from bootswatch", {
 
 test_that("render_navbar_links BS3 & BS4 default", {
   x <- list(
-    intro = list(text = "Get started", href = "articles/pkgdown.html"),
-    reference = list(text = "Reference", href = "reference/index.html"),
-    articles = list(
-      text = "Articles",
-      menu = list(
-        list(text = "Auto-linking",  href = "articles/linking.html"),
-        list(text = "Search", href = "articles/search.html"),
-        list(text = "Metadata", href = "articles/metadata.html"),
-        list(text = "Customize your pkgdown website", href = "articles/customization.html"),
-        list(text = "---------"),
-        list(text = "More...", href = "articles/index.html")
+    intro =  menu_link("Get started", "articles/pkgdown.html"),
+    reference = menu_link("Reference", "reference/index.html"),
+    articles = menu_submenu(
+      "Articles",
+      list(
+        menu_link("Auto-linking", "articles/linking.html"),
+        menu_link("Search", "articles/search.html"),
+        menu_link("Metadata", "articles/metadata.html"),
+        menu_link("Customize your pkgdown website", "articles/customization.html"),
+        menu_separator(),
+        menu_link("More...", "articles/index.html")
       )
     ),
-    news = list(text = "News", href = "news/index.html")
+    news = menu_link("News", "news/index.html")
   )
 
   expect_snapshot(cat(render_navbar_links(x, pkg = list(bs_version = 3))))
   expect_snapshot(cat(render_navbar_links(x, pkg = list(bs_version = 4))))
 })
 
-test_that("render_navbar_links BS4 no divider before first element", {
-  x <- list(
-    articles = list(
-      text = "Articles",
-      menu = list(
-        list(text = "---------"),
-        list(text = "First section"),
-        list(text = "Search", href = "articles/search.html"),
-        list(text = "Metadata", href = "articles/metadata.html"),
-        list(text = "Customize your pkgdown website", href = "articles/customization.html"),
-        list(text = "---------"),
-        list(text = "More...", href = "articles/index.html")
-      )
-    )
-  )
-  expect_snapshot(cat(render_navbar_links(x, pkg = list(bs_version = 4))))
-})
-
 test_that("dropdowns on right are right-aligned", {
   x <- list(
-    articles = list(
-      text = "Articles",
-      menu = list(
-        list(text = "A"),
-        list(text = "B"),
-        list(text = "C")
-      )
-    )
+    articles = menu_submenu("Articles", list(menu_heading("A"), menu_heading("B")))
   )
   pkg <- list(bs_version = 5)
-  
+
   right <- xml2::read_html(render_navbar_links(x, pkg = pkg, side = "right"))
   left <-  xml2::read_html(render_navbar_links(x, pkg = pkg, side = "left"))
 
-  expect_equal(xpath_attr(right, ".//div", "class"), "dropdown-menu dropdown-menu-end")
-  expect_equal(xpath_attr(left, ".//div", "class"), "dropdown-menu")
-})
-
-test_that("can specific link target", {
-  expect_snapshot({
-    bs4_navbar_links_tags(
-      list(menu = list(text = "text", href = "href", target = '_blank'))
-    )
-    bs4_navbar_links_tags(
-      list(menu = list(text = "text", href = "href", target = '_blank')),
-      depth = 1
-    )
-  })
-})
-
-test_that("can render search helper", {
-  expect_snapshot({
-    bs4_navbar_links_tags(list(menu = list(search = TRUE)))
-  })
+  expect_equal(xpath_attr(right, ".//ul", "class"), "dropdown-menu dropdown-menu-end")
+  expect_equal(xpath_attr(left, ".//ul", "class"), "dropdown-menu")
 })
