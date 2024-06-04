@@ -9,6 +9,12 @@ test_that("highlight_examples captures dependencies", {
   expect_equal(attr(out, "dependencies")[-1], list(dummy_dep))
 })
 
+
+test_that("highlight_examples runs and hides DONTSHOW calls()", {
+  out <- highlight_examples("DONTSHOW(x <- 1)\nx")
+  expect_snapshot(cat(strip_html_tags(out)))
+})
+
 test_that("highlight_text & highlight_examples include sourceCode div", {
   withr::defer(file_delete(test_path("Rplot001.png")))
 
