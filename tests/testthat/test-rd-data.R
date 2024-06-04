@@ -48,7 +48,6 @@ test_that("leading whitespace doesn't break items", {
     value2html("\n\\item{a}{b}\n\n\\item{c}{d}\n\n\\item{e}{f}"),
     c(
       "<dl>",
-        "",
         "<dt>a</dt>", "<dd><p>b</p></dd>", "", "",
         "<dt>c</dt>", "<dd><p>d</p></dd>", "", "",
         "<dt>e</dt>", "<dd><p>f</p></dd>",
@@ -57,14 +56,10 @@ test_that("leading whitespace doesn't break items", {
   )
 })
 
-test_that("whitespace between text is preserved", {
+test_that("whitespace between text is not preserved", {
   expect_equal(
     value2html("a\n\nb\n\nc"),
-    c(
-      "<p>a</p>", "", "",
-      "<p>b</p>", "", "",
-      "<p>c</p>"
-    )
+    c("<p>a</p>", "<p>b</p>", "<p>c</p>")
   )
 })
 
@@ -80,5 +75,17 @@ test_that("can have multiple interleaved blocks", {
       "<p>text2</p>",
       "<dl>", "<dt>e</dt>", "<dd><p>f</p></dd>", "</dl>"
     )
+  )
+})
+
+test_that("other tags don't affect breaking (#2371)", {
+  expect_equal(
+    value2html("1\\code{xxx}\n2\n3"),
+    c("<p>1<code>xxx</code>", "2", "3</p>")
+  )
+  # additionally teading whitespace
+  expect_equal(
+    value2html("1\\code{xxx}\n  2\n  3"),
+    c("<p>1<code>xxx</code>", "2", "3</p>")
   )
 })

@@ -12,8 +12,6 @@ authors:
     href: https://hadley.nz
   Posit Software, PBC:
     href: https://posit.co
-    html: >-
-      <img src='https://www.tidyverse.org/posit-logo.svg' alt='Posit' width='62' height='16' style="margin-bottom: 3px;" />
 
 template:
   bootstrap: 5
@@ -35,6 +33,7 @@ articles:
   navbar: ~
   contents:
   - customise
+  - translations
   - accessibility
   - linking
   - metadata
