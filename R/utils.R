@@ -89,7 +89,7 @@ skip_if_no_pandoc <- function(version = "1.12.3") {
 }
 
 has_internet <- function() {
-  return(getOption("pkgdown.internet", default = TRUE))
+  getOption("pkgdown.internet", default = TRUE)
 }
 
 # remove '' quoting
