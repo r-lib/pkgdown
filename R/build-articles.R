@@ -181,6 +181,7 @@
 #' [build_site()] details.
 #'
 #' @inheritSection build_reference Figures
+#' @family site components
 #'
 #' @inheritParams as_pkgdown
 #' @param quiet Set to `FALSE` to display output of knitr and

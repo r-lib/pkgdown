@@ -292,3 +292,11 @@ Or completely remove it:
 }\if{html}{\out{</div>}}
 }
 
+\seealso{
+Other site components: 
+\code{\link{build_articles}()},
+\code{\link{build_news}()},
+\code{\link{build_reference}()},
+\code{\link{build_tutorials}()}
+}
+\concept{site components}

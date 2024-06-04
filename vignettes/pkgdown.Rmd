@@ -105,7 +105,7 @@ reference:
 
 Note the use of `starts_with()` to select all functions with a common prefix.
 You can also use `ends_with()` and `matches()`.
-See complete details in `?build_reference`.
+See complete details in `?build_reference`, including other topic matching helper functions.
 
 While iterating on the reference index you might want to run `pkgdown::build_reference_index()`.
 It just re-builds the index page, making it faster to quickly change `_pkgdown.yml` and see how it affects your site.

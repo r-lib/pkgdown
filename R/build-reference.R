@@ -136,6 +136,7 @@
 #' as HTML widgets.
 #'
 #' @inheritParams build_articles
+#' @family site components
 #' @param lazy If `TRUE`, only rebuild pages where the `.Rd`
 #'   is more recent than the `.html`. This makes it much easier to
 #'   rapidly prototype. It is set to `FALSE` by [build_site()].
