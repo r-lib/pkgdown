@@ -38,7 +38,7 @@ Current available translations are:
 -   `tr`: Turkish
 -   `zh_CN`: Chinese (simplified)
 
-As you can see, most language codes are two letters, but if a language has multiple variants, it gets a longer form which can be used to disamiguate the options. For example, Chinese can use one of two forms: simplified (used in China and Singapore) or traditional (used in Taiwan and Hong Kong). Another example would be providing specific French Canadian translations by using code `fr_CN`.
+As you can see, most language codes are two letters, but if a language has multiple variants, it gets a longer form which can be used to disambiguate the options. For example, Chinese can use one of two forms: simplified (used in China and Singapore) or traditional (used in Taiwan and Hong Kong). Another example would be providing specific French Canadian translations by using code `fr_CN`.
 
 ## Translations
 
