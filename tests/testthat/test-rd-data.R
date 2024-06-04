@@ -78,11 +78,14 @@ test_that("can have multiple interleaved blocks", {
   )
 })
 
-test_that("other tags don't affect breaking", {
+test_that("other tags don't affect breaking (#2371)", {
   expect_equal(
-    value2html("1\\code{xxx}\n2\n3"), value2html("1\\code{xxx}\n2\n3")
+    value2html("1\\code{xxx}\n2\n3"),
+    c("<p>1<code>xxx</code>", "2", "3</p>")
   )
+  # additionally teading whitespace
   expect_equal(
-    value2html("1\\code{xxx}\n  2\n  3"), value2html("1\\code{xxx}\n2\n3")
+    value2html("1\\code{xxx}\n  2\n  3"),
+    c("<p>1<code>xxx</code>", "2", "3</p>")
   )
 })
