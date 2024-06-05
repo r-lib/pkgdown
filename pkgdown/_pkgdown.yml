@@ -97,7 +97,6 @@ reference:
 
 redirects:
 - ["articles/search.html", "reference/build_search.html"]
-- ["articles/pkgdown.html#language", "articles/translations.html"]
 
 news:
   releases:

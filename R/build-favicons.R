@@ -1,5 +1,6 @@
 #' Initialise favicons from package logo
 #'
+#' @description
 #' This function auto-detects the location of your package logo (with the name
 #' `logo.svg` (recommended format) or `logo.png`, created with `usethis::use_logo()`)
 #' and runs it through the <https://realfavicongenerator.net> API to build a

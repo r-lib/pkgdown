@@ -16,8 +16,7 @@ This function auto-detects the location of your package logo (with the name
 \code{logo.svg} (recommended format) or \code{logo.png}, created with \code{usethis::use_logo()})
 and runs it through the \url{https://realfavicongenerator.net} API to build a
 complete set of favicons with different sizes, as needed for modern web usage.
-}
-\details{
+
 You only need to run the function once. The favicon set will be stored in
 \code{pkgdown/favicon} and copied by \code{\link[=init_site]{init_site()}} to the relevant location when
 the website is rebuilt.
