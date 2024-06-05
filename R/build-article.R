@@ -11,6 +11,7 @@ build_article <- function(name,
                           lazy = FALSE,
                           seed = 1014L,
                           new_process = TRUE,
+                          pandoc_args = character(),
                           quiet = TRUE) {
   pkg <- as_pkgdown(pkg)
 
@@ -33,6 +34,9 @@ build_article <- function(name,
     return(invisible())
   }
 
+  cli::cli_inform("Reading {src_path(input)}")
+  digest <- file_digest(output_path)
+
   yaml <- rmarkdown::yaml_front_matter(input_path)
   
   data <- list()
@@ -52,22 +56,53 @@ build_article <- function(name,
       setup <- list(format = NULL, options = NULL)
     }
   } else {
-    setup <- rmarkdown_setup_pkgdown(pkg, depth = depth, data = data)
+    setup <- rmarkdown_setup_pkgdown(pkg, depth = depth, data = data, pandoc_args = pandoc_args)
   }
 
   local_envvar_pkgdown(pkg)
-  local_options_link(pkg, depth = depth)
+  local_texi2dvi_envvars(input_path)
+  withr::local_envvar(R_CLI_NUM_COLORS = 256)
 
-  render_rmarkdown(
-    pkg,
-    input = input,
-    output = output_file,
+  args <- list(
+    input = input_path,
+    output_file = path_file(output_path),
+    output_dir = path_dir(output_path),
+    intermediates_dir = tempdir(),
+    encoding = "UTF-8",
+    seed = seed,
     output_format = setup$format,
     output_options = setup$options,
-    seed = seed,
-    new_process = new_process,
     quiet = quiet
   )
+  if (new_process) {
+    path <- withCallingHandlers(
+      callr::r_safe(rmarkdown_render_with_seed, args = args, show = !quiet),
+      error = function(cnd) wrap_rmarkdown_error(cnd, input)
+    )
+  } else {
+    path <- inject(rmarkdown_render_with_seed(!!!args))
+  }
+
+  is_html <- identical(path_ext(path)[[1]], "html")
+  if (is_html) {
+    local_options_link(pkg, depth = depth)
+    update_html(
+      path,
+      tweak_rmarkdown_html,
+      input_path = path_dir(input_path),
+      pkg = pkg
+    )
+  }
+  if (digest != file_digest(output_path)) {
+    writing_file(path_rel(output_path, pkg$dst_path), output_file)
+  }
+  if (is_html) {
+    copy_article_images(path, input_path, output_path)
+    check_missing_images(pkg, input_path, output_file)
+  }
+
+  invisible(path)
+
 }
 
 rmarkdown_setup_custom <- function(pkg,
@@ -95,6 +130,7 @@ rmarkdown_setup_custom <- function(pkg,
 rmarkdown_setup_pkgdown <- function(pkg,
                                     depth = 1L,
                                     data = list(),
+                                    pandoc_args = character(),
                                     env = caller_env()) {
 
   template <- rmarkdown_template(pkg, depth = depth, data = data, env = env)
@@ -105,7 +141,8 @@ rmarkdown_setup_pkgdown <- function(pkg,
     template = template,
     anchor_sections = FALSE,
     math_method = config_math_rendering(pkg),
-    extra_dependencies = bs_theme_deps_suppress()
+    extra_dependencies = bs_theme_deps_suppress(),
+    pandoc_args = pandoc_args
   )
   format$knitr$opts_chunk <- fig_opts_chunk(pkg$figures, format$knitr$opts_chunk)
 
@@ -133,69 +170,6 @@ rmarkdown_template <- function(pkg, data = list(), depth = 1L, env = caller_env(
   path
 }
 
-render_rmarkdown <- function(pkg,
-                             input,
-                             output,
-                             ...,
-                             seed = NULL,
-                             copy_images = TRUE,
-                             new_process = TRUE,
-                             quiet = TRUE,
-                             call = caller_env()) {
-
-  input_path <- path_abs(input, pkg$src_path)
-  output_path <- path_abs(output, pkg$dst_path)
-
-  if (!file_exists(input_path)) {
-    cli::cli_abort("Can't find {src_path(input)}.", call = call)
-  }
-
-  cli::cli_inform("Reading {src_path(input)}")
-  digest <- file_digest(output_path)
-
-  args <- list(
-    input = input_path,
-    output_file = path_file(output_path),
-    output_dir = path_dir(output_path),
-    intermediates_dir = tempdir(),
-    encoding = "UTF-8",
-    seed = seed,
-    ...,
-    quiet = quiet
-  )
-
-  local_texi2dvi_envvars(input_path)
-
-  withr::local_envvar(R_CLI_NUM_COLORS = 256)
-  if (new_process) {
-    path <- withCallingHandlers(
-      callr::r_safe(rmarkdown_render_with_seed, args = args, show = !quiet),
-      error = function(cnd) wrap_rmarkdown_error(cnd, input, call)
-    )
-  } else {
-    path <- inject(rmarkdown_render_with_seed(!!!args))
-  }
-
-  is_html <- identical(path_ext(path)[[1]], "html")
-  if (is_html) {
-    update_html(
-      path,
-      tweak_rmarkdown_html,
-      input_path = path_dir(input_path),
-      pkg = pkg
-    )
-  }
-  if (digest != file_digest(output_path)) {
-    writing_file(path_rel(output_path, pkg$dst_path), output)
-  }
-  if (is_html) {
-    copy_article_images(path, input_path, output_path)
-    check_missing_images(pkg, input_path, output)
-  }
-
-  invisible(path)
-}
-
 copy_article_images <- function(built_path, input_path, output_path) {
   ext_src <- rmarkdown::find_external_resources(input_path)
 
@@ -220,7 +194,7 @@ copy_article_images <- function(built_path, input_path, output_path) {
   file_copy(src, dst, overwrite = TRUE)
 }
 
-wrap_rmarkdown_error <- function(cnd, input, call) {
+wrap_rmarkdown_error <- function(cnd, input, call = caller_env()) {
   lines <- strsplit(gsub("^\r?\n", "", cnd$stderr), "\r?\n")[[1]]
   lines <- lines[nchar(lines) > 0]
   # Feeding random text back into cli, so have to escape

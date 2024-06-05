@@ -253,66 +253,81 @@ test_that("rmarkdown_template cleans up after itself", {
   expect_false(file_exists(path))
 })
 
-# render_markdown --------------------------------------------------------------
-
-test_that("render_rmarkdown copies image files in subdirectories", {
+test_that("build_article copies image files in subdirectories", {
   skip_if_no_pandoc()
-  tmp <- dir_create(file_temp())
-  pkg <- list(src_path = test_path("."), dst_path = tmp, bs_version = 3)
+  pkg <- local_pkgdown_site()
+  write_lines(path(pkg$src_path, "vignettes", "test.Rmd"), text = c(
+    "```{r}",
+    "#| fig-alt: alt-text",
+    "knitr::include_graphics('test/kitten.jpg')",
+    "```"
+  ))
+  dir_create(path(pkg$src_path, "vignettes", "test"))
+  file_copy(test_path("assets/kitten.jpg"), path(pkg$src_path, "vignettes", "test"))
+  pkg <- update_vignettes(pkg)
 
-  expect_snapshot(
-    render_rmarkdown(pkg, "assets/vignette-with-img.Rmd", "test.html")
-  )
-  expect_equal(
-    as.character(path_rel(dir_ls(tmp, type = "file", recurse = TRUE), tmp)),
-    c("open-graph/logo.png", "test.html")
-  )
+  expect_snapshot(build_article("test", pkg))
+  expect_equal(path_file(dir_ls(path(pkg$dst_path, "articles", "test"))), "kitten.jpg")
 })
 
-test_that("render_rmarkdown yields useful error if pandoc fails", {
+test_that("build_article yields useful error if pandoc fails", {
   skip_on_cran() # fragile due to pandoc dependency
   skip_if_no_pandoc("2.18")
 
-  tmp <- dir_create(file_temp())
-  pkg <- list(src_path = test_path("."), dst_path = tmp, bs_version = 3)
+  pkg <- local_pkgdown_site()
+  write_lines("Hi", path(pkg$src_path, "vignettes", "test.Rmd"))
+  pkg <- update_vignettes(pkg)
 
-  format <- rmarkdown::html_document(pandoc_args = "--fail-if-warnings")
   expect_snapshot(
-    render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html", output_format = format),
+    build_article("test", pkg, pandoc_args = "--fail-if-warnings"),
     error = TRUE
   )
 })
 
-test_that("render_rmarkdown yields useful error if R fails", {
+test_that("build_article yields useful error if R fails", {
   skip_if_no_pandoc()
 
-  tmp <- dir_create(file_temp())
-  pkg <- list(src_path = test_path("."), dst_path = tmp, bs_version = 3)
+  pkg <- local_pkgdown_site()
+  write_lines(path(pkg$src_path, "vignettes", "test.Rmd"), text = c(
+    "---",
+    "title: title",
+    "---",
+    "",
+    "```{r}",
+    "f <- function() g()",
+    "g <- function() h()",
+    "h <- function() {",
+    "rlang::abort('Error!')",
+    "}",
+    "",
+    "f()",
+    "```"
+  ))
+  pkg <- update_vignettes(pkg)
 
-  expect_snapshot(
-    {
-      "Test traceback"
-      summary(expect_error(render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html")))
-
-      "Just test that it works; needed for browser() etc"
-      expect_error(render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html", new_process = FALSE))
-    },
-    # work around xfun bug
-    transform = function(x) gsub("lines  ?at lines", "lines", x)
-  )
+  # check that error looks good
+  expect_snapshot(build_article("test", pkg), error = TRUE)
+  # check that traceback looks good - need extra work because rlang
+  # avoids tracebacks in snapshots
+  expect_snapshot(summary(expect_error(build_article("test", pkg))))
 })
 
-test_that("render_rmarkdown styles ANSI escapes", {
+test_that("build_article styles ANSI escapes", {
   skip_if_no_pandoc()
-  tmp <- dir_create(file_temp())
-  pkg <- list(src_path = test_path("."), dst_path = tmp, bs_version = 5)
 
-  expect_snapshot({
-    path <- render_rmarkdown(pkg,
-      input = "assets/vignette-with-crayon.Rmd",
-      output = "test.html"
-    )
-  })
+  pkg <- local_pkgdown_site()
+  write_lines(path(pkg$src_path, "vignettes", "test.Rmd"), text = c(
+    "---",
+    "title: title",
+    "---",
+    "",
+    "```{r}",
+    "cat(cli::col_red('X'), '\n')",
+    "```"
+  ))
+  pkg <- update_vignettes(pkg)
+
+  suppressMessages(path <- build_article("test", pkg))
   html <- xml2::read_html(path)
   expect_snapshot_output(xpath_xml(html, ".//code//span[@class='co']"))
 })

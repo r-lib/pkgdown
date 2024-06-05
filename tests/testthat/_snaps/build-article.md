@@ -49,44 +49,60 @@
 
     Code
       build_article(pkg = pkg, name = "bad-opengraph")
+    Message
+      Reading vignettes/bad-opengraph.Rmd
     Condition
       Error in `build_article()`:
       ! In vignettes/bad-opengraph.Rmd, opengraph.twitter must be a list, not the number 1.
 
-# render_rmarkdown copies image files in subdirectories
+# build_article copies image files in subdirectories
 
     Code
-      render_rmarkdown(pkg, "assets/vignette-with-img.Rmd", "test.html")
+      build_article("test", pkg)
     Message
-      Reading assets/vignette-with-img.Rmd
-      Writing `test.html`
+      Reading vignettes/test.Rmd
+      Writing `articles/test.html`
 
-# render_rmarkdown yields useful error if pandoc fails
+# build_article yields useful error if pandoc fails
 
     Code
-      render_rmarkdown(pkg, "assets/pandoc-fail.Rmd", "test.html", output_format = format)
+      build_article("test", pkg, pandoc_args = "--fail-if-warnings")
     Message
-      Reading assets/pandoc-fail.Rmd
+      Reading vignettes/test.Rmd
     Condition
-      Error:
-      ! Failed to render 'assets/pandoc-fail.Rmd'.
-      x [WARNING] Could not fetch resource path-to-image.png
+      Error in `build_article()`:
+      ! Failed to render 'vignettes/test.Rmd'.
+      x [WARNING] This document format requires a nonempty <title> element.
+      x  Defaulting to 'test.knit' as the title.
+      x  To specify a title, use 'title' in metadata or --metadata title="...".
       x Failing because there were warnings.
       Caused by error:
       ! pandoc document conversion failed with error 3
 
-# render_rmarkdown yields useful error if R fails
+# build_article yields useful error if R fails
 
     Code
-      # Test traceback
-      summary(expect_error(render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html")))
+      build_article("test", pkg)
     Message
-      Reading assets/r-fail.Rmd
+      Reading vignettes/test.Rmd
+    Condition
+      Error in `build_article()`:
+      ! Failed to render 'vignettes/test.Rmd'.
+      x Quitting from lines 6-13 [unnamed-chunk-1] (test.Rmd)
+      Caused by error:
+      ! Error!
+
+---
+
+    Code
+      summary(expect_error(build_article("test", pkg)))
+    Message
+      Reading vignettes/test.Rmd
     Output
       <error/rlang_error>
-      Error:
-      ! Failed to render 'assets/r-fail.Rmd'.
-      x Quitting from lines 6-13 [unnamed-chunk-1] (r-fail.Rmd)
+      Error in `build_article()`:
+      ! Failed to render 'vignettes/test.Rmd'.
+      x Quitting from lines 6-13 [unnamed-chunk-1] (test.Rmd)
       Caused by error:
       ! Error!
       ---
@@ -95,25 +111,8 @@
        1. \-global f()
        2.   \-global g()
        3.     \-global h()
-    Code
-      # Just test that it works; needed for browser() etc
-      expect_error(render_rmarkdown(pkg, "assets/r-fail.Rmd", "test.html",
-        new_process = FALSE))
-    Message
-      Reading assets/r-fail.Rmd
-      
-      Quitting from lines 6-13 [unnamed-chunk-1] (r-fail.Rmd)
 
-# render_rmarkdown styles ANSI escapes
+# build_article styles ANSI escapes
 
-    Code
-      path <- render_rmarkdown(pkg, input = "assets/vignette-with-crayon.Rmd",
-        output = "test.html")
-    Message
-      Reading assets/vignette-with-crayon.Rmd
-      Writing `test.html`
-
----
-
-    <span class="co">#&gt; <span style="color: #BB0000;">X</span></span>
+    <span class="co">## <span style="color: #BB0000;">X</span></span>
 
