@@ -205,37 +205,36 @@ render_rmarkdown <- function(pkg,
   if (digest != file_digest(output_path)) {
     writing_file(path_rel(output_path, pkg$dst_path), output)
   }
-
-  # Copy over images needed by the document
-  if (copy_images && is_html) {
-    ext_src <- rmarkdown::find_external_resources(input_path)
-
-    # temporarily copy the rendered html into the input path directory and scan
-    # again for additional external resources that may be been included by R code
-    tempfile <- path(path_dir(input_path), "--find-assets.html")
-    withr::defer(try(file_delete(tempfile)))
-    file_copy(path, tempfile)
-    ext_post <- rmarkdown::find_external_resources(tempfile)
-
-    ext <- rbind(ext_src, ext_post)
-    ext <- ext[!duplicated(ext$path), ]
-
-    # copy web + explicit files beneath vignettes/
-    is_child <- path_has_parent(ext$path, ".")
-    ext_path <- ext$path[(ext$web | ext$explicit) & is_child]
-
-    src <- path(path_dir(input_path), ext_path)
-    dst <- path(path_dir(output_path), ext_path)
-    # Make sure destination paths exist before copying files there
-    dir_create(unique(path_dir(dst)))
-    file_copy(src, dst, overwrite = TRUE)
-  }
-
   if (is_html) {
+    copy_article_images(path, input_path, output_path)
     check_missing_images(pkg, input_path, output)
   }
 
   invisible(path)
+}
+
+copy_article_images <- function(built_path, input_path, output_path) {
+  ext_src <- rmarkdown::find_external_resources(input_path)
+
+  # temporarily copy the rendered html into the input path directory and scan
+  # again for additional external resources that may be been included by R code
+  tempfile <- path(path_dir(input_path), "--find-assets.html")
+  withr::defer(try(file_delete(tempfile)))
+  file_copy(built_path, tempfile)
+  ext_post <- rmarkdown::find_external_resources(tempfile)
+
+  ext <- rbind(ext_src, ext_post)
+  ext <- ext[!duplicated(ext$path), ]
+
+  # copy web + explicit files beneath vignettes/
+  is_child <- path_has_parent(ext$path, ".")
+  ext_path <- ext$path[(ext$web | ext$explicit) & is_child]
+
+  src <- path(path_dir(input_path), ext_path)
+  dst <- path(path_dir(output_path), ext_path)
+  # Make sure destination paths exist before copying files there
+  dir_create(unique(path_dir(dst)))
+  file_copy(src, dst, overwrite = TRUE)
 }
 
 #' Escapes a cli msg
