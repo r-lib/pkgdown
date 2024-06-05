@@ -54,7 +54,13 @@ test_that("data_home_sidebar() works by default", {
   pkg <- as_pkgdown(test_path("assets/sidebar"))
   expect_snapshot(cat(data_home_sidebar(pkg)))
 
-  pkg <- as_pkgdown(test_path("assets/sidebar-comment"))
+  # comments are not included
+  pkg <- local_pkgdown_site(desc = list(
+    `Authors@R` = 'c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
+    person("RStudio", role = c("cph", "fnd"), comment = c("Thank you!"))
+    )'
+  ))
   html <- xml2::read_html(data_home_sidebar(pkg))
   expect_snapshot_output(xpath_xml(html, ".//div[@class='developers']"))
 })

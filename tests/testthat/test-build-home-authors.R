@@ -77,9 +77,9 @@ test_that("authors data includes inst/AUTHORS", {
 })
 
 test_that("sidebar can accept additional before and after text", {
-  pkg <- as_pkgdown(test_path("assets/sidebar-comment"))
-  pkg$meta$authors$sidebar$before <- "yay"
-  pkg$meta$authors$sidebar$after <- "cool"
+  pkg <- local_pkgdown_site()
+  pkg$meta$authors$sidebar$before <- "BEFORE"
+  pkg$meta$authors$sidebar$after <- "AFTER"
   expect_snapshot(cat(data_home_sidebar_authors(pkg)))
 })
 
