@@ -31,6 +31,10 @@
       Error in `build_article()`:
       ! In vignettes/bad-opengraph.Rmd, opengraph.twitter must be a list, not the number 1.
 
+# build_article styles ANSI escapes
+
+    <span class="co">## <span style="color: #BB0000;">X</span></span>
+
 # build_article yields useful error if pandoc fails
 
     Code
@@ -80,10 +84,6 @@
        2.   \-global g()
        3.     \-global h()
 
-# build_article styles ANSI escapes
-
-    <span class="co">## <span style="color: #BB0000;">X</span></span>
-
 # build_article copies image files in subdirectories
 
     Code
@@ -95,10 +95,8 @@
 # warns about missing images
 
     Code
-      build_articles(pkg)
+      build_article("kitten", pkg)
     Message
-      -- Building articles -----------------------------------------------------------
-      Writing `articles/index.html`
       Reading vignettes/kitten.Rmd
       Writing `articles/kitten.html`
       Missing images in 'vignettes/kitten.Rmd': 'kitten.jpg'
@@ -107,12 +105,13 @@
 # warns about missing alt-text
 
     Code
-      build_article("missing-images", pkg)
+      build_article("kitten", pkg)
     Message
-      Reading vignettes/missing-images.Rmd
-      Writing `articles/missing-images.html`
-      x Missing alt-text in 'vignettes/missing-images.Rmd'
+      Reading vignettes/kitten.Rmd
+      Writing `articles/kitten.html`
+      Missing images in 'vignettes/kitten.Rmd': 'kitten.jpg'
+      i pkgdown can only use images in 'man/figures' and 'vignettes'
+      x Missing alt-text in 'vignettes/kitten.Rmd'
       * kitten.jpg
-      * missing-images_files/figure-html/unnamed-chunk-1-1.png
       i Learn more in `vignette(pkgdown::accessibility)`.
 

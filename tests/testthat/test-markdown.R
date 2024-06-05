@@ -36,8 +36,7 @@ test_that("markdown_text_block() works with inline and block markdown", {
 
 test_that("markdown_body() captures title", {
   pkg <- local_pkgdown_site()
-  temp <- withr::local_tempfile()
-  write_lines("# Title\n\nSome text", temp)
+  temp <- withr::local_tempfile(lines = "# Title\n\nSome text")
 
   html <- markdown_body(pkg, temp)
   expect_equal(attr(html, "title"), "Title")

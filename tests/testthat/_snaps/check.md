@@ -7,9 +7,7 @@
       x Bootstrap 3 is deprecated; please switch to Bootstrap 5.
       i Learn more at <https://www.tidyverse.org/blog/2021/12/pkgdown-2-0-0/#bootstrap-5>.
       v URLs ok.
-      x Favicons not ok.
-        Found package logo but not favicons.
-        Do you need to run `build_favicons()`?
+      v Favicons ok.
       v Open graph metadata ok.
       v Articles metadata ok.
       v Reference metadata ok.

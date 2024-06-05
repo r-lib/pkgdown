@@ -8,10 +8,14 @@ test_that("messages about reading and writing", {
 })
 
 test_that("title and description come from DESCRIPTION by default", {
-  pkg <- as_pkgdown(test_path("assets/home-index-rmd"))
-  expect_equal(data_home(pkg)$pagetitle, "A test package")
-  expect_equal(data_home(pkg)$opengraph$description, "A test package")
+  pkg <- local_pkgdown_site(desc = list(
+    Title = "A test title",
+    Description = "A test description."
+  ))
+  expect_equal(data_home(pkg)$pagetitle, "A test title")
+  expect_equal(data_home(pkg)$opengraph$description, "A test description.")
 
+  # but overridden by home
   pkg$meta <- list(home = list(title = "X", description = "Y"))
   expect_equal(data_home(pkg)$pagetitle, "X")
   expect_equal(data_home(pkg)$opengraph$description, "Y")
@@ -19,7 +23,7 @@ test_that("title and description come from DESCRIPTION by default", {
 
 test_that("math is handled", {
   pkg <- local_pkgdown_site()
-  write_lines(c("$1 + 1$"), path(pkg$src_path, "README.md"))
+  pkg <- pkg_add_file(pkg, "README.md", "$1 + 1$")
   suppressMessages(build_home_index(pkg))
 
   html <- xml2::read_html(path(pkg$dst_path, "index.html"))
@@ -41,75 +45,80 @@ test_that("data_home() validates yaml metadata", {
 })
 
 test_that("version formatting in preserved", {
-  pkg <- local_pkgdown_site(test_path("assets/version-formatting"))
+  pkg <- local_pkgdown_site(desc = list(Version = "1.0.0-9000"))
   expect_equal(pkg$version, "1.0.0-9000")
 
-  suppressMessages(init_site(pkg))
   suppressMessages(build_home_index(pkg))
   index <- read_lines(path(pkg$dst_path, "index.html"))
   expect_true(any(grepl("1.0.0-9000", index, fixed = TRUE)))
 })
 
 test_that("data_home_sidebar() works by default", {
-  pkg <- as_pkgdown(test_path("assets/sidebar"))
+  pkg <- local_pkgdown_site()
   expect_snapshot(cat(data_home_sidebar(pkg)))
 
-  pkg <- as_pkgdown(test_path("assets/sidebar-comment"))
+  # comments are not included
+  pkg <- local_pkgdown_site(desc = list(
+    `Authors@R` = 'c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
+    person("RStudio", role = c("cph", "fnd"), comment = c("Thank you!"))
+    )'
+  ))
   html <- xml2::read_html(data_home_sidebar(pkg))
   expect_snapshot_output(xpath_xml(html, ".//div[@class='developers']"))
 })
 
 test_that("data_home_sidebar() can be removed", {
-  pkg <- local_pkgdown_site(test_path("assets/sidebar"))
-  suppressMessages(init_site(pkg))
-  pkg$meta$home$sidebar <- FALSE
+  pkg <- local_pkgdown_site(meta = list(home = list(sidebar = FALSE)))
   # not built by data_home_sidebar()
   expect_false(data_home_sidebar(pkg))
 
   # nor later -- so probably not to be tested here?!
-  dir_create(path(pkg$dst_path))
   suppressMessages(build_home_index(pkg))
   html <- xml2::read_html(path(pkg$dst_path, "index.html"))
   expect_equal(xpath_length(html, ".//aside/*"), 0)
 })
 
 test_that("data_home_sidebar() can be defined by a HTML file", {
-  pkg <- as_pkgdown(test_path("assets/sidebar"))
-  pkg$meta$home$sidebar$html <- "sidebar.html"
-  expect_equal(
-    data_home_sidebar(pkg),
-    read_file(path(pkg$src_path, "sidebar.html"))
+  pkg <- local_pkgdown_site(
+    meta = list(home = list(sidebar = list(html = "sidebar.html")))
   )
+  expect_snapshot(data_home_sidebar(pkg), error = TRUE)
+
+  pkg <- pkg_add_file(pkg, "sidebar.html", "Hello, world!")
+  expect_equal(data_home_sidebar(pkg), "Hello, world!\n")
 })
 
 test_that("data_home_sidebar() can get a custom markdown formatted component", {
-  pkg <- as_pkgdown(test_path("assets/sidebar"))
-  pkg$meta$home$sidebar <- list(
-    structure = "fancy",
-    components = list(
-      fancy = list(
-        title = "Fancy section",
-        text = "How *cool* is pkgdown?!"
+  pkg <- local_pkgdown_site(meta = list(
+    home = list(
+      sidebar = list(
+        structure = "fancy",
+        components = list(
+          fancy = list(
+            title = "Fancy section",
+            text = "How *cool* is pkgdown?!"
+          )
+        )
       )
     )
-  )
-
+  ))
   html <- xml2::read_html(data_home_sidebar(pkg))
   expect_snapshot_output(xpath_xml(html, ".//div[@class='fancy-section']"))
 })
 
-test_that("data_home_sidebar() can add a README", {
-  pkg <- as_pkgdown(test_path("assets/sidebar"))
-  pkg$meta$home$sidebar <- list(structure = c("license", "toc"))
+test_that("data_home_sidebar() can add a TOC", {
+  pkg <- local_pkgdown_site(meta = list(
+    home = list(sidebar = list(structure = "toc"))
+  ))
 
   html <- xml2::read_html(data_home_sidebar(pkg))
   expect_snapshot_output(xpath_xml(html, ".//div[@class='table-of-contents']"))
 })
 
 test_that("data_home_sidebar() outputs informative error messages", {
-  pkg <- as_pkgdown(test_path("assets/sidebar"))
   data_home_sidebar_ <- function(...) {
-    pkg$meta$home$sidebar <- list(...)
+    pkg <- local_pkgdown_site(meta = list(home = list(sidebar = list(...))))
     data_home_sidebar(pkg)
   }
 
@@ -121,12 +130,6 @@ test_that("data_home_sidebar() outputs informative error messages", {
     data_home_sidebar_(structure = "fancy", components = list(fancy = list(text = "bla")))
     data_home_sidebar_(structure = "fancy", components = list(fancy = list()))
   })
-})
-
-test_that("data_home_sidebar() errors well when no HTML file", {
-  pkg <- as_pkgdown(test_path("assets/sidebar"))
-  pkg$meta$home$sidebar$html <- "file.html"
-  expect_snapshot(data_home_sidebar(pkg), error = TRUE)
 })
 
 test_that("package repo verification", {

@@ -56,7 +56,7 @@
 # clear error for bad hierarchy - bad nesting
 
     Code
-      data_news(temp_pkg)
+      data_news(pkg)
     Condition
       Error:
       ! In NEWS.md, inconsistent use of section headings.
@@ -66,7 +66,7 @@
 # clear error for bad hierarchy - h3
 
     Code
-      data_news(temp_pkg)
+      data_news(pkg)
     Condition
       Error:
       ! In NEWS.md, inconsistent use of section headings.

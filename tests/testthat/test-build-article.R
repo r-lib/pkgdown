@@ -97,9 +97,7 @@ test_that("reports on bad open graph meta-data", {
 
 test_that("can control math mode", {
   pkg <- local_pkgdown_site()
-  dir_create(path(pkg$src_path, "vignettes"))
-  write_lines(c("$1 + 1$"), path(pkg$src_path, "vignettes", "math.Rmd"))
-  pkg <- as_pkgdown(pkg$src_path, override = list(template = list(bootstrap = 5)))
+  pkg <- pkg_add_file(pkg, "vignettes/math.Rmd", "$1 + 1$")
 
   pkg$meta$template$`math-rendering` <- "mathml"
   suppressMessages(init_site(pkg))
@@ -139,7 +137,7 @@ test_that("build_article styles ANSI escapes", {
   skip_if_no_pandoc()
 
   pkg <- local_pkgdown_site()
-  write_lines(path(pkg$src_path, "vignettes", "test.Rmd"), text = c(
+  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", c(
     "---",
     "title: title",
     "---",
@@ -147,7 +145,6 @@ test_that("build_article styles ANSI escapes", {
     "cat(cli::col_red('X'), '\n')",
     "```"
   ))
-  pkg <- update_vignettes(pkg)
 
   suppressMessages(path <- build_article("test", pkg))
   html <- xml2::read_html(path)
@@ -161,8 +158,7 @@ test_that("build_article yields useful error if pandoc fails", {
   skip_if_no_pandoc("2.18")
 
   pkg <- local_pkgdown_site()
-  write_lines("Hi", path(pkg$src_path, "vignettes", "test.Rmd"))
-  pkg <- update_vignettes(pkg)
+  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", "Hi")
 
   expect_snapshot(
     build_article("test", pkg, pandoc_args = "--fail-if-warnings"),
@@ -174,7 +170,7 @@ test_that("build_article yields useful error if R fails", {
   skip_if_no_pandoc()
 
   pkg <- local_pkgdown_site()
-  write_lines(path(pkg$src_path, "vignettes", "test.Rmd"), text = c(
+  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", c(
     "---",
     "title: title",
     "---",
@@ -185,7 +181,6 @@ test_that("build_article yields useful error if R fails", {
     "f()",
     "```"
   ))
-  pkg <- update_vignettes(pkg)
 
   # check that error looks good
   expect_snapshot(build_article("test", pkg), error = TRUE)
@@ -199,15 +194,13 @@ test_that("build_article yields useful error if R fails", {
 test_that("build_article copies image files in subdirectories", {
   skip_if_no_pandoc()
   pkg <- local_pkgdown_site()
-  write_lines(path(pkg$src_path, "vignettes", "test.Rmd"), text = c(
+  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", c(
     "```{r}",
     "#| fig-alt: alt-text",
     "knitr::include_graphics('test/kitten.jpg')",
     "```"
   ))
-  dir_create(path(pkg$src_path, "vignettes", "test"))
-  file_copy(test_path("assets/kitten.jpg"), path(pkg$src_path, "vignettes", "test"))
-  pkg <- update_vignettes(pkg)
+  pkg <- pkg_add_kitten(pkg, "vignettes/test")
 
   expect_snapshot(build_article("test", pkg))
   expect_equal(path_file(dir_ls(path(pkg$dst_path, "articles", "test"))), "kitten.jpg")
@@ -256,15 +249,15 @@ test_that("image links relative to output", {
 
 test_that("warns about missing images", {
   pkg <- local_pkgdown_site()
-  write_lines("![foo](kitten.jpg)", path(pkg$src_path, "vignettes", "kitten.Rmd"))
-  pkg <- update_vignettes(pkg)
+  pkg <- pkg_add_file(pkg, "vignettes/kitten.Rmd", "![foo](kitten.jpg)")
 
-  expect_snapshot(build_articles(pkg))
+  expect_snapshot(build_article("kitten", pkg))
 })
 
 test_that("warns about missing alt-text", {
-  pkg <- local_pkgdown_site(test_path("assets/missing-alt"))
-  expect_snapshot(build_article("missing-images", pkg))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/kitten.Rmd", "![](kitten.jpg)")
+  expect_snapshot(build_article("kitten", pkg))
 })
 
 # External dependencies --------------------------------------------------------

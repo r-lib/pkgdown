@@ -1,7 +1,10 @@
 test_that("sitrep complains about BS3", {
   pkg <- local_pkgdown_site(
-    test_path("assets/open-graph"),
-    list(template = list(bootstrap = 3))
+    meta = list(
+      template = list(bootstrap = 3),
+      url = "https://example.com"
+    ),
+    desc = list(URL = "https://example.com")
   )
   expect_snapshot(pkgdown_sitrep(pkg))
 })
@@ -44,11 +47,11 @@ test_that("both inform if everything is ok", {
 
 test_that("check_urls reports problems", {
   # URL not in the pkgdown config
-  pkg <- test_path("assets/figure")
+  pkg <- local_pkgdown_site()
   expect_snapshot(check_urls(pkg), error = TRUE)
 
   # URL only in the pkgdown config
-  pkg <- test_path("assets/cname")
+  pkg <- local_pkgdown_site(meta = list(url = "https://testpackage.r-lib.org"))
   expect_snapshot(check_urls(pkg), error = TRUE)
 })
 
