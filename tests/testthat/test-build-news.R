@@ -12,19 +12,18 @@ test_that("data_news works as expected for h1 & h2", {
   lines_h2 <- gsub("^#", "##", lines_h1)
 
   pkg <- local_pkgdown_site()
-  write_lines(lines_h1, path(pkg$src_path, "NEWS.md"))
+  pkg <- pkg_add_file(pkg, "NEWS.md", lines_h1)
   expect_snapshot_output(data_news(pkg)[c("version", "page", "anchor")])
 
-  write_lines(lines_h2, path(pkg$src_path, "NEWS.md"))
+  pkg <- pkg_add_file(pkg, "NEWS.md", lines_h2)
   expect_snapshot_output(data_news(pkg)[c("version", "page", "anchor")])
 })
-
 
 test_that("multi-page news are rendered", {
   skip_if_no_pandoc()
 
   pkg <- local_pkgdown_site(meta = list(news = list(one_page = FALSE)))
-  write_lines(path(pkg$src_path, "NEWS.md"), text = c(
+  pkg <- pkg_add_file(pkg, "NEWS.md", c(
     "# testpackage 2.0", "",
     "* bullet (#222 @someone)", "",
     "# testpackage 1.1", "",
@@ -60,9 +59,7 @@ test_that("multi-page news are rendered", {
 test_that("github links are added to news items", {
   skip_if_no_pandoc()
 
-  temp_pkg <- list(
-    src_path = withr::local_tempdir(pattern = "pkgdown-news"),
-    bs_version = 5,
+  pkg <- local_pkgdown_site(meta = list(
     repo = list(
       url = list(
         home = "https://github.com/r-lib/pkgdown",
@@ -70,18 +67,15 @@ test_that("github links are added to news items", {
         issue = "https://github.com/r-lib/pkgdown/issues/"
       )
     )
-  )
+  ))
 
-  write_lines(
-    c(
-      "# testpackage 0.1.0", "",
-      "## Major changes", "",
-      "- Bug fixes (@hadley, #100)", "",
-      "- Merges (@josue-rodriguez)"
-    ),
-    path(temp_pkg$src_path, "NEWS.md")
-  )
-  news_tbl <- data_news(temp_pkg)
+  pkg <- pkg_add_file(pkg, "NEWS.md", c(
+    "# testpackage 0.1.0", "",
+    "## Major changes", "",
+    "- Bug fixes (@hadley, #100)", "",
+    "- Merges (@josue-rodriguez)"
+  ))
+  news_tbl <- data_news(pkg)
   html <- xml2::read_xml(news_tbl$html)
 
   expect_equal(
@@ -182,50 +176,36 @@ test_that("news headings get class and release date", {
 
 # Header checks ----------------------------------------------------------
 test_that("clear error for bad hierarchy - bad nesting", {
-  temp_pkg <- list(
-    src_path = withr::local_tempdir(pattern = "pkgdown-news"),
-    bs_version = 5
-  )
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "NEWS.md", c(
+    "### testpackage 1.0.0.9000", "",
+    "* bullet (#222 @someone)", "",
+    "# testpackage 1.0.0", "",
+    "## sub-heading", "",
+    "* first thing (#111 @githubuser)", "",
+    "* second thing", ""
+  ))
 
-  write_lines(
-    c(
-      "### testpackage 1.0.0.9000", "",
-      "* bullet (#222 @someone)", "",
-      "# testpackage 1.0.0", "",
-      "## sub-heading", "",
-      "* first thing (#111 @githubuser)", "",
-      "* second thing", ""
-    ),
-    path(temp_pkg$src_path, "NEWS.md")
-  )
-
-  expect_snapshot(data_news(temp_pkg), error = TRUE)
+  expect_snapshot(data_news(pkg), error = TRUE)
 })
 
 test_that("clear error for bad hierarchy - h3", {
-  temp_pkg <- list(
-    src_path = withr::local_tempdir(pattern = "pkgdown-news"),
-    bs_version = 5
-  )
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "NEWS.md", c(
+    "### testpackage 1.0.0.9000", "",
+    "* bullet (#222 @someone)", "",
+    "### testpackage 1.0.0", "",
+    "#### sub-heading", "",
+    "* first thing (#111 @githubuser)", "",
+    "* second thing", ""
+  ))
 
-  write_lines(
-    c(
-      "### testpackage 1.0.0.9000", "",
-      "* bullet (#222 @someone)", "",
-      "### testpackage 1.0.0", "",
-      "#### sub-heading", "",
-      "* first thing (#111 @githubuser)", "",
-      "* second thing", ""
-    ),
-    path(temp_pkg$src_path, "NEWS.md")
-  )
-
-  expect_snapshot(data_news(temp_pkg), error = TRUE)
+  expect_snapshot(data_news(pkg), error = TRUE)
 })
 
 test_that("news can contain footnotes", {
   pkg <- local_pkgdown_site()
-  write_lines(path = path(pkg$src_path, "NEWS.md"), c(
+  pkg <- pkg_add_file(pkg, "NEWS.md", c(
     "## testpackage 1.0.0.9000",
     "",
     "* bullet",
@@ -241,13 +221,10 @@ test_that("data_news warns if no headings found", {
   skip_if_no_pandoc()
 
   pkg <- local_pkgdown_site()
-  write_lines(
-    path = path(pkg$src_path, "NEWS.md"),
-    c(
-      "# mypackage", "",
-      "## mypackage foo", "",
-      "## mypackage bar", ""
-    )
-  )
+  pkg <- pkg_add_file(pkg, "NEWS.md", c(
+    "# mypackage", "",
+    "## mypackage foo", "",
+    "## mypackage bar", ""
+  ))
   expect_snapshot(. <- data_news(pkg))
 })

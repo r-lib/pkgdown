@@ -1,5 +1,5 @@
 test_that("check_bslib_theme() works", {
-  pkg <- as_pkgdown(test_path("assets/reference"))
+  pkg <- local_pkgdown_site()
   expect_equal(check_bslib_theme("default", pkg, bs_version = 4), "default")
   expect_equal(check_bslib_theme("lux", pkg, bs_version = 4), "lux")
   expect_snapshot(error = TRUE, {

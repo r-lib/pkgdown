@@ -32,14 +32,21 @@ test_that("warns about missing images", {
   skip_on_covr()
 
   pkg <- local_pkgdown_site()
-  write_lines("![foo](kitten.jpg)", path(pkg$src_path, "vignettes", "kitten.Rmd"))
-  pkg <- update_vignettes(pkg)
+  pkg <- pkg_add_file(pkg, "vignettes/kitten.Rmd", "![foo](kitten.jpg)")
 
   expect_snapshot(build_articles(pkg))
 })
 
 test_that("warns about missing alt-text", {
-  pkg <- local_pkgdown_site(test_path("assets/missing-alt"))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/missing-images.Rmd", c(
+    "![](kitten.jpg)",
+    "```{r}",
+    "plot(1)",
+    "```"
+  ))
+  pkg <- pkg_add_kitten(pkg, "vignettes")
+
   expect_snapshot(build_article("missing-images", pkg))
 })
 
@@ -214,9 +221,7 @@ test_that("reports on bad open graph meta-data", {
 
 test_that("can control math mode", {
   pkg <- local_pkgdown_site()
-  dir_create(path(pkg$src_path, "vignettes"))
-  write_lines(c("$1 + 1$"), path(pkg$src_path, "vignettes", "math.Rmd"))
-  pkg <- as_pkgdown(pkg$src_path, override = list(template = list(bootstrap = 5)))
+  pkg <- pkg_add_file(pkg, "vignettes/math.Rmd", "$1 + 1$")
 
   pkg$meta$template$`math-rendering` <- "mathml"
   suppressMessages(init_site(pkg))
@@ -244,19 +249,24 @@ test_that("can control math mode", {
 
 # render_markdown --------------------------------------------------------------
 
-test_that("render_rmarkdown copies image files in subdirectories", {
-  skip_if_no_pandoc()
-  tmp <- dir_create(file_temp())
-  pkg <- list(src_path = test_path("."), dst_path = tmp, bs_version = 3)
+test_that("build_article copies image files in subdirectories", {
+   skip_if_no_pandoc()
+   
+   pkg <- local_pkgdown_site()
+   pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", c(
+     "```{r}",
+     "#| fig-alt: alt-text",
+     "knitr::include_graphics('test/kitten.jpg')",
+     "```"
+   ))
+   pkg <- pkg_add_kitten(pkg, "vignettes/test")
 
-  expect_snapshot(
-    render_rmarkdown(pkg, "assets/vignette-with-img.Rmd", "test.html")
-  )
-  expect_equal(
-    as.character(path_rel(dir_ls(tmp, type = "file", recurse = TRUE), tmp)),
-    c("open-graph/logo.png", "test.html")
-  )
-})
+   expect_snapshot(build_article("test", pkg))
+   expect_equal(
+     path_file(dir_ls(path(pkg$dst_path, "articles", "test"))),
+     "kitten.jpg"
+   )
+ })
 
 test_that("render_rmarkdown yields useful error if pandoc fails", {
   skip_on_cran() # fragile due to pandoc dependency

@@ -1,6 +1,0 @@
-#' Title
-#'
-#' @export
-f <- function() {
-
-}

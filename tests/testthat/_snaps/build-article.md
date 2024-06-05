@@ -53,13 +53,13 @@
       Error in `build_article()`:
       ! In vignettes/bad-opengraph.Rmd, opengraph.twitter must be a list, not the number 1.
 
-# render_rmarkdown copies image files in subdirectories
+# build_article copies image files in subdirectories
 
     Code
-      render_rmarkdown(pkg, "assets/vignette-with-img.Rmd", "test.html")
+      build_article("test", pkg)
     Message
-      Reading assets/vignette-with-img.Rmd
-      Writing `test.html`
+      Reading vignettes/test.Rmd
+      Writing `articles/test.html`
 
 # render_rmarkdown yields useful error if pandoc fails
 
