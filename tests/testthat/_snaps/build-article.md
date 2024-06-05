@@ -109,8 +109,6 @@
     Message
       Reading vignettes/kitten.Rmd
       Writing `articles/kitten.html`
-      Missing images in 'vignettes/kitten.Rmd': 'kitten.jpg'
-      i pkgdown can only use images in 'man/figures' and 'vignettes'
       x Missing alt-text in 'vignettes/kitten.Rmd'
       * kitten.jpg
       i Learn more in `vignette(pkgdown::accessibility)`.

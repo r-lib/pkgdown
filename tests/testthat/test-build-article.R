@@ -257,6 +257,7 @@ test_that("warns about missing images", {
 test_that("warns about missing alt-text", {
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(pkg, "vignettes/kitten.Rmd", "![](kitten.jpg)")
+  pkg <- pkg_add_kitten(pkg, "vignettes")
   expect_snapshot(build_article("kitten", pkg))
 })
 
