@@ -46,7 +46,6 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = list(bs_version = 3)) {
   img <- xml2::xml_find_all(html, "//img")
   src <- xml2::xml_attr(img, "src")
   abs_src <- is_absolute_path(src)
-  
   if (any(abs_src)) {
     purrr::walk2(
       img[abs_src],
