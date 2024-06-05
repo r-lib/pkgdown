@@ -66,7 +66,12 @@ test_that("author comments linkified with escaped angle brackets (#2127)", {
 })
 
 test_that("authors data can be filtered with different roles", {
-  pkg <- as_pkgdown(test_path("assets/sidebar"))
+  pkg <- local_pkgdown_site(desc = list(`Authors@R` = '
+    c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
+    person("RStudio", role = c("cph", "fnd"))
+    )'
+  ))
   expect_length(data_authors(pkg)$main, 2)
   expect_length(data_authors(pkg, roles = "cre")$main, 1)
 })
