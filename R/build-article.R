@@ -164,30 +164,13 @@ render_rmarkdown <- function(pkg,
     quiet = quiet
   )
 
-  withr::local_envvar(
-    callr::rcmd_safe_env(),
-    BSTINPUTS = bst_paths(input_path),
-    TEXINPUTS = tex_paths(input_path),
-    BIBINPUTS = bib_paths(input_path),
-    R_CLI_NUM_COLORS = 256
-  )
+  local_texi2dvi_envvars(input_path)
 
+  withr::local_envvar(R_CLI_NUM_COLORS = 256)
   if (new_process) {
     path <- withCallingHandlers(
       callr::r_safe(rmarkdown_render_with_seed, args = args, show = !quiet),
-      error = function(cnd) {
-        lines <- strsplit(gsub("^\r?\n", "", cnd$stderr), "\r?\n")[[1]]
-        lines <- escape_cli(lines)
-        cli::cli_abort(
-          c(
-            "!" = "Failed to render {.path {input}}.",
-            set_names(lines, "x")
-          ),
-          parent = cnd$parent %||% cnd,
-          trace = cnd$parent$trace,
-          call = call
-        )
-      }
+      error = function(cnd) wrap_rmarkdown_error(cnd, input, call)
     )
   } else {
     path <- inject(rmarkdown_render_with_seed(!!!args))
@@ -237,16 +220,22 @@ copy_article_images <- function(built_path, input_path, output_path) {
   file_copy(src, dst, overwrite = TRUE)
 }
 
-#' Escapes a cli msg
-#'
-#' Removes empty lines and escapes braces
-#' @param msg A character vector with messages to be escaped
-#' @noRd
-escape_cli <- function(msg) {
-  msg <- msg[nchar(msg) >0]
-  msg <- gsub("{", "{{", msg, fixed = TRUE)
-  msg <- gsub("}", "}}", msg, fixed = TRUE)
-  msg
+wrap_rmarkdown_error <- function(cnd, input, call) {
+  lines <- strsplit(gsub("^\r?\n", "", cnd$stderr), "\r?\n")[[1]]
+  lines <- lines[nchar(lines) > 0]
+  # Feeding random text back into cli, so have to escape
+  lines <- gsub("{", "{{", lines, fixed = TRUE)
+  lines <- gsub("}", "}}", lines, fixed = TRUE)
+
+  cli::cli_abort(
+    c(
+      "!" = "Failed to render {.path {input}}.",
+      set_names(lines, "x")
+    ),
+    parent = cnd$parent %||% cnd,
+    trace = cnd$parent$trace,
+    call = call
+  )
 }
 
 rmarkdown_render_with_seed <- function(..., seed = NULL) {
@@ -262,29 +251,4 @@ rmarkdown_render_with_seed <- function(..., seed = NULL) {
   options(knitr.graphics.rel_path = FALSE)
 
   rmarkdown::render(envir = globalenv(), ...)
-}
-
-# adapted from tools::texi2dvi
-bst_paths <- function(path) {
-  paths <- c(
-    Sys.getenv("BSTINPUTS"),
-    path_dir(path),
-    path(R.home("share"), "texmf", "bibtex", "bst")
-  )
-  paste(paths, collapse = .Platform$path.sep)
-}
-tex_paths <- function(path) {
-  paths <- c(
-    Sys.getenv("TEXINPUTS"),
-    path_dir(path),
-    path(R.home("share"), "texmf", "tex", "latex")
-  )
-  paste(paths, collapse = .Platform$path.sep)
-}
-bib_paths <- function(path) {
-  paths <- c(
-    Sys.getenv("BIBINPUTS"),
-    tex_paths(path)
-  )
-  paste(paths, collapse = .Platform$path.sep)
 }
