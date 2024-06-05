@@ -105,18 +105,11 @@ test_that("default template includes all articles", {
 })
 
 test_that("check doesn't include getting started vignette", {
-  pkg <- local_pkgdown_site(test_path("assets/articles-resources"))
-  getting_started <- path(pkg$src_path, "vignettes", paste0(pkg$package, ".Rmd"))
-  file_create(getting_started)
-  withr::defer(file_delete(getting_started))
+  pkg <- local_pkgdown_site(meta = list(
+    articles = list(list(title = "Vignettes", contents = "a"))
+  ))
+  pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/testpackage.Rmd")
 
-  pkg <- local_pkgdown_site(test_path("assets/articles-resources"), meta = 
-    list(
-      articles = list(
-        list(title = "Getting Started", contents = "resources")
-      )
-    )
-  )
-
-  expect_error(data_articles_index(pkg), NA)
+  expect_no_error(data_articles_index(pkg))
 })

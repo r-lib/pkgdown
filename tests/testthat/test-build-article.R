@@ -213,15 +213,19 @@ test_that("build_article copies image files in subdirectories", {
 test_that("finds external resources referenced by R code", {
   # weird path differences that I don't have the energy to dig into
   skip_on_cran()
-  pkg <- local_pkgdown_site(test_path("assets", "articles-resources"))
-  suppressMessages(path <- build_article("resources", pkg))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", c(
+    "![external dependency](`r 'kitten.jpg'`)"
+  ))
+  pkg <- pkg_add_kitten(pkg, "vignettes")
+  suppressMessages(path <- build_article("test", pkg))
 
   # ensure that we the HTML references `<img src="external.png" />` directly
   html <- xml2::read_html(path)
-  expect_equal(xpath_attr(html, ".//img", "src"), "external.png")
+  expect_equal(xpath_attr(html, ".//img", "src"), "kitten.jpg")
 
   # expect that `external.png` was copied to the rendered article directory
-  expect_true(file_exists(path(path_dir(path), "external.png")))
+  expect_true(file_exists(path(path_dir(path), "kitten.jpg")))
 })
 
 test_that("image links relative to output", {
