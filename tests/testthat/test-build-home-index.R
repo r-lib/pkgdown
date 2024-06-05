@@ -8,10 +8,14 @@ test_that("messages about reading and writing", {
 })
 
 test_that("title and description come from DESCRIPTION by default", {
-  pkg <- as_pkgdown(test_path("assets/home-index-rmd"))
-  expect_equal(data_home(pkg)$pagetitle, "A test package")
-  expect_equal(data_home(pkg)$opengraph$description, "A test package")
+  pkg <- local_pkgdown_site(desc = list(
+    Title = "A test title",
+    Description = "A test description."
+  ))
+  expect_equal(data_home(pkg)$pagetitle, "A test title")
+  expect_equal(data_home(pkg)$opengraph$description, "A test description.")
 
+  # but overridden by home
   pkg$meta <- list(home = list(title = "X", description = "Y"))
   expect_equal(data_home(pkg)$pagetitle, "X")
   expect_equal(data_home(pkg)$opengraph$description, "Y")

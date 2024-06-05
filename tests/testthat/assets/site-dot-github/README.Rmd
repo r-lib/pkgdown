@@ -1,7 +1,0 @@
----
-output: github_document
----
-
-# test
-
-test link to [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md)
