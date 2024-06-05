@@ -41,10 +41,9 @@ test_that("data_home() validates yaml metadata", {
 })
 
 test_that("version formatting in preserved", {
-  pkg <- local_pkgdown_site(test_path("assets/version-formatting"))
+  pkg <- local_pkgdown_site(desc = list(Version = "1.0.0-9000"))
   expect_equal(pkg$version, "1.0.0-9000")
 
-  suppressMessages(init_site(pkg))
   suppressMessages(build_home_index(pkg))
   index <- read_lines(path(pkg$dst_path, "index.html"))
   expect_true(any(grepl("1.0.0-9000", index, fixed = TRUE)))
