@@ -19,7 +19,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
 
   check_string(pkg)
   if (!dir_exists(pkg)) {
-    cli::cli_abort("{.file {src_path}} is not an existing directory")
+    cli::cli_abort("{.file {pkg}} is not an existing directory")
   }
   src_path <- pkg
   
