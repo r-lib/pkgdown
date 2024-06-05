@@ -47,7 +47,6 @@ build_article <- function(name,
   data$opengraph <- modify_list(data$opengraph, front_opengraph)
 
   # Allow users to opt-in to their own template
-  ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")
   as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
 
   default_data <- list(
@@ -62,52 +61,59 @@ build_article <- function(name,
   data <- modify_list(default_data, data)
 
   if (as_is) {
-    format <- NULL
-
+    ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")
     if (identical(ext, "html")) {
-      data$as_is <- TRUE
-      template <- rmarkdown_template(pkg, depth = depth, data = data)
-      output <- rmarkdown::default_output_format(input_path)
-
-      # Override defaults & values supplied in metadata
-      options <- list(
-        template = template,
-        self_contained = FALSE
-      )
-      if (output$name != "rmarkdown::html_vignette") {
-        # Force to NULL unless overridden by user
-        options$theme <- output$options$theme
-      }
+      setup <- rmarkdown_setup_custom(pkg, input_path, depth = depth, data = data)
     } else {
-      options <- list()
+      setup <- list(format = NULL, options = NULL)
     }
   } else {
-    format <- build_rmarkdown_format(pkg, depth = depth, data = data)
-    options <- NULL
+    setup <- rmarkdown_setup_pkgdown(pkg, depth = depth, data = data)
   }
 
   render_rmarkdown(
     pkg,
     input = input,
     output = output_file,
-    output_format = format,
-    output_options = options,
+    output_format = setup$format,
+    output_options = setup$options,
     seed = seed,
     new_process = new_process,
     quiet = quiet
   )
 }
 
-build_rmarkdown_format <- function(pkg,
-                                   name,
+rmarkdown_setup_custom <- function(pkg,
+                                   input_path,
                                    depth = 1L,
                                    data = list(),
-                                   toc = TRUE,
                                    env = caller_env()) {
+  template <- rmarkdown_template(pkg, depth = depth, data = data, env = env)
+
+  # Override defaults & values supplied in metadata
+  options <- list(
+    template = template,
+    self_contained = FALSE
+  )
+  
+  output <- rmarkdown::default_output_format(input_path)
+  if (output$name != "rmarkdown::html_vignette") {
+    # Force to NULL unless overridden by user
+    options$theme <- output$options$theme
+  }
+
+  list(format = NULL, options = options)
+}
+
+rmarkdown_setup_pkgdown <- function(pkg,
+                                    depth = 1L,
+                                    data = list(),
+                                    toc = TRUE,
+                                    env = caller_env()) {
 
   template <- rmarkdown_template(pkg, depth = depth, data = data, env = env)
 
-  out <- rmarkdown::html_document(
+  format <- rmarkdown::html_document(
     toc = toc,
     toc_depth = 2,
     self_contained = FALSE,
@@ -117,19 +123,18 @@ build_rmarkdown_format <- function(pkg,
     math_method = config_math_rendering(pkg),
     extra_dependencies = bs_theme_deps_suppress()
   )
-  out$knitr$opts_chunk <- fig_opts_chunk(pkg$figures, out$knitr$opts_chunk)
+  format$knitr$opts_chunk <- fig_opts_chunk(pkg$figures, format$knitr$opts_chunk)
 
-  old_pre <- out$pre_knit
   width <- config_pluck_number_whole(pkg, "code.width", default = 80)
-
-  out$pre_knit <- function(...) {
+  old_pre <- format$pre_knit
+  format$pre_knit <- function(...) {
     options(width = width)
     if (is.function(old_pre)) {
       old_pre(...)
     }
   }
 
-  out
+  list(format = format, options = NULL)
 }
 
 # Generates pandoc template by rendering templates/content-article.html

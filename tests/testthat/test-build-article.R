@@ -118,7 +118,7 @@ test_that("can set width", {
 
 test_that("bad width gives nice error", {
   pkg <- local_pkgdown_site(meta = list(code = list(width = "abc")))
-  expect_snapshot(build_rmarkdown_format(pkg), error = TRUE)
+  expect_snapshot(rmarkdown_setup_pkgdown(pkg), error = TRUE)
 })
 
 test_that("finds external resources referenced by R code in the article html", {
