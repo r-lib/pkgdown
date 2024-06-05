@@ -53,6 +53,8 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
 <ul><li>
+<code><a href="../reference/build_articles.html">build_article()</a></code> no long has a <code>data</code> argument. This is technically a breaking change, but I can’t figure out why anyone would have ever used it.</li>
+<li>
 <code><a href="../reference/build_reference.html">build_reference()</a></code> does a better job of parsing <code>\value{}</code> blocks (<a href="https://github.com/r-lib/pkgdown/issues/2371" class="external-link">#2371</a>).</li>
 <li>When built on GitHub, source urls now use the name of the current upstream branch (rather than <code>HEAD</code>), which is more likely to generate correct links (<a href="https://github.com/r-lib/pkgdown/issues/2597" class="external-link">#2597</a>).</li>
 <li>New <code>vignette("non-english")</code> that discusses non-English sites including how to submit new translations (<a href="https://github.com/r-lib/pkgdown/issues/2605" class="external-link">#2605</a>).</li>

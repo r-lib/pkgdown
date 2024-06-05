@@ -103,10 +103,10 @@ you are primarily working on the text of an article.</p>
 <span><span class="fu">build_article</span><span class="op">(</span></span>
 <span>  <span class="va">name</span>,</span>
 <span>  pkg <span class="op">=</span> <span class="st">"."</span>,</span>
-<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  lazy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  seed <span class="op">=</span> <span class="fl">1014L</span>,</span>
 <span>  new_process <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  pandoc_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>quiet <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -134,12 +134,12 @@ freshly generated section in browser.</p></dd>
 <dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
 <dd><p>Name of article to render. This should be either a path
 relative to <code>vignettes/</code> without extension, or <code>index</code> or <code>README</code>.</p></dd>
-<dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>Additional data to pass on to template.</p></dd>
 <dt id="arg-new-process">new_process<a class="anchor" aria-label="anchor" href="#arg-new-process"></a></dt>
 <dd><p>Build the article in a clean R process? The default,
 <code>TRUE</code>, ensures that every article is build in a fresh environment, but
 you may want to set it to <code>FALSE</code> to make debugging easier.</p></dd>
+<dt id="arg-pandoc-args">pandoc_args<a class="anchor" aria-label="anchor" href="#arg-pandoc-args"></a></dt>
+<dd><p>Pass additional arguments to pandoc. Used for testing.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="index-and-navbar">Index and navbar<a class="anchor" aria-label="anchor" href="#index-and-navbar"></a></h2>
