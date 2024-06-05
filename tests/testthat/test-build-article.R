@@ -228,8 +228,6 @@ test_that("finds external resources referenced by R code", {
 })
 
 test_that("image links relative to output", {
-  # weird path differences that I don't have the energy to dig into
-  skip_on_cran()
   pkg <- local_pkgdown_site(test_path("assets/articles-images"))
 
   suppressMessages(init_site(pkg))
@@ -257,9 +255,6 @@ test_that("image links relative to output", {
 })
 
 test_that("warns about missing images", {
-  # Added in #2509: I can't figure out why this is necessary :(
-  skip_on_covr()
-
   pkg <- local_pkgdown_site()
   write_lines("![foo](kitten.jpg)", path(pkg$src_path, "vignettes", "kitten.Rmd"))
   pkg <- update_vignettes(pkg)
