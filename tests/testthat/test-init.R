@@ -43,10 +43,12 @@ test_that("asset subdirectories are copied", {
 })
 
 test_that("site meta doesn't break unexpectedly", {
-  pkgdown <- as_pkgdown(test_path("assets/reference"))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/b.Rmd")
 
   # null out components that will vary
-  yaml <- site_meta(pkgdown)
+  yaml <- site_meta(pkg)
   yaml$pkgdown <- "{version}"
   yaml$pkgdown_sha <- "{sha}"
   yaml$pandoc <- "{version}"
