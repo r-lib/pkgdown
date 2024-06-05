@@ -44,11 +44,11 @@ test_that("both inform if everything is ok", {
 
 test_that("check_urls reports problems", {
   # URL not in the pkgdown config
-  pkg <- test_path("assets/figure")
+  pkg <- local_pkgdown_site()
   expect_snapshot(check_urls(pkg), error = TRUE)
 
   # URL only in the pkgdown config
-  pkg <- test_path("assets/cname")
+  pkg <- local_pkgdown_site(meta = list(url = "https://testpackage.r-lib.org"))
   expect_snapshot(check_urls(pkg), error = TRUE)
 })
 
