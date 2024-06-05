@@ -1,46 +1,43 @@
 test_that("can build article that uses html_vignette", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
-  suppressMessages(init_site(pkg))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", pkg_vignette(
+    output = "rmarkdown::html_vignette",
+    pkgdown = list(as_is = TRUE)
+  ))
 
   # theme is not set since html_vignette doesn't support it
-  expect_snapshot(expect_error(build_article("html-vignette", pkg), NA))
+  suppressMessages(expect_no_error(build_article("test", pkg)))
 })
 
 test_that("can override html_document() options", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
-  suppressMessages(init_site(pkg))
-  suppressMessages(path <- build_article("html-document", pkg))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", pkg_vignette(
+    output = list(html_document = list(number_sections = TRUE)),
+    pkgdown = list(as_is = TRUE),
+    "# Heading 1",
+    "# Heading 2"
+  ))
+  suppressMessages(path <- build_article("test", pkg))
 
   # Check that number_sections is respected
   html <- xml2::read_html(path)
   expect_equal(xpath_text(html, ".//h2//span"), c("1", "2"))
 
   # But title isn't affected
-  expect_equal(xpath_text(html, ".//h1"), "html_document + as_is")
+  expect_equal(xpath_text(html, ".//h1"), "title")
 
   # And no links or scripts are inlined
   expect_equal(xpath_length(html, ".//body//link"), 0)
   expect_equal(xpath_length(html, ".//body//script"), 0)
 })
 
-test_that("can override options with _output.yml", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
-  suppressMessages(init_site(pkg))
-  suppressMessages(path <- build_article("html-document", pkg))
-
-  # Check that number_sections is respected
-  html <- xml2::read_html(path)
-  expect_equal(xpath_text(html, ".//h2//span"), c("1", "2"))
-})
-
 test_that("can set width", {
-  pkg <- local_pkgdown_site(
-    test_path("assets/articles"),
-    list(code = list(width = 50))
-  )
-  suppressMessages(init_site(pkg))
+  pkg <- local_pkgdown_site(meta = list(code = list(width = 50)))
+  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", pkg_vignette(
+    r_code_block("getOption('width')")
+  ))
 
-  suppressMessages(path <- build_article("width", pkg))
+  suppressMessages(path <- build_article("test", pkg))
   html <- xml2::read_html(path)
   expect_equal(xpath_text(html, ".//pre")[[2]], "## [1] 50")
 })
@@ -51,18 +48,26 @@ test_that("bad width gives nice error", {
 })
 
 test_that("BS5 article laid out correctly with and without TOC", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
-  suppressMessages(init_site(pkg))
-  
-  suppressMessages(toc_true_path <- build_article("standard", pkg))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/toc-true.Rmd", pkg_vignette(
+    "## Heading 1",
+    "## Heading 2"
+  ))
+  pkg <- pkg_add_file(pkg, "vignettes/toc-false.Rmd", pkg_vignette(
+    toc = FALSE,
+    "## Heading 1",
+    "## Heading 2"
+  ))
+
+  suppressMessages(toc_true_path <- build_article("toc-true", pkg))
   suppressMessages(toc_false_path <- build_article("toc-false", pkg))
 
   toc_true <- xml2::read_html(toc_true_path)
   toc_false <- xml2::read_html(toc_false_path)
 
   # Always has class col-md-9
-  expect_equal(xpath_attr(toc_false, ".//main", "class"), "col-md-9")
   expect_equal(xpath_attr(toc_true, ".//main", "class"), "col-md-9")
+  expect_equal(xpath_attr(toc_false, ".//main", "class"), "col-md-9")
 
   # The no sidebar without toc
   expect_equal(xpath_length(toc_true, ".//aside"), 1)
@@ -70,29 +75,33 @@ test_that("BS5 article laid out correctly with and without TOC", {
 })
 
 test_that("titles are escaped when needed", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
-  suppressMessages(init_site(pkg))
-  suppressMessages(build_article(pkg = pkg, name = "needs-escape"))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", pkg_vignette(title = "a <-> b"))
+  suppressMessages(path <- build_article("test", pkg))
 
-  html <- xml2::read_html(path(pkg$dst_path, "articles/needs-escape.html"))
+  html <- xml2::read_html(path)
   expect_equal(xpath_text(html, "//title", trim = TRUE), "a <-> b • testpackage")
   expect_equal(xpath_text(html, "//h1", trim = TRUE), "a <-> b")
 })
 
 test_that("output is reproducible by default, i.e. 'seed' is respected", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
-  suppressMessages(init_site(pkg))
-  suppressMessages(build_article(pkg = pkg, name = "random"))
-
-  html <- xml2::read_html(path(pkg$dst_path, "articles/random.html"))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", pkg_vignette(
+    r_code_block("runif(5L)")
+  ))
+  suppressMessages(path <- build_article("test", pkg))
+  
+  html <- xml2::read_html(path)
   output <- xpath_text(html, "//main//pre")[[2]]
   expect_snapshot(cat(output))
 })
 
 test_that("reports on bad open graph meta-data", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
-  suppressMessages(init_site(pkg))
-  expect_snapshot(build_article(pkg = pkg, name = "bad-opengraph"), error = TRUE)
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", pkg_vignette(
+    opengraph = list(twitter = 1)
+  ))
+  expect_snapshot(build_article("test", pkg), error = TRUE)
 })
 
 test_that("can control math mode", {
@@ -101,20 +110,20 @@ test_that("can control math mode", {
 
   pkg$meta$template$`math-rendering` <- "mathml"
   suppressMessages(init_site(pkg))
-  suppressMessages(build_article("math", pkg))
-  html <- xml2::read_html(path(pkg$dst_path, "articles", "math.html"))
+  suppressMessages(path <- build_article("math", pkg))
+  html <- xml2::read_html(path)
   expect_equal(xpath_length(html, ".//math"), 1)
 
   pkg$meta$template$`math-rendering` <- "mathjax"
   suppressMessages(init_site(pkg))
-  suppressMessages(build_article("math", pkg))
-  html <- xml2::read_html(path(pkg$dst_path, "articles", "math.html"))
+  suppressMessages(path <- build_article("math", pkg))
+  html <- xml2::read_html(path)
   expect_equal(xpath_length(html, ".//span[contains(@class, 'math')]"), 1)
   
   pkg$meta$template$`math-rendering` <- "katex"
   suppressMessages(init_site(pkg))
-  suppressMessages(build_article("math", pkg))
-  html <- xml2::read_html(path(pkg$dst_path, "articles", "math.html"))
+  suppressMessages(path <- build_article("math", pkg))
+  html <- xml2::read_html(path)
   expect_equal(xpath_length(html, ".//span[contains(@class, 'math')]"), 1)
   expect_contains(
     path_file(xpath_attr(html, ".//script", "src")),
@@ -137,13 +146,8 @@ test_that("build_article styles ANSI escapes", {
   skip_if_no_pandoc()
 
   pkg <- local_pkgdown_site()
-  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", c(
-    "---",
-    "title: title",
-    "---",
-    "```{r}",
-    "cat(cli::col_red('X'), '\n')",
-    "```"
+  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", pkg_vignette(
+    r_code_block("cat(cli::col_red('X'), '\n')")
   ))
 
   suppressMessages(path <- build_article("test", pkg))
@@ -264,29 +268,40 @@ test_that("warns about missing alt-text", {
 # External dependencies --------------------------------------------------------
 
 test_that("pkgdown deps are included only once in articles", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
-  suppressMessages(init_site(pkg))
-  
-  suppressMessages(path <- build_article("html-deps", pkg))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", pkg_vignette(
+    # Some code that adds jquery/bootstrap
+    r_code_block(
+      'htmltools::tagList(
+        htmltools::p("hello"),
+        rmarkdown::html_dependency_jquery(),
+        rmarkdown::html_dependency_bootstrap("flatly")
+      )'
+    )
+  ))
+
+  # Rely on default init_site() from local_pkgdown_site() setting all
+  # the default includes to empty
+  suppressMessages(path <- build_article("test", pkg))
   html <- xml2::read_html(path)
-  scripts <- path_file(xpath_attr(html, ".//script", "src"))
-  styles <- path_file(xpath_attr(html, ".//link", "href"))
-
-  # jquery only loaded once, even though it's also added by code in the article
-  expect_length(grep("jquery-", scripts), 1)
-  # similarly for bootstrap
-  expect_length(grep("bootstrap.bundle", scripts), 1)
-  expect_length(grep("bootstrap.min.css", styles), 1)
-
-  # included for pandoc 2.7.3 - 2.9.2.1 improve accessibility
-  # we always want to remove it
-  expect_length(grep("empty-anchor", scripts), 0)
+  expect_equal(path_file(xpath_attr(html, ".//script", "src")), "pkgdown.js")
+  expect_equal(path_file(xpath_attr(html, ".//link", "href")), character())
 })
 
 test_that("html widgets get needed css/js", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
-  suppressMessages(init_site(pkg))
-  suppressMessages(path <- build_article("widget", pkg))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", pkg_vignette(
+    r_code_block('
+      path1 <- tempfile()
+      writeLines(letters, path1)
+      path2 <- tempfile()
+      writeLines(letters[-(10:11)], path2)
+
+      diffviewer::visual_diff(path1, path2)
+    ')
+  ))
+
+  suppressMessages(path <- build_article("test", pkg))
 
   html <- xml2::read_html(path)
   css <- xpath_attr(html, ".//body//link", "href")

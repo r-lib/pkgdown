@@ -23,9 +23,7 @@ test_that("check_bootstrap_version() allows 3, 4 (with warning), and 5", {
 })
 
 test_that("check_bootstrap_version() gives informative error otherwise", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
-  file_touch(path(pkg$src_path, "_pkgdown.yml"))
-
+  pkg <- local_pkgdown_site()
   expect_snapshot(check_bootstrap_version(1, pkg), error = TRUE)
 })
 
@@ -49,10 +47,14 @@ test_that("package_vignettes() detects conflicts in final article paths", {
 })
 
 test_that("package_vignettes() sorts articles alphabetically by file name", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/b.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/c.Rmd")
+
   expect_equal(
-    order(path_file(pkg$vignettes$file_out)),
-    seq_len(nrow(pkg$vignettes))
+    path_file(pkg$vignettes$file_out),
+    c("a.html", "b.html", "c.html")
   )
 })
 

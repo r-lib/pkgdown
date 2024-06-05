@@ -1,11 +1,3 @@
-# can build article that uses html_vignette
-
-    Code
-      expect_error(build_article("html-vignette", pkg), NA)
-    Message
-      Reading vignettes/html-vignette.Rmd
-      Writing `articles/html-vignette.html`
-
 # bad width gives nice error
 
     Code
@@ -24,12 +16,12 @@
 # reports on bad open graph meta-data
 
     Code
-      build_article(pkg = pkg, name = "bad-opengraph")
+      build_article("test", pkg)
     Message
-      Reading vignettes/bad-opengraph.Rmd
+      Reading vignettes/test.Rmd
     Condition
       Error in `build_article()`:
-      ! In vignettes/bad-opengraph.Rmd, opengraph.twitter must be a list, not the number 1.
+      ! In vignettes/test.Rmd, opengraph.twitter must be a list, not the number 1.
 
 # build_article styles ANSI escapes
 

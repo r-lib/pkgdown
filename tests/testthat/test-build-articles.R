@@ -56,10 +56,8 @@ test_that("articles in vignettes/articles/ are unnested into articles/", {
   # weird path differences that I don't have the energy to dig into
   skip_on_cran()
 
-  pkg <- local_pkgdown_site(test_path("assets/articles"), meta = list(
-    url = "https://example.com"
-  ))
-  suppressMessages(init_site(pkg))
+  pkg <- local_pkgdown_site(meta = list(url = "https://example.com"))
+  pkg <- pkg_add_file(pkg, "vignettes/articles/nested.Rmd")
 
   nested <- pkg$vignettes[pkg$vignettes$name == "articles/nested", ]
   expect_equal(nested$file_out, "articles/nested.html")

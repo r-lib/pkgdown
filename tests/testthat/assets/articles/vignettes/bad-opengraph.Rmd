@@ -1,7 +1,0 @@
----
-title: "Introduction to poolnoodlr"
-description: "A brief introduction to pool noodles in R."
-author: "Mara Averick"
-opengraph:
-  twitter: 1
----
