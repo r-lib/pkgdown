@@ -25,6 +25,9 @@ pkg_add_file <- function(pkg, path, lines = NULL) {
 }
 
 pkg_add_kitten <- function(pkg, path) {
-  file_copy(test_path("assets/kitten.jpg"), path(pkg$src_path, "vignettes"))  
+  full_path <- path(pkg$src_path, path)
+  dir_create(full_path)
+
+  file_copy(test_path("assets/kitten.jpg"), full_path)
   pkg
 }

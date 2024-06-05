@@ -1,7 +1,10 @@
 test_that("sitrep complains about BS3", {
   pkg <- local_pkgdown_site(
-    test_path("assets/open-graph"),
-    list(template = list(bootstrap = 3))
+    meta = list(
+      template = list(bootstrap = 3),
+      url = "https://example.com"
+    ),
+    desc = list(URL = "https://example.com")
   )
   expect_snapshot(pkgdown_sitrep(pkg))
 })

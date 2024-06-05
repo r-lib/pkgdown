@@ -249,19 +249,24 @@ test_that("can control math mode", {
 
 # render_markdown --------------------------------------------------------------
 
-test_that("render_rmarkdown copies image files in subdirectories", {
-  skip_if_no_pandoc()
-  tmp <- dir_create(file_temp())
-  pkg <- list(src_path = test_path("."), dst_path = tmp, bs_version = 3)
+test_that("build_article copies image files in subdirectories", {
+   skip_if_no_pandoc()
+   
+   pkg <- local_pkgdown_site()
+   pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", c(
+     "```{r}",
+     "#| fig-alt: alt-text",
+     "knitr::include_graphics('test/kitten.jpg')",
+     "```"
+   ))
+   pkg <- pkg_add_kitten(pkg, "vignettes/test")
 
-  expect_snapshot(
-    render_rmarkdown(pkg, "assets/vignette-with-img.Rmd", "test.html")
-  )
-  expect_equal(
-    as.character(path_rel(dir_ls(tmp, type = "file", recurse = TRUE), tmp)),
-    c("open-graph/logo.png", "test.html")
-  )
-})
+   expect_snapshot(build_article("test", pkg))
+   expect_equal(
+     path_file(dir_ls(path(pkg$dst_path, "articles", "test"))),
+     "kitten.jpg"
+   )
+ })
 
 test_that("render_rmarkdown yields useful error if pandoc fails", {
   skip_on_cran() # fragile due to pandoc dependency
