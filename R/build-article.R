@@ -37,20 +37,9 @@ build_article <- function(name,
   cli::cli_inform("Reading {src_path(input)}")
   digest <- file_digest(output_path)
 
-  yaml <- rmarkdown::yaml_front_matter(input_path)
-  
-  data <- list()
-  data$opengraph <- check_open_graph(pkg, yaml$opengraph, input)
-  data$opengraph$description <- data$opengraph$description %||% yaml$description
-  data$pagetitle <- escape_html(yaml$title)
-  data$toc <- yaml$toc %||% TRUE
-  data$source <- repo_source(pkg, input)
-  data$filename <- path_file(input)
-  data$as_is <- isTRUE(purrr::pluck(yaml, "pkgdown", "as_is"))
-
+  data <- data_article(pkg, input)
   if (data$as_is) {
-    ext <- purrr::pluck(yaml, "pkgdown", "extension", .default = "html")
-    if (identical(ext, "html")) {
+    if (identical(data$ext, "html")) {
       setup <- rmarkdown_setup_custom(pkg, input_path, depth = depth, data = data)
     } else {
       setup <- list(format = NULL, options = NULL)
@@ -103,6 +92,23 @@ build_article <- function(name,
 
   invisible(path)
 
+}
+
+data_article <- function(pkg, input, call = caller_env()) {
+  yaml <- rmarkdown::yaml_front_matter(path_abs(input, pkg$src_path))
+
+  opengraph <- check_open_graph(pkg, yaml$opengraph, input, call = call)
+  opengraph$description <- opengraph$description %||% yaml$description
+  
+  list(
+    opengraph = opengraph,
+    pagetitle = escape_html(yaml$title),
+    toc = yaml$toc %||% TRUE,
+    source = repo_source(pkg, input),
+    filename = path_file(input),
+    as_is = isTRUE(purrr::pluck(yaml, "pkgdown", "as_is")),
+    ext = purrr::pluck(yaml, "pkgdown", "extension", .default = "html")
+  )
 }
 
 rmarkdown_setup_custom <- function(pkg,
