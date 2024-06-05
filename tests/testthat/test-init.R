@@ -33,7 +33,9 @@ test_that("single extra.css correctly copied", {
 })
 
 test_that("asset subdirectories are copied", {
-  pkg <- local_pkgdown_site(test_path("assets/init-asset-subdirs"))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "pkgdown/assets/subdir1/file1.txt")
+  pkg <- pkg_add_file(pkg, "pkgdown/assets/subdir1/subdir2/file2.txt")
   suppressMessages(init_site(pkg))
 
   expect_true(file_exists(path(pkg$dst_path, "subdir1", "file1.txt")))

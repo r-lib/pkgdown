@@ -1,6 +1,6 @@
 test_that("authors page includes inst/AUTHORS", {
-  pkg <- local_pkgdown_site(test_path("assets/inst-authors"))
-  suppressMessages(init_site(pkg))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "inst/AUTHORS", "Hello")
   suppressMessages(build_citation_authors(pkg))
 
   lines <- read_lines(path(pkg$dst_path, "authors.html"))
@@ -72,7 +72,9 @@ test_that("authors data can be filtered with different roles", {
 })
 
 test_that("authors data includes inst/AUTHORS", {
-  pkg <- as_pkgdown(test_path("assets/inst-authors"))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "inst/AUTHORS", "Hello")
+
   expect_equal(data_authors(pkg)$inst, "Hello")
 })
 
