@@ -71,7 +71,7 @@ build_article <- function(name,
 
       # Override defaults & values supplied in metadata
       options <- list(
-        template = template$path,
+        template = template,
         self_contained = FALSE
       )
       if (output$name != "rmarkdown::html_vignette") {
@@ -102,16 +102,17 @@ build_rmarkdown_format <- function(pkg,
                                    name,
                                    depth = 1L,
                                    data = list(),
-                                   toc = TRUE) {
+                                   toc = TRUE,
+                                   env = caller_env()) {
 
-  template <- rmarkdown_template(pkg, depth = depth, data = data)
+  template <- rmarkdown_template(pkg, depth = depth, data = data, env = env)
 
   out <- rmarkdown::html_document(
     toc = toc,
     toc_depth = 2,
     self_contained = FALSE,
     theme = NULL,
-    template = template$path,
+    template = template,
     anchor_sections = FALSE,
     math_method = config_math_rendering(pkg),
     extra_dependencies = bs_theme_deps_suppress()
@@ -128,24 +129,19 @@ build_rmarkdown_format <- function(pkg,
     }
   }
 
-  attr(out, "__cleanup") <- template$cleanup
-
   out
 }
 
-# Generates pandoc template format by rendering
-# inst/template/content-article.html
-# Output is a path + environment; when the environment is garbage collected
-# the path will be deleted
-rmarkdown_template <- function(pkg, data, depth) {
-  path <- tempfile(fileext = ".html")
+# Generates pandoc template by rendering templates/content-article.html
+rmarkdown_template <- function(pkg, data = list(), depth = 1L, env = caller_env()) {
+  path <- withr::local_tempfile(
+    pattern = "pkgdown-rmd-template-",
+    fileext = ".html",
+    .local_envir = env
+  )
   render_page(pkg, "article", data, path, depth = depth, quiet = TRUE)
 
-  # Remove template file when format object is GC'd
-  e <- env()
-  reg.finalizer(e, function(e) file_delete(path))
-
-  list(path = path, cleanup = e)
+  path
 }
 
 render_rmarkdown <- function(pkg,

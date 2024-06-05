@@ -242,6 +242,17 @@ test_that("can control math mode", {
   )
 })
 
+test_that("rmarkdown_template cleans up after itself", {
+  pkg <- local_pkgdown_site()
+  path <- NULL
+
+  local({
+    path <<- rmarkdown_template(pkg)
+    expect_true(file_exists(path))
+  })
+  expect_false(file_exists(path))
+})
+
 # render_markdown --------------------------------------------------------------
 
 test_that("render_rmarkdown copies image files in subdirectories", {
