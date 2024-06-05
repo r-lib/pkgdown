@@ -21,6 +21,7 @@ build_article(
   lazy = FALSE,
   seed = 1014L,
   new_process = TRUE,
+  pandoc_args = character(),
   quiet = TRUE
 )
 
@@ -50,6 +51,8 @@ relative to \verb{vignettes/} without extension, or \code{index} or \code{README
 \item{new_process}{Build the article in a clean R process? The default,
 \code{TRUE}, ensures that every article is build in a fresh environment, but
 you may want to set it to \code{FALSE} to make debugging easier.}
+
+\item{pandoc_args}{Pass additional arguments to pandoc. Used for testing.}
 }
 \description{
 \code{build_articles()} renders each R Markdown file underneath \verb{vignettes/} and

@@ -6,6 +6,7 @@
 #' @param new_process Build the article in a clean R process? The default,
 #'   `TRUE`, ensures that every article is build in a fresh environment, but
 #'   you may want to set it to `FALSE` to make debugging easier.
+#' @param pandoc_args Pass additional arguments to pandoc. Used for testing.
 build_article <- function(name,
                           pkg = ".",
                           lazy = FALSE,
