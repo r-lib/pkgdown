@@ -55,9 +55,8 @@ test_that("site meta doesn't break unexpectedly", {
 
 test_that("site meta includes vignette subdirectories", {
   pkg <- local_pkgdown_site()
-  dir_create(path(pkg$src_path, "vignettes", "a"))
-  file_create(path(pkg$src_path, "vignettes", "a", c("a.Rmd", "b.Rmd")))
-  pkg <- update_vignettes(pkg)
+  pkg <- pkg_add_file(pkg, "vignettes/a/a.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/a/b.Rmd")
 
   meta <- site_meta(pkg)
   expect_equal(meta$articles, list("a/a" = "a/a.html", "a/b" = "a/b.html"))

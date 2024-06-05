@@ -87,7 +87,7 @@ test_that("titles don't get autolinked code", {
 
 test_that("read_meta() errors gracefully if _pkgdown.yml failed to parse", {
   pkg <- local_pkgdown_site()
-  write_lines(path = path(pkg$src_path, "_pkgdown.yml"), c(
+  pkg <- pkg_add_file(pkg, "_pkgdown.yml", c(
     "url: https://pkgdown.r-lib.org",
     "  title: Build websites for R packages"
   ))

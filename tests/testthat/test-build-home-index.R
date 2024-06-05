@@ -19,7 +19,7 @@ test_that("title and description come from DESCRIPTION by default", {
 
 test_that("math is handled", {
   pkg <- local_pkgdown_site()
-  write_lines(c("$1 + 1$"), path(pkg$src_path, "README.md"))
+  pkg <- pkg_add_file(pkg, "README.md", "$1 + 1$")
   suppressMessages(build_home_index(pkg))
 
   html <- xml2::read_html(path(pkg$dst_path, "index.html"))
