@@ -3,18 +3,15 @@
 #' @rdname build_articles
 #' @param name Name of article to render. This should be either a path
 #'   relative to `vignettes/` without extension, or `index` or `README`.
-#' @param data Additional data to pass on to template.
 #' @param new_process Build the article in a clean R process? The default,
 #'   `TRUE`, ensures that every article is build in a fresh environment, but
 #'   you may want to set it to `FALSE` to make debugging easier.
 build_article <- function(name,
                           pkg = ".",
-                          data = list(),
                           lazy = FALSE,
                           seed = 1014L,
                           new_process = TRUE,
                           quiet = TRUE) {
-
   pkg <- as_pkgdown(pkg)
 
   # Look up in pkg vignette data - this allows convenient automatic
@@ -22,9 +19,7 @@ build_article <- function(name,
   # allow code sharing with building of the index.
   vig <- match(name, pkg$vignettes$name)
   if (is.na(vig)) {
-    cli::cli_abort(
-      "Can't find article {.file {name}}"
-    )
+    cli::cli_abort("Can't find article {.file {name}}")
   }
 
   input <- pkg$vignettes$file_in[vig]
@@ -38,30 +33,19 @@ build_article <- function(name,
     return(invisible())
   }
 
-  local_envvar_pkgdown(pkg)
-  local_options_link(pkg, depth = depth)
+  yaml <- rmarkdown::yaml_front_matter(input_path)
+  
+  data <- list()
+  data$opengraph <- check_open_graph(pkg, yaml$opengraph, input)
+  data$opengraph$description <- data$opengraph$description %||% yaml$description
+  data$pagetitle <- escape_html(yaml$title)
+  data$toc <- yaml$toc %||% TRUE
+  data$source <- repo_source(pkg, input)
+  data$filename <- path_file(input)
+  data$as_is <- isTRUE(purrr::pluck(yaml, "pkgdown", "as_is"))
 
-  front <- rmarkdown::yaml_front_matter(input_path)
-  # Take opengraph from article's yaml front matter
-  front_opengraph <- check_open_graph(pkg, front$opengraph, input)
-  data$opengraph <- modify_list(data$opengraph, front_opengraph)
-
-  # Allow users to opt-in to their own template
-  as_is <- isTRUE(purrr::pluck(front, "pkgdown", "as_is"))
-
-  default_data <- list(
-    pagetitle = escape_html(front$title),
-    toc = front$toc %||% TRUE,
-    opengraph = list(description = front$description %||% pkg$package),
-    source = repo_source(pkg, input),
-    filename = path_file(input),
-    output_file = output_file,
-    as_is = as_is
-  )
-  data <- modify_list(default_data, data)
-
-  if (as_is) {
-    ext <- purrr::pluck(front, "pkgdown", "extension", .default = "html")
+  if (data$as_is) {
+    ext <- purrr::pluck(yaml, "pkgdown", "extension", .default = "html")
     if (identical(ext, "html")) {
       setup <- rmarkdown_setup_custom(pkg, input_path, depth = depth, data = data)
     } else {
@@ -70,6 +54,9 @@ build_article <- function(name,
   } else {
     setup <- rmarkdown_setup_pkgdown(pkg, depth = depth, data = data)
   }
+
+  local_envvar_pkgdown(pkg)
+  local_options_link(pkg, depth = depth)
 
   render_rmarkdown(
     pkg,
@@ -108,14 +95,11 @@ rmarkdown_setup_custom <- function(pkg,
 rmarkdown_setup_pkgdown <- function(pkg,
                                     depth = 1L,
                                     data = list(),
-                                    toc = TRUE,
                                     env = caller_env()) {
 
   template <- rmarkdown_template(pkg, depth = depth, data = data, env = env)
 
   format <- rmarkdown::html_document(
-    toc = toc,
-    toc_depth = 2,
     self_contained = FALSE,
     theme = NULL,
     template = template,
