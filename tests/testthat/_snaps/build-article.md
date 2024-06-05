@@ -33,7 +33,7 @@
 # bad width gives nice error
 
     Code
-      build_rmarkdown_format(pkg, "article")
+      build_rmarkdown_format(pkg)
     Condition
       Error in `build_rmarkdown_format()`:
       ! In _pkgdown.yml, code.width must be a whole number, not the string "abc".

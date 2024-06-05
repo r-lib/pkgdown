@@ -66,7 +66,7 @@ build_article <- function(name,
 
     if (identical(ext, "html")) {
       data$as_is <- TRUE
-      template <- rmarkdown_template(pkg, "article", depth = depth, data = data)
+      template <- rmarkdown_template(pkg, depth = depth, data = data)
       output <- rmarkdown::default_output_format(input_path)
 
       # Override defaults & values supplied in metadata
@@ -82,13 +82,7 @@ build_article <- function(name,
       options <- list()
     }
   } else {
-    format <- build_rmarkdown_format(
-      pkg = pkg,
-      name = "article",
-      depth = depth,
-      data = data,
-      toc = TRUE
-    )
+    format <- build_rmarkdown_format(pkg, depth = depth, data = data)
     options <- NULL
   }
 
@@ -110,7 +104,7 @@ build_rmarkdown_format <- function(pkg,
                                    data = list(),
                                    toc = TRUE) {
 
-  template <- rmarkdown_template(pkg, name, depth = depth, data = data)
+  template <- rmarkdown_template(pkg, depth = depth, data = data)
 
   out <- rmarkdown::html_document(
     toc = toc,
@@ -140,12 +134,12 @@ build_rmarkdown_format <- function(pkg,
 }
 
 # Generates pandoc template format by rendering
-# inst/template/article-vignette.html
+# inst/template/content-article.html
 # Output is a path + environment; when the environment is garbage collected
 # the path will be deleted
-rmarkdown_template <- function(pkg, name, data, depth) {
+rmarkdown_template <- function(pkg, data, depth) {
   path <- tempfile(fileext = ".html")
-  render_page(pkg, name, data, path, depth = depth, quiet = TRUE)
+  render_page(pkg, "article", data, path, depth = depth, quiet = TRUE)
 
   # Remove template file when format object is GC'd
   e <- env()
