@@ -1,3 +1,0 @@
-bibentry("misc", title="Proof of b < a > c", author=c("A", "B"), year="2021",
-         textVersion="A & B (2021): Proof of b < a > c.")
-bibentry("misc", title="Title Two", author="Author Two", year="2022")
