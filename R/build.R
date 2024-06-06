@@ -334,12 +334,11 @@ build_site <- function(pkg = ".",
   check_bool(install)
 
   if (document != "DEPRECATED") {
-    lifecycle::deprecate_warn(
-      "1.4.0",
+    lifecycle::deprecate_stop(
+      "2.1.0",
       "build_site(document)",
-      details = "build_site(devel)"
+      "build_site(devel)"
     )
-    devel <- document
   }
 
   if (install) {

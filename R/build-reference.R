@@ -146,9 +146,9 @@
 #'   If `TRUE` (the default), assumes you are in a live development
 #'   environment, and loads source package with [pkgload::load_all()].
 #'   If `FALSE`, uses the installed version of the package.
-#' @param document **Deprecated** Use `devel` instead.
 #' @param topics Build only specified topics. If supplied, sets `lazy`
 #'   and `preview` to `FALSE`.
+#' @param document `r lifecycle::badge("defunct")` Use `devel` instead.
 #' @export
 build_reference <- function(pkg = ".",
                             lazy = TRUE,
@@ -158,8 +158,8 @@ build_reference <- function(pkg = ".",
                             override = list(),
                             preview = NA,
                             devel = TRUE,
-                            document = "DEPRECATED",
-                            topics = NULL) {
+                            topics = NULL,
+                            document = "DEPRECATED") {
   pkg <- section_init(pkg, depth = 1L, override = override)
   check_bool(lazy)
   check_bool(examples)
@@ -169,12 +169,11 @@ build_reference <- function(pkg = ".",
   check_character(topics, allow_null = TRUE)
 
   if (document != "DEPRECATED") {
-    lifecycle::deprecate_warn(
-      "1.4.0",
+    lifecycle::deprecate_stop(
+      "1.6.0",
       "build_site(document)",
-      details = "build_site(devel)"
+      "build_site(devel)"
     )
-    devel <- document
   }
 
   cli::cli_rule("Building function reference")
