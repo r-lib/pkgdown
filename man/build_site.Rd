@@ -14,8 +14,7 @@ build_site(
   preview = NA,
   devel = FALSE,
   new_process = !devel,
-  install = !devel,
-  document = "DEPRECATED"
+  install = !devel
 )
 }
 \arguments{
@@ -57,8 +56,6 @@ in the current process affects the build process.}
 
 \item{install}{If \code{TRUE}, will install the package in a temporary library
 so it is available for vignettes.}
-
-\item{document}{\strong{Deprecated} Use \code{devel} instead.}
 }
 \description{
 \code{build_site()} is a convenient wrapper around six functions:

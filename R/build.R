@@ -326,21 +326,11 @@ build_site <- function(pkg = ".",
                        preview = NA,
                        devel = FALSE,
                        new_process = !devel,
-                       install = !devel,
-                       document = "DEPRECATED") {
+                       install = !devel) {
   pkg <- as_pkgdown(pkg, override = override)
   check_bool(devel)
   check_bool(new_process)
   check_bool(install)
-
-  if (document != "DEPRECATED") {
-    lifecycle::deprecate_warn(
-      "1.4.0",
-      "build_site(document)",
-      details = "build_site(devel)"
-    )
-    devel <- document
-  }
 
   if (install) {
     withr::local_temp_libpaths()
