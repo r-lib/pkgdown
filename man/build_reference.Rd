@@ -14,7 +14,6 @@ build_reference(
   override = list(),
   preview = NA,
   devel = TRUE,
-  document = "DEPRECATED",
   topics = NULL
 )
 
@@ -44,8 +43,6 @@ freshly generated section in browser.}
 If \code{TRUE} (the default), assumes you are in a live development
 environment, and loads source package with \code{\link[pkgload:load_all]{pkgload::load_all()}}.
 If \code{FALSE}, uses the installed version of the package.}
-
-\item{document}{\strong{Deprecated} Use \code{devel} instead.}
 
 \item{topics}{Build only specified topics. If supplied, sets \code{lazy}
 and \code{preview} to \code{FALSE}.}
