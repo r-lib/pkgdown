@@ -118,6 +118,7 @@ test_that("can handle UTF-8 encoding (#416, #493)", {
     '  author="Author: é",',
     '  journal="Journal é",',
     '  year="2017",',
+    '  textVersion = "é"',
     ')'
   ))
   cit <- read_citation(pkg$src_path)
@@ -145,14 +146,14 @@ test_that("can handle latin1 encoding (#689)", {
     '  author="Author: é",',
     '  journal="Journal é",',
     '  year="2017",',
+    '  textVersion = "é"',
     ')'
   ))
-  citation <- readLines(path(pkg$src_path, "inst/CITATION"))
-  base::writeLines(
-    iconv(citation, to = "latin1"),
-    path(pkg$src_path, "inst/CITATION"),
-    useBytes = TRUE
-  )
+  cit_path <- path(pkg$src_path, "inst/CITATION")
+  citation <- readLines(cit_path)
+  con <- file(cit_path, open = "w+", encoding = "native.enc")
+  on.exit(close(con), add = TRUE)
+  base::writeLines(iconv(citation, to = "latin1"), con, useBytes = TRUE)
 
   cit <- read_citation(pkg$src_path)
   expect_s3_class(cit, "citation")
