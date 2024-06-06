@@ -8,6 +8,14 @@
 #' * copies CSS/JS assets and extra files, and
 #' * runs `build_favicons()`, if needed.
 #'
+#' Typically, you will not need to call this function directly, as all `build_*()`
+#' functions will run `init_site()` if needed.
+#'
+#' The only good reasons to call `init_site()` directly are the following:
+#' * If you add or modify a package logo.
+#' * If you add or modify `pkgdown/extra.scss`.
+#' * If you modify `template.bslib` variables in `_pkgdown.yml`.
+#'
 #' See `vignette("customise")` for the various ways you can customise the
 #' display of your site.
 #'
