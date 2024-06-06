@@ -440,7 +440,11 @@ build_site_local <- function(pkg = ".",
 
   pkgdown_sitrep(pkg)
 
-  init_site(pkg)
+  if (!lazy) {
+    # Only force init_site() if `!lazy`
+    # if site is not initialized, it will be in build_home()
+    init_site(pkg)
+  }
 
   build_home(pkg, override = override, preview = FALSE)
   build_reference(
