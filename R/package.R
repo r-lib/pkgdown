@@ -20,6 +20,9 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   check_string(pkg)
   if (!dir_exists(pkg)) {
     if (dir.exists(pkg)) { #nolint
+      # path expansion with fs and base R is different on Windows.
+      # By default "~/", is typically C:/Users/username/Documents, while fs see "~/" as C:/Users/username, to be more platform portable.
+      # Read more in ?fs::path_expand
       cli::cli_abort(
       "pkgdown accepts {.href [fs paths](https://fs.r-lib.org/reference/path_expand.html#details)}."
       )
