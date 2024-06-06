@@ -323,7 +323,7 @@ build_site <- function(pkg = ".",
                        seed = 1014L,
                        lazy = FALSE,
                        override = list(),
-                       preview = NA,
+                       preview = FALSE,
                        devel = FALSE,
                        new_process = !devel,
                        install = !devel,
@@ -384,7 +384,7 @@ build_site_external <- function(pkg = ".",
                                 seed = 1014L,
                                 lazy = FALSE,
                                 override = list(),
-                                preview = NA,
+                                preview = FALSE,
                                 devel = TRUE) {
   pkg <- as_pkgdown(pkg, override = override)
   args <- list(
@@ -429,7 +429,7 @@ build_site_local <- function(pkg = ".",
                              seed = 1014L,
                              lazy = FALSE,
                              override = list(),
-                             preview = NA,
+                             preview = FALSE,
                              devel = TRUE) {
 
   pkg <- section_init(pkg, depth = 0, override = override)

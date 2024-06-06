@@ -12,7 +12,7 @@ build_reference(
   run_dont_run = FALSE,
   seed = 1014L,
   override = list(),
-  preview = NA,
+  preview = FALSE,
   devel = TRUE,
   document = "DEPRECATED",
   topics = NULL

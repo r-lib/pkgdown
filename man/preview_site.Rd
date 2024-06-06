@@ -4,7 +4,7 @@
 \alias{preview_site}
 \title{Open site in browser}
 \usage{
-preview_site(pkg = ".", path = ".", preview = NA)
+preview_site(pkg = ".", path = ".", preview = TRUE)
 }
 \arguments{
 \item{pkg}{Path to package.}

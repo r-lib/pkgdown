@@ -5,7 +5,7 @@
 \alias{build_home_index}
 \title{Build home section}
 \usage{
-build_home(pkg = ".", override = list(), preview = NA, quiet = TRUE)
+build_home(pkg = ".", override = list(), preview = FALSE, quiet = TRUE)
 
 build_home_index(pkg = ".", quiet = TRUE)
 }

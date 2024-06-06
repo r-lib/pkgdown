@@ -74,7 +74,7 @@
 #' @export
 build_news <- function(pkg = ".",
                        override = list(),
-                       preview = NA) {
+                       preview = FALSE) {
   pkg <- section_init(pkg, depth = 1L, override = override)
   if (!has_news(pkg$src_path))
     return(invisible())
