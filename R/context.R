@@ -9,9 +9,8 @@ section_init <- function(pkg, depth, override = list(), .frame = parent.frame())
   pkg
 }
 
-local_options_console <- function(.frame = parent.frame()) {
-  # Improves speed of init_site() with tip from r-lib/cli#607
-  # Only does so if no option set
+cache_cli_colours <- function(.frame = parent.frame()) {
+  # https://github.com/r-lib/cli/issues/607
   num_col <- getOption("cli.num_colors", default = cli::num_ansi_colors())
   withr::local_options(cli.num_colors = num_col, .local_envir = .frame)
 }
