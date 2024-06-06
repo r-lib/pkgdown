@@ -43,8 +43,8 @@ test_that("data_articles includes external articles", {
       list(name = "c", title = "c", href = "c", description = "*c*")
     )
   ))
-  file_create(path(pkg$src_path, "vignettes", paste0(letters[1:2], ".Rmd")))
-  pkg <- update_vignettes(pkg)
+  pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/b.Rmd")
 
   articles <- data_articles(pkg)
   expect_equal(articles$name, c("a", "b", "c"))
@@ -56,10 +56,8 @@ test_that("articles in vignettes/articles/ are unnested into articles/", {
   # weird path differences that I don't have the energy to dig into
   skip_on_cran()
 
-  pkg <- local_pkgdown_site(test_path("assets/articles"), meta = list(
-    url = "https://example.com"
-  ))
-  suppressMessages(init_site(pkg))
+  pkg <- local_pkgdown_site(meta = list(url = "https://example.com"))
+  pkg <- pkg_add_file(pkg, "vignettes/articles/nested.Rmd")
 
   nested <- pkg$vignettes[pkg$vignettes$name == "articles/nested", ]
   expect_equal(nested$file_out, "articles/nested.html")
@@ -74,8 +72,9 @@ test_that("warns about articles missing from index", {
       list(title = "External", contents = c("a", "b"))
     )
   ))
-  file_create(path(pkg$src_path, "vignettes", paste0(letters[1:3], ".Rmd")))
-  pkg <- update_vignettes(pkg)
+  pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/b.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/c.Rmd")
 
   expect_snapshot(. <- data_articles_index(pkg), error = TRUE)
 })
@@ -89,8 +88,9 @@ test_that("internal articles aren't included and don't trigger warning", {
       )
     )
   )
-  file_create(path(pkg$src_path, "vignettes", paste0(letters[1:3], ".Rmd")))
-  pkg <- update_vignettes(pkg)
+  pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/b.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/c.Rmd")
 
   expect_no_error(index <- data_articles_index(pkg))
   expect_length(index$sections, 1)
@@ -99,25 +99,17 @@ test_that("internal articles aren't included and don't trigger warning", {
 
 test_that("default template includes all articles", {
   pkg <- local_pkgdown_site()
-  file_create(path(pkg$src_path, "vignettes", "a.Rmd"))
-  pkg <- update_vignettes(pkg)
+  pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
 
   expect_equal(default_articles_index(pkg)[[1]]$contents, "a")
 })
 
 test_that("check doesn't include getting started vignette", {
-  pkg <- local_pkgdown_site(test_path("assets/articles-resources"))
-  getting_started <- path(pkg$src_path, "vignettes", paste0(pkg$package, ".Rmd"))
-  file_create(getting_started)
-  withr::defer(file_delete(getting_started))
+  pkg <- local_pkgdown_site(meta = list(
+    articles = list(list(title = "Vignettes", contents = "a"))
+  ))
+  pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/testpackage.Rmd")
 
-  pkg <- local_pkgdown_site(test_path("assets/articles-resources"), meta = 
-    list(
-      articles = list(
-        list(title = "Getting Started", contents = "resources")
-      )
-    )
-  )
-
-  expect_error(data_articles_index(pkg), NA)
+  expect_no_error(data_articles_index(pkg))
 })

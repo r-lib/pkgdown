@@ -1,6 +1,7 @@
 # pkgdown (development version)
 
 * `build_reference()` no longer displays `\dontshow{}` or `\testonly{}` blocks in examples. It will run the code in `\dontshow{}`; it won't run the code in `\testonly{}`(#2188).
+* `build_article()` no long has a `data` argument. This is technically a breaking change, but I can't figure out why anyone would have ever used it.
 * `build_reference()` does a better job of parsing `\value{}` blocks (#2371).
 * When built on GitHub, source urls now use the name of the current upstream branch (rather than `HEAD`), which is more likely to generate correct links (#2597).
 * New `vignette("non-english")` that discusses non-English sites including how to submit new translations (#2605).

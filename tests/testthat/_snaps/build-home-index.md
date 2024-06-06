@@ -38,10 +38,17 @@
     Code
       cat(data_home_sidebar(pkg))
     Output
+      <div class='links'>
+      <h2 data-toc-skip>Links</h2>
+      <ul class='list-unstyled'>
+      <li><a href='{{ BugReports }}'>Report a bug</a></li>
+      </ul>
+      </div>
+      
       <div class='license'>
       <h2 data-toc-skip>License</h2>
       <ul class='list-unstyled'>
-      <li><a href='https://www.r-project.org/Licenses/GPL-3'>GPL-3</a></li>
+      <li>{{ License }}</li>
       </ul>
       </div>
       
@@ -56,10 +63,8 @@
       <div class='developers'>
       <h2 data-toc-skip>Developers</h2>
       <ul class='list-unstyled'>
-      <li>Hadley Wickham <br />
+      <li>Jo Doe <br />
       <small class = 'roles'> Author, maintainer </small>  </li>
-      <li>RStudio <br />
-      <small class = 'roles'> Copyright holder, funder </small>  </li>
       </ul>
       </div>
       
@@ -81,6 +86,14 @@
     </ul>
     </div>
 
+# data_home_sidebar() can be defined by a HTML file
+
+    Code
+      data_home_sidebar(pkg)
+    Condition
+      Error:
+      ! In _pkgdown.yml, home.sidebar.html specifies a file that doesn't exist ('sidebar.html').
+
 # data_home_sidebar() can get a custom markdown formatted component
 
     <div class="fancy-section">
@@ -90,7 +103,7 @@
     </ul>
     </div>
 
-# data_home_sidebar() can add a README
+# data_home_sidebar() can add a TOC
 
     <div class="table-of-contents">
     <h2 data-toc-skip>Table of contents</h2>
@@ -135,12 +148,4 @@
       Error in `data_home_sidebar_()`:
       ! In _pkgdown.yml, home.sidebar.components.fancy must have components "title" and "text".
       2 missing components: "title" and "text".
-
-# data_home_sidebar() errors well when no HTML file
-
-    Code
-      data_home_sidebar(pkg)
-    Condition
-      Error:
-      ! In _pkgdown.yml, home.sidebar.html specifies a file that doesn't exist ('file.html').
 

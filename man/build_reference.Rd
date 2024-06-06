@@ -133,7 +133,7 @@ or \code{sass::font_face} (topic name).
 deprecated.
 }
 
-All functions (except for \code{has_keywords()}) automatically exclude internal
+All functions (except for \code{has_keyword()}) automatically exclude internal
 topics (i.e. those with \verb{\\keyword\{internal\}}). You can choose to include
 with (e.g.) \code{starts_with("build_", internal = TRUE)}.
 
@@ -189,3 +189,11 @@ that will be available to custom graphics output devices such
 as HTML widgets.
 }
 
+\seealso{
+Other site components: 
+\code{\link{build_articles}()},
+\code{\link{build_home}()},
+\code{\link{build_news}()},
+\code{\link{build_tutorials}()}
+}
+\concept{site components}

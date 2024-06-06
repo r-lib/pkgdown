@@ -1,16 +1,17 @@
-#' Create favicons from package logo
+#' Initialise favicons from package logo
 #'
+#' @description
 #' This function auto-detects the location of your package logo (with the name
-#' `logo.svg` (recommended format) or `logo.png`) and runs it through the
-#' <https://realfavicongenerator.net> API to build a complete set of favicons
-#' with different sizes, as needed for modern web usage.
+#' `logo.svg` (recommended format) or `logo.png`, created with `usethis::use_logo()`)
+#' and runs it through the <https://realfavicongenerator.net> API to build a
+#' complete set of favicons with different sizes, as needed for modern web usage.
 #'
 #' You only need to run the function once. The favicon set will be stored in
 #' `pkgdown/favicon` and copied by [init_site()] to the relevant location when
 #' the website is rebuilt.
 #'
 #' Once complete, you should add `pkgdown/` to `.Rbuildignore ` to avoid a NOTE
-#' during package checking.
+#' during package checking. (`usethis::use_logo()` does this for you!)
 #'
 #' @inheritParams as_pkgdown
 #' @param overwrite If `TRUE`, re-create favicons from package logo.

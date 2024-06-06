@@ -10,20 +10,23 @@ vignette: >
 ---
 
 The goal of pkgdown is to make it easy to make an elegant and useful package website with a minimum of work.
-You can get a basic website up and running in just a couple of minutes:
+You can get a basic website up and running in just a couple of minutes. If you're using GitHub, we recommend setting up pkgdown and GitHub actions to automatically build and publish your site:
 
 ```{r, eval = FALSE}
-# Run once to configure package to use pkgdown
+# Run this once to publish your site regularly
+usethis::use_pkgdown_github_pages()
+```
+
+If you are not using GitHub, you will have to run `pkgdown::build_site()` manually everytime you want to update the site.
+
+```{r, eval = FALSE}
+# Run once
+# Remove docs/ from gitignore to ensure it is checked into git.
 usethis::use_pkgdown()
-# Run to build the website
+# Run everytime you want to update your site
 pkgdown::build_site()
 ```
 
-If you're using GitHub, we also recommend setting up GitHub actions to automatically build and publish your site:
-
-```{r, eval = FALSE}
-usethis::use_pkgdown_github_pages()
-```
 
 While you'll get a decent website without any additional work, if you want a website that really pops, you'll need to read the rest of this vignette.
 It starts by showing you how to configure pkgdown with a `_pkgdown.yml`.
@@ -105,7 +108,7 @@ reference:
 
 Note the use of `starts_with()` to select all functions with a common prefix.
 You can also use `ends_with()` and `matches()`.
-See complete details in `?build_reference`.
+See complete details in `?build_reference`, including other topic matching helper functions.
 
 While iterating on the reference index you might want to run `pkgdown::build_reference_index()`.
 It just re-builds the index page, making it faster to quickly change `_pkgdown.yml` and see how it affects your site.
@@ -113,11 +116,12 @@ It just re-builds the index page, making it faster to quickly change `_pkgdown.y
 ## Articles
 
 pkgdown will automatically build all vignettes found in `vignettes/`, translating them to HTML files in `articles/`.
-Due to the way that pkgdown has to integrate RMarkdown generated HTML with its own HTML, relatively little control is available over the output format.
+It is recommended to name your intro article with your package name to generate a Get Started page automatically.
+
+Due to the way that pkgdown has to integrate R Markdown generated HTML with its own HTML, relatively little control is available over the output format.
 You can see the details in `?build_articles`.
 
-If you want to include an article on the website but not in the package (e.g., because it's large), you can either place it in a subdirectory of `vignettes/` (e.g. `vignettes/web_only`) or add it to `.Rbuildignore` (and make sure that there's no `vignettes:` section in the yaml header).
-In the extreme case where you want to produce only articles but not vignettes, you should add the complete `vignettes/` directory to `.Rbuildignore` and ensure that DESCRIPTION does not have a `VignetteBuilder` field.
+If you want to include an [article](https://r-pkgs.org/website.html#non-vignette-articles) on the website but not in the package (e.g., because it's large), you can use `usethis::use_article()` to set it up.
 
 ## News
 
@@ -145,12 +149,9 @@ See `?build_news` for more customisation options including how to:
 
 ## Publishing
 
-If you use GitHub, there are two ways to publish your site on GitHub Pages:
-
--   Build the site locally, check in the docs directory, then configure GitHub Pages to [use that directory](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
-
--   Use GitHub actions to automatically build and publish the site every time you make a change.
-    The easiest way to set this up is to run `usethis::use_pkgdown_github_pages()`.
+If you use GitHub, the easiest way to build and publish your site is via GitHub actions.
+Using GitHub actions automatically builds and publishes the site every time you make a change.
+The easiest way to set this up is to run `usethis::use_pkgdown_github_pages()`, and if you need to customize the action, see [README.md r-lib/actions](https://github.com/r-lib/actions/tree/v2-branch/examples#build-pkgdown-site).
 
 ## Promoting
 
@@ -166,4 +167,4 @@ Once your finalized site is built and published on the web, you should publicize
 
     (`usethis::use_pkgdown_github_pages()` does this for you.)
 
-3.  On Twitter (make sure to include `#rstats`).
+3.  On social media (make sure to include `#rstats`).

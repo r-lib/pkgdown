@@ -1,6 +1,6 @@
 test_that("authors page includes inst/AUTHORS", {
-  pkg <- local_pkgdown_site(test_path("assets/inst-authors"))
-  suppressMessages(init_site(pkg))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "inst/AUTHORS", "Hello")
   suppressMessages(build_citation_authors(pkg))
 
   lines <- read_lines(path(pkg$dst_path, "authors.html"))
@@ -66,20 +66,27 @@ test_that("author comments linkified with escaped angle brackets (#2127)", {
 })
 
 test_that("authors data can be filtered with different roles", {
-  pkg <- as_pkgdown(test_path("assets/sidebar"))
+  pkg <- local_pkgdown_site(desc = list(`Authors@R` = '
+    c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
+    person("RStudio", role = c("cph", "fnd"))
+    )'
+  ))
   expect_length(data_authors(pkg)$main, 2)
   expect_length(data_authors(pkg, roles = "cre")$main, 1)
 })
 
 test_that("authors data includes inst/AUTHORS", {
-  pkg <- as_pkgdown(test_path("assets/inst-authors"))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "inst/AUTHORS", "Hello")
+
   expect_equal(data_authors(pkg)$inst, "Hello")
 })
 
 test_that("sidebar can accept additional before and after text", {
-  pkg <- as_pkgdown(test_path("assets/sidebar-comment"))
-  pkg$meta$authors$sidebar$before <- "yay"
-  pkg$meta$authors$sidebar$after <- "cool"
+  pkg <- local_pkgdown_site()
+  pkg$meta$authors$sidebar$before <- "BEFORE"
+  pkg$meta$authors$sidebar$after <- "AFTER"
   expect_snapshot(cat(data_home_sidebar_authors(pkg)))
 })
 
@@ -139,8 +146,7 @@ test_that("multiple citations all have HTML and BibTeX formats", {
 
 test_that("bibtex is escaped", {
   pkg <- local_pkgdown_site()
-  dir_create(path(pkg$src_path, "inst"))
-  write_lines(path = path(pkg$src_path, "inst", "CITATION"), c(
+  pkg <- pkg_add_file(pkg, "inst/CITATION", c(
     'citEntry(',
     '  entry = "Article",',
     '  title="test special HTML characters: <&>",',
@@ -151,7 +157,6 @@ test_that("bibtex is escaped", {
     ')'
   ))
 
-  suppressMessages(init_site(pkg))
   suppressMessages(build_citation_authors(pkg))
   html <- xml2::read_html(path(pkg$dst_path, "authors.html"))
 
