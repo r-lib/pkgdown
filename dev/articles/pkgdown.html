@@ -93,16 +93,21 @@
     </div>
         <p>The goal of pkgdown is to make it easy to make an elegant and
 useful package website with a minimum of work. You can get a basic
-website up and running in just a couple of minutes:</p>
+website up and running in just a couple of minutes. If you’re using
+GitHub, we recommend setting up pkgdown and GitHub actions to
+automatically build and publish your site:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Run once to configure package to use pkgdown</span></span>
-<span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">use_pkgdown</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co"># Run to build the website</span></span>
-<span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="../reference/build_site.html">build_site</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>If you’re using GitHub, we also recommend setting up GitHub actions
-to automatically build and publish your site:</p>
+<code class="sourceCode R"><span><span class="co"># Run this once to publish your site regularly</span></span>
+<span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">use_pkgdown_github_pages</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>If you are not using GitHub, you will have to run
+<code><a href="../reference/build_site.html">pkgdown::build_site()</a></code> manually everytime you want to update
+the site.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">use_pkgdown_github_pages</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Run once</span></span>
+<span><span class="co"># Remove docs/ from gitignore to ensure it is checked into git.</span></span>
+<span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">use_pkgdown</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># Run everytime you want to update your site</span></span>
+<span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="../reference/build_site.html">build_site</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>While you’ll get a decent website without any additional work, if you
 want a website that really pops, you’ll need to read the rest of this
 vignette. It starts by showing you how to configure pkgdown with a
@@ -198,7 +203,8 @@ field in <code>_pkgdown.yml</code>.</p>
 <p>Note the use of <code>starts_with()</code> to select all functions
 with a common prefix. You can also use <code>ends_with()</code> and
 <code>matches()</code>. See complete details in
-<code><a href="../reference/build_reference.html">?build_reference</a></code>.</p>
+<code><a href="../reference/build_reference.html">?build_reference</a></code>, including other topic matching helper
+functions.</p>
 <p>While iterating on the reference index you might want to run
 <code><a href="../reference/build_reference.html">pkgdown::build_reference_index()</a></code>. It just re-builds the
 index page, making it faster to quickly change <code>_pkgdown.yml</code>
@@ -209,20 +215,15 @@ and see how it affects your site.</p>
 </h2>
 <p>pkgdown will automatically build all vignettes found in
 <code>vignettes/</code>, translating them to HTML files in
-<code>articles/</code>. Due to the way that pkgdown has to integrate
-RMarkdown generated HTML with its own HTML, relatively little control is
-available over the output format. You can see the details in
+<code>articles/</code>. It is recommended to name your intro article
+with your package name to generate a Get Started page automatically.</p>
+<p>Due to the way that pkgdown has to integrate R Markdown generated
+HTML with its own HTML, relatively little control is available over the
+output format. You can see the details in
 <code><a href="../reference/build_articles.html">?build_articles</a></code>.</p>
-<p>If you want to include an article on the website but not in the
-package (e.g., because it’s large), you can either place it in a
-subdirectory of <code>vignettes/</code>
-(e.g. <code>vignettes/web_only</code>) or add it to
-<code>.Rbuildignore</code> (and make sure that there’s no
-<code>vignettes:</code> section in the yaml header). In the extreme case
-where you want to produce only articles but not vignettes, you should
-add the complete <code>vignettes/</code> directory to
-<code>.Rbuildignore</code> and ensure that DESCRIPTION does not have a
-<code>VignetteBuilder</code> field.</p>
+<p>If you want to include an <a href="https://r-pkgs.org/website.html#non-vignette-articles" class="external-link">article</a>
+on the website but not in the package (e.g., because it’s large), you
+can use <code><a href="https://usethis.r-lib.org/reference/use_vignette.html" class="external-link">usethis::use_article()</a></code> to set it up.</p>
 </div>
 <div class="section level2">
 <h2 id="news">News<a class="anchor" aria-label="anchor" href="#news"></a>
@@ -255,16 +256,12 @@ versions.</li>
 <div class="section level2">
 <h2 id="publishing">Publishing<a class="anchor" aria-label="anchor" href="#publishing"></a>
 </h2>
-<p>If you use GitHub, there are two ways to publish your site on GitHub
-Pages:</p>
-<ul>
-<li><p>Build the site locally, check in the docs directory, then
-configure GitHub Pages to <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site" class="external-link">use
-that directory</a>.</p></li>
-<li><p>Use GitHub actions to automatically build and publish the site
-every time you make a change. The easiest way to set this up is to run
-<code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">usethis::use_pkgdown_github_pages()</a></code>.</p></li>
-</ul>
+<p>If you use GitHub, the easiest way to build and publish your site is
+via GitHub actions. Using GitHub actions automatically builds and
+publishes the site every time you make a change. The easiest way to set
+this up is to run <code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">usethis::use_pkgdown_github_pages()</a></code>, and
+if you need to customize the action, see <a href="https://github.com/r-lib/actions/tree/v2-branch/examples#build-pkgdown-site" class="external-link">README.md
+r-lib/actions</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="promoting">Promoting<a class="anchor" aria-label="anchor" href="#promoting"></a>
@@ -284,7 +281,8 @@ you.)</p>
 <p>(<code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">usethis::use_pkgdown_github_pages()</a></code> does this for
 you.)</p>
 </li>
-<li><p>On Twitter (make sure to include <code>#rstats</code>).</p></li>
+<li><p>On social media (make sure to include
+<code>#rstats</code>).</p></li>
 </ol>
 </div>
 
@@ -292,7 +290,7 @@ you.)</p>
     </nav></aside>
 </div>
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a>, Olivier Roy, <a href="https://www.posit.co" class="external-link">Posit Software, PBC</a>.</p>
+  <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a>, Olivier Roy, <a href="https://posit.co" class="external-link">Posit Software, PBC</a>.</p>
 </div>
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.9.9000.</p>

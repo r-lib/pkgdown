@@ -105,12 +105,12 @@
 </h2>
 <p>Get started with <a href="https://usethis.r-lib.org/" class="external-link">usethis</a>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Run once to configure your package to use pkgdown</span></span>
-<span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">use_pkgdown</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Then use pkgdown to build your website:</p>
+<code class="sourceCode R"><span><span class="co"># Run once to configure your package to use and deploy pkgdown</span></span>
+<span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">use_pkgdown_github_pages</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="reference/build_site.html">build_site</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>This generates a <code>docs/</code> directory containing a website. Your <code>README.md</code> becomes the homepage, documentation in <code>man/</code> generates a function reference, and vignettes will be rendered into <code>articles/</code>. Read <code><a href="articles/pkgdown.html">vignette("pkgdown")</a></code> for more details, and to learn how to deploy your site to GitHub pages.</p>
+<code class="sourceCode R"><span><span class="co"># Preview your site locally before publishing</span></span>
+<span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="reference/build_site.html">build_site</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>This adds the necessary components and sets up GitHub Actions<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;If you don’t use GitHub, you can use &lt;code&gt;&lt;a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link"&gt;usethis::use_pkgdown()&lt;/a&gt;&lt;/code&gt; + &lt;code&gt;&lt;a href="reference/build_site.html"&gt;pkgdown::build_site()&lt;/a&gt;&lt;/code&gt; to create a website.&lt;/p&gt;'><sup>1</sup></a> for automatic site building when deploying. Your <code>README.md</code> becomes the homepage, documentation in <code>man/</code> generates a function reference, and vignettes will be rendered into <code>articles/</code>.</p>
 <div class="section level3">
 <h3 id="pkgdown-200-and-bootstrap-5">pkgdown 2.0.0 and Bootstrap 5<a class="anchor" aria-label="anchor" href="#pkgdown-200-and-bootstrap-5"></a>
 </h3>
@@ -123,12 +123,13 @@
 <div class="section level2">
 <h2 id="in-the-wild">In the wild<a class="anchor" aria-label="anchor" href="#in-the-wild"></a>
 </h2>
-<p>At last count, pkgdown is used <a href="https://github.com/search?q=path%3A_pkgdown.yml+language%3AYAML&amp;type=code&amp;l=YAML" class="external-link">by over 11,000 packages</a>. Here are a few examples created by contributors to pkgdown:</p>
+<p>At last count, pkgdown is used <a href="https://github.com/search?q=path%3A_pkgdown.yml+language%3AYAML&amp;type=code&amp;l=YAML" class="external-link">by over 12,000 packages</a>. Here are a few examples:</p>
 <ul>
 <li><p><a href="http://mc-stan.org/bayesplot/index.html" class="external-link">bayesplot</a> (<a href="https://github.com/stan-dev/bayesplot/tree/gh-pages" class="external-link">source</a>): plotting functions for posterior analysis, model checking, and MCMC diagnostics.</p></li>
 <li><p><a href="https://rnabioco.github.io/valr/" class="external-link">valr</a> (<a href="https://github.com/rnabioco/valr" class="external-link">source</a>): read and manipulate genome intervals and signals.</p></li>
 <li><p><a href="https://pkgdown.jrwb.de/mkin/" class="external-link">mkin</a> (<a href="https://github.com/jranke/mkin" class="external-link">source</a>): calculation routines based on the FOCUS Kinetics Report</p></li>
 <li><p><a href="http://renozao.github.io/NMF/master/index.html" class="external-link">NMF</a> (<a href="https://github.com/renozao/NMF" class="external-link">source</a>): a framework to perform non-negative matrix factorization (NMF).</p></li>
+<li><p><a href="https://github.com/search?q=path%3A%22_pkgdown.yml%22+AND+%28org%3Atidyverse+OR+org%3Ar-lib%29&amp;type=code" class="external-link">tidyverse and r-lib packages source</a></p></li>
 </ul>
 <p>Comparing the source and output of these sites is a great way to learn new pkgdown techniques.</p>
 </div>
@@ -138,6 +139,7 @@
 <p>Please note that this project is released with a <a href="https://pkgdown.r-lib.org/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>
 </div>
+
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
@@ -170,14 +172,14 @@
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="http://hadley.nz" class="external-link">Hadley Wickham</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-4757-117X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<a href="https://hadley.nz" class="external-link">Hadley Wickham</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-4757-117X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>
 <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-6299-179X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>
 <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-2815-0399" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Olivier Roy <br><small class="roles"> Author </small>  </li>
 <li>
-<a href="https://www.posit.co" class="external-link">Posit Software, PBC</a> <br><small class="roles"> Copyright holder, funder </small>  </li>
+<a href="https://posit.co" class="external-link">Posit Software, PBC</a> <br><small class="roles"> Copyright holder, funder </small>  </li>
 </ul>
 </div>
 <div class="dev-status">
@@ -190,7 +192,7 @@
   </aside>
 </div>
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a>, Olivier Roy, <a href="https://www.posit.co" class="external-link">Posit Software, PBC</a>.</p>
+  <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a>, Olivier Roy, <a href="https://posit.co" class="external-link">Posit Software, PBC</a>.</p>
 </div>
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.9.9000.</p>
