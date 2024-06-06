@@ -23,24 +23,18 @@ test_that("docsearch.json and sitemap.xml are valid for BS 3 site", {
   expect_true(xml2::xml_validate(xml2::read_xml(xml), schema))
 })
 
-test_that("build_search_index() captures the expected data", {
+test_that("build_search_index() has expected structure", {
   pkg <- local_pkgdown_site(
     desc = list(Version = "1.0.0"),
     meta = list(url = "https://example.com")
   )
-  pkg <- pkg_add_file(pkg, "NEWS.md", c(
-    "# Version 1.0.0",
-    "* Bullet 1",
-    "* Bullet 2"
-  ))
   pkg <- pkg_add_file(pkg, "README.md", c(
     "# My Package",
     "What the pakage does"
   ))
 
   suppressMessages(init_site(pkg))
-  suppressMessages(build_news(pkg))
-  suppressMessages(build_home(pkg))
+  suppressMessages(build_home_index(pkg))
 
   expect_snapshot(str(build_search_index(pkg)))
 })
