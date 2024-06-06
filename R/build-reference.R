@@ -148,7 +148,6 @@
 #'   If `FALSE`, uses the installed version of the package.
 #' @param topics Build only specified topics. If supplied, sets `lazy`
 #'   and `preview` to `FALSE`.
-#' @param document `r lifecycle::badge("defunct")` Use `devel` instead.
 #' @export
 build_reference <- function(pkg = ".",
                             lazy = TRUE,
@@ -158,8 +157,7 @@ build_reference <- function(pkg = ".",
                             override = list(),
                             preview = NA,
                             devel = TRUE,
-                            topics = NULL,
-                            document = "DEPRECATED") {
+                            topics = NULL) {
   pkg <- section_init(pkg, depth = 1L, override = override)
   check_bool(lazy)
   check_bool(examples)
@@ -167,14 +165,6 @@ build_reference <- function(pkg = ".",
   check_number_whole(seed, allow_null = TRUE)
   check_bool(devel)
   check_character(topics, allow_null = TRUE)
-
-  if (document != "DEPRECATED") {
-    lifecycle::deprecate_stop(
-      "1.6.0",
-      "build_site(document)",
-      "build_site(devel)"
-    )
-  }
 
   cli::cli_rule("Building function reference")
   build_reference_index(pkg)

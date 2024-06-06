@@ -14,8 +14,7 @@ build_reference(
   override = list(),
   preview = NA,
   devel = TRUE,
-  topics = NULL,
-  document = "DEPRECATED"
+  topics = NULL
 )
 
 build_reference_index(pkg = ".")
@@ -47,8 +46,6 @@ If \code{FALSE}, uses the installed version of the package.}
 
 \item{topics}{Build only specified topics. If supplied, sets \code{lazy}
 and \code{preview} to \code{FALSE}.}
-
-\item{document}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#defunct}{\figure{lifecycle-defunct.svg}{options: alt='[Defunct]'}}}{\strong{[Defunct]}} Use \code{devel} instead.}
 }
 \description{
 By default, pkgdown will generate an index that lists all functions in
