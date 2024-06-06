@@ -44,7 +44,7 @@ Imports:
 Suggests:
     covr,
     diffviewer,
-    evaluate,
+    evaluate (>= 0.23.0.9000),
     gert,
     gt,
     htmltools,
@@ -71,3 +71,4 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 SystemRequirements: pandoc
+Remotes: r-lib/evaluate
