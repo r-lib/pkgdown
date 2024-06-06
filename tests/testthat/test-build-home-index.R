@@ -50,7 +50,7 @@ test_that("version formatting in preserved", {
 
   suppressMessages(build_home_index(pkg))
   index <- read_lines(path(pkg$dst_path, "index.html"))
-  expect_true(any(grepl("1.0.0-9000", index, fixed = TRUE)))
+  expect_match(index, "1.0.0-9000", fixed = TRUE, all = FALSE)
 })
 
 test_that("data_home_sidebar() works by default", {

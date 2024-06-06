@@ -109,7 +109,7 @@ test_that("can extract lifecycle badges from description", {
   )
 
   expect_equal(extract_lifecycle(rd_desc), "deprecated")
-  expect_equal(extract_lifecycle(rd_param), NULL)
+  expect_null(extract_lifecycle(rd_param))
 })
 
 test_that("malformed figures fail gracefully", {
