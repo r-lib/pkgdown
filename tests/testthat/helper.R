@@ -31,3 +31,18 @@ pkg_add_kitten <- function(pkg, path) {
   file_copy(test_path("assets/kitten.jpg"), full_path)
   pkg
 }
+
+pkg_vignette <- function(..., title = "title") {
+  dots <- list2(title = title, ...)
+  meta <- dots[have_name(dots)]
+  contents <- unlist(dots[!have_name(dots)])
+
+  meta$vignette <- paste0("\n", "  %\\VignetteIndexEntry{", title, "}")
+  yaml <- yaml::as.yaml(
+    meta,
+    handlers = list(logical = yaml::verbatim_logical)
+  )
+
+  c("---", yaml, "---", contents)
+}
+r_code_block <- function(...) c("```{r}", ..., "```")
