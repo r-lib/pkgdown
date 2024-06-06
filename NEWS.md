@@ -1,6 +1,11 @@
 # pkgdown (development version)
 
 * `build_news()` only syntax highlights the page once, not twice, which prevents every block of R code getting a blank line at the start (#2630).
+
+    ```R
+    1 + 1
+    ```
+
 * `build_reference()` no longer displays `\dontshow{}` or `\testonly{}` blocks in examples. It will run the code in `\dontshow{}`; it won't run the code in `\testonly{}`(#2188).
 * `build_article()` no long has a `data` argument. This is technically a breaking change, but I can't figure out why anyone would have ever used it.
 * `build_reference()` does a better job of parsing `\value{}` blocks (#2371).
