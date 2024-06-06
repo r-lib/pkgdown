@@ -20,8 +20,8 @@
 #'
 #' @inheritParams build_articles
 #' @export
-init_site <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
+init_site <- function(pkg = ".", override = list()) {
+  pkg <- section_init(pkg, depth = 0, override = override)
 
   if (is_non_pkgdown_site(pkg$dst_path)) {
     cli::cli_abort(c(
