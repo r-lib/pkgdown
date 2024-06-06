@@ -80,7 +80,7 @@ build_news <- function(pkg = ".",
     return(invisible())
 
   cli::cli_rule("Building news")
-  create_subdir(pkg, "news")
+  create_subdir(pkg, "news", override = override)
 
   one_page <- config_pluck_bool(pkg, "news.one_page", default = TRUE)
   if (one_page) {

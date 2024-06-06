@@ -53,9 +53,9 @@ file_copy_to <- function(src_paths,
 }
 
 # Checks init_site() first.
-create_subdir <- function(pkg, subdir) {
+create_subdir <- function(pkg, subdir, override = list()) {
   if (!dir_exists(pkg$dst_path)) {
-    init_site(pkg)
+    init_site(pkg, override = override)
   }
   dir_create(path(pkg$dst_path, subdir))
 

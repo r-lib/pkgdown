@@ -295,7 +295,7 @@ build_home <- function(pkg = ".",
   check_bool(quiet)
 
   cli::cli_rule("Building home")
-  create_subdir(pkg, "")
+  create_subdir(pkg, "", override = override)
 
   build_citation_authors(pkg)
 
