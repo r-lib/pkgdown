@@ -227,8 +227,8 @@ Additionally, htmlwidgets do not work when \code{as_is: true}.
 }
 
 \section{Suppressing vignettes}{
-If you want articles that are not vignettes, either put them in
-subdirectories or list in \code{.Rbuildignore}. An articles link will be
+If you want \href{https://r-pkgs.org/vignettes.html#sec-vignettes-article}{articles}
+that are not vignettes, use \code{usethis::use_article()} to create it. An articles link will be
 automatically added to the default navbar if the vignettes directory is
 present: if you do not want this, you will need to customise the navbar. See
 \code{\link[=build_site]{build_site()}} details.
@@ -257,3 +257,11 @@ that will be available to custom graphics output devices such
 as HTML widgets.
 }
 
+\seealso{
+Other site components: 
+\code{\link{build_home}()},
+\code{\link{build_news}()},
+\code{\link{build_reference}()},
+\code{\link{build_tutorials}()}
+}
+\concept{site components}

@@ -66,6 +66,7 @@
 #' news:
 #'   cran_dates: false
 #' ```
+#' @family site components
 #'
 #' @seealso [Tidyverse style for News](https://style.tidyverse.org/news.html)
 #'

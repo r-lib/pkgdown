@@ -2,7 +2,7 @@
 % Please edit documentation in R/build-favicons.R
 \name{build_favicons}
 \alias{build_favicons}
-\title{Create favicons from package logo}
+\title{Initialise favicons from package logo}
 \usage{
 build_favicons(pkg = ".", overwrite = FALSE)
 }
@@ -13,15 +13,14 @@ build_favicons(pkg = ".", overwrite = FALSE)
 }
 \description{
 This function auto-detects the location of your package logo (with the name
-\code{logo.svg} (recommended format) or \code{logo.png}) and runs it through the
-\url{https://realfavicongenerator.net} API to build a complete set of favicons
-with different sizes, as needed for modern web usage.
-}
-\details{
+\code{logo.svg} (recommended format) or \code{logo.png}, created with \code{usethis::use_logo()})
+and runs it through the \url{https://realfavicongenerator.net} API to build a
+complete set of favicons with different sizes, as needed for modern web usage.
+
 You only need to run the function once. The favicon set will be stored in
 \code{pkgdown/favicon} and copied by \code{\link[=init_site]{init_site()}} to the relevant location when
 the website is rebuilt.
 
 Once complete, you should add \verb{pkgdown/} to \code{.Rbuildignore } to avoid a NOTE
-during package checking.
+during package checking. (\code{usethis::use_logo()} does this for you!)
 }

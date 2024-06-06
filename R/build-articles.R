@@ -173,13 +173,14 @@
 #' Additionally, htmlwidgets do not work when `as_is: true`.
 #'
 #' # Suppressing vignettes
-#' If you want articles that are not vignettes, either put them in
-#' subdirectories or list in `.Rbuildignore`. An articles link will be
+#' If you want [articles](https://r-pkgs.org/vignettes.html#sec-vignettes-article)
+#' that are not vignettes, use `usethis::use_article()` to create it. An articles link will be
 #' automatically added to the default navbar if the vignettes directory is
 #' present: if you do not want this, you will need to customise the navbar. See
 #' [build_site()] details.
 #'
 #' @inheritSection build_reference Figures
+#' @family site components
 #'
 #' @inheritParams as_pkgdown
 #' @param quiet Set to `FALSE` to display output of knitr and
