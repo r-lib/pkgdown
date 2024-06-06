@@ -15,7 +15,7 @@ articles:
   test/short: test/short.html
   translations: translations.html
   test/widgets: test/widgets.html
-last_built: 2024-06-06T12:46Z
+last_built: 2024-06-06T13:03Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
