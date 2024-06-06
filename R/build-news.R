@@ -148,7 +148,6 @@ build_news_multi <- function(pkg = ".") {
 data_news <- function(pkg, call = caller_env() ) {
   html <- markdown_body(pkg, path(pkg$src_path, "NEWS.md"))
   xml <- xml2::read_html(html)
-  downlit::downlit_html_node(xml)
 
   sections <- xml2::xml_find_all(xml, "./body/div")
   footnotes <- has_class(sections, "footnotes")

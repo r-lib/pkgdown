@@ -19,6 +19,19 @@ test_that("data_news works as expected for h1 & h2", {
   expect_snapshot_output(data_news(pkg)[c("version", "page", "anchor")])
 })
 
+test_that("news is syntax highlighted once", {
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "NEWS.md", c(
+    "# testpackage 1.0.0.9000",
+    "```r", 
+    "x <- 1", 
+    "```"
+  ))
+  suppressMessages(build_news(pkg, preview = FALSE))
+  html <- xml2::read_html(path(pkg$dst_path, "news", "index.html"))
+  expect_equal(xpath_text(html, "//code"), "x <- 1")
+})
+
 test_that("multi-page news are rendered", {
   skip_if_no_pandoc()
 
