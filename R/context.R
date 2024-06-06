@@ -4,7 +4,7 @@ section_init <- function(pkg, depth, override = list(), .frame = parent.frame())
   rstudio_save_all()
   local_envvar_pkgdown(pkg, .frame)
   local_options_link(pkg, depth = depth, .frame = .frame)
-  local_options_console(.frame = .frame)
+  cache_cli_colours(.frame = .frame)
 
   pkg
 }

@@ -29,7 +29,7 @@
 #' @inheritParams build_articles
 #' @export
 init_site <- function(pkg = ".") {
-  local_options_console()
+  cache_cli_colours()
   pkg <- as_pkgdown(pkg)
 
   if (is_non_pkgdown_site(pkg$dst_path)) {
