@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* `init_site()` gains an `override` parameter fpr consistency with `build_site()` (#2644).
 * `build_news()` only syntax highlights the page once, not twice, which prevents every block of R code getting a blank line at the start (#2630).
 
     ```R
