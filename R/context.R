@@ -4,8 +4,16 @@ section_init <- function(pkg, depth, override = list(), .frame = parent.frame())
   rstudio_save_all()
   local_envvar_pkgdown(pkg, .frame)
   local_options_link(pkg, depth = depth, .frame = .frame)
+  local_options_console(.frame = .frame)
 
   pkg
+}
+
+local_options_console <- function(.frame = parent.frame()) {
+  # Improves speed of init_site() with tip from r-lib/cli#607
+  # Only does so if no option set
+  num_col <- getOption("cli.num_colors", default = cli::num_ansi_colors())
+  withr::local_options(cli.num_colors = num_col, .local_envir = .frame)
 }
 
 local_options_link <- function(pkg, depth, .frame = parent.frame()) {
