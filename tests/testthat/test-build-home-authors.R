@@ -150,6 +150,7 @@ test_that("can handle latin1 encoding (#689)", {
     ')'
   ))
   cit_path <- path(pkg$src_path, "inst/CITATION")
+  citation <- readLines(cit_path) # nolint
   con <- file(cit_path, open = "w+", encoding = "native.enc")
   withr::defer(close(con))
   base::writeLines(iconv(citation, to = "latin1"), con, useBytes = TRUE) # nolint
