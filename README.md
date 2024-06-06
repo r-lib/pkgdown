@@ -52,10 +52,15 @@ Get started with [usethis](https://usethis.r-lib.org/):
 usethis::use_pkgdown_github_pages()
 ```
 
-This adds the necessary components and sets up GitHub Actions for
+``` r
+# Preview your site locally before publishing
+pkgdown::build_site()
+```
+
+This adds the necessary components and sets up GitHub Actions[^1] for
 automatic site building when deploying. Your `README.md` becomes the
 homepage, documentation in `man/` generates a function reference, and
-vignettes will be rendered into `articles/`. [^1]
+vignettes will be rendered into `articles/`.
 
 ### pkgdown 2.0.0 and Bootstrap 5
 

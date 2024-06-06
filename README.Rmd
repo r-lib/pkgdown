@@ -48,9 +48,13 @@ Get started with [usethis](https://usethis.r-lib.org/):
 usethis::use_pkgdown_github_pages()
 ```
 
+```{r, eval = FALSE}
+# Preview your site locally before publishing
+pkgdown::build_site()
+```
 
-This adds the necessary components and sets up GitHub Actions for automatic site building when deploying.
-Your `README.md` becomes the homepage, documentation in `man/` generates a function reference, and vignettes will be rendered into `articles/`. [^1]
+This adds the necessary components and sets up GitHub Actions[^1] for automatic site building when deploying.
+Your `README.md` becomes the homepage, documentation in `man/` generates a function reference, and vignettes will be rendered into `articles/`.
 
 [^1]: If you don't use GitHub, you can use `usethis::use_pkgdown()` + `pkgdown::build_site()` to create a website.
 
