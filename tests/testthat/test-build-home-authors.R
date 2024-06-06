@@ -102,22 +102,64 @@ test_that("can handle UTF-8 encoding (#416, #493)", {
   # Work around bug in utils::citation()
   local_options(warnPartialMatchDollar = FALSE)
 
-  path <- test_path("assets/site-citation-UTF-8")
-  local_citation_activate(path)
+  pkg <- local_pkgdown_site(desc = list(
+    Title = "A søphîstiçated påckagé",
+    Date = "2018-02-02"
+  ))
 
-  cit <- read_citation(path)
+  meta <- create_citation_meta(pkg$src_path)
+  expect_type(meta, "list")
+  expect_equal(meta$Title, "A søphîstiçated påckagé")
+
+  pkg <- pkg_add_file(pkg, "inst/CITATION", c(
+    'citEntry(',
+    '  entry = "Article",',
+    '  title="Title: é",',
+    '  author="Author: é",',
+    '  journal="Journal é",',
+    '  year="2017",',
+    '  textVersion = "é"',
+    ')'
+  ))
+  cit <- read_citation(pkg$src_path)
   expect_s3_class(cit, "citation")
 
-  meta <- create_citation_meta(path)
-  expect_type(meta, "list")
-  expect_equal(meta$`Authors@R`, 'person("Florian", "Privé")')
+  pkg <- pkg_add_file(pkg, "inst/CITATION", "citation(auto = meta)")
+  cit <- read_citation(pkg$src_path)
+  expect_s3_class(cit, "citation")
 })
 
 test_that("can handle latin1 encoding (#689)", {
-  path <- test_path("assets/site-citation-latin1")
-  local_citation_activate(path)
+  pkg <- local_pkgdown_site(desc = list(
+    Title = "A søphîstiçated påckagé",
+    Date = "2018-02-02",
+    Encoding = "latin1"
+  ))
+  meta <- create_citation_meta(pkg$src_path)
+  expect_equal(meta$Title, "A søphîstiçated påckagé")
+  expect_equal(Encoding(meta$Title), "UTF-8")
 
-  cit <- read_citation(path)
+  pkg <- pkg_add_file(pkg, "inst/CITATION", c(
+    'citEntry(',
+    '  entry = "Article",',
+    '  title="Title: é",',
+    '  author="Author: é",',
+    '  journal="Journal é",',
+    '  year="2017",',
+    '  textVersion = "é"',
+    ')'
+  ))
+  cit_path <- path(pkg$src_path, "inst/CITATION")
+  citation <- readLines(cit_path) # nolint
+  con <- file(cit_path, open = "w+", encoding = "native.enc")
+  withr::defer(close(con))
+  base::writeLines(iconv(citation, to = "latin1"), con, useBytes = TRUE) # nolint
+
+  cit <- read_citation(pkg$src_path)
+  expect_s3_class(cit, "citation")
+
+  pkg <- pkg_add_file(pkg, "inst/CITATION", "citation(auto = meta)")
+  cit <- read_citation(pkg$src_path)
   expect_s3_class(cit, "citation")
 })
 
@@ -125,22 +167,34 @@ test_that("source link is added to citation page", {
   # Work around bug in utils::citation()
   local_options(warnPartialMatchDollar = FALSE)
 
-  path <- test_path("assets/site-citation-UTF-8")
-  local_citation_activate(path)
-
-  pkg <- local_pkgdown_site(path)
-  suppressMessages(init_site(pkg))
-  suppressMessages(build_home(pkg))
+  pkg <- local_pkgdown_site(meta = list(
+    repo = list(url = list(source = "http://github.com/test/test"))
+  ))
+  pkg <- pkg_add_file(pkg, "inst/CITATION", c(
+    'citEntry(',
+    '  entry = "Article",',
+    '  title="Title",',
+    '  author="Author",',
+    '  journal="Journal",',
+    '  year="2020",',
+    '  textVersion = ""',
+    ')'
+  ))
+  suppressMessages(build_citation_authors(pkg))
 
   lines <- read_lines(path(pkg$dst_path, "authors.html"))
-  expect_true(any(grepl("<code>inst/CITATION</code></a></small>", lines)))
+  expect_true(any(grepl("<code>inst/CITATION</code></a>", lines)))
 })
 
 test_that("multiple citations all have HTML and BibTeX formats", {
-  path <- test_path("assets/site-citation-multi")
-  local_citation_activate(path)
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "inst/CITATION", c(
+    'bibentry("misc", title="Proof of b < a > c", author=c("A", "B"), year="2021",
+         textVersion="A & B (2021): Proof of b < a > c.")',
+    'bibentry("misc", title="Title Two", author="Author Two", year="2022")'
+  ))
 
-  citations <- data_citations(path)
+  citations <- data_citations(pkg$src_path)
   expect_snapshot_output(citations)
 })
 
