@@ -183,7 +183,7 @@ test_that("source link is added to citation page", {
   suppressMessages(build_citation_authors(pkg))
 
   lines <- read_lines(path(pkg$dst_path, "authors.html"))
-  expect_true(any(grepl("<code>inst/CITATION</code></a>", lines)))
+  expect_match(lines, "<code>inst/CITATION</code></a>", all = FALSE, fixed = TRUE)
 })
 
 test_that("multiple citations all have HTML and BibTeX formats", {
