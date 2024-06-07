@@ -3,7 +3,7 @@
 #' @inheritParams build_article
 #' @param path Path relative to destination
 #' @export
-preview_site <- function(pkg = ".", path = ".", preview = NA) {
+preview_site <- function(pkg = ".", path = ".", preview = TRUE) {
   pkg <- as_pkgdown(pkg)
   check_string(path)
   check_bool(preview, allow_na = TRUE)
