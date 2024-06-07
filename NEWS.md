@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* `build_*()` functions no longer default to previewing in interactive sessions since they now all emit specific links to newly generated files.
+* `build_*()` (apart from `build_site()`) functions no longer default to previewing in interactive sessions since they now all emit specific links to newly generated files.
 * `build_news()` only syntax highlights the page once, not twice, which prevents every block of R code getting a blank line at the start (#2630).
 
     ```R

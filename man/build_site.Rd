@@ -11,7 +11,7 @@ build_site(
   seed = 1014L,
   lazy = FALSE,
   override = list(),
-  preview = FALSE,
+  preview = TRUE,
   devel = FALSE,
   new_process = !devel,
   install = !devel,
