@@ -7,7 +7,7 @@
 \usage{
 build_home(pkg = ".", override = list(), preview = FALSE, quiet = TRUE)
 
-build_home_index(pkg = ".", quiet = TRUE)
+build_home_index(pkg = ".", override = list(), quiet = TRUE)
 }
 \arguments{
 \item{pkg}{Path to package.}

@@ -25,7 +25,7 @@
 #' @export
 build_redirects <- function(pkg = ".",
                             override = list()) {
-  pkg <- section_init(pkg, depth = 1L, override = override)
+  pkg <- section_init(pkg, override = override)
   has_url <- !is.null(config_pluck_string(pkg, "url"))
 
   redirects <- data_redirects(pkg, has_url)

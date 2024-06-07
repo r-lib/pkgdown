@@ -29,7 +29,7 @@
 #' @family site components
 #' @export
 build_tutorials <- function(pkg = ".", override = list(), preview = FALSE) {
-  pkg <- section_init(pkg, depth = 1L, override = override)
+  pkg <- section_init(pkg, "tutorials", override = override)
 
   tutorials <- pkg$tutorials
 
@@ -38,7 +38,6 @@ build_tutorials <- function(pkg = ".", override = list(), preview = FALSE) {
   }
 
   cli::cli_rule("Building tutorials")
-  create_subdir(pkg, "tutorials")
 
   data <- purrr::transpose(tutorials)
 

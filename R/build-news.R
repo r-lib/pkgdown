@@ -75,12 +75,11 @@
 build_news <- function(pkg = ".",
                        override = list(),
                        preview = FALSE) {
-  pkg <- section_init(pkg, depth = 1L, override = override)
+  pkg <- section_init(pkg, "news", override = override)
   if (!has_news(pkg$src_path))
     return(invisible())
 
   cli::cli_rule("Building news")
-  create_subdir(pkg, "news")
 
   one_page <- config_pluck_bool(pkg, "news.one_page", default = TRUE)
   if (one_page) {
