@@ -422,7 +422,7 @@ build_site_local <- function(pkg = ".",
                              preview = NA,
                              devel = TRUE) {
 
-  pkg <- section_init(pkg, depth = 0, override = override)
+  pkg <- section_init(pkg, override = override)
 
   cli::cli_rule("Building pkgdown site for package {.pkg {pkg$package}}")
   cli::cli_inform("Reading from: {src_path(path_abs(pkg$src_path))}")

@@ -1,11 +1,39 @@
-section_init <- function(pkg, depth, override = list(), .frame = parent.frame()) {
-  pkg <- as_pkgdown(pkg, override = override)
-
+section_init <- function(pkg,
+                         subdir = NULL,
+                         override = list(),
+                         .frame = parent.frame()) {
   rstudio_save_all()
+  pkg <- as_pkgdown(pkg, override = override)
+  
+  if (!dir_exists(pkg$dst_path)) {
+    init_site(pkg)
+  } else if (is_non_pkgdown_site(pkg$dst_path)) {
+    cli::cli_abort(c(
+      "{.file {pkg$dst_path}} is non-empty and not built by pkgdown",
+      "!" = "Make sure it contains no important information \\
+             and use {.run pkgdown::clean_site()} to delete its contents."
+      )
+    )
+  }
+ 
+  if (is.null(subdir)) {
+    depth <- 0
+  } else {
+    depth <- 1
+    dir_create(path(pkg$dst_path, subdir))
+  }
+
   local_envvar_pkgdown(pkg, .frame)
   local_options_link(pkg, depth = depth, .frame = .frame)
 
   pkg
+}
+
+is_non_pkgdown_site <- function(dst_path) {
+  top_level <- dir_ls(dst_path)
+  top_level <- top_level[!path_file(top_level) %in% c("CNAME", "dev", "deps")]
+
+  length(top_level) >= 1 && !"pkgdown.yml" %in% path_file(top_level)
 }
 
 local_options_link <- function(pkg, depth, .frame = parent.frame()) {

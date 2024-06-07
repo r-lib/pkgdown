@@ -52,15 +52,6 @@ file_copy_to <- function(src_paths,
   file_copy(src_paths[!eq], dst_paths[!eq], overwrite = TRUE)
 }
 
-# Checks init_site() first.
-create_subdir <- function(pkg, subdir) {
-  if (!dir_exists(pkg$dst_path)) {
-    init_site(pkg)
-  }
-  dir_create(path(pkg$dst_path, subdir))
-
-}
-
 out_of_date <- function(source, target, call = caller_env()) {
   if (!file_exists(target)) {
     return(TRUE)

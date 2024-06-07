@@ -4,10 +4,13 @@
 \alias{init_site}
 \title{Initialise site infrastructure}
 \usage{
-init_site(pkg = ".")
+init_site(pkg = ".", override = list())
 }
 \arguments{
 \item{pkg}{Path to package.}
+
+\item{override}{An optional named list used to temporarily override
+values in \verb{_pkgdown.yml}}
 }
 \description{
 \code{init_site()}:

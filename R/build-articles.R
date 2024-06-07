@@ -199,7 +199,7 @@ build_articles <- function(pkg = ".",
                            seed = 1014L,
                            override = list(),
                            preview = NA) {
-  pkg <- section_init(pkg, depth = 1L, override = override)
+  pkg <- section_init(pkg, "articles", override = override)
   check_bool(quiet)
   check_bool(lazy)
   check_number_whole(seed, allow_null = TRUE)
@@ -228,10 +228,8 @@ build_articles <- function(pkg = ".",
 #' @export
 #' @rdname build_articles
 #' @order 3
-build_articles_index <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  create_subdir(pkg, "articles")
+build_articles_index <- function(pkg = ".", override = list()) {
+  pkg <- section_init(pkg, "articles", override = override)
   render_page(
     pkg,
     "article-index",

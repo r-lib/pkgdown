@@ -17,7 +17,7 @@ build_reference(
   topics = NULL
 )
 
-build_reference_index(pkg = ".")
+build_reference_index(pkg = ".", override = list())
 }
 \arguments{
 \item{pkg}{Path to package.}
