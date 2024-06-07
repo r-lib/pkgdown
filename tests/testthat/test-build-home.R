@@ -29,6 +29,6 @@ test_that(".github files are copied and linked", {
   suppressMessages(build_home(pkg))
 
   lines <- read_lines(path(pkg$dst_path, "index.html"))
-  expect_true(any(grepl('href="CODE_OF_CONDUCT.html"', lines)))
+  expect_match(lines, 'href="CODE_OF_CONDUCT.html"', fixed = TRUE, all = FALSE)
   expect_true(file_exists(path(pkg$dst_path, "404.html")))
 })

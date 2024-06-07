@@ -44,7 +44,7 @@ test_that("markdown_body() captures title", {
   # And can optionally strip it
   html <- markdown_body(pkg, temp, strip_header = TRUE)
   expect_equal(attr(html, "title"), "Title")
-  expect_false(grepl("Title", html))
+  expect_no_match(html, "Title")
 })
 
 test_that("markdown_text_*() handles UTF-8 correctly", {
