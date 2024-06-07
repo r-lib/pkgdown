@@ -1,5 +1,14 @@
 # pkgdown (development version)
 
+* `build_*()` (apart from `build_site()`) functions no longer default to previewing in interactive sessions since they now all emit specific links to newly generated files.
+* `document` in `build_site()` and `build_reference()` has been removed after being deprecated in pkgdown 1.4.0. `devel` should be used instead.
+* `autolink_html()` was deprecated in pkgdown 1.6.0 and now warns every time you use it. `downlit::downlit_html_path()` should be used instead.
+* `build_news()` only syntax highlights the page once, not twice, which prevents every block of R code getting a blank line at the start (#2630).
+
+    ```R
+    1 + 1
+    ```
+
 * `build_reference()` no longer displays `\dontshow{}` or `\testonly{}` blocks in examples. It will run the code in `\dontshow{}`; it won't run the code in `\testonly{}`(#2188).
 * `build_article()` no long has a `data` argument. This is technically a breaking change, but I can't figure out why anyone would have ever used it.
 * `build_reference()` does a better job of parsing `\value{}` blocks (#2371).

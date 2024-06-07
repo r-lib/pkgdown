@@ -12,13 +12,12 @@ build_reference(
   run_dont_run = FALSE,
   seed = 1014L,
   override = list(),
-  preview = NA,
+  preview = FALSE,
   devel = TRUE,
-  document = "DEPRECATED",
   topics = NULL
 )
 
-build_reference_index(pkg = ".")
+build_reference_index(pkg = ".", override = list())
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -44,8 +43,6 @@ freshly generated section in browser.}
 If \code{TRUE} (the default), assumes you are in a live development
 environment, and loads source package with \code{\link[pkgload:load_all]{pkgload::load_all()}}.
 If \code{FALSE}, uses the installed version of the package.}
-
-\item{document}{\strong{Deprecated} Use \code{devel} instead.}
 
 \item{topics}{Build only specified topics. If supplied, sets \code{lazy}
 and \code{preview} to \code{FALSE}.}

@@ -160,7 +160,7 @@ test_that("meta overrides autodetection", {
 
 test_that("returns NULL if no urls found", {
   pkg <- local_pkgdown_site(desc = list(URL = "https://pkgdown.r-lib.org"))
-  expect_equal(package_repo(pkg), NULL)
+  expect_null(package_repo(pkg))
 })
 
 test_that("repo_type detects repo type", {

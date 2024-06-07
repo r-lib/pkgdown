@@ -146,7 +146,6 @@
 #'   If `TRUE` (the default), assumes you are in a live development
 #'   environment, and loads source package with [pkgload::load_all()].
 #'   If `FALSE`, uses the installed version of the package.
-#' @param document **Deprecated** Use `devel` instead.
 #' @param topics Build only specified topics. If supplied, sets `lazy`
 #'   and `preview` to `FALSE`.
 #' @export
@@ -156,26 +155,16 @@ build_reference <- function(pkg = ".",
                             run_dont_run = FALSE,
                             seed = 1014L,
                             override = list(),
-                            preview = NA,
+                            preview = FALSE,
                             devel = TRUE,
-                            document = "DEPRECATED",
                             topics = NULL) {
-  pkg <- section_init(pkg, depth = 1L, override = override)
+  pkg <- section_init(pkg, "reference", override = override)
   check_bool(lazy)
   check_bool(examples)
   check_bool(run_dont_run)
   check_number_whole(seed, allow_null = TRUE)
   check_bool(devel)
   check_character(topics, allow_null = TRUE)
-
-  if (document != "DEPRECATED") {
-    lifecycle::deprecate_warn(
-      "1.4.0",
-      "build_site(document)",
-      details = "build_site(devel)"
-    )
-    devel <- document
-  }
 
   cli::cli_rule("Building function reference")
   build_reference_index(pkg)
@@ -253,9 +242,8 @@ examples_env <- function(pkg, seed = 1014L, devel = TRUE, envir = parent.frame()
 
 #' @export
 #' @rdname build_reference
-build_reference_index <- function(pkg = ".") {
-  pkg <- section_init(pkg, depth = 1L)
-  create_subdir(pkg, "reference")
+build_reference_index <- function(pkg = ".", override = list()) {
+  pkg <- section_init(pkg, "reference", override = override)
 
   # Copy icons, if needed
   dir_copy_to(

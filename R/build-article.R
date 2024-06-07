@@ -13,8 +13,9 @@ build_article <- function(name,
                           seed = 1014L,
                           new_process = TRUE,
                           pandoc_args = character(),
+                          override = list(),
                           quiet = TRUE) {
-  pkg <- as_pkgdown(pkg)
+  pkg <- section_init(pkg, "articles", override = override)
 
   # Look up in pkg vignette data - this allows convenient automatic
   # specification of depth, output destination, and other parameters that

@@ -288,14 +288,13 @@
 #' @order 1
 build_home <- function(pkg = ".",
                        override = list(),
-                       preview = NA,
+                       preview = FALSE,
                        quiet = TRUE) {
 
-  pkg <- section_init(pkg, depth = 0L, override = override)
+  pkg <- section_init(pkg, override = override)
   check_bool(quiet)
 
   cli::cli_rule("Building home")
-  create_subdir(pkg, "")
 
   build_citation_authors(pkg)
 

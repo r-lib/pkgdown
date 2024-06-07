@@ -25,6 +25,11 @@ local_pkgdown_site <- function(path = NULL,
   check_string(path, allow_null = TRUE)
 
   dst_path <- withr::local_tempdir(.local_envir = env)
+  # Simulate init_site() so we only have to run it if we care about <head>
+  file_create(path(dst_path, "pkgdown.yml"))
+  dir_create(path(dst_path, "deps"))
+  file_create(path(dst_path, "deps", "data-deps.txt"))
+
   meta <- modify_list(meta, list(destination = dst_path))
 
   if (is.null(path)) {
@@ -46,12 +51,8 @@ local_pkgdown_site <- function(path = NULL,
     # Make it a bit easier to create other files
     dir_create(path(path, "R"))
     dir_create(path(path, "vignettes"))
-
-    # Create dummy deps so it's not 100% necessary to run init_site()
-    dir_create(path(dst_path, "deps"))
-    file_create(path(dst_path, "deps", "data-deps.txt"))
   }
-
+  
   as_pkgdown(path, meta)
 }
 

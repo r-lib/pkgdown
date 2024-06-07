@@ -74,13 +74,12 @@
 #' @export
 build_news <- function(pkg = ".",
                        override = list(),
-                       preview = NA) {
-  pkg <- section_init(pkg, depth = 1L, override = override)
+                       preview = FALSE) {
+  pkg <- section_init(pkg, "news", override = override)
   if (!has_news(pkg$src_path))
-    return()
+    return(invisible())
 
   cli::cli_rule("Building news")
-  create_subdir(pkg, "news")
 
   one_page <- config_pluck_bool(pkg, "news.one_page", default = TRUE)
   if (one_page) {
@@ -145,12 +144,9 @@ build_news_multi <- function(pkg = ".") {
   )
 }
 
-utils::globalVariables(".")
-
-data_news <- function(pkg = list(), call = caller_env() ) {
+data_news <- function(pkg, call = caller_env() ) {
   html <- markdown_body(pkg, path(pkg$src_path, "NEWS.md"))
   xml <- xml2::read_html(html)
-  downlit::downlit_html_node(xml)
 
   sections <- xml2::xml_find_all(xml, "./body/div")
   footnotes <- has_class(sections, "footnotes")

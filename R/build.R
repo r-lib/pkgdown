@@ -326,21 +326,11 @@ build_site <- function(pkg = ".",
                        preview = NA,
                        devel = FALSE,
                        new_process = !devel,
-                       install = !devel,
-                       document = "DEPRECATED") {
+                       install = !devel) {
   pkg <- as_pkgdown(pkg, override = override)
   check_bool(devel)
   check_bool(new_process)
   check_bool(install)
-
-  if (document != "DEPRECATED") {
-    lifecycle::deprecate_warn(
-      "1.4.0",
-      "build_site(document)",
-      details = "build_site(devel)"
-    )
-    devel <- document
-  }
 
   if (install) {
     withr::local_temp_libpaths()
@@ -432,7 +422,7 @@ build_site_local <- function(pkg = ".",
                              preview = NA,
                              devel = TRUE) {
 
-  pkg <- section_init(pkg, depth = 0, override = override)
+  pkg <- section_init(pkg, override = override)
 
   cli::cli_rule("Building pkgdown site for package {.pkg {pkg$package}}")
   cli::cli_inform("Reading from: {src_path(path_abs(pkg$src_path))}")

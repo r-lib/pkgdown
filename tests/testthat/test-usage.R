@@ -15,6 +15,9 @@ test_that("usage re-renders non-syntactic calls", {
 
 test_that("usage doesn't re-renders syntactic calls", {
   expect_equal(usage2text("foo(x , y) # hi"), "foo(x , y) # hi")
+
+  multi_line <- "foo(\n  x # x,\n  y = 1 # y,\n)"
+  expect_equal(usage2text(multi_line), multi_line)
 })
 
 test_that("usage generates user facing code for S3/S4 infix/replacement methods", {
