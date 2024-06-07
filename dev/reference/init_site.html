@@ -4,12 +4,24 @@ creates the output directory (docs/),
 generates a machine readable description of the site, used for autolinking,
 copies CSS/JS assets and extra files, and
 runs build_favicons(), if needed.
+Typically, you will not need to call this function directly, as all build_*()
+functions will run init_site() if needed.
+The only good reasons to call init_site() directly are the following:
+If you add or modify a package logo.
+If you add or modify pkgdown/extra.scss.
+If you modify template.bslib variables in _pkgdown.yml.
 See vignette("customise") for the various ways you can customise the
 display of your site.'><meta property="og:description" content='init_site():
 creates the output directory (docs/),
 generates a machine readable description of the site, used for autolinking,
 copies CSS/JS assets and extra files, and
 runs build_favicons(), if needed.
+Typically, you will not need to call this function directly, as all build_*()
+functions will run init_site() if needed.
+The only good reasons to call init_site() directly are the following:
+If you add or modify a package logo.
+If you add or modify pkgdown/extra.scss.
+If you modify template.bslib variables in _pkgdown.yml.
 See vignette("customise") for the various ways you can customise the
 display of your site.'><meta property="og:image" content="https://pkgdown.r-lib.org/logo.png"><meta name="robots" content="noindex"><script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -68,6 +80,11 @@ display of your site.'><meta property="og:image" content="https://pkgdown.r-lib.
 <li><p>generates a machine readable description of the site, used for autolinking,</p></li>
 <li><p>copies CSS/JS assets and extra files, and</p></li>
 <li><p>runs <code><a href="build_favicons.html">build_favicons()</a></code>, if needed.</p></li>
+</ul><p>Typically, you will not need to call this function directly, as all <code>build_*()</code>
+functions will run <code>init_site()</code> if needed.</p>
+<p>The only good reasons to call <code>init_site()</code> directly are the following:</p><ul><li><p>If you add or modify a package logo.</p></li>
+<li><p>If you add or modify <code>pkgdown/extra.scss</code>.</p></li>
+<li><p>If you modify <code>template.bslib</code> variables in <code>_pkgdown.yml</code>.</p></li>
 </ul><p>See <code><a href="../articles/customise.html">vignette("customise")</a></code> for the various ways you can customise the
 display of your site.</p>
     </div>
