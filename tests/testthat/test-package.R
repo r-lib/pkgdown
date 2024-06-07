@@ -23,9 +23,7 @@ test_that("check_bootstrap_version() allows 3, 4 (with warning), and 5", {
 })
 
 test_that("check_bootstrap_version() gives informative error otherwise", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
-  file_touch(path(pkg$src_path, "_pkgdown.yml"))
-
+  pkg <- local_pkgdown_site()
   expect_snapshot(check_bootstrap_version(1, pkg), error = TRUE)
 })
 
@@ -49,21 +47,21 @@ test_that("package_vignettes() detects conflicts in final article paths", {
 })
 
 test_that("package_vignettes() sorts articles alphabetically by file name", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/b.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/c.Rmd")
+
   expect_equal(
-    order(path_file(pkg$vignettes$file_out)),
-    seq_len(nrow(pkg$vignettes))
+    path_file(pkg$vignettes$file_out),
+    c("a.html", "b.html", "c.html")
   )
 })
 
 test_that("override works correctly for as_pkgdown", {
-  pkgdown <- as_pkgdown(test_path("assets/articles-images"))
-
-  expected_list <- list(dev = "jpeg", fig.ext = "jpg", fig.width = 3, fig.asp = 1)
-  expect_equal(pkgdown$meta$figures, expected_list)
-
-  modified_pkgdown <- as_pkgdown(pkgdown, override = list(figures = list(dev = "png")))
-  expect_equal(modified_pkgdown$meta$figures$dev, "png")
+  pkg1 <- local_pkgdown_site(meta = list(figures = list(dev = "jpeg")))
+  pkg2 <- as_pkgdown(pkg1, override = list(figures = list(dev = "png")))
+  expect_equal(pkg2$meta$figures$dev, "png")
 })
 # titles ------------------------------------------------------------------
 
@@ -87,7 +85,7 @@ test_that("titles don't get autolinked code", {
 
 test_that("read_meta() errors gracefully if _pkgdown.yml failed to parse", {
   pkg <- local_pkgdown_site()
-  write_lines(path = path(pkg$src_path, "_pkgdown.yml"), c(
+  pkg <- pkg_add_file(pkg, "_pkgdown.yml", c(
     "url: https://pkgdown.r-lib.org",
     "  title: Build websites for R packages"
   ))

@@ -28,11 +28,23 @@ highlight_examples <- function(code, topic, env = globalenv()) {
     do.call(fig_save, c(list(plot, name), fig_settings()))
   }
 
+  hide_dontshow <- function(src, call) {
+    if (is_call(call, c("DONTSHOW", "TESTONLY"))) NULL else src
+  }
+  handler <- evaluate::new_output_handler(
+    value = pkgdown_print,
+    source = hide_dontshow
+  )
+
+  eval_env <- child_env(env)
+  eval_env$DONTSHOW <- function(x) invisible(x)
+  eval_env$TESTONLY <- function(x) invisible()
+
   out <- downlit::evaluate_and_highlight(
     code,
     fig_save = fig_save_topic,
-    env = child_env(env),
-    output_handler = evaluate::new_output_handler(value = pkgdown_print)
+    env = eval_env,
+    output_handler = handler
   )
   structure(
     sourceCode(pre(out, r_code = TRUE)),

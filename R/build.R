@@ -28,7 +28,7 @@
 #'    It specifies where the site will be published and is used to allow other
 #'    pkgdown sites to link to your site when needed (`vignette("linking")`),
 #'    generate a `sitemap.xml`, automatically generate a `CNAME` when
-#'    [deploying to github][deploy_site_github], generate the metadata needed
+#'    [deploying to github][build_site_github_pages()], generate the metadata needed
 #'    rich social "media cards" (`vignette("metadata")`), and more.
 #'
 #' *  `title` overrides the default site title, which is the package name.
@@ -326,21 +326,11 @@ build_site <- function(pkg = ".",
                        preview = NA,
                        devel = FALSE,
                        new_process = !devel,
-                       install = !devel,
-                       document = "DEPRECATED") {
+                       install = !devel) {
   pkg <- as_pkgdown(pkg, override = override)
   check_bool(devel)
   check_bool(new_process)
   check_bool(install)
-
-  if (document != "DEPRECATED") {
-    lifecycle::deprecate_warn(
-      "1.4.0",
-      "build_site(document)",
-      details = "build_site(devel)"
-    )
-    devel <- document
-  }
 
   if (install) {
     withr::local_temp_libpaths()

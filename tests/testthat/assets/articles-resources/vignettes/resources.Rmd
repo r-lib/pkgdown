@@ -1,8 +1,0 @@
----
-title: "Hidden External resource"
----
-
-There's a hidden external resource in this vignette.
-
-![external dependency](`r "external.png"`)
-

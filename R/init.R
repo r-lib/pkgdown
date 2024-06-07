@@ -12,7 +12,7 @@
 #' display of your site.
 #'
 #' # Build-ignored files
-#' We recommend using [usethis::use_pkgdown()] to build-ignore `docs/` and
+#' We recommend using [usethis::use_pkgdown_github_pages()] to build-ignore `docs/` and
 #' `_pkgdown.yml`. If use another directory, or create the site manually,
 #' you'll need to add them to `.Rbuildignore` yourself. A `NOTE` about
 #' an unexpected file during `R CMD CHECK` is an indication you have not

@@ -283,7 +283,9 @@
 #'   sidebar: FALSE
 #' ```
 #' @inheritParams build_articles
+#' @family site components
 #' @export
+#' @order 1
 build_home <- function(pkg = ".",
                        override = list(),
                        preview = NA,

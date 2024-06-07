@@ -9,11 +9,9 @@ authors:
   Maëlle Salmon:
     href: https://masalmon.eu
   Hadley Wickham:
-    href: http://hadley.nz
+    href: https://hadley.nz
   Posit Software, PBC:
-    href: https://www.posit.co
-    html: >-
-      <img src='https://www.tidyverse.org/posit-logo.svg' alt='Posit' width='62' height='16' style="margin-bottom: 3px;" />
+    href: https://posit.co
 
 template:
   bootstrap: 5
@@ -35,6 +33,7 @@ articles:
   navbar: ~
   contents:
   - customise
+  - translations
   - accessibility
   - linking
   - metadata
@@ -52,21 +51,21 @@ articles:
 
 reference:
 - title: Build
-  
+
 - subtitle: Build the complete site
   contents:
   - build_site
   - clean_site
   - preview_site
   - pkgdown_sitrep
-  
+
 - subtitle: Build part of a site
   desc: These functions are useful for rapid iteration when you're working on a
     specific part of your site.
   contents:
-  - starts_with("build_")
-  - -build_site
-  - -build_site_github_pages
+  - has_concept("site components")
+  - build_search
+  - build_redirects
   - init_site
 
 - subtitle: Customisation
@@ -86,6 +85,7 @@ reference:
   - as_pkgdown
   - in_pkgdown
   - render_page
+  - build_favicons
 
 - title: Regression tests
   contents:

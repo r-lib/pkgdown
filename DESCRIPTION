@@ -8,6 +8,7 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-6299-179X")),
     person("Maëlle", "Salmon", role = "aut",
            comment = c(ORCID = "0000-0002-2815-0399")),
+    person("Olivier", "Roy", role = "aut"),
     person("Posit Software, PBC", role = c("cph", "fnd"))
   )
 Description: Generate an attractive and useful website from a source
@@ -43,7 +44,7 @@ Imports:
 Suggests:
     covr,
     diffviewer,
-    evaluate,
+    evaluate (>= 0.23.0.9000),
     gert,
     gt,
     htmltools,
@@ -70,3 +71,4 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 SystemRequirements: pandoc
+Remotes: r-lib/evaluate

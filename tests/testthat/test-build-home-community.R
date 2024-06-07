@@ -1,9 +1,8 @@
 test_that("handles CoC and SUPPORT if present", {
-  # .github is build-ignored to prevent a NOTE about unexpected hidden directory
-  # so need to skip when run from R CMD check
-  skip_if_not(dir_exists(test_path("assets/site-dot-github/.github")))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, ".github/SUPPORT.md")
+  pkg <- pkg_add_file(pkg, ".github/CODE_OF_CONDUCT.md")
 
-  pkg <- as_pkgdown(test_path("assets/site-dot-github"))
   expect_true(has_coc(pkg$src_path))
   expect_true(has_support(pkg$src_path))
 

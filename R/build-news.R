@@ -66,6 +66,7 @@
 #' news:
 #'   cran_dates: false
 #' ```
+#' @family site components
 #'
 #' @seealso [Tidyverse style for News](https://style.tidyverse.org/news.html)
 #'
@@ -76,7 +77,7 @@ build_news <- function(pkg = ".",
                        preview = NA) {
   pkg <- section_init(pkg, depth = 1L, override = override)
   if (!has_news(pkg$src_path))
-    return()
+    return(invisible())
 
   cli::cli_rule("Building news")
   create_subdir(pkg, "news")
@@ -144,12 +145,9 @@ build_news_multi <- function(pkg = ".") {
   )
 }
 
-utils::globalVariables(".")
-
-data_news <- function(pkg = list(), call = caller_env() ) {
+data_news <- function(pkg, call = caller_env() ) {
   html <- markdown_body(pkg, path(pkg$src_path, "NEWS.md"))
   xml <- xml2::read_html(html)
-  downlit::downlit_html_node(xml)
 
   sections <- xml2::xml_find_all(xml, "./body/div")
   footnotes <- has_class(sections, "footnotes")

@@ -78,25 +78,46 @@ as_data.tag_value <- function(x, ...) {
 }
 
 describe_contents <- function(x, ..., id_prefix = NULL) {
-  # Drop pure whitespace nodes between items
-  is_ws <- purrr::map_lgl(x, is_whitespace)
+  if (length(x) == 0) {
+    return("")
+  }
 
-  # Group contiguous \items{}/whitespace into a <dl>
-  is_item <- purrr::map_lgl(x, inherits, "tag_item") | is_ws
-  changed <- is_item[-1] != is_item[-length(is_item)]
-  group <- cumsum(c(TRUE, changed))
+  # Group contiguous \items{}/whitespace into a <dl>; everything else
+  # is handled as is
+  block_id <- integer(length(x))
+  block_id[[1]] <- 1
+  cur_block_is_dl <- inherits(x[[1]], "tag_item")
 
-  parse_piece <- function(x) {
-    if (length(x) == 0) {
-      NULL
-    } else if (any(purrr::map_lgl(x, inherits, "tag_item"))) {
-      paste0("<dl>\n", parse_descriptions(x, ..., id_prefix = id_prefix), "</dl>")
+  for (i in seq2(2, length(x))) {
+    is_item <- inherits(x[[i]], "tag_item")
+    if (cur_block_is_dl) {
+      same_type <- is_item || is_whitespace(x[[i]])
+    } else {
+      same_type <- !is_item
+    }
+
+    if (same_type) {
+      block_id[[i]] <- block_id[[i - 1]]
+    } else {
+      block_id[[i]] <- block_id[[i - 1]] + 1
+      cur_block_is_dl <- !cur_block_is_dl
+    }
+  }
+
+  parse_block <- function(x) {
+    is_dl <- any(purrr::map_lgl(x, inherits, "tag_item"))
+    if (is_dl) {
+      paste0(
+        "<dl>\n",
+        parse_descriptions(x, ..., id_prefix = id_prefix),
+        "</dl>"
+      )
     } else {
       flatten_para(x, ...)
     }
   }
-  pieces <- split(x, group)
-  out <- purrr::map(pieces, parse_piece)
+  blocks <- split(x, block_id)
+  out <- purrr::map(blocks, parse_block)
 
   paste(unlist(out), collapse = "\n")
 }

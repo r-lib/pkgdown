@@ -83,7 +83,7 @@
 #' * `has_lifecycle("deprecated")` will select all topics with lifecycle 
 #'   deprecated.
 #'
-#' All functions (except for `has_keywords()`) automatically exclude internal
+#' All functions (except for `has_keyword()`) automatically exclude internal
 #' topics (i.e. those with `\keyword{internal}`). You can choose to include
 #' with (e.g.) `starts_with("build_", internal = TRUE)`.
 #'
@@ -136,6 +136,7 @@
 #' as HTML widgets.
 #'
 #' @inheritParams build_articles
+#' @family site components
 #' @param lazy If `TRUE`, only rebuild pages where the `.Rd`
 #'   is more recent than the `.html`. This makes it much easier to
 #'   rapidly prototype. It is set to `FALSE` by [build_site()].
@@ -145,7 +146,6 @@
 #'   If `TRUE` (the default), assumes you are in a live development
 #'   environment, and loads source package with [pkgload::load_all()].
 #'   If `FALSE`, uses the installed version of the package.
-#' @param document **Deprecated** Use `devel` instead.
 #' @param topics Build only specified topics. If supplied, sets `lazy`
 #'   and `preview` to `FALSE`.
 #' @export
@@ -157,7 +157,6 @@ build_reference <- function(pkg = ".",
                             override = list(),
                             preview = NA,
                             devel = TRUE,
-                            document = "DEPRECATED",
                             topics = NULL) {
   pkg <- section_init(pkg, depth = 1L, override = override)
   check_bool(lazy)
@@ -166,15 +165,6 @@ build_reference <- function(pkg = ".",
   check_number_whole(seed, allow_null = TRUE)
   check_bool(devel)
   check_character(topics, allow_null = TRUE)
-
-  if (document != "DEPRECATED") {
-    lifecycle::deprecate_warn(
-      "1.4.0",
-      "build_site(document)",
-      details = "build_site(devel)"
-    )
-    devel <- document
-  }
 
   cli::cli_rule("Building function reference")
   build_reference_index(pkg)

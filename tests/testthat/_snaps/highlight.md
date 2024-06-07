@@ -1,3 +1,11 @@
+# highlight_examples runs and hides DONTSHOW calls()
+
+    Code
+      cat(strip_html_tags(out))
+    Output
+      x
+      #&gt; [1] 1
+
 # pre() can produce needed range of outputs
 
     Code

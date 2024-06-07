@@ -26,6 +26,7 @@ Authors:
 \itemize{
   \item Jay Hesselberth (\href{https://orcid.org/0000-0002-6299-179X}{ORCID})
   \item Maëlle Salmon (\href{https://orcid.org/0000-0002-2815-0399}{ORCID})
+  \item Olivier Roy
 }
 
 Other contributors:
