@@ -20,8 +20,15 @@ section_init <- function(pkg,
 
   local_envvar_pkgdown(pkg, .frame)
   local_options_link(pkg, depth = depth, .frame = .frame)
+  cache_cli_colours(.frame = .frame)
 
   pkg
+}
+
+cache_cli_colours <- function(.frame = parent.frame()) {
+  # https://github.com/r-lib/cli/issues/607
+  num_col <- getOption("cli.num_colors", default = cli::num_ansi_colors())
+  withr::local_options(cli.num_colors = num_col, .local_envir = .frame)
 }
 
 local_options_link <- function(pkg, depth, .frame = parent.frame()) {

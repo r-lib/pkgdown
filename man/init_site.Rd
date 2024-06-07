@@ -21,6 +21,16 @@ values in \verb{_pkgdown.yml}}
 \item runs \code{build_favicons()}, if needed.
 }
 
+Typically, you will not need to call this function directly, as all \verb{build_*()}
+functions will run \code{init_site()} if needed.
+
+The only good reasons to call \code{init_site()} directly are the following:
+\itemize{
+\item If you add or modify a package logo.
+\item If you add or modify \code{pkgdown/extra.scss}.
+\item If you modify \code{template.bslib} variables in \verb{_pkgdown.yml}.
+}
+
 See \code{vignette("customise")} for the various ways you can customise the
 display of your site.
 }
