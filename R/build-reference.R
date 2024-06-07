@@ -155,7 +155,7 @@ build_reference <- function(pkg = ".",
                             run_dont_run = FALSE,
                             seed = 1014L,
                             override = list(),
-                            preview = NA,
+                            preview = FALSE,
                             devel = TRUE,
                             topics = NULL) {
   pkg <- section_init(pkg, depth = 1L, override = override)

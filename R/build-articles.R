@@ -198,7 +198,7 @@ build_articles <- function(pkg = ".",
                            lazy = TRUE,
                            seed = 1014L,
                            override = list(),
-                           preview = NA) {
+                           preview = FALSE) {
   pkg <- section_init(pkg, depth = 1L, override = override)
   check_bool(quiet)
   check_bool(lazy)

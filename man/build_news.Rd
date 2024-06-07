@@ -4,7 +4,7 @@
 \alias{build_news}
 \title{Build news section}
 \usage{
-build_news(pkg = ".", override = list(), preview = NA)
+build_news(pkg = ".", override = list(), preview = FALSE)
 }
 \arguments{
 \item{pkg}{Path to package.}

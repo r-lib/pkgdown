@@ -12,7 +12,7 @@ build_articles(
   lazy = TRUE,
   seed = 1014L,
   override = list(),
-  preview = NA
+  preview = FALSE
 )
 
 build_article(

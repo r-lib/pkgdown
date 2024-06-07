@@ -288,7 +288,7 @@
 #' @order 1
 build_home <- function(pkg = ".",
                        override = list(),
-                       preview = NA,
+                       preview = FALSE,
                        quiet = TRUE) {
 
   pkg <- section_init(pkg, depth = 0L, override = override)
