@@ -433,7 +433,7 @@ build_site_local <- function(pkg = ".",
   if (!lazy) {
     # Only force init_site() if `!lazy`
     # if site is not initialized, it will be in build_home()
-    init_site(pkg)
+    init_site(pkg, override)
   }
 
   build_home(pkg, override = override, preview = FALSE)
