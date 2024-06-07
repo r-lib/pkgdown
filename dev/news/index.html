@@ -52,7 +52,8 @@
     </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
-<ul><li><p><code>document</code> in <code><a href="../reference/build_site.html">build_site()</a></code> and <code><a href="../reference/build_reference.html">build_reference()</a></code> has been removed after being deprecated in pkgdown 1.4.0. <code>devel</code> should be used instead.</p></li>
+<ul><li><p><code>build_*()</code> (apart from <code><a href="../reference/build_site.html">build_site()</a></code>) functions no longer default to previewing in interactive sessions since they now all emit specific links to newly generated files.</p></li>
+<li><p><code>document</code> in <code><a href="../reference/build_site.html">build_site()</a></code> and <code><a href="../reference/build_reference.html">build_reference()</a></code> has been removed after being deprecated in pkgdown 1.4.0. <code>devel</code> should be used instead.</p></li>
 <li><p><code><a href="../reference/autolink_html.html">autolink_html()</a></code> was deprecated in pkgdown 1.6.0 and now warns every time you use it. <code><a href="https://downlit.r-lib.org/reference/downlit_html_path.html" class="external-link">downlit::downlit_html_path()</a></code> should be used instead.</p></li>
 <li>
 <p><code><a href="../reference/build_news.html">build_news()</a></code> only syntax highlights the page once, not twice, which prevents every block of R code getting a blank line at the start (<a href="https://github.com/r-lib/pkgdown/issues/2630" class="external-link">#2630</a>).</p>
