@@ -26,7 +26,7 @@ Imports:
     cli (>= 3.6.1),
     desc (>= 1.4.0),
     digest,
-    downlit (>= 0.4.0),
+    downlit (>= 0.4.4),
     fontawesome,
     fs (>= 1.4.0),
     httr2 (>= 1.0.0),
