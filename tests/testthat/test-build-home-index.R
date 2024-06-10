@@ -145,3 +145,11 @@ test_that("package repo verification", {
     list(repo = "Bioconductor", url = "https://www.bioconductor.org/packages/Biobase")
   )
 })
+
+
+test_that("cran_unquote works", {
+  expect_equal(
+    cran_unquote("'Quoting' is CRAN's thing."),
+    "Quoting is CRAN's thing."
+  )
+})
