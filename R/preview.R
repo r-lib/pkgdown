@@ -2,7 +2,8 @@
 #'
 #' `preview_site()` opens your pkgdown site in your browser. pkgdown has been
 #' carefully designed to work even when served from the file system like 
-#' this; the only part that doesn't work is search.
+#' this; the only part that doesn't work is search. You can use `servr::httw("docs/")` 
+#'  to create a server to make search work locally.
 #' 
 #' @inheritParams build_article
 #' @param path Path relative to destination
@@ -41,8 +42,8 @@ local_path <- function(pkg, path, call = caller_env()) {
 #' Preview a local pkgdown page in the browser
 #'
 #' @description
-#' `r lifecycle::badge("deprecated")` Use `preview_site()` instead.
-#' 
+#' `r lifecycle::badge("deprecated")` Use [preview_site()] instead.
+#'
 #' @export
 #' @keywords internal
 preview_page <- function(path, pkg = ".") {
