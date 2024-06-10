@@ -1,6 +1,6 @@
 # pkgdown (development version)
 
-* `preivew_page()` has been deprecated (#2650).
+* `preview_page()` has been deprecated (#2650).
 * `build_article()` now translates the "Abstract" title if it's used.
 * `build_*()` (apart from `build_site()`) functions no longer default to previewing in interactive sessions since they now all emit specific links to newly generated files.
 * `document` in `build_site()` and `build_reference()` has been removed after being deprecated in pkgdown 1.4.0. `devel` should be used instead.
