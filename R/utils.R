@@ -1,13 +1,3 @@
-set_contains <- function(haystack, needles) {
-  all(needles %in% haystack)
-}
-
-split_at_linebreaks <- function(text) {
-  if (length(text) < 1)
-    return(character())
-  strsplit(text, "\\n\\s*\\n")[[1]]
-}
-
 up_path <- function(depth) {
   paste(rep.int("../", depth), collapse = "")
 }
@@ -53,6 +43,10 @@ unwrap_purrr_error <- function(code) {
   )
 }
 
+tr_ <- function(...) {
+  enc2utf8(gettext(..., domain = "R-pkgdown"))
+}
+
 # devtools metadata -------------------------------------------------------
 
 system_file <- function(..., package) {
@@ -84,22 +78,8 @@ writing_file <- function(path, show) {
   cli::cli_inform("Writing {.run [{text}](pkgdown::preview_page('{path}'))}")
 }
 
-skip_if_no_pandoc <- function(version = "1.12.3") {
-  testthat::skip_if_not(rmarkdown::pandoc_available(version))
-}
-
 has_internet <- function() {
   getOption("pkgdown.internet", default = TRUE)
-}
-
-# remove '' quoting
-# e.g. 'title' becomes title.s
-cran_unquote <- function(string) {
-  gsub("\\'(.*?)\\'", "\\1", string)
-}
-
-isFALSE <- function(x) {
-  is.logical(x) && length(x) == 1L && !is.na(x) && !x
 }
 
 modify_list <- function(x, y) {
@@ -220,8 +200,4 @@ xpath_length <- function(x, xpath) {
 print.pkgdown_xml <- function(x, ...) {
   cat(as.character(x, options = c("format", "no_declaration")), sep = "\n")
   invisible(x)
-}
-
-tr_ <- function(...) {
-  enc2utf8(gettext(..., domain = "R-pkgdown"))
 }

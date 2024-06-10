@@ -226,3 +226,8 @@ req_pkgdown_cache <- function(req) {
     max_age = 86400 # 1 day
   )
 }
+
+# authors forced to wrap words in '' to prevent spelling errors
+cran_unquote <- function(string) {
+  gsub("\\'(.*?)\\'", "\\1", string)
+}
