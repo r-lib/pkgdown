@@ -15,5 +15,7 @@ preview_site(pkg = ".", path = ".", preview = TRUE)
 freshly generated section in browser.}
 }
 \description{
-Open site in browser
+\code{preview_site()} opens your pkgdown site in your browser. pkgdown has been
+carefully designed to work even when served from the file system like
+this; the only part that doesn't work is search.
 }
