@@ -1,0 +1,61 @@
+---
+title: "quarto"
+vignette: >
+  %\VignetteIndexEntry{quarto}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: '#>'
+---
+
+```{r setup}
+library(pkgdown)
+```
+
+pkgdown effectively uses quarto only to generate HTML and then supplies its own CSS and JS. This means that when quarto introduces new features, pkgdown may lag behind in their support. If you're trying out something that doens't work (and isn't mentioned explicitly below), please [file an issue](https://github.com/r-lib/pkgdown/issues) so we can look into it.
+
+## Limitations
+
+* pkgdown assumes that you're using [quarto vignette style](https://quarto-dev.github.io/quarto-r/articles/hello.html), or more generally an html format with [`minimal: true`](https://quarto.org/docs/output-formats/html-basics.html#minimal-html). 
+
+* pkgdown provides its own implementations of bootstrap themes, anchor sections, and code copying. The following options are not yet supported.
+
+    ```yaml
+    # reference popups
+    citations-hover: true
+    footnotes-hover: true
+    crossrefs-hover: true
+
+    # tabsets
+    # ???
+
+    # responsive figures
+    fig-responsive: true
+    ```
+
+* pkgdown ignores includes that are added before and after the body text. This means that you can't use [page layouts](https://quarto.org/docs/output-formats/page-layout.html#article)
+
+* pkgdown will pass the `lang` setting on to quarto, but the set of available language is not perfectly matched. Learn more in <https://quarto.org/docs/authoring/language.html>, including how to supply your own translations.
+
+## Supported features
+
+The following sections demonstrate a bunch of useful quarto features so that we can make sure that they work.
+
+### Code
+
+```{r}
+1 + 1
+2 + 2
+```
+
+## To do
+
+* Code annotations
+* Reference pop ups
+* To do lists
+* Figures
+* Equations
+* Cross-references
+* Footnotes

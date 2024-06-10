@@ -54,6 +54,7 @@ Suggests:
     magick,
     methods,
     pkgload (>= 1.0.2),
+    quarto,
     rsconnect,
     rstudioapi,
     rticles,
@@ -61,7 +62,10 @@ Suggests:
     testthat (>= 3.1.3),
     tools
 VignetteBuilder:
-    knitr
+    knitr,
+    quarto
+Remotes: 
+    r-lib/evaluate
 Config/Needs/website: usethis, servr
 Config/potools/style: explicit
 Config/testthat/edition: 3
@@ -71,4 +75,3 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 SystemRequirements: pandoc
-Remotes: r-lib/evaluate

@@ -319,6 +319,9 @@ package_vignettes <- function(path = ".") {
   vig_path <- vig_path[!grepl("^_", path_file(vig_path))]
   vig_path <- vig_path[!grepl("^tutorials", path_dir(vig_path))]
 
+  # quarto::quarto_inspect("vignettes/quarto.qmd")$formats$html$pandoc$`output-file`
+  # quarto::quarto_inspect("vignettes/quarto.qmd")$formats$html$metadata
+
   yaml <- purrr::map(path(base, vig_path), rmarkdown::yaml_front_matter)
   title <- purrr::map_chr(yaml, list("title", 1), .default = "UNKNOWN TITLE")
   desc <- purrr::map_chr(yaml, list("description", 1), .default = NA_character_)

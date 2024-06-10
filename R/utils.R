@@ -187,6 +187,10 @@ xpath_xml <- function(x, xpath) {
   x <- xml2::xml_find_all(x, xpath)
   structure(x, class = c("pkgdown_xml", class(x)))
 }
+xpath_contents <- function(x, xpath) {
+  x <- xml2::xml_find_all(x, xpath)
+  paste0(as.character(xml2::xml_contents(x), options = c("format", "no_declaration")), collapse = "")
+}
 xpath_attr <- function(x, xpath, attr) {
   gsub("\r", "", xml2::xml_attr(xml2::xml_find_all(x, xpath), attr), fixed = TRUE)
 }
