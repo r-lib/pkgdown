@@ -36,26 +36,9 @@ project:
 
 * Callouts are not currently supported (<https://github.com/quarto-dev/quarto-cli/issues/9963>).
 
-* You can't customise mermaid styles using quarto mermaid themes. If you want to change the colours, you'll need to provide your own custom CSS as shown in [the quarto docs](https://quarto.org/docs/authoring/diagrams.html#customizing-mermaid).
+* pkgdown assumes that you're using [quarto vignette style](https://quarto-dev.github.io/quarto-r/articles/hello.html), or more generally an html format with [`minimal: true`](https://quarto.org/docs/output-formats/html-basics.html#minimal-html). Specifically, only HTML vignettes are currently supported.
 
-* pkgdown assumes that you're using [quarto vignette style](https://quarto-dev.github.io/quarto-r/articles/hello.html), or more generally an html format with [`minimal: true`](https://quarto.org/docs/output-formats/html-basics.html#minimal-html). 
-
-* pkgdown provides its own implementations of bootstrap themes, anchor sections, and code copying. The following options are not yet supported.
-
-    ```yaml
-    # reference popups
-    citations-hover: true
-    footnotes-hover: true
-    crossrefs-hover: true
-
-    # tabsets
-    tabsets: true
-
-    # responsive figures
-    fig-responsive: true
-    ```
-
-* pkgdown ignores includes that are added before and after the body text. This means that you can't use [page layouts](https://quarto.org/docs/output-formats/page-layout.html#article)
+* You can't customise mermaid styles with quarto mermaid themes. If you want to change the colours, you'll need to provide your own custom CSS as shown in [the quarto docs](https://quarto.org/docs/authoring/diagrams.html#customizing-mermaid).
 
 * pkgdown will pass the `lang` setting on to quarto, but the set of available language is not perfectly matched. Learn more in <https://quarto.org/docs/authoring/language.html>, including how to supply your own translations.
 
@@ -149,6 +132,7 @@ Black-Scholes (@eq-black-scholes) is a mathematical model that seeks to explain 
 ## To do
 
 * [ ] Code annotations
+* [ ] Tabsets
 * [x] Citations
 * [x] Task/to do lists
 * [x] Figures
