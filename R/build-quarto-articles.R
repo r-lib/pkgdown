@@ -33,6 +33,7 @@ build_quarto_articles <- function(pkg = ".", quiet = TRUE) {
   htmls <- dir_ls(output_dir, glob = "*.html")
   out_path <- path("articles", path_rel(htmls, output_dir))
   data <- lapply(htmls, quarto_parse_rendered)
+
   purrr::walk2(data, out_path, function(data, path) {
     render_page(pkg, "quarto", data, path)
   })

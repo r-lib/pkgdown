@@ -296,6 +296,14 @@ dt:target + dd {
   padding-left: 2rem;
 }
 
+// task-list
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+
 // orcid badge
 .orcid {
   color: #A6CE39;
@@ -363,6 +371,11 @@ a[href='#main'] {
 .lifecycle-superseded   { background-color: rgb(7, 64, 128);  color: var(--bs-white);}
 .lifecycle-experimental, 
 .lifecycle-deprecated   { background-color: rgb(253, 128, 8); color: var(--bs-black);}
+
+// From quarto, a convention to get smallcaps
+span.smallcaps {font-variant: small-caps;}
+
+
 
 /* Footnotes ---------------------------------------------------------------- */
 

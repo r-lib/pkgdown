@@ -1,7 +1,7 @@
 ---
-title: "quarto"
+title: quarto vignettes
 vignette: >
-  %\VignetteIndexEntry{quarto}
+  %\VignetteIndexEntry{quarto vignettes}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 knitr:
@@ -29,7 +29,7 @@ pkgdown effectively uses quarto only to generate HTML and then supplies its own 
     crossrefs-hover: true
 
     # tabsets
-    # ???
+    tabsets: true
 
     # responsive figures
     fig-responsive: true
@@ -43,8 +43,12 @@ pkgdown effectively uses quarto only to generate HTML and then supplies its own 
 
 The following sections demonstrate a bunch of useful quarto features so that we can make sure that they work.
 
+### Inline formatting
+
+* [Small caps]{.smallcaps}
+
 ### Code
-a
+
 ```{r}
 1 + 1
 2 + 2
@@ -54,10 +58,10 @@ plot(1:3)
 
 ## To do
 
-* Code annotations
-* Reference pop ups
-* To do lists
-* Figures
-* Equations
-* Cross-references
-* Footnotes
+* [x] Task/to do lists
+* [ ] Code annotations
+* [ ] Reference pop ups
+* [ ] Figures
+* [ ] Equations
+* [ ] Cross-references
+* [ ] Footnotes
