@@ -68,11 +68,9 @@ quarto_metadata <- function(pkg) {
 }
 
 quarto_parse_rendered <- function(path) { 
-  html <- xml2::read_html(path)
-
+  html <- xml2::read_html(path,encoding = "UTF-8")
   meta_div <- xml2::xml_find_first(html, "//body/div[@class='meta']")
 
-  browser()
   list(
     pagetitle = escape_html(xpath_text(html, "//head/title")),
     toc = TRUE, 
