@@ -1,5 +1,8 @@
 ---
 title: quarto vignettes
+description: > 
+  Learn how quarto vignettes work with pkgdown, including currently supported
+  features and known limitations.
 vignette: >
   %\VignetteIndexEntry{quarto vignettes}
   %\VignetteEngine{quarto::html}

@@ -179,7 +179,11 @@ print.print_yaml <- function(x, ...) {
 }
 
 write_yaml <- function(x, path) {
-  write_lines(yaml::as.yaml(x), path = path)
+  yaml::write_yaml(
+    x,
+    path,
+    handlers = list(logical = yaml::verbatim_logical)
+  )
 }
 
 # Helpers for testing -----------------------------------------------------

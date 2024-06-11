@@ -319,14 +319,12 @@ package_vignettes <- function(path = ".") {
   vig_path <- vig_path[!grepl("^_", path_file(vig_path))]
   vig_path <- vig_path[!grepl("^tutorials", path_dir(vig_path))]
 
-  # quarto::quarto_inspect("vignettes/quarto.qmd")$formats$html$pandoc$`output-file`
-  # quarto::quarto_inspect("vignettes/quarto.qmd")$formats$html$metadata
+  type <- tolower(path_ext(vig_path))
 
-  yaml <- purrr::map(path(base, vig_path), rmarkdown::yaml_front_matter)
-  title <- purrr::map_chr(yaml, list("title", 1), .default = "UNKNOWN TITLE")
-  desc <- purrr::map_chr(yaml, list("description", 1), .default = NA_character_)
-  ext <- purrr::map_chr(yaml, c("pkgdown", "extension"), .default = "html")
-  title[ext == "pdf"] <- paste0(title[ext == "pdf"], " (PDF)")
+  meta <- purrr::map(path(base, vig_path), article_metadata)
+  title <- purrr::map_chr(meta, "title")
+  desc <- purrr::map_chr(meta, "desc")
+  ext <- purrr::map_chr(meta, "ext")
 
   # Vignettes will be written to /articles/ with path relative to vignettes/
   # *except* for vignettes in vignettes/articles, which are moved up a level
@@ -339,6 +337,7 @@ package_vignettes <- function(path = ".") {
 
   out <- tibble::tibble(
     name = as.character(path_ext_remove(vig_path)),
+    type = type,
     file_in = as.character(file_in),
     file_out = as.character(file_out),
     title = title,
@@ -346,6 +345,33 @@ package_vignettes <- function(path = ".") {
     depth = dir_depth(file_out)
   )
   out[order(path_file(out$file_out)), ]
+}
+
+article_metadata <- function(path) {
+  if (path_ext(path) == "qmd") {
+    inspect <- quarto::quarto_inspect(path)
+    meta <- inspect$formats$html$metadata
+  
+    out <- list(
+      title = meta$title %||% "UNKNOWN TITLE",
+      desc = meta$description %||% NA_character_,
+      # inspect$formats$html$pandoc$`output-file`
+      ext = "html"
+    )  
+  } else {
+    yaml <- rmarkdown::yaml_front_matter(path)
+    out <- list(
+      title = yaml$title[[1]] %||% "UNKNOWN TITLE",
+      desc = yaml$description[[1]] %||% NA_character_,
+      ext = yaml$pkgdown$extension %||% "html"
+    )
+  }
+
+  if (out$ext == "pdf") {
+    out$title <- paste0(out$title, " (PDF)")
+  }
+
+  out
 }
 
 find_template_config <- function(package,
