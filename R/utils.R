@@ -193,11 +193,16 @@ xpath_contents <- function(x, xpath) {
 
   contents <- xml2::xml_contents(x)
   if (length(contents) == 0) {
-    return(NULL)
+    NULL
+  } else {
+    xml2str(contents)
   }
-  strings <- as.character(contents, options = c("format", "no_declaration"))
+}
+xml2str <- function(x) {
+  strings <- as.character(x, options = c("format", "no_declaration"))
   paste0(strings, collapse = "")
 }
+
 xpath_attr <- function(x, xpath, attr) {
   gsub("\r", "", xml2::xml_attr(xml2::xml_find_all(x, xpath), attr), fixed = TRUE)
 }

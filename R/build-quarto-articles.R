@@ -69,7 +69,7 @@ quarto_metadata <- function(pkg) {
 }
 
 quarto_parse_rendered <- function(path) { 
-  html <- xml2::read_html(path,encoding = "UTF-8")
+  html <- xml2::read_html(path, encoding = "UTF-8")
   meta_div <- xml2::xml_find_first(html, "//body/div[@class='meta']")
 
   list(
@@ -77,7 +77,7 @@ quarto_parse_rendered <- function(path) {
     toc = TRUE, 
     source = "???",
     includes = list(
-      head = as.character(xpath_xml(html, "//head/script|//meta/link")),
+      head = xml2str(xpath_xml(html, "//head/script|//head/link")),
       before = xpath_contents(html, "//body/div[@class='includes-before']"),
       after = xpath_contents(html, "//body/div[@class='includes-after']"),
       style = xpath_text(html, "//head/style")
