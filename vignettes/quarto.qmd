@@ -29,6 +29,8 @@ project:
 
 * Only `format: html` is currently supported.
 
+* You can't customise mermaid styles using quarto mermaid themes. If you want to change the colours, you'll need to provide your own custom CSS as shown in [the quarto docs](https://quarto.org/docs/authoring/diagrams.html#customizing-mermaid).
+
 * pkgdown assumes that you're using [quarto vignette style](https://quarto-dev.github.io/quarto-r/articles/hello.html), or more generally an html format with [`minimal: true`](https://quarto.org/docs/output-formats/html-basics.html#minimal-html). 
 
 * pkgdown provides its own implementations of bootstrap themes, anchor sections, and code copying. The following options are not yet supported.
