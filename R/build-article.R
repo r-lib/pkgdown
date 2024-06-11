@@ -36,10 +36,34 @@ build_article <- function(name,
     return(invisible())
   }
 
-  cli::cli_inform("Reading {src_path(input)}")
+  build_rmarkdown_article(
+    pkg = pkg,
+    input_file = input,
+    input_path = input_path,
+    output_file = output_file,
+    output_path = output_path,
+    depth = depth,
+    seed = seed,
+    new_process = new_process,
+    pandoc_args = pandoc_args,
+    quiet = quiet
+  )
+}
+
+build_rmarkdown_article <- function(pkg,
+                                    input_file,
+                                    input_path,
+                                    output_file,
+                                    output_path,
+                                    depth,
+                                    seed = NULL,
+                                    new_process = TRUE,
+                                    pandoc_args = character(),
+                                    quiet = TRUE) {
+  cli::cli_inform("Reading {src_path(input_file)}")
   digest <- file_digest(output_path)
 
-  data <- data_article(pkg, input)
+  data <- data_article(pkg, input_file)
   if (data$as_is) {
     if (identical(data$ext, "html")) {
       setup <- rmarkdown_setup_custom(pkg, input_path, depth = depth, data = data)
@@ -68,7 +92,7 @@ build_article <- function(name,
   if (new_process) {
     path <- withCallingHandlers(
       callr::r_safe(rmarkdown_render_with_seed, args = args, show = !quiet),
-      error = function(cnd) wrap_rmarkdown_error(cnd, input)
+      error = function(cnd) wrap_rmarkdown_error(cnd, input_file)
     )
   } else {
     path <- inject(rmarkdown_render_with_seed(!!!args))
@@ -93,8 +117,8 @@ build_article <- function(name,
   }
 
   invisible(path)
-
 }
+
 
 data_article <- function(pkg, input, call = caller_env()) {
   yaml <- rmarkdown::yaml_front_matter(path_abs(input, pkg$src_path))

@@ -33,6 +33,7 @@ articles:
   navbar: ~
   contents:
   - customise
+  - quarto
   - translations
   - accessibility
   - linking
