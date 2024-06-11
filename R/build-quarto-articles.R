@@ -36,7 +36,9 @@ build_quarto_articles <- function(pkg = ".", quiet = TRUE) {
 
   purrr::walk2(data, out_path, function(data, path) {
     render_page(pkg, "quarto", data, path)
+    update_html(path(pkg$dst_path, out_path), tweak_quarto_html)
   })
+
 
   # Copy resources
   resources <- setdiff(dir_ls(output_dir, recurse = TRUE), htmls)
@@ -59,7 +61,7 @@ quarto_metadata <- function(pkg) {
         template = system_file("quarto", "template.html", package = "pkgdown"),
         minimal = TRUE,
         theme = "none",
-        `highlight-style` = "none",
+        # `highlight-style` = "none",
         `html-math-method` = config_math_rendering(pkg),
         `embed-resources` = FALSE,
         toc = FALSE # pkgdown generates with js
@@ -72,12 +74,16 @@ quarto_parse_rendered <- function(path) {
   html <- xml2::read_html(path, encoding = "UTF-8")
   meta_div <- xml2::xml_find_first(html, "//body/div[@class='meta']")
 
+  # Manually drop any jquery deps
+  head <- xpath_xml(html, "//head/script|//head/link")
+  head <- head[!grepl("jquery", xml2::xml_attr(head, "src"))]
+
   list(
     pagetitle = escape_html(xpath_text(html, "//head/title")),
     toc = TRUE, 
     source = "???",
     includes = list(
-      head = xml2str(xpath_xml(html, "//head/script|//head/link")),
+      head = xml2str(head),
       before = xpath_contents(html, "//body/div[@class='includes-before']"),
       after = xpath_contents(html, "//body/div[@class='includes-after']"),
       style = xpath_text(html, "//head/style")
@@ -91,4 +97,12 @@ quarto_parse_rendered <- function(path) {
     ),
     body = xpath_contents(html, "//main")
   )
+}
+
+tweak_quarto_html <- function(html) { 
+  # If top-level headings use h1, move everything down one level
+  h1 <- xml2::xml_find_all(html, "//h1")
+  if (length(h1) > 1) {
+    tweak_section_levels(html)
+  }
 }
