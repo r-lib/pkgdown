@@ -1,0 +1,9 @@
+---
+title: "problem"
+vignette: >
+  %\VignetteIndexEntry{quarto}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+it's

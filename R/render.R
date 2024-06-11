@@ -23,7 +23,7 @@ render_page <- function(pkg = ".", name, data, path, depth = NULL, quiet = FALSE
   pkg <- as_pkgdown(pkg)
 
   if (is.null(depth)) {
-    depth <- length(strsplit(path, "/")[[1]]) - 1L
+    depth <- dir_depth(path)
   }
 
   html <- render_page_html(pkg, name = name, data = data, depth = depth)

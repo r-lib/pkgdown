@@ -3,6 +3,7 @@ up_path <- function(depth) {
 }
 
 dir_depth <- function(x) {
+  # length(strsplit(path, "/")[[1]]) - 1L
   purrr::map_int(strsplit(x, ""), function(x) sum(x == "/"))
 }
 
@@ -189,7 +190,13 @@ xpath_xml <- function(x, xpath) {
 }
 xpath_contents <- function(x, xpath) {
   x <- xml2::xml_find_all(x, xpath)
-  paste0(as.character(xml2::xml_contents(x), options = c("format", "no_declaration")), collapse = "")
+
+  contents <- xml2::xml_contents(x)
+  if (length(contents) == 0) {
+    return(NULL)
+  }
+  strings <- as.character(contents, options = c("format", "no_declaration"))
+  paste0(strings, collapse = "")
 }
 xpath_attr <- function(x, xpath, attr) {
   gsub("\r", "", xml2::xml_attr(xml2::xml_find_all(x, xpath), attr), fixed = TRUE)

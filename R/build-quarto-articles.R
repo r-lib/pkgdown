@@ -1,4 +1,4 @@
-build_quarto_articles <- function(pkg = ".") {
+build_quarto_articles <- function(pkg = ".", quiet = TRUE) {
   check_required("quarto")
   pkg <- as_pkgdown(pkg)
 
@@ -21,18 +21,33 @@ build_quarto_articles <- function(pkg = ".") {
     withr::defer(file_delete(project_path))
   }
 
-  output_dir <- "~/Desktop/test"
+  # output_dir <- "~/Desktop/test"
   quarto::quarto_render(
     path(pkg$src_path, "vignettes"),
     metadata_file = metadata_path,
-    # quarto_args = c("--output-dir", output_dir),
+    execute_dir = output_dir,
+    quarto_args = c("--output-dir", output_dir),
+    quiet = quiet,
     as_job = FALSE
   )
 
-  qmds <- dir_ls(path(pkg$src_path, "vignettes"), glob = "*.qmd")
-  htmls <- path_ext_set(qmds, "html")
-  parsed <- lapply(htmls, quarto_parse_rendered)
+  
+  htmls <- dir_ls(output_dir, glob = "*.html")
+  out_path <- path("articles", path_rel(htmls, output_dir))
+  data <- lapply(htmls, quarto_parse_rendered)
+  
+  purrr::walk2(data, out_path, function(data, path) {
+    render_page(pkg, "quarto", data, path)
+  })
 
+  resources <- setdiff(dir_ls(output_dir, recurse = TRUE), htmls)
+  resources <- resources[!is_dir(resources)]
+  file_copy_to(
+    src_paths = resources,
+    dst_paths = path(pkg$dst_path, "articles", path_rel(resources, output_dir)),
+    src_root = output_dir,
+    dst_root = pkg$dst_path
+  )
 }
 
 quarto_metadata <- function(pkg) {
@@ -57,8 +72,11 @@ quarto_parse_rendered <- function(path) {
 
   meta_div <- xml2::xml_find_first(html, "//body/div[@class='meta']")
 
+  browser()
   list(
-    pagetitle = xpath_text(html, "//head/title"),
+    pagetitle = escape_html(xpath_text(html, "//head/title")),
+    toc = TRUE, 
+    source = "???",
     includes = list(
       head = as.character(xpath_xml(html, "//head/script|//meta/link")),
       before = xpath_contents(html, "//body/div[@class='includes-before']"),
@@ -66,7 +84,7 @@ quarto_parse_rendered <- function(path) {
       style = xpath_text(html, "//head/style")
     ),
     meta = list(
-      title = xpath_content(meta_div, "./h1"),
+      title = xpath_contents(meta_div, "./h1"),
       subtitle = xpath_contents(meta_div, "./p[@class='subtitle']"),
       author = xpath_contents(meta_div, "./p[@class='author']"),
       date = xpath_contents(meta_div, "./p[@class='date']"),
