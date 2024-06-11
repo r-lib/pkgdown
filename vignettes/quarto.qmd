@@ -11,6 +11,8 @@ knitr:
   opts_chunk: 
     collapse: true
     comment: '#>'
+bibliography: test/jss.bib
+
 ---
 
 ```{r setup}
@@ -31,6 +33,8 @@ project:
 ## Limitations
 
 * Only `format: html` is currently supported.
+
+* Callouts are not currently supported (<https://github.com/quarto-dev/quarto-cli/issues/9963>).
 
 * You can't customise mermaid styles using quarto mermaid themes. If you want to change the colours, you'll need to provide your own custom CSS as shown in [the quarto docs](https://quarto.org/docs/authoring/diagrams.html#customizing-mermaid).
 
@@ -63,6 +67,14 @@ The following sections demonstrate a bunch of useful quarto features so that we 
 
 * [Small caps]{.smallcaps}
 
+* Keyboard shortcut: {{< kbd Shift-Ctrl-P >}}
+
+* Here is a footnote reference[^1]
+
+* Citation: @JSSv059i10
+
+[^1]: And here is the footnote.
+
 ### Code
 
 ```{r}
@@ -72,6 +84,20 @@ The following sections demonstrate a bunch of useful quarto features so that we 
 
 plot(1:3)
 ```
+
+With annotations:
+
+```r
+library(tidyverse)
+library(palmerpenguins)
+penguins |>                                      # <1>
+  mutate(                                        # <2>
+    bill_ratio = bill_depth_mm / bill_length_mm, # <2>
+    bill_area  = bill_depth_mm * bill_length_mm  # <2>
+  )                                              # <2>
+```
+1. Take `penguins`, and then,
+2. add new columns for the bill ratio and bill area.
 
 ### Figures
 
@@ -122,10 +148,13 @@ Black-Scholes (@eq-black-scholes) is a mathematical model that seeks to explain 
 
 ## To do
 
-* [x] Task/to do lists
 * [ ] Code annotations
-* [ ] Reference pop ups
+* [x] Citations
+* [x] Task/to do lists
 * [x] Figures
 * [x] Equations
 * [x] Cross-references
-* [ ] Footnotes
+* [x] Footnotes
+* [x] Callouts
+
+## References

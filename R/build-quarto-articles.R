@@ -76,6 +76,8 @@ quarto_format <- function(pkg) {
         theme = "none",
         `html-math-method` = config_math_rendering(pkg),
         `embed-resources` = FALSE,
+        `citations-hover` = TRUE,
+        `link-citations` = TRUE,
         toc = FALSE # pkgdown generates with js
       )
     )
