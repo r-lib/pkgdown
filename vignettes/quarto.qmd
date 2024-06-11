@@ -104,9 +104,10 @@ flowchart LR
 ### HTML widgets
 
 ```{r, echo=FALSE}
-path1 <- tempfile()
+dir <- tempdir()
+path1 <- file.path(dir, "a.txt")
 writeLines(letters, path1)
-path2 <- tempfile()
+path2 <- file.path(dir, "b.txt")
 writeLines(letters[-(10:11)], path2)
 
 diffviewer::visual_diff(path1, path2)

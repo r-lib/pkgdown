@@ -6,7 +6,6 @@ build_quarto_articles <- function(pkg = ".", quiet = TRUE) {
   if (nrow(qmds) == 0) {
     return()
   }
-  qmds$output <- path_rel(qmds$file_out, "articles")
 
   for (file in qmds$file_in) {
     cli::cli_inform("Reading {src_path(file)}")
@@ -49,15 +48,14 @@ build_quarto_articles <- function(pkg = ".", quiet = TRUE) {
   new_digest <- purrr::map_chr(path(pkg$dst_path, qmds$file_out), file_digest)
   changed <- new_digest != old_digest
   for (file in qmds$file_out[changed]) {
-    writing_file(path_rel(file, pkg$dst_path), file)
+    writing_file(path(pkg$dst_path, file), file)
   }
 
   # Copy resources
   resources <- setdiff(
-    dir_ls(output_dir, recurse = TRUE),
-    path(output_dir, qmds$output)
+    dir_ls(output_dir, recurse = TRUE, type = "file"),
+    path(output_dir, path_rel(qmds$file_out, "articles"))
   )
-  resources <- resources[!is_dir(resources)]
   file_copy_to(
     src_paths = resources,
     dst_paths = path(pkg$dst_path, "articles", path_rel(resources, output_dir)),
