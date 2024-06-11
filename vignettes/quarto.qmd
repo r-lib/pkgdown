@@ -16,7 +16,18 @@ library(pkgdown)
 
 pkgdown effectively uses quarto only to generate HTML and then supplies its own CSS and JS. This means that when quarto introduces new features, pkgdown may lag behind in their support. If you're trying out something that doens't work (and isn't mentioned explicitly below), please [file an issue](https://github.com/r-lib/pkgdown/issues) so we can look into it.
 
+## Operation
+
+pkgdown turns your articles directory into a quarto project by temporarily adding a `_quarto.yml` to your articles. You can also add your own if you want to control options for all quarto articles. If you do so, and you have a mix of `.qmd` and `.Rmd` files, you'll need to include the following yaml so that RMarkdown can continue to handle the .Rmd files:
+
+```yaml
+project:
+  render: ['*.qmd']
+```
+
 ## Limitations
+
+* Only `format: html` is currently supported.
 
 * pkgdown assumes that you're using [quarto vignette style](https://quarto-dev.github.io/quarto-r/articles/hello.html), or more generally an html format with [`minimal: true`](https://quarto.org/docs/output-formats/html-basics.html#minimal-html). 
 

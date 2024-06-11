@@ -16,7 +16,7 @@ build_quarto_articles <- function(pkg = ".", quiet = TRUE) {
   # Need to simulate a project so we can build entire directory
   project_path <- path(pkg$src_path, "vignettes", "_quarto.yaml")
   if (!file_exists(project_path)) {
-    file_create(project_path)
+    yaml::write_yaml(list(project = list(render = list("*.qmd"))), project_path)
     withr::defer(file_delete(project_path))
   }
 
