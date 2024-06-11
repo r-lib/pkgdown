@@ -64,8 +64,6 @@ Suggests:
 VignetteBuilder:
     knitr,
     quarto
-Remotes: 
-    r-lib/evaluate
 Config/Needs/website: usethis, servr
 Config/potools/style: explicit
 Config/testthat/edition: 3
