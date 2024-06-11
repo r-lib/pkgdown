@@ -13,15 +13,14 @@ build_quarto_articles <- function(pkg = ".", quiet = TRUE) {
     handlers = list(logical = yaml::verbatim_logical)
   )
 
-  output_dir <- withr::local_tempdir("pkgdown-quarto-")
-
+  # Need to simulate a project so we can build entire directory
   project_path <- path(pkg$src_path, "vignettes", "_quarto.yaml")
   if (!file_exists(project_path)) {
     file_create(project_path)
     withr::defer(file_delete(project_path))
   }
 
-  # output_dir <- "~/Desktop/test"
+  output_dir <- withr::local_tempdir("pkgdown-quarto-")
   quarto::quarto_render(
     path(pkg$src_path, "vignettes"),
     metadata_file = metadata_path,
@@ -30,16 +29,15 @@ build_quarto_articles <- function(pkg = ".", quiet = TRUE) {
     quiet = quiet,
     as_job = FALSE
   )
-
   
   htmls <- dir_ls(output_dir, glob = "*.html")
   out_path <- path("articles", path_rel(htmls, output_dir))
   data <- lapply(htmls, quarto_parse_rendered)
-  
   purrr::walk2(data, out_path, function(data, path) {
     render_page(pkg, "quarto", data, path)
   })
 
+  # Copy resources
   resources <- setdiff(dir_ls(output_dir, recurse = TRUE), htmls)
   resources <- resources[!is_dir(resources)]
   file_copy_to(
@@ -48,6 +46,8 @@ build_quarto_articles <- function(pkg = ".", quiet = TRUE) {
     src_root = output_dir,
     dst_root = pkg$dst_path
   )
+
+  invisible()
 }
 
 quarto_metadata <- function(pkg) {
