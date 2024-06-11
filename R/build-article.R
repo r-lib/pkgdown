@@ -59,11 +59,12 @@ build_rmarkdown_article <- function(pkg,
                                     seed = NULL,
                                     new_process = TRUE,
                                     pandoc_args = character(),
-                                    quiet = TRUE) {
+                                    quiet = TRUE,
+                                    call = caller_env() ) {
   cli::cli_inform("Reading {src_path(input_file)}")
   digest <- file_digest(output_path)
 
-  data <- data_article(pkg, input_file)
+  data <- data_article(pkg, input_file, call = call)
   if (data$as_is) {
     if (identical(data$ext, "html")) {
       setup <- rmarkdown_setup_custom(pkg, input_path, depth = depth, data = data)
@@ -92,7 +93,7 @@ build_rmarkdown_article <- function(pkg,
   if (new_process) {
     path <- withCallingHandlers(
       callr::r_safe(rmarkdown_render_with_seed, args = args, show = !quiet),
-      error = function(cnd) wrap_rmarkdown_error(cnd, input_file)
+      error = function(cnd) wrap_rmarkdown_error(cnd, input_file, call)
     )
   } else {
     path <- inject(rmarkdown_render_with_seed(!!!args))
