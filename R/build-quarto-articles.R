@@ -67,7 +67,8 @@ build_quarto_articles <- function(pkg = ".", quiet = TRUE) {
     src_paths = resources,
     dst_paths = path(pkg$dst_path, "articles", path_rel(resources, output_dir)),
     src_root = output_dir,
-    dst_root = pkg$dst_path
+    dst_root = pkg$dst_path,
+    src_label = NULL
   )
 
   invisible()
