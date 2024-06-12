@@ -13,7 +13,7 @@ knitr:
     comment: '#>'
 ---
 
-pkgdown effectively uses quarto only to generate HTML and then supplies its own CSS and JS. This means that when quarto introduces new features, pkgdown may lag behind in their support. If you're trying out something that doens't work (and isn't mentioned explicitly below), please [file an issue](https://github.com/r-lib/pkgdown/issues) so we can look into it.
+pkgdown effectively uses quarto only to generate HTML and then supplies its own CSS and JS. This means that when quarto introduces new features, pkgdown may lag behind in their support. If you're trying out something that doesn't work (and isn't mentioned explicitly below), please [file an issue](https://github.com/r-lib/pkgdown/issues) so we can look into it.
 
 ## Operation
 
