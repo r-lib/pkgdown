@@ -51,3 +51,13 @@ test_that("auto-adjusts heading levels", {
   expect_equal(xpath_text(html, "//h1"), "title")
   expect_equal(xpath_text(html, "//h2"), c("Heading 1", "Heading 2"))
 })
+
+test_that("we find out if quarto styles change", {
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/vig1.qmd")
+
+  output_dir <- quarto_render(path(pkg$src_path, "vignettes", "vig1.qmd"))
+
+  data <- data_quarto_article(pkg, path(output_dir, "vig1.html"), "vig1.qmd")
+  expect_snapshot(cat(data$includes$style))
+})

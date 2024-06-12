@@ -17,12 +17,6 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
 
   old_digest <- purrr::map_chr(path(pkg$dst_path, qmds$file_out), file_digest)
 
-  # Override default quarto format
-  metadata_path <- withr::local_tempfile(
-    fileext = ".yml",
-    pattern = "pkgdown-quarto-metadata-"
-  )
-  write_yaml(quarto_format(pkg), metadata_path)
 
   # If needed, temporarily make a quarto project so we can build entire dir
   if (is.null(article)) {
@@ -38,17 +32,8 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
   } else {
     src_path <- path(pkg$src_path, qmds$file_in)
   }
- 
-  output_dir <- withr::local_tempdir("pkgdown-quarto-")
-  quarto::quarto_render(
-    src_path,
-    metadata_file = metadata_path,
-    execute_dir = output_dir,
-    quarto_args = c("--output-dir", output_dir),
-    quiet = quiet,
-    as_job = FALSE
-  )
-  
+  output_dir <- quarto_render(src_path, quiet = quiet)
+
   # Read generated data from quarto template and render into pkgdown template
   purrr::walk2(qmds$file_in, qmds$file_out, function(input_file, output_file) {
     built_path <- path(output_dir, path_rel(output_file, "articles"))
@@ -83,6 +68,27 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
   )
 
   invisible()
+}
+
+quarto_render <- function(path, quiet = TRUE, frame = caller_env()) {
+  # Override default quarto format
+  metadata_path <- withr::local_tempfile(
+    fileext = ".yml",
+    pattern = "pkgdown-quarto-metadata-"
+  )
+  write_yaml(quarto_format(pkg), metadata_path)
+
+  output_dir <- withr::local_tempdir("pkgdown-quarto-", .local_envir = frame)
+  quarto::quarto_render(
+    path,
+    metadata_file = metadata_path,
+    execute_dir = output_dir,
+    quarto_args = c("--output-dir", output_dir),
+    quiet = quiet,
+    as_job = FALSE
+  )
+
+  output_dir
 }
 
 quarto_format <- function(pkg) {
