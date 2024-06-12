@@ -9,6 +9,8 @@ Authors@R: c(
     person("Maëlle", "Salmon", role = "aut",
            comment = c(ORCID = "0000-0002-2815-0399")),
     person("Olivier", "Roy", role = "aut"),
+    person("Salim", "Brüggemann", role = "aut",
+           comment = c(ORCID = "0000-0002-5329-5987")),
     person("Posit Software, PBC", role = c("cph", "fnd"))
   )
 Description: Generate an attractive and useful website from a source
