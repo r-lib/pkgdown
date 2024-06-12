@@ -41,8 +41,6 @@ Currently, you'll need to manually install Quarto in your GitHub actions. ([Hope
 
 ## Limitations
 
-* Only `format: html` is currently supported.
-
 * Callouts are not currently supported (<https://github.com/quarto-dev/quarto-cli/issues/9963>).
 
 * pkgdown assumes that you're using [quarto vignette style](https://quarto-dev.github.io/quarto-r/articles/hello.html), or more generally an html format with [`minimal: true`](https://quarto.org/docs/output-formats/html-basics.html#minimal-html). Specifically, only HTML vignettes are currently supported.

@@ -350,13 +350,12 @@ package_vignettes <- function(path = ".") {
 article_metadata <- function(path) {
   if (path_ext(path) == "qmd") {
     inspect <- quarto::quarto_inspect(path)
-    meta <- inspect$formats$html$metadata
+    meta <- inspect$formats[[1]]$metadata
   
     out <- list(
       title = meta$title %||% "UNKNOWN TITLE",
       desc = meta$description %||% NA_character_,
-      # inspect$formats$html$pandoc$`output-file`
-      ext = "html"
+      ext = path_ext(inspect$formats[[1]]$pandoc$`output-file`) %||% "html"
     )  
   } else {
     yaml <- rmarkdown::yaml_front_matter(path)

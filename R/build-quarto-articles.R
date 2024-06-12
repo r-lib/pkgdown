@@ -10,6 +10,8 @@ build_quarto_articles <- function(pkg = ".", quiet = TRUE) {
   for (file in qmds$file_in) {
     cli::cli_inform("Reading {src_path(file)}")
   }
+  cli::cli_inform("Running {.code quarto render}")
+
   old_digest <- purrr::map_chr(path(pkg$dst_path, qmds$file_out), file_digest)
 
   # Override default quarto format
@@ -39,9 +41,14 @@ build_quarto_articles <- function(pkg = ".", quiet = TRUE) {
   # Read generated data from quarto template and render into pkgdown template
   purrr::walk2(qmds$file_in, qmds$file_out, function(input_file, output_file) {
     built_path <- path(output_dir, path_rel(output_file, "articles"))
-    data <- data_quarto_article(pkg, built_path, input_file)
-    render_page(pkg, "quarto", data, output_file, quiet = TRUE)
-    update_html(path(pkg$dst_path, output_file), tweak_quarto_html)
+    if (path_ext(output_file) == "html") {
+      data <- data_quarto_article(pkg, built_path, input_file)
+      render_page(pkg, "quarto", data, output_file, quiet = TRUE)
+
+      update_html(path(pkg$dst_path, output_file), tweak_quarto_html)
+    } else {
+      file_copy(built_path, path(pkg$dst_path, output_file), overwrite = TRUE)
+    }
   })
 
   # Report on which files have changed
