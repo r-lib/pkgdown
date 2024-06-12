@@ -155,8 +155,9 @@ ruler <- function(width = getOption("width")) {
 get_section_level <- function(section) {
   class <- xml2::xml_attr(section, "class")
 
-  has_level <- grepl("level(\\d+)", class)
-  ifelse(has_level, as.numeric(gsub(".*section level(\\d+).*", '\\1', class)), 0)
+level <- as.numeric(re_match(class, "level(\\d+)")[[1]])
+  level[is.na(level)] <- 0
+  level
 }
 
 section_id <- function(section) {
@@ -188,8 +189,10 @@ write_yaml <- function(x, path) {
 
 # Helpers for testing -----------------------------------------------------
 
-xpath_xml <- function(x, xpath) {
-  x <- xml2::xml_find_all(x, xpath)
+xpath_xml <- function(x, xpath = NULL) {
+  if (!is.null(xpath)) {
+    x <- xml2::xml_find_all(x, xpath)
+  }
   structure(x, class = c("pkgdown_xml", class(x)))
 }
 xpath_contents <- function(x, xpath) {

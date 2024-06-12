@@ -97,6 +97,7 @@ quarto_format <- function(pkg) {
         `embed-resources` = FALSE,
         `citations-hover` = TRUE,
         `link-citations` = TRUE,
+        `section-divs` = TRUE,
         toc = FALSE # pkgdown generates with js
       )
     )

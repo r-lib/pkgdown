@@ -1,5 +1,8 @@
 skip_if_no_pandoc <- function(version = "1.12.3") {
-  testthat::skip_if_not(rmarkdown::pandoc_available(version))
+  skip_if_not(rmarkdown::pandoc_available(version), "pandoc not available")
+}
+skip_if_no_quarto <- function() {
+  skip_if(is.null(quarto::quarto_path()), "quarto not available")
 }
 
 # Simulate a package --------------------------------------------------------
@@ -79,6 +82,7 @@ pkg_vignette <- function(..., title = "title") {
 
   c("---", yaml, "---", contents)
 }
+
 r_code_block <- function(...) c("```{r}", ..., "```")
 
 # Simulate a template package ------------------------------------------------
