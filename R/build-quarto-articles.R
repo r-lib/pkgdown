@@ -1,8 +1,11 @@
-build_quarto_articles <- function(pkg = ".", quiet = TRUE) {
+build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
   check_required("quarto")
   pkg <- as_pkgdown(pkg)
 
   qmds <- pkg$vignettes[pkg$vignettes$type == "qmd", ]
+  if (!is.null(article)) {
+    qmds <- qmds[qmds$name == article, ]
+  }
   if (nrow(qmds) == 0) {
     return()
   }
@@ -22,15 +25,23 @@ build_quarto_articles <- function(pkg = ".", quiet = TRUE) {
   write_yaml(quarto_format(pkg), metadata_path)
 
   # If needed, temporarily make a quarto project so we can build entire dir
-  project_path <- path(pkg$src_path, "vignettes", "_quarto.yaml")
-  if (!file_exists(project_path)) {
-    yaml::write_yaml(list(project = list(render = list("*.qmd"))), project_path)
-    withr::defer(file_delete(project_path))
+  if (is.null(article)) {
+    project_path <- path(pkg$src_path, "vignettes", "_quarto.yaml")
+    if (!file_exists(project_path)) {
+      yaml::write_yaml(list(project = list(render = list("*.qmd"))), project_path)
+      withr::defer(file_delete(project_path))
+    }
   }
 
+  if (is.null(article)) {
+    src_path <- path(pkg$src_path, "vignettes")
+  } else {
+    src_path <- path(pkg$src_path, qmds$file_in)
+  }
+ 
   output_dir <- withr::local_tempdir("pkgdown-quarto-")
   quarto::quarto_render(
-    path(pkg$src_path, "vignettes"),
+    src_path,
     metadata_file = metadata_path,
     execute_dir = output_dir,
     quarto_args = c("--output-dir", output_dir),

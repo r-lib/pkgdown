@@ -28,6 +28,7 @@ build_article <- function(name,
   input <- pkg$vignettes$file_in[vig]
   output_file <- pkg$vignettes$file_out[vig]
   depth <- pkg$vignettes$depth[vig]
+  type <- pkg$vignettes$type[vig]
 
   input_path <- path_abs(input, pkg$src_path)
   output_path <- path_abs(output_file, pkg$dst_path)
@@ -36,18 +37,22 @@ build_article <- function(name,
     return(invisible())
   }
 
-  build_rmarkdown_article(
-    pkg = pkg,
-    input_file = input,
-    input_path = input_path,
-    output_file = output_file,
-    output_path = output_path,
-    depth = depth,
-    seed = seed,
-    new_process = new_process,
-    pandoc_args = pandoc_args,
-    quiet = quiet
-  )
+  if (type == "rmd") {
+    build_rmarkdown_article(
+      pkg = pkg,
+      input_file = input,
+      input_path = input_path,
+      output_file = output_file,
+      output_path = output_path,
+      depth = depth,
+      seed = seed,
+      new_process = new_process,
+      pandoc_args = pandoc_args,
+      quiet = quiet
+    )  
+  } else {
+    build_quarto_articles(pkg = pkg, article = name)
+  }
 }
 
 build_rmarkdown_article <- function(pkg,
