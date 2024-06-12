@@ -28,6 +28,17 @@ project:
   render: ['*.qmd']
 ```
 
+### GitHub actions
+
+Currently, you'll need to manually install Quarto in your GitHub actions. ([Hopefully this will change in the future](https://github.com/r-lib/actions/issues/866)). Add the following lines to install quarto:
+
+```yaml
+     - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
 ## Limitations
 
 * Only `format: html` is currently supported.
