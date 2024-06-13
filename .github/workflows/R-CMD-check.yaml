@@ -46,6 +46,7 @@ jobs:
 
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
+          version: pre-release
           tinytex: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
