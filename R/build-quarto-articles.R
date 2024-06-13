@@ -31,7 +31,7 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
   } else {
     src_path <- path(pkg$src_path, qmds$file_in)
   }
-  output_dir <- quarto_render(src_path, quiet = quiet)
+  output_dir <- quarto_render(pkg, src_path, quiet = quiet)
 
   # Read generated data from quarto template and render into pkgdown template
   purrr::walk2(qmds$file_in, qmds$file_out, function(input_file, output_file) {
@@ -69,7 +69,7 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
   invisible()
 }
 
-quarto_render <- function(path, quiet = TRUE, frame = caller_env()) {
+quarto_render <- function(pkg, path, quiet = TRUE, frame = caller_env()) {
   # Override default quarto format
   metadata_path <- withr::local_tempfile(
     fileext = ".yml",
