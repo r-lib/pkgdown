@@ -51,7 +51,7 @@ build_article <- function(name,
       quiet = quiet
     )  
   } else {
-    build_quarto_articles(pkg = pkg, article = name)
+    build_quarto_articles(pkg = pkg, article = name, quiet = quiet)
   }
 }
 
