@@ -69,7 +69,7 @@ VignetteBuilder:
 Config/Needs/website: usethis, servr
 Config/potools/style: explicit
 Config/testthat/edition: 3
-Config/testthat/parallel: true
+Config/testthat/parallel: false
 Config/testthat/start-first: build-article, build-quarto-article, build-reference
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
