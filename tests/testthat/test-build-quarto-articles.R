@@ -1,4 +1,6 @@
 test_that("can build all quarto article", {
+  skip_if_no_quarto()
+
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(pkg, "vignettes/vig1.qmd")
   pkg <- pkg_add_file(pkg, "vignettes/vig2.qmd")
@@ -10,6 +12,8 @@ test_that("can build all quarto article", {
 })
 
 test_that("can build a single quarto article", {
+  skip_if_no_quarto()
+
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(pkg, "vignettes/vig1.qmd")
   pkg <- pkg_add_file(pkg, "vignettes/vig2.qmd")
@@ -26,6 +30,8 @@ test_that("doesn't do anything if no quarto articles", {
 })
 
 test_that("can render a pdf qmd", {
+  skip_if_no_quarto()
+
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(pkg, "vignettes/vig1.qmd", pkg_vignette(
     format = list(pdf = list(toc = TRUE))
@@ -39,6 +45,8 @@ test_that("can render a pdf qmd", {
 })
 
 test_that("auto-adjusts heading levels", {
+  skip_if_no_quarto()
+
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(pkg, "vignettes/vig1.qmd", pkg_vignette(
     "# Heading 1",
@@ -53,6 +61,8 @@ test_that("auto-adjusts heading levels", {
 })
 
 test_that("we find out if quarto styles change", {
+  skip_if_no_quarto()
+
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(pkg, "vignettes/vig1.qmd")
 
@@ -63,6 +73,8 @@ test_that("we find out if quarto styles change", {
 })
 
 test_that("quarto articles are included in the index", {
+  skip_if_no_quarto()
+
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(pkg, "vignettes/vig1.qmd", pkg_vignette(
     "## Heading 1",
@@ -78,6 +90,8 @@ test_that("quarto articles are included in the index", {
 })
 
 test_that("quarto headings get anchors", {
+  skip_if_no_quarto()
+
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(pkg, "vignettes/vig1.qmd", pkg_vignette(
     "## Heading 1",
