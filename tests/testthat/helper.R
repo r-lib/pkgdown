@@ -13,7 +13,7 @@ local_pkgdown_site <- function(path = NULL,
                                env = caller_env()) {
   check_string(path, allow_null = TRUE)
 
-  dst_path <- withr::local_tempdir(.local_envir = env)
+  dst_path <- path_real(withr::local_tempdir(.local_envir = env))
   # Simulate init_site() so we only have to run it if we care about <head>
   file_create(path(dst_path, "pkgdown.yml"))
   dir_create(path(dst_path, "deps"))
@@ -22,7 +22,7 @@ local_pkgdown_site <- function(path = NULL,
   meta <- modify_list(meta, list(destination = dst_path))
 
   if (is.null(path)) {
-    path <- withr::local_tempdir(.local_envir = env)
+    path <- path_real(withr::local_tempdir(.local_envir = env))
 
     description <- desc::desc("!new")
     description$set("Package", "testpackage")

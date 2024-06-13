@@ -18,7 +18,12 @@ test_that("can build a single quarto article", {
   pkg <- pkg_add_file(pkg, "vignettes/vig1.qmd")
   pkg <- pkg_add_file(pkg, "vignettes/vig2.qmd")
 
+  message()
+  message("Dest:", pkg$dst_path)
+  message("Src :", pkg$src_path)
+
   suppressMessages(build_article("vig1", pkg))
+  message("Out :", paste0(dir_ls(path(pkg$dst_path, "articles")), collapse = ", "))
 
   expect_true(file_exists(path(pkg$dst_path, "articles/vig1.html")))
   expect_false(file_exists(path(pkg$dst_path, "articles/vig2.html")))
@@ -40,7 +45,7 @@ test_that("can render a pdf qmd", {
   expect_equal(pkg$vignettes$type, "qmd")
   expect_equal(pkg$vignettes$file_out, "articles/vig1.pdf")
 
-  build_article("vig1", pkg, quiet = FALSE)
+  suppressMessages(build_article("vig1", pkg))
   expect_true(file_exists(path(pkg$dst_path, "articles/vig1.pdf")))
 })
 
