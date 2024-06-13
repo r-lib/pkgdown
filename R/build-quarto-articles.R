@@ -10,13 +10,12 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
     return()
   }
 
+  # Let user know what's happening
+  old_digest <- purrr::map_chr(path(pkg$dst_path, qmds$file_out), file_digest)
   for (file in qmds$file_in) {
     cli::cli_inform("Reading {src_path(file)}")
   }
   cli::cli_inform("Running {.code quarto render}")
-
-  old_digest <- purrr::map_chr(path(pkg$dst_path, qmds$file_out), file_digest)
-
 
   # If needed, temporarily make a quarto project so we can build entire dir
   if (is.null(article)) {
