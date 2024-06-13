@@ -61,3 +61,18 @@ test_that("we find out if quarto styles change", {
   data <- data_quarto_article(pkg, path(output_dir, "vig1.html"), "vig1.qmd")
   expect_snapshot(cat(data$includes$style))
 })
+
+test_that("quarto articles are included in the index", {
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/vig1.qmd", pkg_vignette(
+    "## Heading 1",
+    "Some text"
+  ))
+
+  suppressMessages(build_article("vig1", pkg))
+  index <- build_search_index(pkg)
+  
+  expect_equal(index[[1]]$path, "/articles/vig1.html")
+  expect_equal(index[[1]]$what, "Heading 1")
+  expect_equal(index[[1]]$text, "text") # some is a stop word
+})
