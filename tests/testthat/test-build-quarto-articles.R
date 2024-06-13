@@ -40,7 +40,7 @@ test_that("can render a pdf qmd", {
   expect_equal(pkg$vignettes$type, "qmd")
   expect_equal(pkg$vignettes$file_out, "articles/vig1.pdf")
 
-  suppressMessages(build_article("vig1", pkg))
+  build_article("vig1", pkg, quiet = FALSE)
   expect_true(file_exists(path(pkg$dst_path, "articles/vig1.pdf")))
 })
 
