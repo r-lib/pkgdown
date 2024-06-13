@@ -123,6 +123,7 @@ build_rmarkdown_article <- function(pkg,
   }
 
   invisible(path)
+
 }
 
 

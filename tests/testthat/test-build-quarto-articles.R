@@ -18,12 +18,7 @@ test_that("can build a single quarto article", {
   pkg <- pkg_add_file(pkg, "vignettes/vig1.qmd")
   pkg <- pkg_add_file(pkg, "vignettes/vig2.qmd")
 
-  message()
-  message("Dest:", pkg$dst_path)
-  message("Src :", pkg$src_path)
-
   suppressMessages(build_article("vig1", pkg))
-  message("Out :", paste0(dir_ls(path(pkg$dst_path, "articles")), collapse = ", "))
 
   expect_true(file_exists(path(pkg$dst_path, "articles/vig1.html")))
   expect_false(file_exists(path(pkg$dst_path, "articles/vig2.html")))

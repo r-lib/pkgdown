@@ -32,13 +32,12 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
     src_path <- path(pkg$src_path, qmds$file_in)
   }
   output_dir <- quarto_render(pkg, src_path, quiet = quiet)
-  if (!dir_exists(output_dir)) cli::cli_abort("No output directory found")
 
   # Read generated data from quarto template and render into pkgdown template
   unwrap_purrr_error(purrr::walk2(qmds$file_in, qmds$file_out, function(input_file, output_file) {
     built_path <- path(output_dir, path_rel(output_file, "articles"))
     if (!file_exists(built_path)) {
-      cli::cli_abort("No output file found for {.file {input_file}}")
+      cli::cli_abort("No built file found for {.file {input_file}}")
     }
     if (path_ext(output_file) == "html") {
       data <- data_quarto_article(pkg, built_path, input_file)
