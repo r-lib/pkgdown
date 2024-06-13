@@ -46,7 +46,7 @@ jobs:
 
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
-          tiny-tex: true
+          tinytex: true
 
       - uses: r-lib/actions/setup-pandoc@v2
 
