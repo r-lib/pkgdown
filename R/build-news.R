@@ -332,7 +332,7 @@ tweak_news_anchor <- function(html, version) {
 }
 
 tweak_section_levels <- function(html) {
-  sections <- xml2::xml_find_all(html, ".//div[contains(@class, 'section level')]")
+  sections <- xml2::xml_find_all(html, ".//div[contains(@class, 'section level')]|//main/section")
 
   # Update headings
   xml2::xml_set_name(xml2::xml_find_all(sections, ".//h5"), "h6")

@@ -20,3 +20,4 @@
 ^CRAN-SUBMISSION$
 ^tools$
 ^\.lintr.R$
+^vignettes/\.quarto$

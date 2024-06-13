@@ -1,0 +1,54 @@
+---
+title: quarto features
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: '#>'
+bibliography: jss.bib
+---
+
+## Citations
+
+* Citation: @JSSv059i10
+
+## Code annotations
+
+```r
+library(tidyverse)
+library(palmerpenguins)
+penguins |>                                      # <1>
+  mutate(                                        # <2>
+    bill_ratio = bill_depth_mm / bill_length_mm, # <2>
+    bill_area  = bill_depth_mm * bill_length_mm  # <2>
+  )                                              # <2>
+```
+1. Take `penguins`, and then,
+2. add new columns for the bill ratio and bill area.
+
+## Diagrams
+
+```{mermaid}
+flowchart LR
+  A[Hard edge] --> B(Round edge)
+  B --> C{Decision}
+  C --> D[Result one]
+  C --> E[Result two]
+```
+
+## HTML widgets
+
+```{r, echo=FALSE}
+dir <- tempdir()
+path1 <- file.path(dir, "a.txt")
+writeLines(letters, path1)
+path2 <- file.path(dir, "b.txt")
+writeLines(letters[-(10:11)], path2)
+
+diffviewer::visual_diff(path1, path2)
+```
+
+## Keyboard
+
+* Keyboard shortcut: {{< kbd Shift-Ctrl-P >}}
+
+## References

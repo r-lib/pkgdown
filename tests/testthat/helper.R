@@ -1,5 +1,9 @@
 skip_if_no_pandoc <- function(version = "1.12.3") {
-  testthat::skip_if_not(rmarkdown::pandoc_available(version))
+  skip_if_not(rmarkdown::pandoc_available(version), "pandoc not available")
+}
+skip_if_no_quarto <- function() {
+  skip_on_os("windows") # quarto set up currently broken?
+  skip_if(is.null(quarto::quarto_path()), "quarto not available")
 }
 
 # Simulate a package --------------------------------------------------------
@@ -10,7 +14,9 @@ local_pkgdown_site <- function(path = NULL,
                                env = caller_env()) {
   check_string(path, allow_null = TRUE)
 
-  dst_path <- withr::local_tempdir(.local_envir = env)
+  dst_path <- path_real(
+    withr::local_tempdir(.local_envir = env, pattern = "pkgdown-dst")
+  )
   # Simulate init_site() so we only have to run it if we care about <head>
   file_create(path(dst_path, "pkgdown.yml"))
   dir_create(path(dst_path, "deps"))
@@ -19,7 +25,9 @@ local_pkgdown_site <- function(path = NULL,
   meta <- modify_list(meta, list(destination = dst_path))
 
   if (is.null(path)) {
-    path <- withr::local_tempdir(.local_envir = env)
+    path <- path_real(
+      withr::local_tempdir(.local_envir = env, pattern = "pkgdown-src")
+    )
 
     description <- desc::desc("!new")
     description$set("Package", "testpackage")
@@ -79,6 +87,7 @@ pkg_vignette <- function(..., title = "title") {
 
   c("---", yaml, "---", contents)
 }
+
 r_code_block <- function(...) c("```{r}", ..., "```")
 
 # Simulate a template package ------------------------------------------------

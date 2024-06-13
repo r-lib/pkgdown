@@ -212,13 +212,14 @@ build_articles <- function(pkg = ".",
 
   build_articles_index(pkg)
   unwrap_purrr_error(purrr::walk(
-    pkg$vignettes$name,
+    pkg$vignettes$name[pkg$vignettes$type == "rmd"],
     build_article,
     pkg = pkg,
     lazy = lazy,
     seed = seed,
     quiet = quiet
   ))
+  build_quarto_articles(pkg, quiet = quiet)
 
   preview_site(pkg, "articles", preview = preview)
 }

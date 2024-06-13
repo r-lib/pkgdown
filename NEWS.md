@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* `build_articles()` and `build_article()` now support articles/vignettes written with quarto. Combining the disparate quarto and pkgdown templating systems is a delicate art, so while I've done my best to make it work, there may be some rough edges. So please file an issue you encounter quarto features that don't work quite right. Learn more in `vignette("quarto")`(#2210).
 * `preview_page()` has been deprecated (#2650).
 * `build_article()` now translates the "Abstract" title if it's used.
 * `build_*()` (apart from `build_site()`) functions no longer default to previewing in interactive sessions since they now all emit specific links to newly generated files.

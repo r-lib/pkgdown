@@ -3,6 +3,7 @@ up_path <- function(depth) {
 }
 
 dir_depth <- function(x) {
+  # length(strsplit(path, "/")[[1]]) - 1L
   purrr::map_int(strsplit(x, ""), function(x) sum(x == "/"))
 }
 
@@ -154,8 +155,9 @@ ruler <- function(width = getOption("width")) {
 get_section_level <- function(section) {
   class <- xml2::xml_attr(section, "class")
 
-  has_level <- grepl("level(\\d+)", class)
-  ifelse(has_level, as.numeric(gsub(".*section level(\\d+).*", '\\1', class)), 0)
+level <- as.numeric(re_match(class, "level(\\d+)")[[1]])
+  level[is.na(level)] <- 0
+  level
 }
 
 section_id <- function(section) {
@@ -178,15 +180,36 @@ print.print_yaml <- function(x, ...) {
 }
 
 write_yaml <- function(x, path) {
-  write_lines(yaml::as.yaml(x), path = path)
+  yaml::write_yaml(
+    x,
+    path,
+    handlers = list(logical = yaml::verbatim_logical)
+  )
 }
 
 # Helpers for testing -----------------------------------------------------
 
-xpath_xml <- function(x, xpath) {
-  x <- xml2::xml_find_all(x, xpath)
+xpath_xml <- function(x, xpath = NULL) {
+  if (!is.null(xpath)) {
+    x <- xml2::xml_find_all(x, xpath)
+  }
   structure(x, class = c("pkgdown_xml", class(x)))
 }
+xpath_contents <- function(x, xpath) {
+  x <- xml2::xml_find_all(x, xpath)
+
+  contents <- xml2::xml_contents(x)
+  if (length(contents) == 0) {
+    NULL
+  } else {
+    xml2str(contents)
+  }
+}
+xml2str <- function(x) {
+  strings <- as.character(x, options = c("format", "no_declaration"))
+  paste0(strings, collapse = "")
+}
+
 xpath_attr <- function(x, xpath, attr) {
   gsub("\r", "", xml2::xml_attr(xml2::xml_find_all(x, xpath), attr), fixed = TRUE)
 }
