@@ -110,7 +110,7 @@ msgstr "Verhaltensregeln"
 
 #: build-home-community.R:31
 msgid "Getting help"
-msgstr ""
+msgstr "Hilfe erhalten"
 
 #: build-home-community.R:38
 msgid "Community"
@@ -170,7 +170,7 @@ msgstr "CRAN-Veröffentlichung: %s"
 
 #: build-reference-index.R:22
 msgid "Package index"
-msgstr ""
+msgstr "Paketindex"
 
 #: build-reference-index.R:158
 msgid "All functions"
@@ -212,19 +212,20 @@ msgstr "Verzeichnis"
 
 #: navbar.R:140
 msgid "Light switch"
-msgstr ""
+# Appearance
+msgstr "Erscheinungsbild"
 
 #: navbar.R:143
 msgid "Light"
-msgstr ""
+msgstr "Hell"
 
 #: navbar.R:144
 msgid "Dark"
-msgstr ""
+msgstr "Dunkel"
 
 #: navbar.R:145
 msgid "Auto"
-msgstr ""
+msgstr "Automatisch"
 
 #: navbar.R:180
 msgid "Get started"
@@ -236,19 +237,19 @@ msgstr "Mehr Artikel ..."
 
 #: package.R:300
 msgid "deprecated"
-msgstr ""
+msgstr "veraltet"
 
 #: package.R:301
 msgid "superseded"
-msgstr ""
+msgstr "überholt"
 
 #: package.R:302
 msgid "experimental"
-msgstr ""
+msgstr "experimentell"
 
 #: package.R:303
 msgid "stable"
-msgstr ""
+msgstr "stabil"
 
 #: rd-data.R:23
 msgid "Details"
@@ -336,11 +337,11 @@ msgstr "Quelle:"
 msgid "Dev status"
 msgstr "Entwicklungsstatus"
 
-#: usage.R:23
+#: usage.R:47
 msgid "# Default %s method"
-msgstr ""
+msgstr "# Standard-%s-Methode"
 
-#: usage.R:25
+#: usage.R:49
 #, fuzzy
 #| msgid "# %s method for %s"
 msgid "# %s method for class '%s'"
