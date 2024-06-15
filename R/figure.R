@@ -59,11 +59,11 @@ fig_save_args <- function() {
   default
 }
 
-meta_figures <- function(meta = list()) {
+meta_figures <- function(pkg) {
   default <- fig_save_args()
-  figures <- purrr::pluck(meta, "figures", .default = list())
+  figures <- config_pluck_list(pkg, "figures")
 
-  print_yaml(utils::modifyList(default, figures))
+  print_yaml(modify_list(default, figures))
 }
 
 #' Get current settings for figures
@@ -82,7 +82,7 @@ meta_figures <- function(meta = list()) {
 #' ```
 #'
 #' @return
-#' A list containing the entries from the `figures` field in `_pkgdown.yaml`
+#' A list containing the entries from the `figures` field in `_pkgdown.yml`
 #' (see [build_reference()]), with default values added. Computed `width` and
 #' `height` values (in pixels) are also included.
 #' @export
@@ -123,7 +123,7 @@ fig_opts_chunk <- function(figures, default) {
   figures$dev.args <- figures$dev.args %||% list()
   figures$dev.args$bg <- figures$bg %||% NA
 
-  utils::modifyList(default, figures)
+  modify_list(default, figures)
 }
 
 # Find graphics device ----------------------------------------------------
@@ -136,12 +136,12 @@ match_fun <- function(x) {
     f <- eval(e, globalenv())
 
     if (!is.function(f)) {
-      stop("`x` must evaluate to a function", call. = FALSE)
+      cli::cli_abort("{.var x} must evaluate to a function", call = caller_env())
     }
 
     f
   } else {
-    stop("`x` must be a function or string", call. = FALSE)
+    cli::cli_abort("{.var x} must be a function or string", call = caller_env())
   }
 }
 
@@ -157,6 +157,6 @@ fun_name <- function(x) {
   } else if (is_call(expr, "::")) {
     as.character(expr[[3]])
   } else {
-    stop("Unknown input", call. = FALSE)
+    cli::cli_abort("Unknown input", call = caller_env())
   }
 }

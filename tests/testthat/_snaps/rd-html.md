@@ -1,7 +1,14 @@
+# converts Rd unicode shortcuts
+
+    Code
+      rd2html("``a -- b --- c''")
+    Output
+      [1] "“a – b — c”"
+
 # subsection generates h3
 
     Code
-      cat_line(rd2html("\\subsection{A}{B}"))
+      cli::cat_line(rd2html("\\subsection{A}{B}"))
     Output
       <div class='section' id='a'>
       <h3>A</h3>
@@ -11,7 +18,7 @@
 ---
 
     Code
-      cat_line(rd2html("\\subsection{A}{\n    p1\n\n    p2\n  }"))
+      cli::cat_line(rd2html("\\subsection{A}{\n    p1\n\n    p2\n  }"))
     Output
       <div class='section' id='a'>
       <h3>A</h3>
@@ -22,7 +29,7 @@
 # nested subsection generates h4
 
     Code
-      cat_line(rd2html("\\subsection{H3}{\\subsection{H4}{}}"))
+      cli::cat_line(rd2html("\\subsection{H3}{\\subsection{H4}{}}"))
     Output
       <div class='section' id='h-'>
       <h3>H3</h3>
@@ -32,33 +39,31 @@
       </div>
       </div>
 
-# DOIs are linked
-
-    Code
-      rd2html("\\doi{test}")
-    Output
-      [1] "doi: <a href='https://doi.org/test'>test</a>"
-
 # bad specs throw errors
 
     Code
       rd2html("\\url{}")
-    Error <rlang_error>
-      Failed to parse \url{}.
+    Condition
+      Error:
+      ! Failed to parse tag "\\url{}".
       i Check for empty \url{} tags.
     Code
       rd2html("\\url{a\nb}")
-    Error <rlang_error>
-      Failed to parse \url{}.
+    Condition
+      Error:
+      ! Failed to parse tag "\\url{}".
       i This may be caused by a \url tag that spans a line break.
     Code
       rd2html("\\email{}")
-    Error <simpleError>
-      subscript out of bounds
+    Condition
+      Error:
+      ! Failed to parse tag "\\email{}".
+      i empty
     Code
       rd2html("\\linkS4class{}")
-    Error <rlang_error>
-      Failed to parse \linkS4class{}.
+    Condition
+      Error:
+      ! Failed to parse tag "\\linkS4class{}".
 
 # \describe items can contain multiple paragraphs
 
@@ -78,6 +83,18 @@
     <dt>Label</dt>
     <dd><p>Paragraph 1</p>
     <p>Paragraph 2</p></dd>
+    
+    
+    </dl>
+
+# can add ids to descriptions
+
+    <dl>
+    <dt id='fooabc'>abc<a class='anchor' aria-label='anchor' href='#fooabc'></a></dt>
+    <dd><p>Contents 1</p></dd>
+    
+    <dt id='fooxyz'>xyz<a class='anchor' aria-label='anchor' href='#fooxyz'></a></dt>
+    <dd><p>Contents 2</p></dd>
     
     
     </dl>

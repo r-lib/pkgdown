@@ -6,12 +6,12 @@
 
     {{#sections}}
     <div class="section {{class}}">
-      <h3>{{title}}</h3>
+      <h3>{{{title}}}</h3>
       <p class="section-desc">{{{desc}}}</p>
 
       <dl>
         {{#contents}}
-        <dt><a href="{{path}}">{{title}}</a></dt>
+        <dt><a href="{{href}}">{{title}}</a></dt>
         <dd>{{{description}}}</dt>
         {{/contents}}
       </dl>

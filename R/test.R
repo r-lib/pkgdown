@@ -53,17 +53,17 @@ NULL
 #' Test case: links
 #'
 #' ```{r}
-#' magrittr::subtract(10, 1)
+#' jsonlite::minify("{}")
 #' ```
 #'
 #' @name test-links
 #' @keywords internal
 #' @family tests
 #' @examples
-#' magrittr::subtract(10, 1)
+#' jsonlite::minify("{}")
 #'
-#' library(magrittr, warn.conflicts = FALSE)
-#' subtract(10, 1)
+#' library(jsonlite, warn.conflicts = FALSE)
+#' minify("{}")
 NULL
 
 #' Test case: figures
@@ -82,50 +82,76 @@ NULL
 #' text(2, 5, "Hello", srt = 30, cex = 2)
 NULL
 
+#' Test case: tables
+#'
+#' @name test-tables
+#' @keywords internal
+#' @family tests
+#' @examples
+#' gt::gt(head(mtcars))
+NULL
+
 #' Test case: don't
 #'
 #' @name test-dont
 #' @keywords internal
 #' @family tests
 #' @examples
+#' # \dontrun{} --------------------------------------------------------
+#' # always shown; never run
+#'
+#' x <- 1
+#' \dontrun{x <- 2}
 #' \dontrun{
-#'   stop("This is an error!", call. = FALSE)
+#'   x <- 3
+#'   x <- 4
 #' }
+#' x # should be 1
 #'
-#' # Inline \donttest is silently ommitted
-#' \donttest{message("Hi!")}
+#' # \donttest{} -------------------------------------------------------
+#' # only multiline are shown; always run
 #'
-#' # Block \donttest indicated with comments
+#' x <- 1
+#' \donttest{x <- 2}
 #' \donttest{
-#' # This is a comment
-#' 1 + 3
+#'   x <- 3
+#'   x <- 4
 #' }
+#' x # should be 4
 #'
-#' # And works even when not at the top level
-#' if (TRUE) {
-#'   \donttest{
-#'   1 + 2
-#'   }
+#' # \testonly{} -----------------------------------------------------
+#' # never shown, never run
+#'
+#' x <- 1
+#' \testonly{x <- 2}
+#' \testonly{
+#'   x <- 3
+#'   x <- 4
 #' }
+#' x # should be 1
+#' 
+#' # \dontshow{} -------------------------------------------------------
+#' # never shown, always run
 #'
-#' answer <- 1
+#' x <- 1
+#' \dontshow{x <- 2}
 #' \dontshow{
-#' answer <- 42
+#'   x <- 3
+#'   x <- 4
 #' }
-#' answer # should be 42
+#' x # should be 4
 #'
-#' # To hide the \dontshow part, for conditional examples
-#' \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-#' answer <- 43
-#' \dontshow{\}) # examplesIf}
-#' answer # should be still 42
+#' # @examplesIf ------------------------------------------------------
+#' # If FALSE, wrapped in if; if TRUE, not seen
 #'
-#' # But this one runs, and the condition is hidden
-#' \dontshow{if (TRUE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-#' answer <- 43
-#' \dontshow{\}) # examplesIf}
-#' answer
-
+#' x <- 1
+#' 
+#' @examplesIf FALSE
+#' x <- 2
+#' @examplesIf TRUE
+#' x <- 3
+#' @examples
+#' x # should be 3
 NULL
 
 #' Test case: params
@@ -183,17 +209,18 @@ NULL
 #' @family tests
 #'
 #' @examples
-#' cat(crayon::red("This is red"), "\n")
-#' cat(crayon::blue("This is blue"), "\n")
+#' cat(cli::col_red("This is red"), "\n")
+#' cat(cli::col_blue("This is blue"), "\n")
 #'
-#' message(crayon::green("This is green"))
+#' message(cli::col_green("This is green"))
 #'
-#' warning(crayon::bold("This is bold"))
+#' warning(cli::style_bold("This is bold"))
 NULL
 
 #' Test case: preformatted blocks & syntax highlighting
 #'
 #' Manual test cases for various ways of embedding code in sections.
+#' All code blocks should have copy and paste button.
 #'
 #' # Should be highlighted
 #'
@@ -211,7 +238,7 @@ NULL
 #'
 #' R code in `r` block:
 #'
-#' ```R
+#' ```r
 #' mean(a + 1)
 #' ```
 #'

@@ -1,13 +1,3 @@
-test_that("first header is wrapped in page-header div", {
-  html <- xml2::read_html('
-    <h1>First</h1>
-    <h1>Second</h1>
-  ')
-
-  tweak_homepage_html(html, bs_version = 3)
-  expect_equal(xpath_attr(html, ".//div", "class"), "page-header")
-})
-
 test_that("links to vignettes & figures tweaked", {
   html <- xml2::read_html('<body>
     <img src="vignettes/x.png" />
@@ -46,26 +36,26 @@ test_that("articles get rescue highlighting for non-collapsed output", {
   tweak_page(html, "article", pkg)
 
   pre <- xml2::xml_find_all(html, ".//pre")
-  expect_equal(xml2::xml_find_num(pre, "count(.//span)"), c(1, 0, 0))
+  expect_equal(xml2::xml_find_num(pre, "count(.//span[@class])"), c(1, 0, 0))
 })
 
 test_that("toc removed if one or fewer headings", {
   html <- xml2::read_html("<body>
-    <div class='contents'><h2></h2><h2></h2></div>
+    <main><h2></h2><h2></h2></main>
     <nav id='toc'></nav>
   </body>")
   tweak_useless_toc(html)
   expect_equal(xpath_length(html, ".//nav"), 1)
 
   html <- xml2::read_html("<body>
-    <div class='contents'><h2></h2></div>
+    <main><h2></h2></main>
     <nav id='toc'></nav>
   </body>")
   tweak_useless_toc(html)
   expect_equal(xpath_length(html, ".//nav"), 0)
 
   html <- xml2::read_html("<body>
-    <div class='contents'></div>
+    <main></main>
     <nav id='toc'></nav>
   </body>")
   tweak_useless_toc(html)
@@ -74,22 +64,22 @@ test_that("toc removed if one or fewer headings", {
 
 test_that("toc removed if one or fewer headings", {
   html <- xml2::read_html("<body>
-    <div class='contents'><h2></h2><h2></h2></div>
-    <div class='sidebar'><nav id='toc'></nav></div>
+    <main><h2></h2><h2></h2></main>
+    <aside><nav id='toc'></nav></aside>
   </body>")
   tweak_useless_toc(html)
   expect_equal(xpath_length(html, ".//nav"), 1)
 
   html <- xml2::read_html("<body>
-    <div class='contents'><h2></h2></div>
-    <div class='sidebar'><nav id='toc'></nav></div>
+    <main><h2></h2></main>
+    <aside><nav id='toc'></nav></aside>
   </body>")
   tweak_useless_toc(html)
   expect_equal(xpath_length(html, ".//nav"), 0)
 
   html <- xml2::read_html("<body>
-    <div class='contents'></div>
-    <div class='sidebar'><nav id='toc'></nav></div>
+    <main></main>
+    <aside><nav id='toc'></nav></aside>
   </body>")
   tweak_useless_toc(html)
   expect_equal(xpath_length(html, ".//nav"), 0)
@@ -98,20 +88,50 @@ test_that("toc removed if one or fewer headings", {
 
 test_that("sidebar removed if empty", {
   html <- xml2::read_html("<body>
-    <div class='contents'></div>
-    <div class='sidebar'><nav id='toc'></nav></div>
+    <main></main>
+    <aside><nav id='toc'></nav></aside>
   </body>")
   tweak_useless_toc(html)
-  expect_equal(xpath_length(html, ".//div"), 1)
+  expect_equal(xpath_length(html, ".//div"), 0)
 })
 
 
 test_that("sidebar removed if empty", {
   html <- xml2::read_html("<body>
-    <div class='contents'></div>
-    <div class='sidebar'><nav id='toc'></nav></div>
+    <main></main>
+    <aside><nav id='toc'></nav></aside>
   </body>")
   tweak_useless_toc(html)
-  expect_equal(xpath_length(html, ".//div"), 1)
+  expect_equal(xpath_length(html, ".//aside"), 0)
 })
 
+
+
+# rmarkdown ---------------------------------------------------------------
+
+test_that("h1 section headings adjusted to h2 (and so on)", {
+  html <- xml2::read_html("
+    <div class='page-header'>
+      <h1>Title</h1>
+      <h4>Author</h4>
+    </div>
+    <div class='section level1'>
+      <h1>1</h1>
+      <div class='section level2'>
+      <h2>1.1</h2>
+      </div>
+    </div>
+    <div class='section level1'>
+      <h1>2</h1>
+    </div>
+  ")
+  tweak_rmarkdown_html(html)
+  expect_equal(xpath_text(html, ".//h1"), "Title")
+  expect_equal(xpath_text(html, ".//h2"), c("1", "2"))
+  expect_equal(xpath_text(html, ".//h3"), "1.1")
+  expect_equal(xpath_text(html, ".//h4"), "Author")
+  expect_equal(
+    xpath_attr(html, ".//div", "class"),
+    c("page-header", "section level2", "section level3", "section level2")
+  )
+})

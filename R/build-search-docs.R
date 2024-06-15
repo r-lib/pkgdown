@@ -1,7 +1,7 @@
 build_docsearch_json <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  index_name <- pkg$meta$template$params$docsearch$index_name
+  index_name <- config_pluck_string(pkg, "template.params.docsearch.index_name")
   if (is.null(index_name)) {
     return()
   }
@@ -9,15 +9,10 @@ build_docsearch_json <- function(pkg = ".") {
   data <- list(
     index = index_name,
     package = pkg$package,
-    url = pkg$meta$url
+    url = config_pluck_string(pkg, "url")
   )
 
-  template <- find_template(
-    "config",
-    "docsearch",
-    ext = ".json",
-    bs_version = pkg$bs_version
-  )
+  template <- find_template("config", "docsearch", ext = ".json", pkg = pkg)
 
   json <- render_template(template, data)
 
@@ -29,53 +24,47 @@ build_docsearch_json <- function(pkg = ".") {
 build_sitemap <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
-  url <- paste0(pkg$meta$url, "/")
+  url <- paste0(config_pluck_string(pkg, "url"), "/")
   if (is.null(url)) {
     return()
   }
 
+  cli::cli_rule("Building sitemap")
   if (pkg$development$in_dev && pkg$bs_version > 3) {
     url <- paste0(url, pkg$prefix)
   }
 
   urls <- paste0(url, get_site_paths(pkg))
-
-  doc <- xml2::read_xml(
-    paste0("<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'></urlset>")
+  doc <- paste0(
+    "<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>\n",
+    paste0("<url><loc>", escape_html(urls), "</loc></url>\n", collapse = ""),
+    "</urlset>\n"
   )
 
-  url_nodes <- purrr::map(urls, url_node)
-  for (url in url_nodes) {
-    xml2::xml_add_child(doc, url)
-  }
-
-  xml_path <- path(pkg$dst_path, "sitemap.xml")
-  cat_line("Writing ", dst_path(path_rel(xml_path, pkg$dst_path)))
-
-  xml2::write_xml(doc, file = xml_path)
-
+  write_if_different(pkg, doc, "sitemap.xml", check = FALSE)
   invisible()
 }
 
-url_node <- function(url) {
-  xml2::read_xml(
-    paste0("<url><loc>", url, "</loc></url>")
-  )
-}
-
 #' Build search index
+#' 
+#' @description
+#' Generate a JSON search index from the built site. This is used by 
+#' [fuse.js](https://www.fusejs.io/) to provide a javascript powered search for
+#' BS5 powered pkgdown sites.
 #'
-#' Build a JSON file encompassing all HTML pages, for use by the search script.
+#' NB: `build_search()` is called automatically by [build_site()]; you don't 
+#' need call it yourself. This page documents how it works and its customisation
+#' options.
 #'
-#' @section YAML config:
-#' You can exclude some paths from the search index.
-#' Below we exclude the changelog from the search index.
+#' # YAML config
+#' You can exclude some paths from the search index using `search.exclude`.
+#' Below we exclude the changelog from the search index:
 #'
 #' ```yaml
 #' search:
 #'   exclude: ['news/index.html']
 #' ```
-#' @section Debugging and local testing:
+#' # Debugging and local testing
 #'
 #' Locally (as opposed to on GitHub Pages or Netlify for instance),
 #' search won't work if you simply use pkgdown preview of the static files.
@@ -90,12 +79,13 @@ url_node <- function(url) {
 #'
 build_search <- function(pkg = ".",
                          override = list()) {
-  pkg <- section_init(pkg, depth = 1L, override = override)
-  rule("Building search index")
+  pkg <- section_init(pkg, override = override)
+  cli::cli_rule("Building search index")
+
   search_index <- build_search_index(pkg)
   jsonlite::write_json(
     search_index,
-    file.path(pkg$dst_path, "search.json"),
+    path(pkg$dst_path, "search.json"),
     auto_unbox = TRUE
   )
 }
@@ -105,7 +95,7 @@ build_search_index <- function(pkg) {
   paths <- paths[!paths %in% c("404.html", "articles/index.html", "reference/index.html")]
 
   # user-defined exclusions
-  paths <- paths[!paths %in% pkg$meta$search$exclude]
+  paths <- paths[!paths %in% config_pluck_character(pkg, "search.exclude")]
 
   if ("news/index.html" %in% paths) {
     index <- lapply(paths[paths != "news/index.html"], file_search_index, pkg = pkg)
@@ -117,7 +107,7 @@ build_search_index <- function(pkg) {
   }
 
   # Make URLs absolute if possible
-  url <- pkg$meta$url %||% ""
+  url <- config_pluck_string(pkg, "url", default = "")
   fix_path <- function(x) {
     x$path <- sprintf("%s%s", url, x$path)
     x
@@ -126,10 +116,10 @@ build_search_index <- function(pkg) {
 }
 
 news_search_index <- function(path, pkg) {
-  html <- xml2::read_html(file.path(pkg$dst_path, path), encoding = "UTF-8")
+  html <- xml2::read_html(path(pkg$dst_path, path), encoding = "UTF-8")
 
   # Get contents minus logo
-  node <- xml2::xml_find_all(html, ".//div[contains(@class, 'contents')]")
+  node <- xml2::xml_find_all(html, ".//main")
   xml2::xml_remove(xml2::xml_find_first(node, ".//img[contains(@class, 'pkg-logo')]"))
   sections <- xml2::xml_find_all(node, ".//*[contains(@class, 'section')]")
 
@@ -146,15 +136,15 @@ news_search_index <- function(path, pkg) {
 }
 
 file_search_index <- function(path, pkg) {
-  html <- xml2::read_html(file.path(pkg$dst_path, path), encoding = "UTF-8")
+  html <- xml2::read_html(path(pkg$dst_path, path), encoding = "UTF-8")
   # Get page title
-  title <- xml2::xml_find_first(html, ".//meta[@property='og:title']") %>%
-    xml2::xml_attr("content")
+  title_element <- xml2::xml_find_first(html, ".//meta[@property='og:title']")
+  title <- xml2::xml_attr(title_element, "content")
 
   # Get contents minus logo
-  node <- xml2::xml_find_all(html, ".//div[contains(@class, 'contents')]")
+  node <- xml2::xml_find_all(html, ".//main")
   xml2::xml_remove(xml2::xml_find_first(node, ".//img[contains(@class, 'pkg-logo')]"))
-  sections <- xml2::xml_find_all(node, ".//div[contains(@class, 'section')]")
+  sections <- xml2::xml_find_all(node, ".//div[contains(@class, 'section')]|.//section")
 
   purrr::pmap(
     list(
@@ -170,11 +160,11 @@ file_search_index <- function(path, pkg) {
 }
 # Directory parts (where in the site)
 get_dir <- function(path) {
-  dir <- fs::path_dir(path)
+  dir <- path_dir(path)
   if (dir == ".") {
     return("")
   }
-  paste(capitalise(unlist(fs::path_split(dir))), collapse = " > ")
+  paste(capitalise(unlist(path_split(dir))), collapse = " > ")
 }
 # Headings (where in the page)
 get_headings <- function(section, depth) {
@@ -250,7 +240,7 @@ bs4_index_data <- function(node, previous_headings, title, dir, path) {
     heading <- xml_text1(heading_node)
 
     # Add heading for Usage section of Rd
-    if (grepl("ref-usage", xml2::xml_attr(node_copy, "class"))) {
+    if (xml2::xml_attr(node_copy, "id", default = "") == "ref-usage") {
       heading <- "Usage"
     }
   }
@@ -302,10 +292,13 @@ capitalise <- function(string) {
 }
 
 get_site_paths <- function(pkg) {
-  paths <- fs::dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE)
-  paths_rel <- fs::path_rel(paths, pkg$dst_path)
+  paths <- dir_ls(pkg$dst_path, glob = "*.html", recurse = TRUE)
+  paths_rel <- path_rel(paths, pkg$dst_path)
 
   # do not include dev package website in search index / sitemap
-  dev_destination <- meta_development(pkg$meta, pkg$version)$destination
-  paths_rel[!fs::path_has_parent(paths_rel, "dev")]
+  paths_rel <- paths_rel[!path_has_parent(paths_rel, pkg$development$destination)]
+
+  # do not include redirects
+  redirects <- purrr::map_chr(data_redirects(pkg, has_url = TRUE), 1)
+  setdiff(paths_rel, redirects)
 }

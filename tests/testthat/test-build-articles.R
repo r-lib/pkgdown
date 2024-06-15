@@ -5,93 +5,111 @@ test_that("can recognise intro variants", {
   expect_true(article_is_intro("articles/pack-age", "pack.age"))
 })
 
-test_that("links to man/figures are automatically relocated", {
-  pkg <- local_pkgdown_site(test_path("assets/man-figures"))
+test_that("validates articles yaml", {
+  data_articles_index_ <- function(x) {
+    pkg <- local_pkgdown_site(meta = list(articles = x))
+    data_articles_index(pkg)
+  }
 
-  expect_output(copy_figures(pkg))
-  expect_output(build_articles(pkg, lazy = FALSE))
+  expect_snapshot(error = TRUE, {
+    data_articles_index_(1)
+    data_articles_index_(list(1))
+    data_articles_index_(list(list()))
+    data_articles_index_(list(list(title = 1, contents = 1)))
+    data_articles_index_(list(list(title = "a\n\nb", contents = 1)))
+    data_articles_index_(list(list(title = "a", contents = 1)))
+  })
+})
 
-  html <- xml2::read_html(path(pkg$dst_path, "articles", "kitten.html"))
-  src <- xpath_attr(html, "//img", "src")
+test_that("validates external-articles", {
+  data_articles_ <- function(x) {
+    pkg <- local_pkgdown_site(meta = list(`external-articles` = x))
+    data_articles(pkg)
+  }
+  expect_snapshot(error = TRUE, {
+    data_articles_(1)
+    data_articles_(list(1))
+    data_articles_(list(list(name = "x")))
+    data_articles_(list(list(name = 1, title = "x", href = "x", description = "x")))
+    data_articles_(list(list(name = "x", title = 1, href = "x", description = "x")))
+    data_articles_(list(list(name = "x", title = "x", href = 1, description = "x")))
+    data_articles_(list(list(name = "x", title = "x", href = "x", description = 1)))
+  })
+})
 
-  expect_equal(src, c(
-    "../reference/figures/kitten.jpg",
-    "../reference/figures/kitten.jpg",
-    "another-kitten.jpg",
-    "https://www.tidyverse.org/rstudio-logo.svg"
+test_that("data_articles includes external articles", {
+  pkg <- local_pkgdown_site(meta = list(
+    `external-articles` = list(
+      list(name = "c", title = "c", href = "c", description = "*c*")
+    )
   ))
+  pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/b.Rmd")
 
-  # And files aren't copied
-  expect_false(dir_exists(path(pkg$dst_path, "man")))
+  articles <- data_articles(pkg)
+  expect_equal(articles$name, c("a", "b", "c"))
+  expect_equal(articles$internal, rep(FALSE, 3))
+  expect_equal(articles$description, list(NULL, NULL, "<p><em>c</em></p>"))
 })
 
-test_that("warns about missing images", {
-  skip_if_not_installed("rlang", "0.99")
-  pkg <- local_pkgdown_site(test_path("assets/bad-images"))
-  expect_snapshot(build_articles(pkg))
+test_that("articles in vignettes/articles/ are unnested into articles/", {
+  # weird path differences that I don't have the energy to dig into
+  skip_on_cran()
+
+  pkg <- local_pkgdown_site(meta = list(url = "https://example.com"))
+  pkg <- pkg_add_file(pkg, "vignettes/articles/nested.Rmd")
+
+  nested <- pkg$vignettes[pkg$vignettes$name == "articles/nested", ]
+  expect_equal(nested$file_out, "articles/nested.html")
+
+  # Check automatic redirect from articles/articles/foo.html -> articles/foo.html
+  expect_snapshot(build_redirects(pkg))
 })
 
-test_that("articles don't include header-attrs.js script", {
-  pkg <- as_pkgdown(test_path("assets/articles"))
-  withr::defer(clean_site(pkg))
+test_that("warns about articles missing from index", {
+  pkg <- local_pkgdown_site(meta = list(
+    articles = list(
+      list(title = "External", contents = c("a", "b"))
+    )
+  ))
+  pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/b.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/c.Rmd")
 
-  expect_output(path <- build_article("standard", pkg))
-
-  html <- xml2::read_html(path)
-  js <- xpath_attr(html, ".//body//script", "src")
-  # included for pandoc 2.7.3 - 2.9.2.1 improve accessibility
-  js <- js[basename(js) != "empty-anchor.js"]
-  expect_equal(js, character())
+  expect_snapshot(. <- data_articles_index(pkg), error = TRUE)
 })
 
-test_that("can build article that uses html_vignette", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
+test_that("internal articles aren't included and don't trigger warning", {
+  pkg <- local_pkgdown_site(meta = 
+    list(articles = 
+      list(
+        list(title = "External", contents = c("a", "b")),
+        list(title = "internal", contents = "c")
+      )
+    )
+  )
+  pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/b.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/c.Rmd")
 
-  # theme is not set since html_vignette doesn't support it
-  expect_output(expect_error(build_article("html-vignette", pkg), NA))
+  expect_no_error(index <- data_articles_index(pkg))
+  expect_length(index$sections, 1)
+  expect_length(index$sections[[1]]$contents, 2)
 })
 
-test_that("can override html_document() options", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
-  expect_output(path <- build_article("html-document", pkg))
+test_that("default template includes all articles", {
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
 
-  # Check that number_sections is respected
-  html <- xml2::read_html(path)
-  expect_equal(xpath_text(html, ".//h1//span"), c("1", "2"))
-
-  # And no links or scripts are inlined
-  expect_equal(xpath_length(html, ".//body//link"), 0)
-  expect_equal(xpath_length(html, ".//body//script"), 0)
+  expect_equal(default_articles_index(pkg)[[1]]$contents, "a")
 })
 
-test_that("html widgets get needed css/js", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
-  expect_output(path <- build_article("widget", pkg))
+test_that("check doesn't include getting started vignette", {
+  pkg <- local_pkgdown_site(meta = list(
+    articles = list(list(title = "Vignettes", contents = "a"))
+  ))
+  pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/testpackage.Rmd")
 
-  html <- xml2::read_html(path)
-  css <- xpath_attr(html, ".//body//link", "href")
-  js <- xpath_attr(html, ".//body//script", "src")
-
-  expect_true("diffviewer.css" %in% basename(css))
-  expect_true("diffviewer.js" %in% basename(js))
-})
-
-test_that("can override options with _output.yml", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"))
-  expect_output(path <- build_article("html-document", pkg))
-
-  # Check that number_sections is respected
-  html <- xml2::read_html(path)
-  expect_equal(xpath_text(html, ".//h1//span"), c("1", "2"))
-})
-
-test_that("can set width", {
-  pkg <- local_pkgdown_site(test_path("assets/articles"), "
-    code:
-      width: 50
-  ")
-
-  expect_output(path <- build_article("width", pkg))
-  html <- xml2::read_html(path)
-  expect_equal(xpath_text(html, ".//pre")[[2]], "## [1] 50")
+  expect_no_error(data_articles_index(pkg))
 })

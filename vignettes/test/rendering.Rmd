@@ -5,7 +5,8 @@ author: "Author is skipped from the TOC"
 date: "Date is skipped from the TOC"
 ---
 
-```{r include = FALSE}
+```{r}
+#| include: FALSE
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
@@ -20,6 +21,7 @@ Yay[^footnote]
 ## Figures
 
 ```{r}
+#| fig.alt: Test plot
 plot(1:10)
 ```
 
@@ -30,7 +32,7 @@ x <- readLines("test.txt")
 x
 ```
 
-![](bacon.jpg)
+![bacon](bacon.jpg)
 
 ## Details tag
 
@@ -59,7 +61,7 @@ Second paragraph
 |:---------------|:-----------|:-------:|:---------:|
 | Brightness     | Total brightness, total reflectance, spectral intensity | $$y = x^2$$ | test |
 
-## Mathjax
+## Math
 
 $$f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu^2)}{2\sigma^2}}$$
 
@@ -67,10 +69,14 @@ Inline equations: $y=x^2$
 
 ## Code
 
+### Line width
+
 ```{r}
 pkgdown:::ruler()
-```
 
+cat(rep("x ", 100), sep = "")
+cat(rep("xy", 100), sep = "")
+```
 
 ### Should be highlighted
 
@@ -109,17 +115,18 @@ yaml: [a, b, c]
 ### Crayon
 
 ```{r}
-cat(crayon::red("This is red"), "\n")
-cat(crayon::blue("This is blue\n"), "\n")
+cat(cli::col_red("This is red"), "\n")
+cat(cli::col_blue("This is blue\n"), "\n")
 
-message(crayon::green("This is green"))
+message(cli::col_green("This is green"))
 
-warning(crayon::bold("This is bold"))
+warning(cli::style_bold("This is bold"))
 ```
 Some text
 
-```{r, error = TRUE}
-stop(crayon::italic("This is italic"))
+```{r}
+#| error: TRUE
+stop(cli::style_italic("This is italic"))
 ```
 
 Some more text
@@ -159,13 +166,14 @@ Stuff
 
 blop
 
-### Tabset without pils {.tabset}
+### Tabset without pills {.tabset}
 
 #### Tab 1
 
 something nice
 
 ```{r}
+#| fig.alt: Another test plot
 plot(1:42)
 ```
 
@@ -186,3 +194,17 @@ Bonjour!
 #### German
 
 Guten tag.
+
+## Deep headings
+
+### Heading 3
+
+#### Heading 4
+
+##### Heading 5
+
+## Very long words
+
+This word should be broken across multiple lines on mobile, rather than making the page scroll horizontally:
+
+Ccccccccccccaaaaaaaaaaaaaaatttttttttttttttttssssssssssssssss 

@@ -3,12 +3,16 @@ test_that("special characters are escaped", {
   expect_equal(out, "a &amp; b")
 })
 
+test_that("converts Rd unicode shortcuts", {
+  expect_snapshot(rd2html("``a -- b --- c''"))
+})
+
 test_that("simple tags translated to known good values", {
   # Simple insertions
   expect_equal(rd2html("\\ldots"), "...")
   expect_equal(rd2html("\\dots"), "...")
   expect_equal(rd2html("\\R"), "<span style=\"R\">R</span>")
-  expect_equal(rd2html("\\cr"), "<br />")
+  expect_equal(rd2html("\\cr"), "<br>")
 
   "Macros"
   expect_equal(rd2html("\\newcommand{\\f}{'f'} \\f{}"), "'f'")
@@ -25,10 +29,11 @@ test_that("simple wrappers work as expected", {
 })
 
 test_that("subsection generates h3", {
-  expect_snapshot(cat_line(rd2html("\\subsection{A}{B}")))
+  expect_snapshot(cli::cat_line(rd2html("\\subsection{A}{B}")))
 })
+
 test_that("subsection generates h3", {
-  expect_snapshot(cat_line(rd2html("\\subsection{A}{
+  expect_snapshot(cli::cat_line(rd2html("\\subsection{A}{
     p1
 
     p2
@@ -45,7 +50,7 @@ test_that("subsection generates generated anchor", {
 })
 
 test_that("nested subsection generates h4", {
-  expect_snapshot(cat_line(rd2html("\\subsection{H3}{\\subsection{H4}{}}")))
+  expect_snapshot(cli::cat_line(rd2html("\\subsection{H3}{\\subsection{H4}{}}")))
 })
 
 test_that("if generates html", {
@@ -80,7 +85,7 @@ test_that("support platform specific code", {
 
 # tables ------------------------------------------------------------------
 
-test_that("tabular genereates complete table html", {
+test_that("tabular generates complete table html", {
   table <- "\\tabular{ll}{a \\tab b \\cr}"
   expectation <- c("<table class='table'>", "<tr><td>a</td><td>b</td></tr>", "</table>")
   expect_equal(rd2html(table), expectation)
@@ -158,6 +163,18 @@ test_that("can control \\Sexpr output", {
   expect_equal(rd2html("\\Sexpr[results=hide]{1}"), character())
   expect_equal(rd2html("\\Sexpr[results=text]{1}"), "1")
   expect_equal(rd2html("\\Sexpr[results=rd]{\"\\\\\\emph{x}\"}"), "<em>x</em>")
+  expect_equal(
+    rd2html("\\Sexpr[results=verbatim]{1 + 2}"),
+    c("<pre>", "[1] 3", "</pre>")
+  )
+  expect_equal(
+    rd2html("\\Sexpr[results=verbatim]{cat(42)}"),
+    c("<pre>", "42", "</pre>")
+  )
+  expect_equal(
+    rd2html("\\Sexpr[results=verbatim]{cat('42!\n'); 3}"),
+    c("<pre>", "42!", "[1] 3", "</pre>")
+  )
 })
 
 test_that("Sexpr can contain multiple expressions", {
@@ -168,11 +185,6 @@ test_that("Sexpr can contain multiple expressions", {
 test_that("Sexprs with multiple args are parsed", {
   local_context_eval()
   expect_equal(rd2html("\\Sexpr[results=hide,stage=build]{1}"), character())
-})
-
-test_that("Sexprs with multiple args are parsed", {
-  local_context_eval()
-  expect_error(rd2html("\\Sexpr[results=verbatim]{1}"), "not yet supported")
 })
 
 test_that("Sexprs in file share environment", {
@@ -191,13 +203,6 @@ test_that("Sexprs run from package root", {
     rd2html("\\packageTitle{testpackage}"),
     "A test package"
   )
-})
-
-test_that("DOIs are linked", {
-  skip_if(getRversion() <= "3.6.0") # previous version used http
-
-  local_context_eval(src_path = test_path("assets/reference"))
-  expect_snapshot(rd2html("\\doi{test}"))
 })
 
 # links -------------------------------------------------------------------
@@ -335,7 +340,7 @@ test_that("nl after tag doesn't trigger paragraphs", {
 
 test_that("cr generates line break", {
   out <- flatten_para(rd_text("a \\cr b"))
-  expect_equal(out, "<p>a <br /> b</p>")
+  expect_equal(out, "<p>a <br> b</p>")
 })
 
 
@@ -357,6 +362,14 @@ test_that("\\describe items can contain multiple paragraphs", {
     \\item{Label 1}{Contents 1}
     \\item{Label 2}{Contents 2}
   }")
+  expect_snapshot_output(cat(out, sep = "\n"))
+})
+
+test_that("can add ids to descriptions", {
+  out <- rd2html("\\describe{
+    \\item{abc}{Contents 1}
+    \\item{xyz}{Contents 2}
+  }", id_prefix = "foo")
   expect_snapshot_output(cat(out, sep = "\n"))
 })
 
@@ -398,37 +411,7 @@ test_that("spaces are preserved in preformatted blocks", {
   expect_equal(out, "<pre><code>^\n\n  b\n\n  c</code></pre>\n")
 })
 
-# Usage -------------------------------------------------------------------
-
-test_that("S4 methods gets comment", {
-  out <- rd2html("\\S4method{fun}{class}(x, y)")
-  expect_equal(out[1], "# S4 method for class")
-  expect_equal(out[2], "fun(x, y)")
-})
-
-test_that("S3 methods gets comment", {
-  out <- rd2html("\\S3method{fun}{class}(x, y)")
-  expect_equal(out[1], "# S3 method for class")
-  expect_equal(out[2], "fun(x, y)")
-
-  out <- rd2html("\\method{fun}{class}(x, y)")
-  expect_equal(out[1], "# S3 method for class")
-  expect_equal(out[2], "fun(x, y)")
-})
-
-test_that("Methods for class function work", {
-  out <- rd2html("\\S3method{fun}{function}(x, y)")
-  expect_equal(out[1], "# S3 method for function")
-  expect_equal(out[2], "fun(x, y)")
-
-  out <- rd2html("\\method{fun}{function}(x, y)")
-  expect_equal(out[1], "# S3 method for function")
-  expect_equal(out[2], "fun(x, y)")
-
-  out <- rd2html("\\S4method{fun}{function,function}(x, y)")
-  expect_equal(out[1], "# S4 method for function,function")
-  expect_equal(out[2], "fun(x, y)")
-})
+# Other -------------------------------------------------------------------
 
 test_that("eqn", {
   out <- rd2html(" \\eqn{\\alpha}{alpha}")
@@ -461,4 +444,9 @@ test_that("figures are converted to img", {
     rd2html("\\figure{a}{options: height=1}"),
     "<img src='figures/a' height=1 />"
   )
+})
+
+test_that("figures with multilines alternative text can be parsed", {
+  expect_equal(rd2html("\\figure{a}{blabla
+    blop}"), "<img src='figures/a' alt='blabla blop' />")
 })

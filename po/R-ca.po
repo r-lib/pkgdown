@@ -1,0 +1,350 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: pkgdown 2.0.6.9000\n"
+"POT-Creation-Date: 2024-05-24 09:36-0500\n"
+"PO-Revision-Date: 2023-08-16 00:23+0200\n"
+"Last-Translator: jmaspons <joanmaspons@gmail.com>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 23.04.3\n"
+
+#: build-404.R:11
+msgid "Page not found (404)"
+msgstr "No s'ha trobat la pàgina (404)"
+
+#: build-404.R:12
+msgid "Content not found. Please use links in the navbar."
+msgstr ""
+"No s'ha trobat el contingut. Useu els enllaços de la barra de navegació."
+
+#: build-articles.R:432 navbar.R:186 navbar.R:196 navbar.R:217
+msgid "Articles"
+msgstr "Articles"
+
+#: build-articles.R:570
+msgid "All vignettes"
+msgstr "Totes les vinyetes"
+
+#: build-footer.R:34
+msgid "Developed by"
+msgstr "Desenvolupat per"
+
+#: build-footer.R:41
+msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
+msgstr "Lloc construït amb <a href=\"%s\">pkgdown</a> %s."
+
+#: build-home-authors.R:12
+msgid "Authors and Citation"
+msgstr "Autors i citació"
+
+#: build-home-authors.R:101
+msgid "More about authors..."
+msgstr "Més sobre els autors..."
+
+#: build-home-authors.R:104
+msgid "Developers"
+msgstr "Desenvolupadors"
+
+#: build-home-authors.R:190
+msgid "author"
+msgstr "autor"
+
+#: build-home-authors.R:191
+msgid "compiler"
+msgstr "compilador"
+
+#: build-home-authors.R:192
+msgid "contractor"
+msgstr "contractista"
+
+#: build-home-authors.R:193
+msgid "contributor"
+msgstr "col·laborador"
+
+#: build-home-authors.R:194
+msgid "copyright holder"
+msgstr "titular dels drets d'autor"
+
+#: build-home-authors.R:195
+msgid "maintainer"
+msgstr "mantenidor"
+
+#: build-home-authors.R:196
+msgid "data contributor"
+msgstr "col·laborador de dades"
+
+#: build-home-authors.R:197
+msgid "funder"
+msgstr "finançador"
+
+#: build-home-authors.R:198
+msgid "reviewer"
+msgstr "revisor"
+
+#: build-home-authors.R:199
+msgid "thesis advisor"
+msgstr "supervisor de tesi"
+
+#: build-home-authors.R:200
+msgid "translator"
+msgstr "traductor"
+
+#: build-home-authors.R:254 render.R:103
+msgid "Citation"
+msgstr "Citació"
+
+#: build-home-authors.R:255
+msgid "Citing %s"
+msgstr "Citant %s"
+
+#: build-home-community.R:23
+msgid "Contributing guide"
+msgstr "Guia per contribuir"
+
+#: build-home-community.R:27
+msgid "Code of conduct"
+msgstr "Codi de conducta"
+
+#: build-home-community.R:31
+msgid "Getting help"
+msgstr "Obtenció d'ajuda"
+
+#: build-home-community.R:38
+msgid "Community"
+msgstr "Comunitat"
+
+#: build-home-index.R:120
+msgid "Dev Status"
+msgstr "Estat de desenvolupament"
+
+#: build-home-index.R:162
+msgid "View on %s"
+msgstr "Mostra a %s"
+
+#: build-home-index.R:163
+msgid "Browse source code"
+msgstr "Navega pel codi font"
+
+#: build-home-index.R:164
+msgid "Report a bug"
+msgstr "Informa d'un error"
+
+#: build-home-index.R:168
+msgid "Links"
+msgstr "Enllaços"
+
+#: build-home-index.R:173 render.R:105
+msgid "Table of contents"
+msgstr "Taula de continguts"
+
+#: build-home-license.R:12 build-home-license.R:34
+msgid "License"
+msgstr "Llicència"
+
+#: build-home-license.R:29
+msgid "Full license"
+msgstr "Llicència completa"
+
+#: build-news.R:102 build-news.R:259 build-news.R:263
+msgid "Changelog"
+msgstr "Registre de canvis"
+
+#: build-news.R:129
+msgid "Version %s"
+msgstr "Versió %s"
+
+#: build-news.R:141 build-news.R:254
+msgid "News"
+msgstr "Novetats"
+
+#: build-news.R:256
+msgid "Releases"
+msgstr "Versions"
+
+#: build-news.R:310
+msgid "CRAN release: %s"
+msgstr "Versió del CRAN: %s"
+
+#: build-reference-index.R:22
+msgid "Package index"
+msgstr ""
+
+#: build-reference-index.R:158
+msgid "All functions"
+msgstr "Totes les funcions"
+
+#: build-reference.R:371
+msgid "Usage"
+msgstr "Ús"
+
+#: build-tutorials.R:47 navbar.R:152
+msgid "Tutorials"
+msgstr "Guies d'aprenentatge"
+
+#: development.R:72
+msgid "Released version"
+msgstr "Versió publicada"
+
+#: development.R:73
+msgid "In-development version"
+msgstr "Versió en desenvolupament"
+
+#: development.R:74
+msgid "Unreleased version"
+msgstr "Versió no publicada"
+
+#: navbar-menu.R:173
+#, fuzzy
+#| msgid "Search for"
+msgid "Search site"
+msgstr "Cerca"
+
+#: navbar-menu.R:174
+msgid "Search for"
+msgstr "Cerca"
+
+#: navbar.R:129
+msgid "Reference"
+msgstr "Referència"
+
+#: navbar.R:140
+msgid "Light switch"
+msgstr ""
+
+#: navbar.R:143
+msgid "Light"
+msgstr ""
+
+#: navbar.R:144
+msgid "Dark"
+msgstr ""
+
+#: navbar.R:145
+msgid "Auto"
+msgstr ""
+
+#: navbar.R:180
+msgid "Get started"
+msgstr "Comenceu"
+
+#: navbar.R:213
+msgid "More articles..."
+msgstr "Més articles..."
+
+#: package.R:300
+msgid "deprecated"
+msgstr ""
+
+#: package.R:301
+msgid "superseded"
+msgstr ""
+
+#: package.R:302
+msgid "experimental"
+msgstr ""
+
+#: package.R:303
+msgid "stable"
+msgstr ""
+
+#: rd-data.R:23
+msgid "Details"
+msgstr "Detalls"
+
+#: rd-data.R:27
+msgid "Description"
+msgstr "Descripció"
+
+#: rd-data.R:31
+msgid "References"
+msgstr "Referències"
+
+#: rd-data.R:35 render.R:98
+msgid "Source"
+msgstr "Font"
+
+#: rd-data.R:39
+msgid "Format"
+msgstr "Format"
+
+#: rd-data.R:43
+msgid "Note"
+msgstr "Nota"
+
+#: rd-data.R:47
+msgid "Author"
+msgstr "Autor"
+
+#: rd-data.R:51
+msgid "See also"
+msgstr "Vegeu també"
+
+#: rd-data.R:67
+msgid "Arguments"
+msgstr "Paràmetres"
+
+#: rd-data.R:75
+msgid "Value"
+msgstr "Valor"
+
+#: render.R:95
+msgid "Skip to contents"
+msgstr "Salta als continguts"
+
+#: render.R:96
+msgid "Toggle navigation"
+msgstr "Commuta la navegació"
+
+#: render.R:97
+msgid "On this page"
+msgstr "En aquesta pàgina"
+
+#: render.R:99
+msgid "Abstract"
+msgstr "Resum"
+
+#: render.R:100
+msgid "Authors"
+msgstr "Autors"
+
+#: render.R:101
+msgid "Version"
+msgstr "Versió"
+
+#: render.R:102
+msgid "Examples"
+msgstr "Exemples"
+
+#: render.R:104
+msgid "Additional details"
+msgstr ""
+
+#: render.R:106
+#, fuzzy
+#| msgid "Toggle navigation"
+msgid "Site navigation"
+msgstr "Commuta la navegació"
+
+#: repo.R:35
+msgid "Source:"
+msgstr "Font:"
+
+#: tweak-homepage.R:61
+msgid "Dev status"
+msgstr "Estat de desenvolupament"
+
+#: usage.R:23
+msgid "# Default %s method"
+msgstr ""
+
+#: usage.R:25
+#, fuzzy
+#| msgid "# %s method for %s"
+msgid "# %s method for class '%s'"
+msgstr "# Mètode %s per a %s"
+
+#~ msgid "Function reference"
+#~ msgstr "Llistat de funcions"

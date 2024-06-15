@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-9 contents">
+  <main id="main" class="col-md-9">
     <div class="page-header">
       {{#logo}}<img src="{{logo.src}}" class="logo" alt="" >{{/logo}}
       <h1>{{{title}}}</h1>
@@ -16,13 +16,14 @@
     </div>
 
     {{#usage}}
-    <div class="ref-usage section level2 sourceCode">
-    <h2>Usage</h2>
+    <div class="section level2" id="ref-usage">
+    <h2>{{{title}}}</h2>
+    {{#contents}}
     {{{.}}}
+    {{/contents}}
     </div>
     {{/usage}}
 
-    <div id="ref-sections">
     {{#sections}}
     <div class="section level2" id="{{slug}}">
     <h2>{{{title}}}</h2>
@@ -31,18 +32,17 @@
     {{/contents}}
     </div>
     {{/sections}}
-    </div>
 
     {{#examples}}
-    <div id="examples">
+    <div class="section level2" id="ref-examples">
     <h2>{{#translate}}{{examples}}{{/translate}}</h2>
-    <div class="ref-examples sourceCode">{{{.}}}</div>
+    {{{.}}}
     </div>
     {{/examples}}
-  </div>
-  <div class="col-md-3" id="pkgdown-sidebar">
-    <nav id="toc">
+  </main>
+  <aside class="col-md-3">
+    <nav id="toc" aria-label="{{#translate}}{{toc}}{{/translate}}">
       <h2>{{#translate}}{{on_this_page}}{{/translate}}</h2>
     </nav>
-  </div>
+  </aside>
 </div>

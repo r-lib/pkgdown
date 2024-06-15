@@ -9,12 +9,13 @@
 #' * [build_articles()]
 #' * [build_tutorials()]
 #' * [build_news()]
+#' * [build_redirects()]
 #'
 #' See the documentation for the each function to learn how to control
 #' that aspect of the site. This page documents options that affect the
 #' whole site.
 #'
-#' @section General config:
+#' # General config
 #' *  `destination` controls where the site will be generated, defaulting to
 #'    `docs/`. Paths are relative to the package root.
 #'
@@ -27,13 +28,19 @@
 #'    It specifies where the site will be published and is used to allow other
 #'    pkgdown sites to link to your site when needed (`vignette("linking")`),
 #'    generate a `sitemap.xml`, automatically generate a `CNAME` when
-#'    [deploying to github][deploy_site_github], generate the metadata needed
+#'    [deploying to github][build_site_github_pages()], generate the metadata needed
 #'    rich social "media cards" (`vignette("metadata")`), and more.
 #'
 #' *  `title` overrides the default site title, which is the package name.
 #'    It's used in the page title and default navbar.
 #'
-#' @section Development mode:
+#' # Navbar and footer
+#'
+#' The `navbar` and `footer` fields control the appearance of the navbar
+#' footer which appear on every page. Learn more about these fields in
+#' `vignette("customise")`.
+#'
+#' # Development mode
 #' The `development` field allows you to generate different sites for the
 #' development and released versions of your package. To use it, you first
 #' need to set the development `mode`:
@@ -45,29 +52,37 @@
 #'
 #' ### Setting development mode
 #'
-#' The development `mode` of a site controls where the site is built,
-#' the colour of the package version in the navbar, the version tooltip,
-#' and whether or not the site is indexed by search engines. There are
-#' four possible modes:
+#' The development `mode` of a site controls where the built site is placed
+#' and how it is styled (i.e. the colour of the package version in the
+#' navbar, the version tooltip), and whether or not the site is indexed by
+#' search engines. There are four possible modes:
 #'
-#' * **automatic** (`mode: auto`): automatically determines the mode based on the
-#'   version number:
+#' * **automatic** (`mode: auto`): determines the mode based on the version:
 #'
 #'   * `0.0.0.9000` (`0.0.0.*`): unreleased.
 #'   * four version components: development.
 #'   * everything else -> release.
 #'
-#' * **release** (`mode: release`), the default. Site is written to `docs/`.
-#'   Version in navbar gets the default colouring.
+#' * **release** (`mode: release`), the default. Site is written to `docs/`
+#'   and styled like a released package, even if the content is for an
+#'   unreleased or development version. Version in navbar gets the default
+#'   colouring. Development badges are not shown in the sidebar
+#'   (see `?build_home`).
 #'
 #' * **development** (`mode: devel`). Site is written to `docs/dev/`.
 #'   The navbar version gets a "danger" class and a tooltip stating these are
 #'   docs for an in-development version of the package. The `noindex` meta tag
 #'   is used to ensure that these packages are not indexed by search engines.
+#'   Development badges are shown in the sidebar (see `?build_home`).
 #'
 #' * **unreleased** (`mode: unreleased`). Site is written to `docs/`.
 #'   Version in navbar gets the "danger" class, and a message indicating the
 #'   package is not yet on CRAN.
+#'   Development badges are shown in the sidebar (see `?build_home`).
+#'
+#' Use `mode: auto` if you want both a released and a dev site, and
+#' `mode: release` if you just want a single site. It is very rare that you
+#' will need either devel or unreleased modes.
 #'
 #' You can override the mode specified in the `_pkgdown.yml` by setting
 #' by setting `PKGDOWN_DEV_MODE` to `devel` or `release`.
@@ -119,26 +134,13 @@
 #' to danger). Finally, you can choose to override the default tooltip with
 #' `version_tooltip`.
 #'
-#' @section Navigation bar:
-#' ```{r child="man/rmd-fragments/navbar-configuration.Rmd"}
-#' ```
-#'
-#' You can also customise the colour scheme of the navbar by using the `type`
-#' and `bg` parameters. See `vignette("customise")` for more details.
-#'
-#' @section Footer:
-#' ```{r child="man/rmd-fragments/footer-configuration.Rmd"}
-#' ```
-#'
-#' @section Search:
-#' The `search` field controls the built-in search. See `vignette("search")`
-#' for details.
-#'
-#' @section Template:
+#' # Template
 #' The `template` field is mostly used to control the appearance of the site.
-#' See `vignette("customise")` for details.
+#' See `vignette("customise")` for details. But it's also used to control
 #'
-#' There are two other `template` fields that control other aspects of the
+#' ## Other aspects
+#'
+#' There are a few other `template` fields that control other aspects of the
 #' site:
 #'
 #' *   `noindex: true` will suppress indexing of your pages by search engines:
@@ -167,35 +169,28 @@
 #'        trailing_slash_redirect: true
 #'      ```
 #'
-#' @section Analytics:
+#' ## Analytics
 #'
-#' To capture usage of your site with a web analytics platform, you can make
-#' use of the `includes` field to add the HTML supplied to you by the platform.
-#' Typically these are either placed `after_body` or `in_header`. I include
-#' a few examples below, but I highly recommend getting the recommended HTML
-#' directly from the platform.
+#' To capture usage of your site with a web analytics tool, you can make
+#' use of the `includes` field to add the special HTML they need. This HTML
+#' is typically placed `in_header` (actually in the `<head>`), `before_body`,
+#' or `after_body`.
+#' You can learn more about how includes work in pkgdown at
+#' <https://pkgdown.r-lib.org/articles/customise.html#additional-html-and-files>.
 #'
-#' *   [counter.dev](https://counter.dev)
+#' I include a few examples of popular analytics platforms below, but we
+#' recommend getting the HTML directly from the tool:
 #'
-#'     ```yaml
-#'     template:
-#'       includes:
-#'         after_body: >
-#'           <script>if(!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0){
-#'          fetch("https://counter.dev/track?"+new URLSearchParams({referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"{YOUR USERNAME}",
-#'        utcoffset:"1"}))};sessionStorage.setItem("_swa","1");</script>
-#'     ```
-#'
-#' *   [GoatCounter](https://www.goatcounter.com):
+#' *   [plausible.io](https://plausible.io):
 #'
 #'     ```yaml
 #'     template:
 #'       includes:
-#'         after_body: >
-#'           <script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"></script>
+#'         in_header: |
+#'           <script defer data-domain="{YOUR DOMAIN}" src="https://plausible.io/js/plausible.js"></script>
 #'     ```
 #'
-#' *   [Google analytics](https://analytics.google.com):
+#' *   [Google analytics](https://analytics.google.com/analytics/web/):
 #'
 #'     ```yaml
 #'     template:
@@ -211,17 +206,17 @@
 #'              gtag('config', '{YOUR TRACKING ID}');
 #'            </script>
 #'     ```
-#'
-#' *   [plausible.io](https://plausible.io):
+#' *   [GoatCounter](https://www.goatcounter.com):
 #'
 #'     ```yaml
-#'     templates:
+#'     template:
 #'       includes:
-#'         in_header: |
-#'           <script defer data-domain="{YOUR DOMAIN}" src="https://plausible.io/js/plausible.js"></script>
+#'         after_body: >
+#'           <script data-goatcounter="https://{YOUR CODE}.goatcounter.com/count" data-goatcounter-settings="{YOUR SETTINGS}" async src="https://gc.zgo.at/count.js"></script>
 #'     ```
 #'
-#' @section Source repository:
+#' # Source repository
+#'
 #' Use the `repo` field to override pkgdown's automatically discovery
 #' of your source repository. This is used in the navbar, on the homepage,
 #' in articles and reference topics, and in the changelog (to link to issue
@@ -266,9 +261,9 @@
 #' ```yaml
 #' repo:
 #'   branch: devel
-#' ````
+#' ```
 #'
-#' @section Deployment (`deploy`):
+#' # Deployment (`deploy`)
 #' There is a single `deploy` field
 #'
 #' *  `install_metadata` allows you to install package index metadata into
@@ -282,11 +277,7 @@
 #'      install_metadata: true
 #'    ```
 #'
-#' @section Redirects:
-#' ```{r child="man/rmd-fragments/redirects-configuration.Rmd"}
-#' ```
-#'
-#' @section Options:
+#' # Options
 #' Users with limited internet connectivity can disable CRAN checks by setting
 #' `options(pkgdown.internet = FALSE)`. This will also disable some features
 #' from pkgdown that requires an internet connectivity. However, if it is used
@@ -329,24 +320,21 @@
 build_site <- function(pkg = ".",
                        examples = TRUE,
                        run_dont_run = FALSE,
-                       seed = 1014,
+                       seed = 1014L,
                        lazy = FALSE,
                        override = list(),
                        preview = NA,
                        devel = FALSE,
                        new_process = !devel,
-                       install = !devel,
-                       document = "DEPRECATED") {
+                       install = !devel) {
   pkg <- as_pkgdown(pkg, override = override)
-
-  if (!missing(document)) {
-    warning("`document` is deprecated. Please use `devel` instead.", call. = FALSE)
-    devel <- document
-  }
+  check_bool(devel)
+  check_bool(new_process)
+  check_bool(install)
 
   if (install) {
     withr::local_temp_libpaths()
-    rule("Installing package into temporary library")
+    cli::cli_rule("Installing package {.pkg {pkg$package}} into temporary library")
     # Keep source, so that e.g. pillar can show the source code
     # of its functions in its articles
     withr::with_options(
@@ -383,11 +371,12 @@ build_site <- function(pkg = ".",
 build_site_external <- function(pkg = ".",
                                 examples = TRUE,
                                 run_dont_run = FALSE,
-                                seed = 1014,
+                                seed = 1014L,
                                 lazy = FALSE,
                                 override = list(),
                                 preview = NA,
                                 devel = TRUE) {
+  pkg <- as_pkgdown(pkg, override = override)
   args <- list(
     pkg = pkg,
     examples = examples,
@@ -399,15 +388,16 @@ build_site_external <- function(pkg = ".",
     preview = FALSE,
     new_process = FALSE,
     devel = devel,
-    crayon_enabled = crayon::has_color(),
-    crayon_colors = crayon::num_colors(),
+    cli_colors = cli::num_ansi_colors(),
+    hyperlinks = cli::ansi_has_hyperlink_support(),
     pkgdown_internet = has_internet()
   )
   callr::r(
-    function(..., crayon_enabled, crayon_colors, pkgdown_internet) {
+    function(..., cli_colors, hyperlinks, pkgdown_internet) {
       options(
-        crayon.enabled = crayon_enabled,
-        crayon.colors = crayon_colors,
+        cli.num_colors = cli_colors,
+        cli.hyperlink = hyperlinks,
+        cli.hyperlink_run = hyperlinks,
         pkgdown.internet = pkgdown_internet
       )
       pkgdown::build_site(...)
@@ -417,30 +407,38 @@ build_site_external <- function(pkg = ".",
     timeout = getOption('pkgdown.timeout', Inf)
   )
 
+  cli::cli_rule("Finished building pkgdown site for package {.pkg {pkg$package}}")
+
   preview_site(pkg, preview = preview)
   invisible()
 }
 
 build_site_local <- function(pkg = ".",
-                       examples = TRUE,
-                       run_dont_run = FALSE,
-                       seed = 1014,
-                       lazy = FALSE,
-                       override = list(),
-                       preview = NA,
-                       devel = TRUE
-                       ) {
+                             examples = TRUE,
+                             run_dont_run = FALSE,
+                             seed = 1014L,
+                             lazy = FALSE,
+                             override = list(),
+                             preview = NA,
+                             devel = TRUE) {
 
-  pkg <- section_init(pkg, depth = 0, override = override)
+  pkg <- section_init(pkg, override = override)
 
-  rule("Building pkgdown site", line = "=")
-  cat_line("Reading from: ", src_path(path_abs(pkg$src_path)))
-  cat_line("Writing to:   ", dst_path(path_abs(pkg$dst_path)))
+  cli::cli_rule("Building pkgdown site for package {.pkg {pkg$package}}")
+  cli::cli_inform("Reading from: {src_path(path_abs(pkg$src_path))}")
+  cli::cli_inform("Writing to:   {dst_path(path_abs(pkg$dst_path))}")
 
-  init_site(pkg)
+  pkgdown_sitrep(pkg)
+
+  if (!lazy) {
+    # Only force init_site() if `!lazy`
+    # if site is not initialized, it will be in build_home()
+    init_site(pkg, override)
+  }
 
   build_home(pkg, override = override, preview = FALSE)
-  build_reference(pkg,
+  build_reference(
+    pkg,
     lazy = lazy,
     examples = examples,
     run_dont_run = run_dont_run,
@@ -460,6 +458,8 @@ build_site_local <- function(pkg = ".",
     build_search(pkg, override = override)
   }
 
-  rule("DONE", line = "=")
+  check_built_site(pkg)
+
+  cli::cli_rule("Finished building pkgdown site for package {.pkg {pkg$package}}")
   preview_site(pkg, preview = preview)
 }

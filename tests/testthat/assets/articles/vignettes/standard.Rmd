@@ -1,5 +1,0 @@
----
-title: "Standard vignette"
----
-
-Nothing out of the ordinary here

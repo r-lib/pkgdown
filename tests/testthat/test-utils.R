@@ -3,15 +3,6 @@ test_that("pkgdown.internet can be set and read", {
   expect_false(has_internet())
 })
 
-test_that("cran_unquote works", {
-  expect_equal(cran_unquote("Quoting is CRAN's thing."),
-               "Quoting is CRAN's thing.")
-  expect_equal(cran_unquote("'R-hub' is great!"),
-               "R-hub is great!")
-  expect_equal(cran_unquote("From 'README' to 'html' with 'pkgdown'"),
-               "From README to html with pkgdown")
-})
-
 test_that("is_internal_link() works", {
   pkg=list(meta=list(url="https://pkgdown.r-lib.org"))
   expect_false(is_internal_link("https://github.com", pkg = pkg))

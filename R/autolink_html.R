@@ -1,6 +1,9 @@
 #' Automatically link references and articles in an HTML page
 #'
-#' Deprecated: please use [downlit::downlit_html_path] instead.
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' Please use [downlit::downlit_html_path()] instead.
 #'
 #' @param input,output Input and output paths for HTML file
 #' @param local_packages A named character vector providing relative paths
@@ -18,6 +21,11 @@
 #' )
 #' }
 autolink_html <- function(input, output = input, local_packages = character()) {
+  lifecycle::deprecate_warn(
+    "1.6.0",
+    "autolink_html()",
+    "downlit::downlit_html_path()"
+  )
   withr::local_options(list(
     downlit.package = "",
     downlit.local_packages = local_packages

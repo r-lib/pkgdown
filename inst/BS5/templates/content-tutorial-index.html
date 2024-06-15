@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="contents col-md-9">
+  <main id="main" class="col-md-9">
     <div class="page-header">
       {{#logo}}<img src="{{logo.src}}" class="logo" alt="" >{{/logo}}
       <h1>{{{pagetitle}}}</h1>
@@ -10,5 +10,11 @@
       <li><a href="{{path}}">{{title}}</a></li>
       {{/tutorials}}
     </ul>
-  </div>
+  </main>
+
+  <aside class="col-md-3">
+    <nav id="toc" aria-label="{{#translate}}{{toc}}{{/translate}}">
+      <h2>{{#translate}}{{on_this_page}}{{/translate}}</h2>
+    </nav>
+  </aside>
 </div>

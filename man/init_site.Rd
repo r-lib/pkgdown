@@ -4,10 +4,13 @@
 \alias{init_site}
 \title{Initialise site infrastructure}
 \usage{
-init_site(pkg = ".")
+init_site(pkg = ".", override = list())
 }
 \arguments{
 \item{pkg}{Path to package.}
+
+\item{override}{An optional named list used to temporarily override
+values in \verb{_pkgdown.yml}}
 }
 \description{
 \code{init_site()}:
@@ -18,12 +21,21 @@ init_site(pkg = ".")
 \item runs \code{build_favicons()}, if needed.
 }
 
+Typically, you will not need to call this function directly, as all \verb{build_*()}
+functions will run \code{init_site()} if needed.
+
+The only good reasons to call \code{init_site()} directly are the following:
+\itemize{
+\item If you add or modify a package logo.
+\item If you add or modify \code{pkgdown/extra.scss}.
+\item If you modify \code{template.bslib} variables in \verb{_pkgdown.yml}.
+}
+
 See \code{vignette("customise")} for the various ways you can customise the
 display of your site.
 }
 \section{Build-ignored files}{
-
-We recommend using \code{\link[usethis:use_pkgdown]{usethis::use_pkgdown()}} to build-ignore \verb{docs/} and
+We recommend using \code{\link[usethis:use_pkgdown]{usethis::use_pkgdown_github_pages()}} to build-ignore \verb{docs/} and
 \verb{_pkgdown.yml}. If use another directory, or create the site manually,
 you'll need to add them to \code{.Rbuildignore} yourself. A \code{NOTE} about
 an unexpected file during \verb{R CMD CHECK} is an indication you have not

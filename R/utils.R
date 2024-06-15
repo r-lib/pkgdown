@@ -1,21 +1,10 @@
-set_contains <- function(haystack, needles) {
-  all(needles %in% haystack)
-}
-
-split_at_linebreaks <- function(text) {
-  if (length(text) < 1)
-    return(character())
-  strsplit(text, "\\n\\s*\\n")[[1]]
-}
-
 up_path <- function(depth) {
   paste(rep.int("../", depth), collapse = "")
 }
 
 dir_depth <- function(x) {
-  x %>%
-    strsplit("") %>%
-    purrr::map_int(function(x) sum(x == "/"))
+  # length(strsplit(path, "/")[[1]]) - 1L
+  purrr::map_int(strsplit(x, ""), function(x) sum(x == "/"))
 }
 
 invert_index <- function(x) {
@@ -38,7 +27,26 @@ rstudio_save_all <- function() {
 
 is_syntactic <- function(x) x == make.names(x)
 
+auto_quote <- function(x) {
+  ifelse(is_syntactic(x), x, paste0("`", x, "`"))
+}
+
 str_trim <- function(x) gsub("^\\s+|\\s+$", "", x)
+
+str_squish <- function(x) str_trim(gsub("\\s+", " ", x))
+
+unwrap_purrr_error <- function(code) {
+  withCallingHandlers(
+    code,
+    purrr_error_indexed = function(err) {
+      cnd_signal(err$parent)
+    }
+  )
+}
+
+tr_ <- function(...) {
+  enc2utf8(gettext(..., domain = "R-pkgdown"))
+}
 
 # devtools metadata -------------------------------------------------------
 
@@ -50,14 +58,6 @@ system_file <- function(..., package) {
   }
 }
 
-devtools_loaded <- function(x) {
-  if (!x %in% loadedNamespaces()) {
-    return(FALSE)
-  }
-  ns <- .getNamespace(x)
-  env_has(ns, ".__DEVTOOLS__")
-}
-
 devtools_meta <- function(x) {
   ns <- .getNamespace(x)
   ns[[".__DEVTOOLS__"]]
@@ -65,132 +65,32 @@ devtools_meta <- function(x) {
 
 # CLI ---------------------------------------------------------------------
 
-dst_path <- function(...) {
-  crayon::blue(encodeString(path(...), quote = "'"))
-}
+dst_path <- cli::combine_ansi_styles(
+  cli::style_bold, cli::col_cyan
+)
 
-src_path <- function(...) {
-  crayon::green(encodeString(path(...), quote = "'"))
-}
+src_path <- cli::combine_ansi_styles(
+  cli::style_bold, cli::col_green
+)
 
-cat_line <- function(...) {
-  cat(paste0(..., "\n"), sep = "")
-}
-
-rule <- function(x = NULL, line = "-") {
-  width <- getOption("width")
-
-  if (!is.null(x)) {
-    prefix <- paste0(line, line, " ")
-    suffix <- " "
-  } else {
-    prefix <- ""
-    suffix <- ""
-    x <- ""
-  }
-
-  line_length <- width - nchar(x) - nchar(prefix) - nchar(suffix)
-  # protect against negative values which can result in narrow terminals
-  line_length <- max(0, line_length)
-  cat_line(prefix, crayon::bold(x), suffix, strrep(line, line_length))
-}
-
-yaml_list <- function(...) print_yaml(list(...))
-
-print_yaml <- function(x) {
-  structure(x, class = "print_yaml")
-}
-
-pkgdown_field <- function(pkg, ...) {
-
-  field <- paste0(list(...), collapse = ".")
-
-  config_path <- pkgdown_config_path(path = pkg$src_path)
-
-  if (is.null(config_path)) {
-    return(crayon::bold(field))
-  }
-
-  config <- src_path(
-    fs::path_rel(
-      config_path,
-      pkg$src_path
-    )
-  )
-
-  paste0(
-    crayon::bold(field), " in ", config
-  )
-}
-
-pkgdown_fields <- function(pkg, fields) {
-  fields <- purrr::map_chr(fields, paste0, collapse = ".")
-  fields <- toString(crayon::bold(fields))
-  pkgdown_field(pkg, fields)
-}
-
-check_components <- function(needed, present, where, pkg) {
-  missing <- setdiff(needed, present)
-
-  if (length(missing) == 0) {
-    return()
-  }
-
-  missing_components <- lapply(
-      missing, append,
-      where,
-      after = 0
-    )
-    missing_fields <- pkgdown_fields(pkg = pkg, fields = missing_components)
-
-    abort(
-      paste0(
-        "Can't find component", if (length(missing) > 1) "s", " ",
-        paste0(missing_fields, collapse = " or "),
-        "."
-      )
-    )
-}
-
-#' @export
-print.print_yaml <- function(x, ...) {
-  cat(yaml::as.yaml(x), "\n", sep = "")
-}
-
-skip_if_no_pandoc <- function() {
-  testthat::skip_if_not(rmarkdown::pandoc_available("1.12.3"))
+writing_file <- function(path, show) {
+  path <- as.character(path)
+  text <- dst_path(as.character(show))
+  cli::cli_inform("Writing {.run [{text}](pkgdown::preview_page('{path}'))}")
 }
 
 has_internet <- function() {
-  return(getOption("pkgdown.internet", default = TRUE))
-}
-
-with_dir <- function(new, code) {
-  old <- setwd(dir = new)
-  on.exit(setwd(old))
-  force(code)
-}
-
-# remove '' quoting
-# e.g. 'title' becomes title.s
-cran_unquote <- function(string) {
-  gsub("\\'(.*?)\\'", "\\1", string)
-}
-
-isFALSE <- function(x) {
-  is.logical(x) && length(x) == 1L && !is.na(x) && !x
+  getOption("pkgdown.internet", default = TRUE)
 }
 
 modify_list <- function(x, y) {
-  if (is.null(y)) {
+  if (is.null(x)) {
+    return(y)
+  } else if (is.null(y)) {
     return(x)
   }
 
   utils::modifyList(x, y)
-}
-
-code_commas <- function(x) {
-  paste0("`", x, "`", collapse = ", ")
 }
 
 # from https://github.com/r-lib/rematch2/blob/8098bd06f251bfe0f20c0598d90fc20b741d13f8/R/package.R#L47
@@ -255,8 +155,9 @@ ruler <- function(width = getOption("width")) {
 get_section_level <- function(section) {
   class <- xml2::xml_attr(section, "class")
 
-  has_level <- grepl("level(\\d+)", class)
-  ifelse(has_level, as.numeric(gsub(".*section level(\\d+).*", '\\1', class)), 0)
+level <- as.numeric(re_match(class, "level(\\d+)")[[1]])
+  level[is.na(level)] <- 0
+  level
 }
 
 section_id <- function(section) {
@@ -264,17 +165,56 @@ section_id <- function(section) {
   xml2::xml_attr(h, "id")
 }
 
+on_ci <- function() {
+  isTRUE(as.logical(Sys.getenv("CI", "false")))
+}
+
+# yaml ------------------------------------------------------------
+
+print_yaml <- function(x) {
+  structure(x, class = "print_yaml")
+}
+#' @export
+print.print_yaml <- function(x, ...) {
+  cat(yaml::as.yaml(x), "\n", sep = "")
+}
+
+write_yaml <- function(x, path) {
+  yaml::write_yaml(
+    x,
+    path,
+    handlers = list(logical = yaml::verbatim_logical)
+  )
+}
+
 # Helpers for testing -----------------------------------------------------
 
-xpath_xml <- function(x, xpath) {
-  x <- xml2::xml_find_all(x, xpath)
+xpath_xml <- function(x, xpath = NULL) {
+  if (!is.null(xpath)) {
+    x <- xml2::xml_find_all(x, xpath)
+  }
   structure(x, class = c("pkgdown_xml", class(x)))
 }
-xpath_attr <- function(x, xpath, attr) {
-  xml2::xml_attr(xml2::xml_find_all(x, xpath), attr)
+xpath_contents <- function(x, xpath) {
+  x <- xml2::xml_find_all(x, xpath)
+
+  contents <- xml2::xml_contents(x)
+  if (length(contents) == 0) {
+    NULL
+  } else {
+    xml2str(contents)
+  }
 }
-xpath_text <- function(x, xpath) {
-  xml2::xml_text(xml2::xml_find_all(x, xpath))
+xml2str <- function(x) {
+  strings <- as.character(x, options = c("format", "no_declaration"))
+  paste0(strings, collapse = "")
+}
+
+xpath_attr <- function(x, xpath, attr) {
+  gsub("\r", "", xml2::xml_attr(xml2::xml_find_all(x, xpath), attr), fixed = TRUE)
+}
+xpath_text <- function(x, xpath, trim = FALSE) {
+  xml2::xml_text(xml2::xml_find_all(x, xpath), trim = trim)
 }
 xpath_length <- function(x, xpath) {
   length(xml2::xml_find_all(x, xpath))
@@ -283,8 +223,4 @@ xpath_length <- function(x, xpath) {
 print.pkgdown_xml <- function(x, ...) {
   cat(as.character(x, options = c("format", "no_declaration")), sep = "\n")
   invisible(x)
-}
-
-tr_ <- function(...) {
-  enc2utf8(gettext(..., domain = "R-pkgdown"))
 }

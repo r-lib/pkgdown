@@ -10,15 +10,14 @@ build_reference(
   lazy = TRUE,
   examples = TRUE,
   run_dont_run = FALSE,
-  seed = 1014,
+  seed = 1014L,
   override = list(),
-  preview = NA,
+  preview = FALSE,
   devel = TRUE,
-  document = "DEPRECATED",
   topics = NULL
 )
 
-build_reference_index(pkg = ".")
+build_reference_index(pkg = ".", override = list())
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -31,8 +30,8 @@ rapidly prototype. It is set to \code{FALSE} by \code{\link[=build_site]{build_s
 
 \item{run_dont_run}{Run examples that are surrounded in \\dontrun?}
 
-\item{seed}{Seed used to initialize so that random examples are
-reproducible.}
+\item{seed}{Seed used to initialize random number generation in order to
+make article output reproducible. An integer scalar or \code{NULL} for no seed.}
 
 \item{override}{An optional named list used to temporarily override
 values in \verb{_pkgdown.yml}}
@@ -45,8 +44,6 @@ If \code{TRUE} (the default), assumes you are in a live development
 environment, and loads source package with \code{\link[pkgload:load_all]{pkgload::load_all()}}.
 If \code{FALSE}, uses the installed version of the package.}
 
-\item{document}{\strong{Deprecated} Use \code{devel} instead.}
-
 \item{topics}{Build only specified topics. If supplied, sets \code{lazy}
 and \code{preview} to \code{FALSE}.}
 }
@@ -56,7 +53,6 @@ alphabetical order. To override this, provide a \code{reference} section in your
 \verb{_pkgdown.yml} as described below.
 }
 \section{Reference index}{
-
 To tweak the index page, add a section called \code{reference} to \verb{_pkgdown.yml}.
 It can contain three different types of element:
 \itemize{
@@ -74,7 +70,9 @@ subtitle, but this is no longer recommended).
 
 Most packages will only need to use \code{title} and \code{contents} components.
 For example, here's a snippet from the YAML that pkgdown uses to generate
-its own reference index:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{reference:
+its own reference index:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{reference:
 - title: Build
   desc:  Build a complete site or its individual section components.
 - contents:
@@ -86,7 +84,9 @@ its own reference index:\if{html}{\out{<div class="sourceCode yaml">}}\preformat
 }\if{html}{\out{</div>}}
 
 Bigger packages, e.g. ggplot2, may need an additional layer of
-structure in order to clearly organise large number of functions:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{reference:
+structure in order to clearly organise large number of functions:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{reference:
 - title: Layers
 - subtitle: Geoms
   desc: Geom is short for geometric element
@@ -99,7 +99,9 @@ structure in order to clearly organise large number of functions:\if{html}{\out{
 }\if{html}{\out{</div>}}
 
 \code{desc} can use markdown, and if you have a long description it's a good
-idea to take advantage of the YAML \code{>} notation:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{desc: >
+idea to take advantage of the YAML \code{>} notation:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{desc: >
   This is a very _long_ and **overly** flowery description of a
   single simple function. By using `>`, it's easy to write a description
   that runs over multiple lines.
@@ -124,9 +126,11 @@ without those concepts. This is useful to capture topics not otherwise
 captured by \code{has_concepts()}.
 \item Topics from other installed packages, e.g. \code{rlang::is_installed()} (function name)
 or \code{sass::font_face} (topic name).
+\item \code{has_lifecycle("deprecated")} will select all topics with lifecycle
+deprecated.
 }
 
-All functions (except for \code{has_keywords()}) automatically exclude internal
+All functions (except for \code{has_keyword()}) automatically exclude internal
 topics (i.e. those with \verb{\\keyword\{internal\}}). You can choose to include
 with (e.g.) \code{starts_with("build_", internal = TRUE)}.
 
@@ -134,10 +138,7 @@ Use a leading \code{-} to remove topics from a section, e.g. \code{-topic_name},
 \code{-starts_with("foo")}.
 
 pkgdown will check that all non-internal topics are included on
-the reference index page, and will generate a warning if you have missed any.
-When the code is run in a continuous integration environment (i.e. when the
-CI envar is "true"), this is an error so that the build will fail if you
-forget to include topics in the index.
+the reference index page, and error if you have missed any.
 }
 
 \subsection{Missing topics}{
@@ -151,23 +152,22 @@ displayed on the reference index.
 \subsection{Icons}{
 
 You can optionally supply an icon for each help topic. To do so, you'll need
-a top-level \code{icons} directory. This should contain {.png} files that are
+a top-level \code{icons} directory. This should contain \code{.png} files that are
 either 30x30 (for regular display) or 60x60 (if you want retina display).
 Icons are matched to topics by aliases.
 }
+}
 
-\subsection{Examples}{
-
+\section{Examples}{
 If you need to run extra code before or after all examples are run, you
 can create \code{pkgdown/pre-reference.R} and \code{pkgdown/post-reference.R}.
 }
-}
 
 \section{Figures}{
-
-
 You can control the default rendering of figures by specifying the \code{figures}
-field in \verb{_pkgdown.yml}. The default settings are equivalent to:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{figures:
+field in \verb{_pkgdown.yml}. The default settings are equivalent to:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{figures:
   dev: ragg::agg_png
   dpi: 96
   dev.args: []
@@ -186,3 +186,11 @@ that will be available to custom graphics output devices such
 as HTML widgets.
 }
 
+\seealso{
+Other site components: 
+\code{\link{build_articles}()},
+\code{\link{build_home}()},
+\code{\link{build_news}()},
+\code{\link{build_tutorials}()}
+}
+\concept{site components}

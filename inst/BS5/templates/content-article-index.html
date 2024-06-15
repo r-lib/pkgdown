@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-9 contents">
+  <main id="main" class="col-md-9">
     <div class="page-header">
       {{#logo}}<img src="{{logo.src}}" class="logo" alt="" >{{/logo}}
       <h1>{{{pagetitle}}}</h1>
@@ -7,22 +7,22 @@
 
     {{#sections}}
     <div class="section {{class}}">
-      <h3>{{title}}</h3>
-      <p class="section-desc">{{{desc}}}</p>
+      <h3>{{{title}}}</h3>
+      <div class="section-desc">{{{desc}}}</div>
 
       <dl>
         {{#contents}}
-        <dt><a href="{{path}}">{{title}}</a></dt>
+        <dt><a href="{{href}}">{{title}}</a></dt>
         <dd>{{{description}}}</dt>
         {{/contents}}
       </dl>
     </div>
     {{/sections}}
-  </div>
+  </main>
 
-  <div class="col-md-3" id="pkgdown-sidebar">
-    <nav id="toc">
+  <aside class="col-md-3">
+    <nav id="toc" aria-label="{{#translate}}{{toc}}{{/translate}}">
       <h2>{{#translate}}{{on_this_page}}{{/translate}}</h2>
     </nav>
-  </div>
+  </aside>
 </div>

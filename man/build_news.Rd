@@ -4,7 +4,7 @@
 \alias{build_news}
 \title{Build news section}
 \usage{
-build_news(pkg = ".", override = list(), preview = NA)
+build_news(pkg = ".", override = list(), preview = FALSE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -30,7 +30,9 @@ level two headings (\verb{##}) that (partially) match one of the following forms
 \details{
 A \href{https://style.tidyverse.org/news.html}{common structure} for news files
 is to use a top level heading for each release, and use a second level
-heading to break up individual bullets into sections.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{# foofy 1.0.0
+heading to break up individual bullets into sections.
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{# foofy 1.0.0
 
 ## Major changes
 
@@ -52,10 +54,10 @@ be added to the heading (see below for how to suppress); if not
 available on CRAN, "Unreleased" will be added.
 }
 \section{YAML config}{
-
-
 To automatically link to release announcements, include a \code{releases}
-section.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{news:
+section.
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{news:
  releases:
  - text: "usethis 1.3.0"
    href: https://www.tidyverse.org/articles/2018/02/usethis-1-3-0/
@@ -64,15 +66,26 @@ section.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{news:
 }\if{html}{\out{</div>}}
 
 Control whether news is present on one page or multiple pages with the
-\code{one_page} field. The default is \code{true}.\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{news:
+\code{one_page} field. The default is \code{true}.
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{news:
   one_page: false
 }\if{html}{\out{</div>}}
 
-Suppress the default addition of CRAN release dates with:\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{news:
+Suppress the default addition of CRAN release dates with:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{news:
   cran_dates: false
 }\if{html}{\out{</div>}}
 }
 
 \seealso{
 \href{https://style.tidyverse.org/news.html}{Tidyverse style for News}
+
+Other site components: 
+\code{\link{build_articles}()},
+\code{\link{build_home}()},
+\code{\link{build_reference}()},
+\code{\link{build_tutorials}()}
 }
+\concept{site components}

@@ -1,28 +1,53 @@
-data_authors <- function(pkg = ".", roles = default_roles()) {
+build_citation_authors <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  author_info <- data_author_info(pkg)
 
-  all <- pkg %>%
-    pkg_authors() %>%
-    purrr::map(author_list, author_info, pkg = pkg)
+  source <- if (has_citation(pkg$src_path)) {
+    repo_source(pkg, "inst/CITATION")
+  } else {
+    repo_source(pkg, "DESCRIPTION")
+  }
 
-  main <- pkg %>%
-    pkg_authors(roles) %>%
-    purrr::map(author_list, author_info, pkg = pkg)
+  authors <- data_authors(pkg)
+  data <- list(
+    pagetitle = tr_("Authors and Citation"),
+    citations = data_citations(pkg),
+    authors = unname(authors$all),
+    inst = authors$inst,
+    before = authors$before,
+    after = authors$after,
+    source = source
+  )
 
+  render_page(pkg, "citation-authors", data, "authors.html")
+}
+
+data_authors <- function(pkg = ".", roles = default_roles(), call = caller_env()) {
+  pkg <- as_pkgdown(pkg)
+  author_info <- config_pluck_list(pkg, "authors", default = list(), call = call)
+
+  inst_path <- path(pkg$src_path, "inst", "AUTHORS")
+  if (file_exists(inst_path)) {
+    inst <- read_lines(inst_path)
+  } else {
+    inst <- NULL
+  }
+
+  authors_all <- pkg_authors(pkg)
+  authors_main <- pkg_authors(pkg, roles)
+
+  all <- purrr::map(authors_all, author_list, author_info, pkg = pkg)
+  main <- purrr::map(authors_main, author_list, author_info, pkg = pkg)
   more_authors <- length(main) != length(all)
 
-  comments <- pkg %>%
-    pkg_authors() %>%
-    purrr::map(author_list, author_info, pkg = pkg) %>%
-    purrr::map("comment") %>%
-    purrr::compact() %>%
-    length() > 0
+  comments <- purrr::compact(purrr::map(all, "comment"))
 
   print_yaml(list(
     all = all,
     main = main,
-    needs_page = more_authors || comments
+    inst = inst,
+    needs_page = more_authors || length(comments) > 0 || !is.null(inst),
+    before = config_pluck_markdown_block(pkg, "template.authors.before", call = call),
+    after = config_pluck_markdown_block(pkg, "template.authors.after", call = call)
   ))
 }
 
@@ -46,73 +71,29 @@ pkg_authors <- function(pkg, role = NULL) {
   }
 }
 
-
-data_author_info <- function(pkg = ".") {
+data_home_sidebar_authors <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
-  defaults <- list(
-    "Hadley Wickham" = list(
-      href = "http://hadley.nz"
-    ),
-    "RStudio" = list(
-      href = "https://www.rstudio.com",
-      html = "<img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' width='72' />"
-    ),
-    "R Consortium" = list(
-      href = "https://www.r-consortium.org"
-    )
+  config_pluck_list(pkg, "authors.sidebar")
+
+  roles <- config_pluck_character(
+    pkg,
+    "authors.sidebar.roles",
+    default = default_roles(),
+    call = call
   )
-
-  utils::modifyList(defaults, pkg$meta$authors %||% list())
-}
-
-
-data_home_sidebar_authors <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-  roles <- pkg$meta$authors$sidebar$roles %||% default_roles()
   data <- data_authors(pkg, roles)
-
-  authors <- data$main %>% purrr::map_chr(author_desc, comment = FALSE)
-
-  bullets <- c(
-    markdown_text_inline(
-      pkg$meta$authors$sidebar$before,
-      pkg = pkg,
-      where = c("authors", "sidebar", "before")
-    ),
-    authors,
-    markdown_text_inline(
-      pkg$meta$authors$sidebar$after,
-      pkg = pkg,
-      where = c("authors", "sidebar", "after")
-    )
-  )
-
+  authors <- purrr::map_chr(data$main, author_desc, comment = FALSE)
+  
+  before <- config_pluck_markdown_inline(pkg, "authors.sidebar.before", call = call)
+  after <- config_pluck_markdown_inline(pkg, "authors.sidebar.after", call = call)
+  
+  bullets <- c(before, authors, after)
   if (data$needs_page) {
     bullets <- c(bullets, a(tr_("More about authors..."), "authors.html"))
   }
 
   sidebar_section(tr_("Developers"), bullets)
-}
-
-build_authors <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  data <- data_authors_page(pkg)
-
-  render_page(pkg, "authors", data, "authors.html")
-}
-
-data_authors_page <- function(pkg) {
-  data <- list(
-    pagetitle = tr_("Authors"),
-    authors = data_authors(pkg)$all
-  )
-
-  data$before <- markdown_text_block(pkg$meta$authors$before, pkg = pkg)
-  data$after <- markdown_text_block(pkg$meta$authors$after, pkg = pkg)
-
-  return(data)
 }
 
 author_name <- function(x, authors, pkg) {
@@ -125,11 +106,8 @@ author_name <- function(x, authors, pkg) {
   author <- authors[[name]]
 
   if (!is.null(author$html)) {
-    name <- markdown_text_inline(
-      author$html,
-      pkg = pkg,
-      where = c("authors", name, "html")
-    )
+    error_path <- paste0("authors.", name, ".html")
+    name <- markdown_text_inline(pkg, author$html, error_path = error_path)
   }
 
   if (is.null(author$href)) {
@@ -149,19 +127,19 @@ format_author_name <- function(given, family) {
   }
 }
 
-author_list <- function(x, authors_info = NULL, comment = FALSE, pkg) {
+author_list <- function(x, authors_info = NULL, comment = FALSE, pkg = ".") {
   name <- author_name(x, authors_info, pkg = pkg)
 
   roles <- paste0(role_lookup(x$role), collapse = ", ")
   substr(roles, 1, 1) <- toupper(substr(roles, 1, 1))
 
   orcid <- purrr::pluck(x$comment, "ORCID")
-  x$comment <- remove_name(x$comment, "ORCID")
+  x$comment <- remove_orcid(x$comment)
 
   list(
     name = name,
     roles = roles,
-    comment = x$comment,
+    comment = linkify(x$comment),
     orcid = orcid_link(orcid)
   )
 }
@@ -196,6 +174,7 @@ orcid_link <- function(orcid) {
 # dput(setNames(tolower(db$term), db$code))
 # # and replace creater with maintainer
 role_lookup <- function(abbr) {
+  # CRAN roles are translated
   roles <- c(
     aut = tr_("author"),
     com = tr_("compiler"),
@@ -209,20 +188,109 @@ role_lookup <- function(abbr) {
     ths = tr_("thesis advisor"),
     trl = tr_("translator")
   )
-  unname(roles[abbr])
+
+  # Other roles are left as is
+  marc_db <- getNamespace("utils")$MARC_relator_db
+  extra <- setdiff(marc_db$code, names(roles))
+  roles[extra] <- tolower(marc_db$term[match(extra, marc_db$code)])
+
+  out <- unname(roles[abbr])
+  if (any(is.na(out))) {
+    missing <- abbr[is.na(out)]
+    cli::cli_warn("Unknown MARC role abbreviation{?s}: {.field {missing}}")
+    out[is.na(out)] <- abbr[is.na(out)]
+  }
+  out
 }
 
-# helpers -----------------------------------------------------------------
+# citation ---------------------------------------------------------------------
 
-remove_name <- function(x, name) {
-  stopifnot(is.character(name), length(name) == 1)
+has_citation <- function(path = ".") {
+  file_exists(path(path, 'inst/CITATION'))
+}
 
-  nms <- names(x)
-  if (is.null(nms)) {
-    return(x)
+create_citation_meta <- function(path) {
+  path <- path(path, "DESCRIPTION")
+
+  dcf <- read.dcf(path)
+  desc <- as.list(dcf[1, ])
+
+  if (!is.null(desc$Encoding)) {
+    desc <- lapply(desc, iconv, from = desc$Encoding, to = "UTF-8")
+  } else {
+    desc$Encoding <- "UTF-8"
   }
 
-  out <- x[!(nms %in% name)]
+  if (!is.null(desc$Title)) desc$Title <- str_squish(desc$Title)
+
+  desc
+}
+
+read_citation <- function(path = ".") {
+  if (!has_citation(path)) {
+    return(character())
+  }
+  meta <- create_citation_meta(path)
+  cit_path <- path(path, 'inst/CITATION')
+
+  utils::readCitationFile(cit_path, meta = meta)
+}
+
+data_home_sidebar_citation <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  sidebar_section(
+    heading = tr_("Citation"),
+    bullets = a(sprintf(tr_("Citing %s"), pkg$package), "authors.html#citation")
+  )
+}
+
+data_citations <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  if (has_citation(pkg$src_path)) {
+    return(citation_provided(pkg$src_path))
+  }
+
+  citation_auto(pkg)
+}
+
+citation_provided <- function(src_path) {
+  provided_citation <- read_citation(src_path)
+
+  text_version <- format(provided_citation, style = "textVersion")
+  cit <- list(
+    html = ifelse(
+      text_version == "",
+      format(provided_citation, style = "html"),
+      paste0("<p>", escape_html(text_version), "</p>")
+    ),
+    bibtex = format(provided_citation, style = "bibtex")
+  )
+
+  purrr::transpose(cit)
+}
+
+citation_auto <- function(pkg) {
+  cit_info <- utils::packageDescription(
+    path_file(pkg$src_path),
+    lib.loc = path_dir(pkg$src_path)
+  )
+  cit_info$`Date/Publication` <- cit_info$`Date/Publication` %||% Sys.time()
+  if (!is.null(cit_info$Title)) cit_info$Title <- str_squish(cit_info$Title)
+
+  cit <- utils::citation(auto = cit_info)
+  list(
+    html = format(cit, style = "html"),
+    bibtex = format(cit, style = "bibtex")
+  )
+}
+
+# helpers -------------------------------------------------------------------------
+
+# Not strictly necessary, but produces a simpler data structure testing
+remove_orcid <- function(x) {
+  out <- x[names2(x) != "ORCID"]
   if (all(names(out) == "")) {
     names(out) <- NULL
   }

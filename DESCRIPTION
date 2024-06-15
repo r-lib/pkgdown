@@ -1,67 +1,77 @@
 Package: pkgdown
 Title: Make Static HTML Documentation for a Package
-Version: 1.9000.9000.9000
+Version: 2.0.9.9000
 Authors@R: c(
-    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"),
+    person("Hadley", "Wickham", , "hadley@posit.co", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-4757-117X")),
     person("Jay", "Hesselberth", role = "aut",
            comment = c(ORCID = "0000-0002-6299-179X")),
     person("Maëlle", "Salmon", role = "aut",
            comment = c(ORCID = "0000-0002-2815-0399")),
-    person("RStudio", role = c("cph", "fnd"))
+    person("Olivier", "Roy", role = "aut"),
+    person("Salim", "Brüggemann", role = "aut",
+           comment = c(ORCID = "0000-0002-5329-5987")),
+    person("Posit Software, PBC", role = c("cph", "fnd"))
   )
 Description: Generate an attractive and useful website from a source
     package.  'pkgdown' converts your documentation, vignettes, 'README',
     and more to 'HTML' making it easy to share information about your
     package online.
 License: MIT + file LICENSE
-URL: https://pkgdown.r-lib.org, https://github.com/r-lib/pkgdown
+URL: https://pkgdown.r-lib.org/, https://github.com/r-lib/pkgdown
 BugReports: https://github.com/r-lib/pkgdown/issues
-Depends: 
-    R (>= 3.1.0)
-Imports: 
-    bslib,
-    callr (>= 2.0.2),
-    crayon,
-    desc,
+Depends:
+    R (>= 3.6)
+Imports:
+    bslib (>= 0.5.1),
+    callr (>= 3.7.3),
+    cli (>= 3.6.1),
+    desc (>= 1.4.0),
     digest,
-    downlit (>= 0.4.0),
-    fs (>= 1.3.0),
-    httr (>= 1.4.2),
+    downlit (>= 0.4.4),
+    fontawesome,
+    fs (>= 1.4.0),
+    httr2 (>= 1.0.0),
     jsonlite,
-    magrittr,
-    memoise,
-    purrr,
+    openssl,
+    purrr (>= 1.0.0),
     ragg,
-    rlang (>= 0.4.0),
-    rmarkdown (>= 1.1.9007),
+    rlang (>= 1.1.0),
+    rmarkdown (>= 2.27),
     tibble,
     whisker,
-    withr,
+    withr (>= 2.4.3),
     xml2 (>= 1.3.1),
     yaml
-Suggests: 
+Suggests:
     covr,
     diffviewer,
-    evaluate,
+    evaluate (>= 0.24.0),
+    gert,
+    gt,
     htmltools,
     htmlwidgets,
     knitr,
     lifecycle,
+    magick,
     methods,
-    openssl,
     pkgload (>= 1.0.2),
+    quarto,
     rsconnect,
     rstudioapi,
     rticles,
     sass,
-    testthat (>= 3.0.0),
+    testthat (>= 3.1.3),
     tools
-VignetteBuilder: 
-    knitr
-Config/testthat/edition: 3
+VignetteBuilder:
+    knitr,
+    quarto
+Config/Needs/website: usethis, servr
 Config/potools/style: explicit
+Config/testthat/edition: 3
+Config/testthat/parallel: true
+Config/testthat/start-first: build-article, build-quarto-article, build-reference
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.1
 SystemRequirements: pandoc

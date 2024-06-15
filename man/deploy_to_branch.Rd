@@ -11,7 +11,8 @@ deploy_to_branch(
   branch = "gh-pages",
   remote = "origin",
   github_pages = (branch == "gh-pages"),
-  ...
+  ...,
+  subdir = NULL
 )
 }
 \arguments{
@@ -30,6 +31,12 @@ file for custom domain name support, and a \code{.nojekyll} file to suppress
 jekyll rendering.}
 
 \item{...}{Additional arguments passed to \code{\link[=build_site]{build_site()}}.}
+
+\item{subdir}{The sub-directory where the site should be built on the branch.
+This argument can be used to support a number of site configurations.
+For example, you could build version-specific documentation by setting
+\code{subdir = "v1.2.3"}; \code{deploy_to_branch()} will build and deploy the
+package documentation in the \verb{v.1.2.3/} directory of your site.}
 }
 \description{
 Assumes that you're in a git clone of the project, and the package is

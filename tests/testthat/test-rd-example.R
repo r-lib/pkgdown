@@ -9,17 +9,37 @@ test_that("warns if unparseable", {
 
 # as_example() ------------------------------------------------------------
 
-test_that("inline tags are stripped", {
-  expect_equal(rd2ex("\\donttest{1}"), "1")
-  expect_equal(rd2ex("\\dontshow{1}"), "1")
-  expect_equal(rd2ex("\\testonly{1}"), "1")
-  expect_equal(rd2ex("\\dontrun{1}"), "if (FALSE) 1")
+test_that("dontrun{} wrapped in if(FALSE)", {
+  expect_equal(rd2ex("\\dontrun{1}"), "if (FALSE) 1 # \\dontrun{}")
+  expect_equal(
+    rd2ex("\\dontrun{\n  1\n}"),
+    c("if (FALSE) { # \\dontrun{", "  1", "} # }")
+  )
+
+  # unless run_dont_run is true
   expect_equal(rd2ex("\\dontrun{1}", run_dont_run = TRUE), "1")
+  expect_equal(
+    rd2ex("\\dontrun{\n  1\n}", run_dont_run = TRUE),
+    c("# \\dontrun{", "  1", "# }")
+  )
 })
 
-test_that("blocks get fillers to preserve spacine", {
-  expect_equal(rd2ex("\\donttest{\n  1\n}"), c("# \\donttest{", "  1", "# }"))
-  expect_equal(rd2ex("\\dontrun{\n  1\n}"), c("if (FALSE) {", "  1", "}"))
+test_that("block donttest{} gets a comment to preserve spacing", {
+  expect_equal(rd2ex("\\donttest{1}"), "1")
+  expect_equal(
+    rd2ex("\\donttest{\n  1\n}"),
+    c("# \\donttest{", "  1", "# }")
+  )
+})
+
+test_that("dontshow{} becomes DONTSHOW", {
+  expect_equal(rd2ex("\\dontshow{1}"), "DONTSHOW({1})")
+  expect_equal(rd2ex("\\dontshow{\n  1\n}"), c("DONTSHOW({", "  1", "})"))
+})
+
+test_that("testonly{} becomes TESTONLY", {
+  expect_equal(rd2ex("\\testonly{1}"), "TESTONLY({1})")
+  expect_equal(rd2ex("\\testonly{\n  1\n}"), c("TESTONLY({", "  1", "})"))
 })
 
 test_that("handles nested tags", {
@@ -27,9 +47,9 @@ test_that("handles nested tags", {
     rd2ex("if(TRUE {\n  \\dontrun{\n    1 + 2\n  }\n}"),
     c(
       "if(TRUE {",
-      "  if (FALSE) {",
+      "  if (FALSE) { # \\dontrun{",
       "    1 + 2",
-      "  }",
+      "  } # }",
       "}"
     )
   )
@@ -52,6 +72,7 @@ test_that("extracts conditions from if", {
 })
 
 test_that("@examplesIf", {
+
   rd <- paste0(
     "\\dontshow{if (1 == 0) (if (getRversion() >= \"3.4\") withAutoprint else force)(\\{ # examplesIf}\n",
     "answer <- 43\n",
@@ -77,4 +98,18 @@ test_that("@examplesIf", {
   )
   expect_equal(rd2ex(rd2), exp2)
 
+  cnd <- paste0(strrep("TRUE && ", 100), "FALSE")
+  rd3 <- paste0(
+    "\\dontshow{if (", cnd, ") (if (getRversion() >= \"3.4\") withAutoprint else force)(\\{ # examplesIf}\n",
+    "answer <- 43\n",
+    "\\dontshow{\\}) # examplesIf}"
+  )
+  exp3 <- c(
+    paste0("if (FALSE) { # ", cnd),
+    "answer <- 43",
+    "}"
+  )
+  expect_snapshot(
+    expect_equal(strtrim(rd2ex(rd3), 40), strtrim(exp3, 40))
+  )
 })

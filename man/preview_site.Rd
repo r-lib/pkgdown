@@ -4,7 +4,7 @@
 \alias{preview_site}
 \title{Open site in browser}
 \usage{
-preview_site(pkg = ".", path = ".", preview = NA)
+preview_site(pkg = ".", path = ".", preview = TRUE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -15,5 +15,8 @@ preview_site(pkg = ".", path = ".", preview = NA)
 freshly generated section in browser.}
 }
 \description{
-Open site in browser
+\code{preview_site()} opens your pkgdown site in your browser. pkgdown has been
+carefully designed to work even when served from the file system like
+this; the only part that doesn't work is search. You can use \code{servr::httw("docs/")}
+to create a server to make search work locally.
 }

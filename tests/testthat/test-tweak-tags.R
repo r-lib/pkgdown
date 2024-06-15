@@ -119,15 +119,17 @@ test_that("docs with no headings are left unchanged", {
 test_that("local md links are replaced with html", {
   html <- xml2::read_html('
     <a href="local.md"></a>
+    <a href="local.md#fragment"></a>
     <a href="http://remote.com/remote.md"></a>
   ')
   tweak_link_md(html)
 
   expect_equal(
     xpath_attr(html, "//a", "href"),
-    c("local.html", "http://remote.com/remote.md")
+    c("local.html", "local.html#fragment", "http://remote.com/remote.md")
   )
 })
+
 
 test_that("tweak_link_external() add the external-link class if needed", {
   html <- xml2::read_html('
@@ -196,6 +198,32 @@ test_that("tweak_link_r6() correctly modifies link to inherited R6 classes", {
   )
 })
 
+
+test_that("tweak_img_src() updates img and source tags", {
+  html <- xml2::read_html('<body>
+    <source srcset="man/figures/foo.png" />
+    <img src="man/figures/bar.png" />
+  </body>')
+
+  tweak_img_src(html)
+  expect_equal(xpath_attr(html, ".//img", "src"), "reference/figures/bar.png")
+  expect_equal(xpath_attr(html, ".//source", "srcset"), "reference/figures/foo.png")
+})
+
+test_that("tweak_img_src() doesn't modify absolute links", {
+  html <- xml2::read_html('<body>
+    <img src="https://raw.githubusercontent.com/OWNER/REPO/main/vignettes/foo" />
+    <img src="https://github.com/OWNER/REPO/raw/main/man/figures/foo" />
+  </body>')
+  urls_before <- xpath_attr(html, ".//img", "src")
+
+  tweak_img_src(html)
+  expect_equal(
+    xpath_attr(html, ".//img", "src"),
+    urls_before
+  )
+})
+
 # stripped divs etc -------------------------------------------------------
 
 test_that("selectively remove hide- divs", {
@@ -214,4 +242,28 @@ test_that("selectively remove hide- divs", {
   </body>")
   tweak_strip(html, in_dev = FALSE)
   expect_equal(xpath_text(html, ".//div"), "release")
+})
+
+
+# footnotes ---------------------------------------------------------------
+
+test_that("can process footnote with code", {
+  skip_if_no_pandoc("2.17.1")
+  pkg <- local_pkgdown_site()
+  html <- markdown_to_html(pkg, "
+Hooray[^1]
+
+[^1]: Including code:
+```
+1 +
+2 +
+```
+And more text
+  ")
+  tweak_footnotes(html)
+
+  expect_equal(xpath_length(html, "//a[@class='footnote-back']"), 0)
+  expect_equal(xpath_attr(html, ".//a", "class"), "footnote-ref")
+  expect_equal(xpath_attr(html, ".//a", "tabindex"), "0")
+  expect_snapshot(xpath_attr(html, ".//a", "data-bs-content"))
 })

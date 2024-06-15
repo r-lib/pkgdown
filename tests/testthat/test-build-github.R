@@ -1,8 +1,8 @@
 test_that("a CNAME record is built if a url exists in metadata", {
-  pkg <- local_pkgdown_site(test_path("assets/cname"))
+  pkg <- local_pkgdown_site(meta = list(url = "https://testpackage.r-lib.org"))
 
   dir_create(path(pkg$dst_path, "docs"))
-  expect_output(build_github_pages(pkg))
+  expect_snapshot(build_github_pages(pkg))
   expect_equal(read_lines(path(pkg$dst_path, "CNAME")), "testpackage.r-lib.org")
 })
 

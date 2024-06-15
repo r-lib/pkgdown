@@ -5,12 +5,15 @@
 
 <!-- badges: start -->
 
-[![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-<a href="https://cran.r-project.org/package=pkgdown" class="pkgdown-release"><img src="https://www.r-pkg.org/badges/version/pkgdown" alt="CRAN Status" /></a>
-<a href="https://github.com/r-lib/pkgdown/actions" class="pkgdown-devel"><img src="https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg" alt="R-CMD-check" /></a>
-[![Codecov test
-coverage](https://codecov.io/gh/r-lib/pkgdown/branch/main/graph/badge.svg)](https://codecov.io/gh/r-lib/pkgdown?branch=main)
+<a href="https://cran.r-project.org/package=pkgdown"
+class="pkgdown-release"><img
+src="https://www.r-pkg.org/badges/version/pkgdown"
+alt="CRAN Status" /></a> <a
+href="https://github.com/r-lib/pkgdown/actions/workflows/R-CMD-check.yaml"
+class="pkgdown-devel"><img
+src="https://github.com/r-lib/pkgdown/actions/workflows/R-CMD-check.yaml/badge.svg"
+alt="R-CMD-check" /></a> [![Codecov test
+coverage](https://codecov.io/gh/r-lib/pkgdown/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/pkgdown?branch=main)
 <!-- badges: end -->
 
 pkgdown is designed to make it quick and easy to build a website for
@@ -34,7 +37,8 @@ install.packages("pkgdown")
 
 ``` r
 # Install development version from GitHub
-devtools::install_github("r-lib/pkgdown")
+# install.packages("pak")
+pak::pak("r-lib/pkgdown")
 ```
 
 </div>
@@ -44,21 +48,19 @@ devtools::install_github("r-lib/pkgdown")
 Get started with [usethis](https://usethis.r-lib.org/):
 
 ``` r
-# Run once to configure your package to use pkgdown
-usethis::use_pkgdown()
+# Run once to configure your package to use and deploy pkgdown
+usethis::use_pkgdown_github_pages()
 ```
 
-Then use pkgdown to build your website:
-
 ``` r
+# Preview your site locally before publishing
 pkgdown::build_site()
 ```
 
-This generates a `docs/` directory containing a website. Your
-`README.md` becomes the homepage, documentation in `man/` generates a
-function reference, and vignettes will be rendered into `articles/`.
-Read `vignette("pkgdown")` for more details, and to learn how to deploy
-your site to GitHub pages.
+This adds the necessary components and sets up GitHub Actions[^1] for
+automatic site building when deploying. Your `README.md` becomes the
+homepage, documentation in `man/` generates a function reference, and
+vignettes will be rendered into `articles/`.
 
 ### pkgdown 2.0.0 and Bootstrap 5
 
@@ -66,7 +68,7 @@ pkgdown 2.0.0 includes an upgrade from Bootstrap 3 to Bootstrap 5, which
 is accompanied by a whole bunch of minor UI improvements. If you’ve
 heavily customised your site, there’s a small chance that this will
 break your site, so everyone needs to explicitly opt-in to the upgrade
-by adding the following to `_pkgdown.yaml`:
+by adding the following to `_pkgdown.yml`:
 
 ``` yaml
 template:
@@ -78,26 +80,29 @@ Then learn about the many new ways to customise your site in
 
 ## In the wild
 
-At last count, pkgdown is used [by over 6,000
-packages](https://github.com/search?q=filename%3Apkgdown.yml+path%3A%2F&type=Code).
-Here are a few examples created by contributors to pkgdown:
+At last count, pkgdown is used [by over 12,000
+packages](https://github.com/search?q=path%3A_pkgdown.yml+language%3AYAML&type=code&l=YAML).
+Here are a few examples:
 
--   [bayesplot](http://mc-stan.org/bayesplot/index.html)
-    ([source](https://github.com/stan-dev/bayesplot/tree/gh-pages)):
-    plotting functions for posterior analysis, model checking, and MCMC
-    diagnostics.
+- [bayesplot](http://mc-stan.org/bayesplot/index.html)
+  ([source](https://github.com/stan-dev/bayesplot/tree/gh-pages)):
+  plotting functions for posterior analysis, model checking, and MCMC
+  diagnostics.
 
--   [valr](https://rnabioco.github.io/valr/)
-    ([source](https://github.com/rnabioco/valr)): read and manipulate
-    genome intervals and signals.
+- [valr](https://rnabioco.github.io/valr/)
+  ([source](https://github.com/rnabioco/valr)): read and manipulate
+  genome intervals and signals.
 
--   [mkin](http://jranke.github.io/mkin/)
-    ([source](https://github.com/jranke/mkin)): calculation routines
-    based on the FOCUS Kinetics Report
+- [mkin](https://pkgdown.jrwb.de/mkin/)
+  ([source](https://github.com/jranke/mkin)): calculation routines based
+  on the FOCUS Kinetics Report
 
--   [NMF](http://renozao.github.io/NMF/master/index.html)
-    ([source](https://github.com/renozao/NMF)): a framework to perform
-    non-negative matrix factorization (NMF).
+- [NMF](http://renozao.github.io/NMF/master/index.html)
+  ([source](https://github.com/renozao/NMF)): a framework to perform
+  non-negative matrix factorization (NMF).
+
+- [tidyverse and r-lib packages
+  source](https://github.com/search?q=path%3A%22_pkgdown.yml%22+AND+%28org%3Atidyverse+OR+org%3Ar-lib%29&type=code)
 
 Comparing the source and output of these sites is a great way to learn
 new pkgdown techniques.
@@ -107,3 +112,6 @@ new pkgdown techniques.
 Please note that this project is released with a [Contributor Code of
 Conduct](https://pkgdown.r-lib.org/CODE_OF_CONDUCT.html). By
 participating in this project you agree to abide by its terms.
+
+[^1]: If you don’t use GitHub, you can use `usethis::use_pkgdown()` +
+    `pkgdown::build_site()` to create a website.

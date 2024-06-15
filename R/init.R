@@ -8,11 +8,19 @@
 #' * copies CSS/JS assets and extra files, and
 #' * runs `build_favicons()`, if needed.
 #'
+#' Typically, you will not need to call this function directly, as all `build_*()`
+#' functions will run `init_site()` if needed.
+#'
+#' The only good reasons to call `init_site()` directly are the following:
+#' * If you add or modify a package logo.
+#' * If you add or modify `pkgdown/extra.scss`.
+#' * If you modify `template.bslib` variables in `_pkgdown.yml`.
+#'
 #' See `vignette("customise")` for the various ways you can customise the
 #' display of your site.
 #'
-#' @section Build-ignored files:
-#' We recommend using [usethis::use_pkgdown()] to build-ignore `docs/` and
+#' # Build-ignored files
+#' We recommend using [usethis::use_pkgdown_github_pages()] to build-ignore `docs/` and
 #' `_pkgdown.yml`. If use another directory, or create the site manually,
 #' you'll need to add them to `.Rbuildignore` yourself. A `NOTE` about
 #' an unexpected file during `R CMD CHECK` is an indication you have not
@@ -20,14 +28,14 @@
 #'
 #' @inheritParams build_articles
 #' @export
-init_site <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
+init_site <- function(pkg = ".", override = list()) {
+  # This is the only user facing function that doesn't call section_init()
+  # because section_init() can conditionally call init_site()
+  rstudio_save_all()
+  cache_cli_colours()
+  pkg <- as_pkgdown(pkg, override = override)
 
-  if (is_non_pkgdown_site(pkg$dst_path)) {
-    stop(dst_path(pkg$dst_path), " is non-empty and not built by pkgdown", call. = FALSE)
-  }
-
-  rule("Initialising site")
+  cli::cli_rule("Initialising site")
   dir_create(pkg$dst_path)
 
   copy_assets(pkg)
@@ -35,8 +43,8 @@ init_site <- function(pkg = ".") {
     build_bslib(pkg)
   }
 
-  if (has_logo(pkg) && !has_favicons(pkg)) {
-    # Building favicons is expensive, so we hopefully only do it once.
+  # Building favicons is expensive, so we hopefully only do it once, locally
+  if (has_logo(pkg) && !has_favicons(pkg) && !on_ci()) {
     build_favicons(pkg)
   }
   copy_favicons(pkg)
@@ -49,27 +57,26 @@ init_site <- function(pkg = ".") {
 
 copy_assets <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  template <- purrr::pluck(pkg$meta, "template", .default = list())
+  template <- config_pluck(pkg, "template")
 
   # pkgdown assets
   if (!identical(template$default_assets, FALSE)) {
-    copy_asset_dir(pkg, path_pkgdown(paste0("BS", pkg$bs_version), "assets"))
-  }
-
-  # manually specified directory: I don't think this is documented
-  # and no longer seems important, so I suspect it could be removed
-  if (!is.null(template$assets)) {
-    copy_asset_dir(pkg, template$assets)
+    copy_asset_dir(
+      pkg,
+      path_pkgdown(paste0("BS", pkg$bs_version, "/", "assets")),
+      src_root = path_pkgdown(),
+      src_label = "<pkgdown>/"
+    )
   }
 
   # package assets
   if (!is.null(template$package)) {
-    assets <- path_package_pkgdown(
-      "assets",
-      package = template$package,
-      bs_version = pkg$bs_version
+    copy_asset_dir(
+      pkg,
+      path_package_pkgdown("assets", template$package, pkg$bs_version),
+      src_root = system_file(package = template$package),
+      src_label = paste0("<", template$package, ">/")
     )
-    copy_asset_dir(pkg, assets)
   }
 
   # extras
@@ -80,27 +87,32 @@ copy_assets <- function(pkg = ".") {
   invisible()
 }
 
-copy_asset_dir <- function(pkg, from_dir, file_regexp = NULL) {
-  if (length(from_dir) == 0) {
+copy_asset_dir <- function(pkg,
+                           dir,
+                           src_root = pkg$src_path,
+                           src_label = "",
+                           file_regexp = NULL) {
+  src_dir <- path_abs(dir, pkg$src_path)
+  if (!file_exists(src_dir)) {
     return(character())
   }
-  from_path <- path_abs(from_dir, pkg$src_path)
-  if (!file_exists(from_path)) {
-    return(character())
-  }
 
-  files <- dir_ls(from_path, recurse = TRUE)
-
-  # Remove directories from files
-  files <- files[!fs::is_dir(files)]
-
+  src_paths <- dir_ls(src_dir, recurse = TRUE)
+  src_paths <- src_paths[!is_dir(src_paths)]
   if (!is.null(file_regexp)) {
-    files <- files[grepl(file_regexp, path_file(files))]
+    src_paths <- src_paths[grepl(file_regexp, path_file(src_paths))]
   }
-  # Handled in bs_theme()
-  files <- files[path_ext(files) != "scss"]
+  src_paths <- src_paths[path_ext(src_paths) != "scss"] # Handled in bs_theme()
 
-  file_copy_to(pkg, files, pkg$dst_path, from_dir = from_path)
+  dst_paths <- path(pkg$dst_path, path_rel(src_paths, src_dir))
+
+  file_copy_to(
+    src_paths = src_paths,
+    src_root = src_root,
+    src_label = src_label,
+    dst_paths = dst_paths,
+    dst_root = pkg$dst_path
+  )
 }
 
 timestamp <- function(time = Sys.time()) {
@@ -129,7 +141,7 @@ build_site_meta <- function(pkg = ".") {
 site_meta <- function(pkg) {
   article_index <- article_index(pkg)
 
-  meta <- list(
+  yaml <- list(
     pandoc = as.character(rmarkdown::pandoc_version()),
     pkgdown = as.character(utils::packageDescription("pkgdown", fields = "Version")),
     pkgdown_sha = utils::packageDescription("pkgdown")$GithubSHA1,
@@ -137,23 +149,13 @@ site_meta <- function(pkg) {
     last_built = timestamp()
   )
 
-  if (!is.null(pkg$meta$url)) {
-    meta$urls <- list(
-      reference = paste0(pkg$meta$url, "/reference"),
-      article = paste0(pkg$meta$url, "/articles")
+  url <- config_pluck_string(pkg, "url")
+  if (!is.null(url)) {
+    yaml$urls <- list(
+      reference = paste0(url, "/reference"),
+      article = paste0(url, "/articles")
     )
   }
 
-  print_yaml(meta)
-}
-
-is_non_pkgdown_site <- function(dst_path) {
-  if (!dir_exists(dst_path)) {
-    return(FALSE)
-  }
-
-  top_level <- dir_ls(dst_path)
-  top_level <- top_level[!path_file(top_level) %in% c("CNAME", "dev", "deps")]
-
-  length(top_level) >= 1 && !"pkgdown.yml" %in% path_file(top_level)
+  print_yaml(yaml)
 }

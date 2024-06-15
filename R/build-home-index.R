@@ -1,82 +1,117 @@
 #' @export
 #' @rdname build_home
-build_home_index <- function(pkg = ".", quiet = TRUE) {
-  pkg <- section_init(pkg, depth = 0L)
+build_home_index <- function(pkg = ".", override = list(), quiet = TRUE) {
+  pkg <- section_init(pkg, override = override)
 
-  src_path <- path_first_existing(
-    pkg$src_path,
-    c("pkgdown/index.md",
-      "index.md",
-      "README.md"
-    )
-  )
+  src_path <- path_index(pkg)
   dst_path <- path(pkg$dst_path, "index.html")
   data <- data_home(pkg)
 
   if (is.null(src_path)) {
-    data$index <- linkify(pkg$desc$get("Description")[[1]])
+    cli::cli_inform("Reading {.file DESCRIPTION}")
+    data$index <- linkify(pkg$desc$get_field("Description", ""))
   } else {
+    cli::cli_inform("Reading {src_path(path_rel(src_path, pkg$src_path))}")
     local_options_link(pkg, depth = 0L)
-    data$index <- markdown_body(src_path, pkg = pkg)
+    data$index <- markdown_body(pkg, src_path)
   }
+
+  cur_digest <- file_digest(dst_path)
   render_page(pkg, "home", data, "index.html", quiet = quiet)
 
-  strip_header <- isTRUE(pkg$meta$home$strip_header)
+  strip_header <- config_pluck_bool(pkg, "home.strip_header", default = FALSE)
+  hide_badges <- pkg$development$mode == "release" && !pkg$development$in_dev
 
   update_html(
     dst_path,
     tweak_homepage_html,
     strip_header = strip_header,
     sidebar = !isFALSE(pkg$meta$home$sidebar),
+    show_badges = !hide_badges,
     bs_version = pkg$bs_version,
     logo = logo_path(pkg, depth = 0)
   )
 
-  check_missing_images(pkg, path_rel(src_path, pkg$src_path), "index.html")
+  new_digest <- file_digest(dst_path)
+  if (cur_digest != new_digest) {
+    writing_file(path_rel(dst_path, pkg$dst_path), "index.html")
+  }
 
   invisible()
 }
 
-data_home <- function(pkg = ".") {
+path_index <- function(pkg) {
+  path_first_existing(
+    pkg$src_path,
+    c("pkgdown/index.md",
+      "index.md",
+      "README.md"
+    )
+  )
+}
+
+data_home <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
+  config_pluck_list(pkg, "home", call = call)
+
+  title <- config_pluck_string(
+    pkg,
+    "home.title",
+    default = cran_unquote(pkg$desc$get_field("Title", "")),
+    call = call
+  )
+  description <- config_pluck_string(
+    pkg,
+    "home.description",
+    default = cran_unquote(pkg$desc$get_field("Description", "")),
+    call = call
+  )
+  trailing_slash <- config_pluck_bool(
+    pkg,
+    "template.trailing_slash_redirect",
+    default = FALSE,
+    call = call
+  )
+
   print_yaml(list(
-    pagetitle = pkg$meta$home[["title"]] %||%
-      cran_unquote(pkg$desc$get("Title")[[1]]),
-    sidebar = data_home_sidebar(pkg),
-    opengraph = list(description = pkg$meta$home[["description"]] %||%
-                       cran_unquote(pkg$desc$get("Description")[[1]])),
-    has_trailingslash = pkg$meta$template$trailing_slash_redirect %||% FALSE
+    pagetitle = title,
+    sidebar = data_home_sidebar(pkg, call = call),
+    opengraph = list(description = description),
+    has_trailingslash = trailing_slash
   ))
 }
 
 
-data_home_sidebar <- function(pkg = ".") {
-
+data_home_sidebar <- function(pkg = ".", call = caller_env()) {
   pkg <- as_pkgdown(pkg)
-  if (isFALSE(pkg$meta$home$sidebar))
-    return(pkg$meta$home$sidebar)
 
-  html_path <- file.path(pkg$src_path, pkg$meta$home$sidebar$html)
-
-  if (length(html_path)) {
-    if (!file.exists(html_path)) {
-      abort(
-        sprintf(
-          "Can't find file '%s' specified by %s.",
-          pkg$meta$home$sidebar$html,
-          pkgdown_field(pkg = pkg, "home", "sidebar", "html")
-        )
-      )
-    }
-    return(read_file(html_path))
+  sidebar <- config_pluck(pkg, "home.sidebar")
+  if (isFALSE(sidebar)) {
+    return(FALSE)
   }
 
-  sidebar_structure <- pkg$meta$home$sidebar$structure %||%
-    default_sidebar_structure()
+  config_pluck_list(pkg, "home", call = call)
+  html_path <- config_pluck_string(pkg, "home.sidebar.html", call = call)
+  if (!is.null(html_path)) {
+    html_path_abs <- path(pkg$src_path, html_path)
+
+    if (!file_exists(html_path_abs)) {
+      msg <- "{.field home.sidebar.html} specifies a file that doesn't exist ({.file {html_path}})."
+      config_abort(pkg, msg, call = call)
+    }
+    return(read_file(html_path_abs))
+  }
+
+  structure <- config_pluck_character(
+    pkg,
+    "home.sidebar.structure",
+    default = default_sidebar_structure(),
+    call = call
+  ) 
 
   # compute all default sections
-  sidebar_components <- list(
+  default_components <- list(
     links = data_home_sidebar_links(pkg),
     license = data_home_sidebar_license(pkg),
     community = data_home_sidebar_community(pkg),
@@ -86,41 +121,15 @@ data_home_sidebar <- function(pkg = ".") {
     toc = data_home_toc(pkg)
   )
 
-  if (is.null(pkg$meta$home$sidebar$structure)) {
-    sidebar_html <- paste0(
-      purrr::compact(sidebar_components[default_sidebar_structure()]),
-      collapse = "\n"
-    )
-    return(sidebar_html)
-  }
+  needs_components <- setdiff(structure, names(default_components))
+  custom_yaml <- config_pluck_sidebar_components(pkg, needs_components, call = call)  
+  custom_components <- purrr::map(custom_yaml, function(x) {
+    sidebar_section(x$title, markdown_text_block(pkg, x$text))
+  })
+  components <- modify_list(default_components, custom_components)
 
-  # compute any custom component
-  components <- pkg$meta$home$sidebar$components
-
-  sidebar_components <- utils::modifyList(
-    sidebar_components,
-    purrr::map2(
-      components,
-      names(components),
-      data_home_component,
-      pkg = pkg
-      ) %>%
-      set_names(names(components))
-  )
-
-  check_components(
-    needed = sidebar_structure,
-    present = names(sidebar_components),
-    where = c("home", "sidebar", "components"),
-    pkg = pkg
-  )
-
-  sidebar_final_components <- purrr::compact(
-    sidebar_components[sidebar_structure]
-    )
-
-  paste0(sidebar_final_components, collapse = "\n")
-
+  sidebar <- purrr::compact(components[structure])
+  paste0(sidebar, collapse = "\n")
 }
 
 # Update sidebar-configuration.Rmd if this changes
@@ -128,26 +137,26 @@ default_sidebar_structure <- function() {
   c("links", "license", "community", "citation", "authors", "dev")
 }
 
-data_home_component <- function(component, component_name, pkg) {
-
-  check_components(
-    needed = c("title", "text"),
-    present = names(component),
-    where = c("home", "sidebar", "components", component_name),
-    pkg = pkg
-  )
-
-  sidebar_section(
-    component$title,
-    bullets = markdown_text_block(component$text, pkg = pkg)
-  )
+config_pluck_sidebar_components <- function(pkg, new_components, call = caller_env()) {
+  base_path <- "home.sidebar.components"
+  components <- config_pluck_list(pkg, base_path, has_names = new_components, call = call)
+  
+  for (name in names(components)) {
+    component <- components[[name]]
+    component_path <- paste0(base_path, ".", name)
+    
+    config_pluck_list(pkg, component_path, has_names = c("title", "text"), call = call)
+    config_pluck_string(pkg, paste0(component_path, ".title"), call = call)
+    config_pluck_string(pkg, paste0(component_path, ".text"), call = call)
+  }
+  components
 }
 
 data_home_sidebar_links <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   repo <- cran_link(pkg$package)
-  links <- purrr::pluck(pkg, "meta", "home", "links")
+  links <- config_pluck(pkg, "home.links")
 
   links <- c(
     link_url(sprintf(tr_("View on %s"), repo$repo), repo$url),
@@ -180,44 +189,45 @@ sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
   )
 }
 
-#' @importFrom memoise memoise
-NULL
-
-cran_link <- memoise(function(pkg) {
+cran_link <- function(pkg) {
   if (!has_internet()) {
     return(NULL)
   }
 
   cran_url <- paste0("https://cloud.r-project.org/package=", pkg)
-
-  if (!httr::http_error(cran_url)) {
+  req <- httr2::request(cran_url)
+  req <- req_pkgdown_cache(req)
+  req <- httr2::req_error(req, function(resp) FALSE)
+  resp <- httr2::req_perform(req)
+  if (!httr2::resp_is_error(resp)) {
     return(list(repo = "CRAN", url = cran_url))
   }
 
   # bioconductor always returns a 200 status, redirecting to /removed-packages/
   bioc_url <- paste0("https://www.bioconductor.org/packages/", pkg)
-  req <- httr::RETRY("HEAD", bioc_url, quiet = TRUE)
-  if (!httr::http_error(req) && !grepl("removed-packages", req$url)) {
+  req <- httr2::request(bioc_url)
+  req <- req_pkgdown_cache(req)
+  req <- httr2::req_error(req, function(resp) FALSE)
+  req <- httr2::req_retry(req, max_tries = 3)
+  resp <- httr2::req_perform(req)
+
+  if (!httr2::resp_is_error(resp) && !grepl("removed-packages", httr2::resp_url(resp))) {
     return(list(repo = "Bioconductor", url = bioc_url))
   }
 
   NULL
-})
+}
 
+req_pkgdown_cache <- function(req) {
+  cache_path <- dir_create(path(tools::R_user_dir("pkgdown", "cache"), "http"))
+  httr2::req_cache(
+    req,
+    path = cache_path,
+    max_age = 86400 # 1 day
+  )
+}
 
-check_missing_images <- function(pkg, src_path, dst_path) {
-  html <- xml2::read_html(path(pkg$dst_path, dst_path), encoding = "UTF-8")
-  src <- xml2::xml_attr(xml2::xml_find_all(html, ".//img"), "src")
-
-  rel_src <- src[xml2::url_parse(src)$scheme == ""]
-  rel_path <- fs::path_norm(path(fs::path_dir(dst_path), rel_src))
-  exists <- fs::file_exists(path(pkg$dst_path, rel_path))
-
-  if (any(!exists)) {
-    paths <- encodeString(rel_src[!exists], quote = "'")
-    warn(c(
-      paste0("Missing images in '", src_path, "': ", paste0(paths, collapse = ", ")),
-      i = "pkgdown can only use images in 'man/figures' and 'vignettes'"
-    ))
-  }
+# authors forced to wrap words in '' to prevent spelling errors
+cran_unquote <- function(string) {
+  gsub("\\'(.*?)\\'", "\\1", string)
 }

@@ -1,3 +1,6 @@
 *.html
 *.R
 *.log
+*_files
+
+/.quarto/

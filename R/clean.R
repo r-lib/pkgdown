@@ -2,19 +2,47 @@
 #'
 #' Delete all files in `docs/` (except for `CNAME`).
 #'
+#' @param quiet If `TRUE`, suppresses a message.
 #' @inheritParams build_site
 #' @export
-clean_site <- function(pkg = ".") {
+clean_site <- function(pkg = ".", quiet = FALSE) {
+
   pkg <- as_pkgdown(pkg)
+
+  if (!quiet) {
+    cli::cli_inform("Cleaning {.pkg {pkg$package}} pkgdown docs from {.path {pkg$dst_path}}")
+  }
 
   if (!dir_exists(pkg$dst_path)) return(invisible())
 
-  top_level <- dir_ls(pkg$dst_path)
-  top_level <- top_level[!path_file(top_level) %in% c("CNAME", "dev")]
+  check_dest_is_pkgdown(pkg)
+  top_level <- dest_files(pkg)
 
   is_dir <- is_dir(top_level)
   dir_delete(top_level[is_dir])
   file_delete(top_level[!is_dir])
 
   invisible(TRUE)
+}
+
+check_dest_is_pkgdown <- function(pkg) {
+  if (file_exists(path(pkg$dst_path, "pkgdown.yml"))) {
+    return()
+  }
+
+  cli::cli_abort(c(
+    "{.file {pkg$dst_path}} is non-empty and not built by pkgdown",
+    "!" = "Make sure it contains no important information \\
+            and use {.run pkgdown::clean_site()} to delete its contents."
+    )
+  )
+}
+
+dest_files <- function(pkg) {
+  if (!dir_exists(pkg$dst_path)) {
+    character()
+  } else {
+    top_level <- dir_ls(pkg$dst_path)
+    top_level[!path_file(top_level) %in% c("CNAME", "dev")]  
+  }
 }
