@@ -1,16 +1,16 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: pkgdown 1.9000.9000.9000\n"
+"Project-Id-Version: pkgdown 2.0.9.9000\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-24 09:36-0500\n"
-"PO-Revision-Date: 2021-11-12 15:18-0500\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2024-06-16 00:00-0500\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: build-404.R:11
 msgid "Page not found (404)"
@@ -26,7 +26,7 @@ msgstr "Artigos"
 
 #: build-articles.R:570
 msgid "All vignettes"
-msgstr ""
+msgstr "Todas as vinhetas"
 
 #: build-footer.R:34
 msgid "Developed by"
@@ -38,7 +38,7 @@ msgstr "Site criado com <a href=\"%s\">pkgdown</a> %s."
 
 #: build-home-authors.R:12
 msgid "Authors and Citation"
-msgstr ""
+msgstr "Autores e citação"
 
 #: build-home-authors.R:101
 msgid "More about authors..."
@@ -94,7 +94,7 @@ msgstr "tradutor"
 
 #: build-home-authors.R:254 render.R:103
 msgid "Citation"
-msgstr ""
+msgstr "Citação"
 
 #: build-home-authors.R:255
 msgid "Citing %s"
@@ -110,7 +110,7 @@ msgstr "Código de conduta"
 
 #: build-home-community.R:31
 msgid "Getting help"
-msgstr ""
+msgstr "Obter ajuda"
 
 #: build-home-community.R:38
 msgid "Community"
@@ -170,15 +170,15 @@ msgstr "Lançamento CRAN: %s"
 
 #: build-reference-index.R:22
 msgid "Package index"
-msgstr ""
+msgstr "Índice de pacotes"
 
 #: build-reference-index.R:158
 msgid "All functions"
-msgstr ""
+msgstr "Todas as funções"
 
 #: build-reference.R:371
 msgid "Usage"
-msgstr ""
+msgstr "Uso"
 
 #: build-tutorials.R:47 navbar.R:152
 msgid "Tutorials"
@@ -200,7 +200,7 @@ msgstr "Versão não lançada"
 #, fuzzy
 #| msgid "Search for"
 msgid "Search site"
-msgstr "Procurar"
+msgstr "Pesquisar site"
 
 #: navbar-menu.R:174
 msgid "Search for"
@@ -212,19 +212,20 @@ msgstr "Referência"
 
 #: navbar.R:140
 msgid "Light switch"
-msgstr ""
+# Appearance
+msgstr "Interruptor de luz"
 
 #: navbar.R:143
 msgid "Light"
-msgstr ""
+msgstr "Clara"
 
 #: navbar.R:144
 msgid "Dark"
-msgstr ""
+msgstr "Escuro"
 
 #: navbar.R:145
 msgid "Auto"
-msgstr ""
+msgstr "Auto"
 
 #: navbar.R:180
 msgid "Get started"
@@ -236,19 +237,19 @@ msgstr "Mais artigos..."
 
 #: package.R:300
 msgid "deprecated"
-msgstr ""
+msgstr "obsoleta"
 
 #: package.R:301
 msgid "superseded"
-msgstr ""
+msgstr "substituída"
 
 #: package.R:302
 msgid "experimental"
-msgstr ""
+msgstr "experimental"
 
 #: package.R:303
 msgid "stable"
-msgstr ""
+msgstr "estável"
 
 #: rd-data.R:23
 msgid "Details"
@@ -320,13 +321,13 @@ msgstr "Exemplos"
 
 #: render.R:104
 msgid "Additional details"
-msgstr ""
+msgstr "Detalhes adicionais"
 
 #: render.R:106
 #, fuzzy
 #| msgid "Toggle navigation"
 msgid "Site navigation"
-msgstr "Alternar de navegação"
+msgstr "Ativar/desativar navegação"
 
 #: repo.R:35
 msgid "Source:"
@@ -336,15 +337,15 @@ msgstr "Fonte:"
 msgid "Dev status"
 msgstr "Status de desenvolvimento"
 
-#: usage.R:23
+#: usage.R:47
 msgid "# Default %s method"
-msgstr ""
+msgstr "# Método %s padrão"
 
-#: usage.R:25
+#: usage.R:49
 #, fuzzy
 #| msgid "# %s method for %s"
 msgid "# %s method for class '%s'"
-msgstr "# %s método para %s"
+msgstr "# método %s para a classe '%s'"
 
 #~ msgid "Function reference"
-#~ msgstr "Referência de funções"
+#~ msgstr "Referência para funções"
