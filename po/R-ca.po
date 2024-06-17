@@ -236,11 +236,11 @@ msgstr "Més articles..."
 
 #: package.R:300
 msgid "deprecated"
-msgstr "obsolet"
+msgstr "obsoleta"
 
 #: package.R:301
 msgid "superseded"
-msgstr "reemplaçat"
+msgstr "reemplaçada"
 
 #: package.R:302
 msgid "experimental"
@@ -342,7 +342,7 @@ msgstr "# Mètode %s per defecte"
 #: usage.R:25
 #| msgid "# %s method for %s"
 msgid "# %s method for class '%s'"
-msgstr "# Mètode %s per a la classe %s"
+msgstr "# Mètode %s per a la classe «%s»"
 
 #~ msgid "Function reference"
 #~ msgstr "Llistat de funcions"
