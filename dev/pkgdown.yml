@@ -11,12 +11,13 @@ articles:
   metadata: metadata.html
   test/pdf: test/pdf.pdf
   pkgdown: pkgdown.html
+  test/quarto-features: test/quarto-features.html
+  quarto: quarto.html
   test/rendering: test/rendering.html
   test/short: test/short.html
   translations: translations.html
   test/widgets: test/widgets.html
-last_built: 2024-06-12T00:13Z
+last_built: 2024-06-18T09:19Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
-

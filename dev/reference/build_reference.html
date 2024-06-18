@@ -5,18 +5,26 @@ _pkgdown.yml as described below."><meta property="og:description" content="By de
 alphabetical order. To override this, provide a reference section in your
 _pkgdown.yml as described below."><meta property="og:image" content="https://pkgdown.r-lib.org/logo.png"><meta name="robots" content="noindex"><script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+
+
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
+
     <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.0.9.9000</small>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/pkgdown.html">Get started</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/customise.html">Customise your site</a></li>
+    <li><a class="dropdown-item" href="../articles/quarto.html">quarto vignettes</a></li>
     <li><a class="dropdown-item" href="../articles/translations.html">Translations</a></li>
     <li><a class="dropdown-item" href="../articles/accessibility.html">Accessibility</a></li>
     <li><a class="dropdown-item" href="../articles/linking.html">Auto-linking</a></li>
@@ -47,6 +55,8 @@ _pkgdown.yml as described below."><meta property="og:image" content="https://pkg
     <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
   </ul></li>
       </ul></div>
+
+
   </div>
 </nav><div class="container template-reference-topic">
 <div class="row">
@@ -55,11 +65,13 @@ _pkgdown.yml as described below."><meta property="og:image" content="https://pkg
       <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/main/R/build-reference.R" class="external-link"><code>R/build-reference.R</code></a></small>
       <div class="d-none name"><code>build_reference.Rd</code></div>
     </div>
+
     <div class="ref-description section level2">
     <p>By default, pkgdown will generate an index that lists all functions in
 alphabetical order. To override this, provide a <code>reference</code> section in your
 <code>_pkgdown.yml</code> as described below.</p>
     </div>
+
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">build_reference</span><span class="op">(</span></span>
@@ -76,35 +88,55 @@ alphabetical order. To override this, provide a <code>reference</code> section i
 <span></span>
 <span><span class="fu">build_reference_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
+
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
 <dl><dt id="arg-pkg">pkg<a class="anchor" aria-label="anchor" href="#arg-pkg"></a></dt>
 <dd><p>Path to package.</p></dd>
+
+
 <dt id="arg-lazy">lazy<a class="anchor" aria-label="anchor" href="#arg-lazy"></a></dt>
 <dd><p>If <code>TRUE</code>, only rebuild pages where the <code>.Rd</code>
 is more recent than the <code>.html</code>. This makes it much easier to
 rapidly prototype. It is set to <code>FALSE</code> by <code><a href="build_site.html">build_site()</a></code>.</p></dd>
+
+
 <dt id="arg-examples">examples<a class="anchor" aria-label="anchor" href="#arg-examples"></a></dt>
 <dd><p>Run examples?</p></dd>
+
+
 <dt id="arg-run-dont-run">run_dont_run<a class="anchor" aria-label="anchor" href="#arg-run-dont-run"></a></dt>
 <dd><p>Run examples that are surrounded in \dontrun?</p></dd>
+
+
 <dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
 <dd><p>Seed used to initialize random number generation in order to
 make article output reproducible. An integer scalar or <code>NULL</code> for no seed.</p></dd>
+
+
 <dt id="arg-override">override<a class="anchor" aria-label="anchor" href="#arg-override"></a></dt>
 <dd><p>An optional named list used to temporarily override
 values in <code>_pkgdown.yml</code></p></dd>
+
+
 <dt id="arg-preview">preview<a class="anchor" aria-label="anchor" href="#arg-preview"></a></dt>
 <dd><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
 freshly generated section in browser.</p></dd>
+
+
 <dt id="arg-devel">devel<a class="anchor" aria-label="anchor" href="#arg-devel"></a></dt>
 <dd><p>Determines how code is loaded in order to run examples.
 If <code>TRUE</code> (the default), assumes you are in a live development
 environment, and loads source package with <code><a href="https://pkgload.r-lib.org/reference/load_all.html" class="external-link">pkgload::load_all()</a></code>.
 If <code>FALSE</code>, uses the installed version of the package.</p></dd>
+
+
 <dt id="arg-topics">topics<a class="anchor" aria-label="anchor" href="#arg-topics"></a></dt>
 <dd><p>Build only specified topics. If supplied, sets <code>lazy</code>
 and <code>preview</code> to <code>FALSE</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="reference-index">Reference index<a class="anchor" aria-label="anchor" href="#reference-index"></a></h2>
@@ -149,6 +181,8 @@ idea to take advantage of the YAML <code>&gt;</code> notation:</p>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  single simple function. By using `&gt;`, it's easy to write a description</span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  that runs over multiple lines.</span></code></pre><p></p></div><div class="section">
 <h3 id="topic-matching">Topic matching<a class="anchor" aria-label="anchor" href="#topic-matching"></a></h3>
+
+
 <p><code>contents</code> can contain:</p><ul><li><p>Individual function/topic names.</p></li>
 <li><p>Weirdly named functions with doubled quoting, once for YAML and once for
 R, e.g. <code>"`+.gg`"</code>.</p></li>
@@ -175,20 +209,27 @@ with (e.g.) <code>starts_with("build_", internal = TRUE)</code>.</p>
 <p>pkgdown will check that all non-internal topics are included on
 the reference index page, and error if you have missed any.</p>
 </div>
+
 <div class="section">
 <h3 id="missing-topics">Missing topics<a class="anchor" aria-label="anchor" href="#missing-topics"></a></h3>
+
+
 <p>pkgdown will warn if there are (non-internal) topics that not listed
 in the reference index. You can suppress these warnings by listing the
 topics in section with "title: internal" (case sensitive) which will not be
 displayed on the reference index.</p>
 </div>
+
 <div class="section">
 <h3 id="icons">Icons<a class="anchor" aria-label="anchor" href="#icons"></a></h3>
+
+
 <p>You can optionally supply an icon for each help topic. To do so, you'll need
 a top-level <code>icons</code> directory. This should contain <code>.png</code> files that are
 either 30x30 (for regular display) or 60x60 (if you want retina display).
 Icons are matched to topics by aliases.</p>
 </div>
+
     </div>
     <div class="section level2">
     <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h2>
@@ -223,14 +264,24 @@ as HTML widgets.</p>
 <code><a href="build_news.html">build_news</a>()</code>,
 <code><a href="build_tutorials.html">build_tutorials</a>()</code></p></div>
     </div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
+
+
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a>, Olivier Roy, <a href="https://salim.space" class="external-link">Salim Brüggemann</a>, <a href="https://posit.co" class="external-link">Posit Software, PBC</a>.</p>
 </div>
+
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.9.9000.</p>
 </div>
+
     </footer></div>
+
+
+
+
+
   </body></html>
 

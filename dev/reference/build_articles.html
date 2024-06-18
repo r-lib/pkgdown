@@ -4,6 +4,8 @@ saves it to articles/. There are two exceptions:
 Files that start with _ (e.g., _index.Rmd) are ignored,
 enabling the use of child documents.
 Files in vignettes/tutorials are handled by build_tutorials()
+
+
 Vignettes are rendered using a special document format that reconciles
 rmarkdown::html_document() with the pkgdown template. This means articles
 behave slightly differently to vignettes, particularly with respect to
@@ -16,6 +18,8 @@ saves it to articles/. There are two exceptions:
 Files that start with _ (e.g., _index.Rmd) are ignored,
 enabling the use of child documents.
 Files in vignettes/tutorials are handled by build_tutorials()
+
+
 Vignettes are rendered using a special document format that reconciles
 rmarkdown::html_document() with the pkgdown template. This means articles
 behave slightly differently to vignettes, particularly with respect to
@@ -25,18 +29,26 @@ build_site()) vignettes will use the currently installed version of the
 package, not the current source version. This makes iteration quicker when
 you are primarily working on the text of an article."><meta property="og:image" content="https://pkgdown.r-lib.org/logo.png"><meta name="robots" content="noindex"><script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+
+
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
+
     <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.0.9.9000</small>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/pkgdown.html">Get started</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/customise.html">Customise your site</a></li>
+    <li><a class="dropdown-item" href="../articles/quarto.html">quarto vignettes</a></li>
     <li><a class="dropdown-item" href="../articles/translations.html">Translations</a></li>
     <li><a class="dropdown-item" href="../articles/accessibility.html">Accessibility</a></li>
     <li><a class="dropdown-item" href="../articles/linking.html">Auto-linking</a></li>
@@ -67,6 +79,8 @@ you are primarily working on the text of an article."><meta property="og:image" 
     <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
   </ul></li>
       </ul></div>
+
+
   </div>
 </nav><div class="container template-reference-topic">
 <div class="row">
@@ -75,6 +89,7 @@ you are primarily working on the text of an article."><meta property="og:image" 
       <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/main/R/build-articles.R" class="external-link"><code>R/build-articles.R</code></a>, <a href="https://github.com/r-lib/pkgdown/blob/main/R/build-article.R" class="external-link"><code>R/build-article.R</code></a></small>
       <div class="d-none name"><code>build_articles.Rd</code></div>
     </div>
+
     <div class="ref-description section level2">
     <p><code>build_articles()</code> renders each R Markdown file underneath <code>vignettes/</code> and
 saves it to <code>articles/</code>. There are two exceptions:</p><ul><li><p>Files that start with <code>_</code> (e.g., <code>_index.Rmd</code>) are ignored,
@@ -89,6 +104,7 @@ external files, and custom output formats. See below for more details.</p>
 package, not the current source version. This makes iteration quicker when
 you are primarily working on the text of an article.</p>
     </div>
+
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">build_articles</span><span class="op">(</span></span>
@@ -113,34 +129,54 @@ you are primarily working on the text of an article.</p>
 <span></span>
 <span><span class="fu">build_articles_index</span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"."</span>, override <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
+
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
 <dl><dt id="arg-pkg">pkg<a class="anchor" aria-label="anchor" href="#arg-pkg"></a></dt>
 <dd><p>Path to package.</p></dd>
+
+
 <dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>
 <dd><p>Set to <code>FALSE</code> to display output of knitr and
 pandoc. This is useful when debugging.</p></dd>
+
+
 <dt id="arg-lazy">lazy<a class="anchor" aria-label="anchor" href="#arg-lazy"></a></dt>
 <dd><p>If <code>TRUE</code>, will only re-build article if input file has been
 modified more recently than the output file.</p></dd>
+
+
 <dt id="arg-seed">seed<a class="anchor" aria-label="anchor" href="#arg-seed"></a></dt>
 <dd><p>Seed used to initialize random number generation in order to
 make article output reproducible. An integer scalar or <code>NULL</code> for no seed.</p></dd>
+
+
 <dt id="arg-override">override<a class="anchor" aria-label="anchor" href="#arg-override"></a></dt>
 <dd><p>An optional named list used to temporarily override
 values in <code>_pkgdown.yml</code></p></dd>
+
+
 <dt id="arg-preview">preview<a class="anchor" aria-label="anchor" href="#arg-preview"></a></dt>
 <dd><p>If <code>TRUE</code>, or <code>is.na(preview) &amp;&amp; interactive()</code>, will preview
 freshly generated section in browser.</p></dd>
+
+
 <dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
 <dd><p>Name of article to render. This should be either a path
 relative to <code>vignettes/</code> without extension, or <code>index</code> or <code>README</code>.</p></dd>
+
+
 <dt id="arg-new-process">new_process<a class="anchor" aria-label="anchor" href="#arg-new-process"></a></dt>
 <dd><p>Build the article in a clean R process? The default,
 <code>TRUE</code>, ensures that every article is build in a fresh environment, but
 you may want to set it to <code>FALSE</code> to make debugging easier.</p></dd>
+
+
 <dt id="arg-pandoc-args">pandoc_args<a class="anchor" aria-label="anchor" href="#arg-pandoc-args"></a></dt>
 <dd><p>Pass additional arguments to pandoc. Used for testing.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="index-and-navbar">Index and navbar<a class="anchor" aria-label="anchor" href="#index-and-navbar"></a></h2>
@@ -171,11 +207,12 @@ comes from <code>title</code> and <code>description</code> fields of the YAML he
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> two-table</span></span>
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> rowwise</span></span>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> colwise</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Developer</span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="at">  </span><span class="fu">desc</span><span class="kw">:</span><span class="at"> Vignettes aimed at package developers</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span></span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> programming</span></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> packages</span></span></code></pre><p></p></div>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Developer</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="at">  </span><span class="fu">desc</span><span class="kw">:</span><span class="at"> Vignettes aimed at package developers</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="at">  </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> programming</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> packages</span></span></code></pre><p></p></div>
 <p>Note the use of the <code>navbar</code> fields. <code>navbar: ~</code> means that the "Main verbs"
 will appear in the navbar without a heading; the absence of the <code>navbar</code>
 field in the developer vignettes means that they will only be
@@ -187,6 +224,8 @@ include a "More ..." link at the bottom; if no vignettes appear in the
 the navbar, it will link directly to the articles index instead of
 providing a drop-down.</p><div class="section">
 <h3 id="get-started">Get started<a class="anchor" aria-label="anchor" href="#get-started"></a></h3>
+
+
 <p>Note that a vignette with the same name as the package (e.g.,
 <code>vignettes/pkgdown.Rmd</code> or <code>vignettes/articles/pkgdown.Rmd</code>) automatically
 becomes a top-level "Get started" link, and will not appear in the articles
@@ -194,15 +233,21 @@ drop-down.</p>
 <p>(If your package name includes a <code>.</code>, e.g. <code>pack.down</code>, use a <code>-</code> in the
 vignette name, e.g. <code>pack-down.Rmd</code>.)</p>
 </div>
+
 <div class="section">
 <h3 id="missing-articles">Missing articles<a class="anchor" aria-label="anchor" href="#missing-articles"></a></h3>
+
+
 <p>pkgdown will warn if there are (non-internal) articles that aren't listed
 in the articles index. You can suppress such warnings by listing the
 affected articles in a section with <code>title: internal</code> (case sensitive);
 this section will not be displayed on the index page.</p>
 </div>
+
 <div class="section">
 <h3 id="external-articles">External articles<a class="anchor" aria-label="anchor" href="#external-articles"></a></h3>
+
+
 <p>You can link to arbitrary additional articles by adding an
 <code>external-articles</code> entry to <code>_pkgdown.yml</code>. It should contain an array
 of objects with fields <code>name</code>, <code>title</code>, <code>href</code>, and <code>description</code>.</p>
@@ -214,6 +259,7 @@ of objects with fields <code>name</code>, <code>title</code>, <code>href</code>,
 <p>If you've defined a custom articles index, you'll need to include the name
 in one of the <code>contents</code> fields.</p>
 </div>
+
     </div>
     <div class="section level2">
     <h2 id="external-files">External files<a class="anchor" aria-label="anchor" href="#external-files"></a></h2>
@@ -302,14 +348,24 @@ as HTML widgets.</p>
 <code><a href="build_reference.html">build_reference</a>()</code>,
 <code><a href="build_tutorials.html">build_tutorials</a>()</code></p></div>
     </div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
+
+
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a>, Olivier Roy, <a href="https://salim.space" class="external-link">Salim Brüggemann</a>, <a href="https://posit.co" class="external-link">Posit Software, PBC</a>.</p>
 </div>
+
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.9.9000.</p>
 </div>
+
     </footer></div>
+
+
+
+
+
   </body></html>
 

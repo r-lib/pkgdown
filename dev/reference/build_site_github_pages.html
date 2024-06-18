@@ -7,6 +7,7 @@ It is designed to be run in CI, so by default it:
 Cleans out the old site.
 Does not install the package.
 Runs build_site() in process.
+
 "><meta property="og:description" content="Designed to be run as part of automated workflows for deploying
 to GitHub pages. It cleans out the old site, builds the site into dest_dir
 adds a .nojekyll file to suppress rendering by Jekyll, and adds a CNAME
@@ -15,20 +16,29 @@ It is designed to be run in CI, so by default it:
 Cleans out the old site.
 Does not install the package.
 Runs build_site() in process.
+
 "><meta property="og:image" content="https://pkgdown.r-lib.org/logo.png"><meta name="robots" content="noindex"><script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+
+
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
+
     <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.0.9.9000</small>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/pkgdown.html">Get started</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/customise.html">Customise your site</a></li>
+    <li><a class="dropdown-item" href="../articles/quarto.html">quarto vignettes</a></li>
     <li><a class="dropdown-item" href="../articles/translations.html">Translations</a></li>
     <li><a class="dropdown-item" href="../articles/accessibility.html">Accessibility</a></li>
     <li><a class="dropdown-item" href="../articles/linking.html">Auto-linking</a></li>
@@ -59,6 +69,8 @@ Runs build_site() in process.
     <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
   </ul></li>
       </ul></div>
+
+
   </div>
 </nav><div class="container template-reference-topic">
 <div class="row">
@@ -67,6 +79,7 @@ Runs build_site() in process.
       <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/main/R/build-github.R" class="external-link"><code>R/build-github.R</code></a></small>
       <div class="d-none name"><code>build_site_github_pages.Rd</code></div>
     </div>
+
     <div class="ref-description section level2">
     <p>Designed to be run as part of automated workflows for deploying
 to GitHub pages. It cleans out the old site, builds the site into <code>dest_dir</code>
@@ -76,6 +89,7 @@ file if needed.</p>
 <li><p>Does not install the package.</p></li>
 <li><p>Runs <code><a href="build_site.html">build_site()</a></code> in process.</p></li>
 </ul></div>
+
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">build_site_github_pages</span><span class="op">(</span></span>
@@ -87,32 +101,56 @@ file if needed.</p>
 <span>  new_process <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
+
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
 <dl><dt id="arg-pkg">pkg<a class="anchor" aria-label="anchor" href="#arg-pkg"></a></dt>
 <dd><p>Path to package.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Additional arguments passed to <code><a href="build_site.html">build_site()</a></code>.</p></dd>
+
+
 <dt id="arg-dest-dir">dest_dir<a class="anchor" aria-label="anchor" href="#arg-dest-dir"></a></dt>
 <dd><p>Directory to build site in.</p></dd>
+
+
 <dt id="arg-clean">clean<a class="anchor" aria-label="anchor" href="#arg-clean"></a></dt>
 <dd><p>Clean all files from old site.</p></dd>
+
+
 <dt id="arg-install">install<a class="anchor" aria-label="anchor" href="#arg-install"></a></dt>
 <dd><p>If <code>TRUE</code>, will install the package in a temporary library
 so it is available for vignettes.</p></dd>
+
+
 <dt id="arg-new-process">new_process<a class="anchor" aria-label="anchor" href="#arg-new-process"></a></dt>
 <dd><p>If <code>TRUE</code>, will run <code><a href="build_site.html">build_site()</a></code> in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.</p></dd>
+
 </dl></div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
+
+
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://hesselberthlab.org" class="external-link">Jay Hesselberth</a>, <a href="https://masalmon.eu" class="external-link">Maëlle Salmon</a>, Olivier Roy, <a href="https://salim.space" class="external-link">Salim Brüggemann</a>, <a href="https://posit.co" class="external-link">Posit Software, PBC</a>.</p>
 </div>
+
 <div class="pkgdown-footer-right">
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.9.9000.</p>
 </div>
+
     </footer></div>
+
+
+
+
+
   </body></html>
 
