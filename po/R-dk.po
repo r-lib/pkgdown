@@ -108,7 +108,7 @@ msgstr "Etisk regelsæt"
 
 #: build-home-community.R:31
 msgid "Getting help"
-msgstr ""
+msgstr "Få hjælp"
 
 #: build-home-community.R:38
 msgid "Community"
@@ -168,7 +168,7 @@ msgstr "CRAN udgivelse: %s"
 
 #: build-reference-index.R:22
 msgid "Package index"
-msgstr ""
+msgstr "Pakke indeks"
 
 #: build-reference-index.R:158
 msgid "All functions"
@@ -210,19 +210,19 @@ msgstr "Reference"
 
 #: navbar.R:140
 msgid "Light switch"
-msgstr ""
+msgstr "Lyskontakt"
 
 #: navbar.R:143
 msgid "Light"
-msgstr ""
+msgstr "Lys"
 
 #: navbar.R:144
 msgid "Dark"
-msgstr ""
+msgstr "Mørk"
 
 #: navbar.R:145
 msgid "Auto"
-msgstr ""
+msgstr "Auto"
 
 #: navbar.R:180
 msgid "Get started"
@@ -234,19 +234,19 @@ msgstr "Flere artikler..."
 
 #: package.R:300
 msgid "deprecated"
-msgstr ""
+msgstr "udfaset"
 
 #: package.R:301
 msgid "superseded"
-msgstr ""
+msgstr "erstattet"
 
 #: package.R:302
 msgid "experimental"
-msgstr ""
+msgstr "eksperimentel"
 
 #: package.R:303
 msgid "stable"
-msgstr ""
+msgstr "stabil"
 
 #: rd-data.R:23
 msgid "Details"
@@ -318,7 +318,7 @@ msgstr "Eksempler"
 
 #: render.R:104
 msgid "Additional details"
-msgstr ""
+msgstr "Yderligere detaljer"
 
 #: render.R:106
 #, fuzzy
@@ -336,7 +336,7 @@ msgstr "Udviklingsstatus"
 
 #: usage.R:23
 msgid "# Default %s method"
-msgstr ""
+msgstr "# Standard %s metode"
 
 #: usage.R:25
 #, fuzzy

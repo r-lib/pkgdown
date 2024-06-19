@@ -1,0 +1,61 @@
+<!-- Based on https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/formats/html/pandoc/template.html -->
+<!DOCTYPE html>
+<html lang="$lang$">
+<head>
+  <title>$pagetitle$</title>
+  <!-- Needed for testing but not used in final output -->
+  <style>
+    $styles.html()$
+  </style>
+$for(css)$
+  <link rel="stylesheet" href="$css$" />
+$endfor$
+$for(header-includes)$
+  $header-includes$
+$endfor$
+</head>
+<body>
+
+<div class="includes-before">
+$for(include-before)$
+$include-before$
+$endfor$
+</div>
+
+<div class="meta">
+$if(title)$
+  <h1>$title$</h1>
+$endif$
+
+$if(subtitle)$
+  <p class="subtitle">$subtitle$</p>
+$endif$
+
+$for(author)$
+  <p class="author">$author$</p>
+$endfor$
+
+$if(date)$
+  <p class="date">$date$</p>
+$endif$
+
+$if(abstract)$
+  <div class="abstract">
+  $abstract$
+  </div>
+$endif$
+
+</div>
+
+<main>
+$body$
+</main>
+
+<div class="includes-after">
+$for(include-after)$
+$include-after$
+$endfor$
+</div>
+
+</body>
+</html>

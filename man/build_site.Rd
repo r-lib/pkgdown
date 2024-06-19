@@ -14,8 +14,7 @@ build_site(
   preview = NA,
   devel = FALSE,
   new_process = !devel,
-  install = !devel,
-  document = "DEPRECATED"
+  install = !devel
 )
 }
 \arguments{
@@ -57,8 +56,6 @@ in the current process affects the build process.}
 
 \item{install}{If \code{TRUE}, will install the package in a temporary library
 so it is available for vignettes.}
-
-\item{document}{\strong{Deprecated} Use \code{devel} instead.}
 }
 \description{
 \code{build_site()} is a convenient wrapper around six functions:
@@ -88,7 +85,7 @@ whole site.
 It specifies where the site will be published and is used to allow other
 pkgdown sites to link to your site when needed (\code{vignette("linking")}),
 generate a \code{sitemap.xml}, automatically generate a \code{CNAME} when
-\link[=deploy_site_github]{deploying to github}, generate the metadata needed
+\link[=build_site_github_pages]{deploying to github}, generate the metadata needed
 rich social "media cards" (\code{vignette("metadata")}), and more.
 \item \code{title} overrides the default site title, which is the package name.
 It's used in the page title and default navbar.

@@ -4,7 +4,7 @@
 \alias{build_news}
 \title{Build news section}
 \usage{
-build_news(pkg = ".", override = list(), preview = NA)
+build_news(pkg = ".", override = list(), preview = FALSE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -81,4 +81,11 @@ Suppress the default addition of CRAN release dates with:
 
 \seealso{
 \href{https://style.tidyverse.org/news.html}{Tidyverse style for News}
+
+Other site components: 
+\code{\link{build_articles}()},
+\code{\link{build_home}()},
+\code{\link{build_reference}()},
+\code{\link{build_tutorials}()}
 }
+\concept{site components}

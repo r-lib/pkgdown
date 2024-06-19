@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: pkgdown 1.9000.9000.9000\n"
+"Project-Id-Version: pkgdown 2.0.9.9000\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-24 09:36-0500\n"
-"PO-Revision-Date: 2021-10-27 11:57-0500\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2024-06-15 20:28-0400\n"
+"Last-Translator: J.P. Le Cavalier <jplecavalier@me.com>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -111,7 +111,7 @@ msgstr "Code de conduite"
 
 #: build-home-community.R:31
 msgid "Getting help"
-msgstr ""
+msgstr "Obtenir de l'aide"
 
 #: build-home-community.R:38
 msgid "Community"
@@ -171,7 +171,7 @@ msgstr "Version CRAN : %s"
 
 #: build-reference-index.R:22
 msgid "Package index"
-msgstr ""
+msgstr "Index du paquetage"
 
 #: build-reference-index.R:158
 msgid "All functions"
@@ -198,10 +198,8 @@ msgid "Unreleased version"
 msgstr "Version inédite"
 
 #: navbar-menu.R:173
-#, fuzzy
-#| msgid "Search for"
 msgid "Search site"
-msgstr "Rechercher"
+msgstr "Rechercher sur le site"
 
 #: navbar-menu.R:174
 msgid "Search for"
@@ -213,19 +211,19 @@ msgstr "Référence"
 
 #: navbar.R:140
 msgid "Light switch"
-msgstr ""
+msgstr "Interrupteur"
 
 #: navbar.R:143
 msgid "Light"
-msgstr ""
+msgstr "Clair"
 
 #: navbar.R:144
 msgid "Dark"
-msgstr ""
+msgstr "Sombre"
 
 #: navbar.R:145
 msgid "Auto"
-msgstr ""
+msgstr "Automatique"
 
 #: navbar.R:180
 msgid "Get started"
@@ -237,19 +235,19 @@ msgstr "Plus d'articles..."
 
 #: package.R:300
 msgid "deprecated"
-msgstr ""
+msgstr "obsolète"
 
 #: package.R:301
 msgid "superseded"
-msgstr ""
+msgstr "remplacée"
 
 #: package.R:302
 msgid "experimental"
-msgstr ""
+msgstr "expérimentale"
 
 #: package.R:303
 msgid "stable"
-msgstr ""
+msgstr "stable"
 
 #: rd-data.R:23
 msgid "Details"
@@ -321,13 +319,11 @@ msgstr "Exemples"
 
 #: render.R:104
 msgid "Additional details"
-msgstr ""
+msgstr "Détails supplémentaires"
 
 #: render.R:106
-#, fuzzy
-#| msgid "Toggle navigation"
 msgid "Site navigation"
-msgstr "Activer la navigation"
+msgstr "Navigation sur le site"
 
 #: repo.R:35
 msgid "Source:"
@@ -339,13 +335,11 @@ msgstr "Statut de développement"
 
 #: usage.R:23
 msgid "# Default %s method"
-msgstr ""
+msgstr "# Méthode %s par défaut"
 
 #: usage.R:25
-#, fuzzy
-#| msgid "# %s method for %s"
 msgid "# %s method for class '%s'"
-msgstr "# Méthode %s pour %s"
+msgstr "# Méthode %s pour la classe %s"
 
 #~ msgid "Function reference"
 #~ msgstr "Documentation des fonctions"

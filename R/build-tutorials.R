@@ -26,9 +26,10 @@
 #'   url: https://jjallaire.shinyapps.io/learnr-tutorial-01-data-basics/
 #' ```
 #' @inheritParams build_articles
+#' @family site components
 #' @export
-build_tutorials <- function(pkg = ".", override = list(), preview = NA) {
-  pkg <- section_init(pkg, depth = 1L, override = override)
+build_tutorials <- function(pkg = ".", override = list(), preview = FALSE) {
+  pkg <- section_init(pkg, "tutorials", override = override)
 
   tutorials <- pkg$tutorials
 
@@ -37,7 +38,6 @@ build_tutorials <- function(pkg = ".", override = list(), preview = NA) {
   }
 
   cli::cli_rule("Building tutorials")
-  create_subdir(pkg, "tutorials")
 
   data <- purrr::transpose(tutorials)
 

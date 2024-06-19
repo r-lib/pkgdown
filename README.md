@@ -8,10 +8,10 @@
 <a href="https://cran.r-project.org/package=pkgdown"
 class="pkgdown-release"><img
 src="https://www.r-pkg.org/badges/version/pkgdown"
-alt="CRAN Status" /></a>
-<a href="https://github.com/r-lib/pkgdown/actions"
+alt="CRAN Status" /></a> <a
+href="https://github.com/r-lib/pkgdown/actions/workflows/R-CMD-check.yaml"
 class="pkgdown-devel"><img
-src="https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg"
+src="https://github.com/r-lib/pkgdown/actions/workflows/R-CMD-check.yaml/badge.svg"
 alt="R-CMD-check" /></a> [![Codecov test
 coverage](https://codecov.io/gh/r-lib/pkgdown/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/pkgdown?branch=main)
 <!-- badges: end -->
@@ -48,21 +48,19 @@ pak::pak("r-lib/pkgdown")
 Get started with [usethis](https://usethis.r-lib.org/):
 
 ``` r
-# Run once to configure your package to use pkgdown
-usethis::use_pkgdown()
+# Run once to configure your package to use and deploy pkgdown
+usethis::use_pkgdown_github_pages()
 ```
 
-Then use pkgdown to build your website:
-
 ``` r
+# Preview your site locally before publishing
 pkgdown::build_site()
 ```
 
-This generates a `docs/` directory containing a website. Your
-`README.md` becomes the homepage, documentation in `man/` generates a
-function reference, and vignettes will be rendered into `articles/`.
-Read `vignette("pkgdown")` for more details, and to learn how to deploy
-your site to GitHub pages.
+This adds the necessary components and sets up GitHub Actions[^1] for
+automatic site building when deploying. Your `README.md` becomes the
+homepage, documentation in `man/` generates a function reference, and
+vignettes will be rendered into `articles/`.
 
 ### pkgdown 2.0.0 and Bootstrap 5
 
@@ -82,9 +80,9 @@ Then learn about the many new ways to customise your site in
 
 ## In the wild
 
-At last count, pkgdown is used [by over 11,000
+At last count, pkgdown is used [by over 12,000
 packages](https://github.com/search?q=path%3A_pkgdown.yml+language%3AYAML&type=code&l=YAML).
-Here are a few examples created by contributors to pkgdown:
+Here are a few examples:
 
 - [bayesplot](http://mc-stan.org/bayesplot/index.html)
   ([source](https://github.com/stan-dev/bayesplot/tree/gh-pages)):
@@ -103,6 +101,9 @@ Here are a few examples created by contributors to pkgdown:
   ([source](https://github.com/renozao/NMF)): a framework to perform
   non-negative matrix factorization (NMF).
 
+- [tidyverse and r-lib packages
+  source](https://github.com/search?q=path%3A%22_pkgdown.yml%22+AND+%28org%3Atidyverse+OR+org%3Ar-lib%29&type=code)
+
 Comparing the source and output of these sites is a great way to learn
 new pkgdown techniques.
 
@@ -111,3 +112,6 @@ new pkgdown techniques.
 Please note that this project is released with a [Contributor Code of
 Conduct](https://pkgdown.r-lib.org/CODE_OF_CONDUCT.html). By
 participating in this project you agree to abide by its terms.
+
+[^1]: If you don’t use GitHub, you can use `usethis::use_pkgdown()` +
+    `pkgdown::build_site()` to create a website.

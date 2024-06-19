@@ -71,7 +71,7 @@ template:
 (Themes are unlikely to work with the light switch, but you can try it and see.)
 
 Changing the bootswatch theme affects both the HTML (via the navbar, more on that below) and the CSS, so you'll need to re-build your complete site with `build_site()` to fully appreciate the changes.
-While you're experimenting, you can speed things up by just rebuilding the home page and the CSS by running `build_home_index(); init_site()` (and then refreshing the browser).
+While you're experimenting, you can speed things up by just rebuilding the home page and the CSS by running `build_home_index()`; `init_site()` (and then refreshing the browser).
 
 Bootswatch templates with tall navbars (e.g. lux, pulse) also require that you set the `pkgdown-nav-height` bslib variable.
 Because Bootswatch themes are provided by the [bslib](https://rstudio.github.io/bslib/) R package, you can also nest the `bootswatch` field under the `bslib` field.

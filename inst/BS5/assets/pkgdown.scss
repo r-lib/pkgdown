@@ -572,3 +572,147 @@ mark {
     }
   }
 }
+
+/* Quarto specific =========================================================== */
+// Selectively copied from https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/formats/html/_quarto-rules.scss#L110
+
+span.smallcaps {font-variant: small-caps;}
+
+// task-list --------------------------------------------------------------
+
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+
+// Figure and layout --------------------------------------------------------
+
+figure.figure {
+  display: block;
+}
+
+.quarto-layout-panel {
+  margin-bottom: 1em;
+}
+
+.quarto-layout-panel > figure {
+  width: 100%;
+}
+.quarto-layout-panel > figure > figcaption,
+.quarto-layout-panel > .panel-caption {
+  margin-top: 10pt;
+}
+
+.quarto-layout-panel > .table-caption {
+  margin-top: 0px;
+}
+
+.table-caption p {
+  margin-bottom: 0.5em;
+}
+
+.quarto-layout-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.quarto-layout-valign-top {
+  align-items: flex-start;
+}
+.quarto-layout-valign-bottom {
+  align-items: flex-end;
+}
+.quarto-layout-valign-center {
+  align-items: center;
+}
+.quarto-layout-cell {
+  position: relative;
+  margin-right: 20px;
+}
+.quarto-layout-cell:last-child {
+  margin-right: 0;
+}
+.quarto-layout-cell figure,
+.quarto-layout-cell > p {
+  margin: 0.2em;
+}
+.quarto-layout-cell img {
+  max-width: 100%;
+}
+.quarto-layout-cell .html-widget {
+  width: 100% !important;
+}
+.quarto-layout-cell div figure p {
+  margin: 0;
+}
+.quarto-layout-cell figure {
+  display: block;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
+.quarto-layout-cell table {
+  display: inline-table;
+}
+.quarto-layout-cell-subref figcaption,
+figure .quarto-layout-row figure figcaption {
+  text-align: center;
+  font-style: italic;
+}
+.quarto-figure {
+  position: relative;
+  margin-bottom: 1em;
+}
+
+.quarto-figure > figure {
+  width: 100%;
+  margin-bottom: 0;
+}
+.quarto-figure-left > figure > p,
+.quarto-figure-left > figure > div /* for mermaid and dot diagrams */ {
+  text-align: left;
+}
+.quarto-figure-center > figure > p,
+.quarto-figure-center > figure > div /* for mermaid and dot diagrams */ {
+  text-align: center;
+}
+.quarto-figure-right > figure > p,
+.quarto-figure-right > figure > div /* for mermaid and dot diagrams */ {
+  text-align: right;
+}
+
+.quarto-figure > figure > div.cell-annotation,
+.quarto-figure > figure > div code {
+  text-align: left; /* override align center for code blocks */
+}
+
+figure > p:empty {
+  display: none;
+}
+figure > p:first-child {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+figure > figcaption.quarto-float-caption-bottom {
+  margin-bottom: 0.5em;
+}
+figure > figcaption.quarto-float-caption-top {
+  margin-top: 0.5em;
+}
+
+// mermaid ---------------------------------------------------------
+
+:root {
+  --mermaid-bg-color: transparent;
+  --mermaid-edge-color: var(--bs-secondary);
+  --mermaid-fg-color: var(--bs-body-color);
+  --mermaid-fg-color--lighter: RGBA(var(--bs-body-color-rgb), 0.9);
+  --mermaid-fg-color--lightest: RGBA(var(--bs-body-color-rgb), 0.8);
+  --mermaid-font-family: var(--bs-body-font-family);
+  --mermaid-label-bg-color: var(--bs-primary);
+  --mermaid-label-fg-color: var(--bs-body-color);
+  --mermaid-node-bg-color: RGBA(var(--bs-primary-rgb), 0.1);
+  --mermaid-node-fg-color: var(--bs-primary);
+}

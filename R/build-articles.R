@@ -173,13 +173,14 @@
 #' Additionally, htmlwidgets do not work when `as_is: true`.
 #'
 #' # Suppressing vignettes
-#' If you want articles that are not vignettes, either put them in
-#' subdirectories or list in `.Rbuildignore`. An articles link will be
+#' If you want [articles](https://r-pkgs.org/vignettes.html#sec-vignettes-article)
+#' that are not vignettes, use `usethis::use_article()` to create it. An articles link will be
 #' automatically added to the default navbar if the vignettes directory is
 #' present: if you do not want this, you will need to customise the navbar. See
 #' [build_site()] details.
 #'
 #' @inheritSection build_reference Figures
+#' @family site components
 #'
 #' @inheritParams as_pkgdown
 #' @param quiet Set to `FALSE` to display output of knitr and
@@ -197,8 +198,8 @@ build_articles <- function(pkg = ".",
                            lazy = TRUE,
                            seed = 1014L,
                            override = list(),
-                           preview = NA) {
-  pkg <- section_init(pkg, depth = 1L, override = override)
+                           preview = FALSE) {
+  pkg <- section_init(pkg, "articles", override = override)
   check_bool(quiet)
   check_bool(lazy)
   check_number_whole(seed, allow_null = TRUE)
@@ -211,13 +212,14 @@ build_articles <- function(pkg = ".",
 
   build_articles_index(pkg)
   unwrap_purrr_error(purrr::walk(
-    pkg$vignettes$name,
+    pkg$vignettes$name[pkg$vignettes$type == "rmd"],
     build_article,
     pkg = pkg,
     lazy = lazy,
     seed = seed,
     quiet = quiet
   ))
+  build_quarto_articles(pkg, quiet = quiet)
 
   preview_site(pkg, "articles", preview = preview)
 }
@@ -227,10 +229,8 @@ build_articles <- function(pkg = ".",
 #' @export
 #' @rdname build_articles
 #' @order 3
-build_articles_index <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  create_subdir(pkg, "articles")
+build_articles_index <- function(pkg = ".", override = list()) {
+  pkg <- section_init(pkg, "articles", override = override)
   render_page(
     pkg,
     "article-index",

@@ -129,9 +129,9 @@ as_example.tag_dontrun <- function(x, run_dont_run = FALSE) {
   } else {
     ex <- flatten_ex(x, run_dont_run = run_dont_run)
     if (is_newline(x[[1]], trim = TRUE)) {
-      paste0("if (FALSE) {", ex, "}")
+      paste0("if (FALSE) { # \\dontrun{", ex, "} # }")
     } else {
-      paste0("if (FALSE) ", ex, "")
+      paste0("if (FALSE) ", ex, " # \\dontrun{}")
     }
   }
 }
@@ -142,19 +142,24 @@ as_example.tag_donttest <- function(x, run_dont_run = FALSE) {
 }
 #' @export
 as_example.tag_dontshow <- function(x, run_dont_run = FALSE) {
-  block_tag_to_comment("\\dontshow", x, run_dont_run = run_dont_run)
+  ex <- flatten_ex(x, run_dont_run = run_dont_run)
+  paste0("DONTSHOW({", ex, "})")
 }
 #' @export
 as_example.tag_testonly <- function(x, run_dont_run = FALSE) {
-  block_tag_to_comment("\\testonly", x, run_dont_run = run_dont_run)
+  ex <- flatten_ex(x, run_dont_run = run_dont_run)
+  paste0("TESTONLY({", ex, "})")
 }
 
 block_tag_to_comment <- function(tag, x, run_dont_run = FALSE) {
+  ex <- flatten_ex(x, run_dont_run = run_dont_run)
+
+  # Not easy to strip leading whitespace because it's attached to the previous
+  # tag. So instead we add a comment to occupy that space
   if (is_newline(x[[1]], trim = TRUE)) {
-    paste0("# ", tag, "{", flatten_ex(x, run_dont_run = run_dont_run), "# }")
-  } else {
-    flatten_ex(x, run_dont_run = run_dont_run)
+    ex <- paste0("# ", tag, "{", ex, "# }")
   }
+  ex
 }
 
 #' @export

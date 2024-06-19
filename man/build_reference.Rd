@@ -12,13 +12,12 @@ build_reference(
   run_dont_run = FALSE,
   seed = 1014L,
   override = list(),
-  preview = NA,
+  preview = FALSE,
   devel = TRUE,
-  document = "DEPRECATED",
   topics = NULL
 )
 
-build_reference_index(pkg = ".")
+build_reference_index(pkg = ".", override = list())
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -44,8 +43,6 @@ freshly generated section in browser.}
 If \code{TRUE} (the default), assumes you are in a live development
 environment, and loads source package with \code{\link[pkgload:load_all]{pkgload::load_all()}}.
 If \code{FALSE}, uses the installed version of the package.}
-
-\item{document}{\strong{Deprecated} Use \code{devel} instead.}
 
 \item{topics}{Build only specified topics. If supplied, sets \code{lazy}
 and \code{preview} to \code{FALSE}.}
@@ -133,7 +130,7 @@ or \code{sass::font_face} (topic name).
 deprecated.
 }
 
-All functions (except for \code{has_keywords()}) automatically exclude internal
+All functions (except for \code{has_keyword()}) automatically exclude internal
 topics (i.e. those with \verb{\\keyword\{internal\}}). You can choose to include
 with (e.g.) \code{starts_with("build_", internal = TRUE)}.
 
@@ -189,3 +186,11 @@ that will be available to custom graphics output devices such
 as HTML widgets.
 }
 
+\seealso{
+Other site components: 
+\code{\link{build_articles}()},
+\code{\link{build_home}()},
+\code{\link{build_news}()},
+\code{\link{build_tutorials}()}
+}
+\concept{site components}

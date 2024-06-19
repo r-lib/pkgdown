@@ -4,7 +4,7 @@
 \alias{build_tutorials}
 \title{Build tutorials section}
 \usage{
-build_tutorials(pkg = ".", override = list(), preview = NA)
+build_tutorials(pkg = ".", override = list(), preview = FALSE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -43,3 +43,11 @@ section. This should be a list where each element specifies:
 }\if{html}{\out{</div>}}
 }
 
+\seealso{
+Other site components: 
+\code{\link{build_articles}()},
+\code{\link{build_home}()},
+\code{\link{build_news}()},
+\code{\link{build_reference}()}
+}
+\concept{site components}

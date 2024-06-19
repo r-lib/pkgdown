@@ -92,5 +92,5 @@ Then commit your changes to Git and submit your pull request for review:
 
 ```{r}
 #| eval: false
-usethis::pr_submit()
+usethis::pr_push()
 ```

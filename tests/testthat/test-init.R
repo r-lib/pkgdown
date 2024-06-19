@@ -33,7 +33,9 @@ test_that("single extra.css correctly copied", {
 })
 
 test_that("asset subdirectories are copied", {
-  pkg <- local_pkgdown_site(test_path("assets/init-asset-subdirs"))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "pkgdown/assets/subdir1/file1.txt")
+  pkg <- pkg_add_file(pkg, "pkgdown/assets/subdir1/subdir2/file2.txt")
   suppressMessages(init_site(pkg))
 
   expect_true(file_exists(path(pkg$dst_path, "subdir1", "file1.txt")))
@@ -41,10 +43,12 @@ test_that("asset subdirectories are copied", {
 })
 
 test_that("site meta doesn't break unexpectedly", {
-  pkgdown <- as_pkgdown(test_path("assets/reference"))
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/b.Rmd")
 
   # null out components that will vary
-  yaml <- site_meta(pkgdown)
+  yaml <- site_meta(pkg)
   yaml$pkgdown <- "{version}"
   yaml$pkgdown_sha <- "{sha}"
   yaml$pandoc <- "{version}"
@@ -55,9 +59,8 @@ test_that("site meta doesn't break unexpectedly", {
 
 test_that("site meta includes vignette subdirectories", {
   pkg <- local_pkgdown_site()
-  dir_create(path(pkg$src_path, "vignettes", "a"))
-  file_create(path(pkg$src_path, "vignettes", "a", c("a.Rmd", "b.Rmd")))
-  pkg <- update_vignettes(pkg)
+  pkg <- pkg_add_file(pkg, "vignettes/a/a.Rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/a/b.Rmd")
 
   meta <- site_meta(pkg)
   expect_equal(meta$articles, list("a/a" = "a/a.html", "a/b" = "a/b.html"))

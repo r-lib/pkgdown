@@ -16,7 +16,7 @@ from the target HTML document.}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-Please use \link[downlit:downlit_html_path]{downlit::downlit_html_path} instead.
+Please use \code{\link[downlit:downlit_html_path]{downlit::downlit_html_path()}} instead.
 }
 \examples{
 \dontrun{
