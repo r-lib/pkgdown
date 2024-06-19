@@ -171,7 +171,7 @@ msgstr "Version CRAN : %s"
 
 #: build-reference-index.R:22
 msgid "Package index"
-msgstr "Indice du paquetage"
+msgstr "Index du paquetage"
 
 #: build-reference-index.R:158
 msgid "All functions"
@@ -239,11 +239,11 @@ msgstr "obsolète"
 
 #: package.R:301
 msgid "superseded"
-msgstr "remplacé"
+msgstr "remplacée"
 
 #: package.R:302
 msgid "experimental"
-msgstr "expérimental"
+msgstr "expérimentale"
 
 #: package.R:303
 msgid "stable"
