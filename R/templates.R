@@ -44,7 +44,7 @@ template_candidates <- function(type, name, ext = ".html", pkg = list()) {
 templates_dir <- function(pkg = list(), call = caller_env()) {
   config_pluck_list(pkg, "template")
   path <- config_pluck_string(pkg, "template.path")
-  package <- config_pluck_string(pkg, "templates.package")
+  package <- config_pluck_string(pkg, "template.package")
 
   if (!is.null(path)) {
     if (!dir_exists(path)) {
