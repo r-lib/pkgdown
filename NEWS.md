@@ -1,82 +1,95 @@
 # pkgdown (development version)
 
+## Major changes
+
+* @olivroy and @salim-b are now pkgdown authors in recognition of their contributions.
 * `build_articles()` and `build_article()` now support articles/vignettes written with quarto. Combining the disparate quarto and pkgdown templating systems is a delicate art, so while I've done my best to make it work, there may be some rough edges. So please file an issue you encounter quarto features that don't work quite right. Learn more in `vignette("quarto")`(#2210).
-* `preview_page()` has been deprecated (#2650).
-* `build_article()` now translates the "Abstract" title if it's used.
-* `build_*()` (apart from `build_site()`) functions no longer default to previewing in interactive sessions since they now all emit specific links to newly generated files.
-* `document` in `build_site()` and `build_reference()` has been removed after being deprecated in pkgdown 1.4.0. `devel` should be used instead.
+* New light switch makes it easy for users to switch between light and dark themes for the website (based on work in bslib by @gadenbuie). For now this behaviour is opt-in with `template.light-switch: true` but in the future we may turn it on automatically. See the customization vignette for details (#1696).
+* New `vignette("non-english")` that discusses non-English sites including how to submit new translations (#2605).
+* New `vignette("accessibility")` describes what manual tasks you need to perform to make your site as accessible as possible (#2344).
+* New `template.math-rendering` allows you to control how math is rendered across your site. The default uses `mathml` which is low-dependency, but has the lowest fidelity. You can also use `mathjax`, the previous default, and `katex`, a faster alternative. (#1966).
+* All external assets (JS, CSS, fonts) are now directly included in the site instead of fetched from external CDN (@salim-b, #2249)
+* YAML validation has been substantially improved so you should get much clearer errors if you have made a mistake (#1927). Please file an issue if you find a case where the error message is not helpful.
+
+## Lifecycle chagnes
+
 * `autolink_html()` was deprecated in pkgdown 1.6.0 and now warns every time you use it. `downlit::downlit_html_path()` should be used instead.
+* `build_site(document)` and `build_reference(document)` has been removed after being deprecated in pkgdown 1.4.0. `devel` should be used instead.
+* `preview_page()` has been deprecated (#2650).
+* Bootstrap 3 has been deprecated. It was superseded in December 2021, and now we're starting to more directly encourage folks to move away from it.
+
+## Front end changes
+
+* When built on GitHub, source urls now use the name of the current upstream branch (rather than `HEAD`), which is more likely to generate correct links (#2597).
+* The search dropdown has been tweaked to look more like the other navbar menu items (#2338).
+* Improve HTML5 compliance (#2369):
+  * No longer support IE9 or earlier
+  * Strip trailing whitespace
+  * Label `<nav>`s and improve navbar html.
+* Tweaked navbar display on mobile so that long titles in drop downs (e.g. article titles) are now wrapped, and the search input spans the full width (#2512).
+* The title for the "Reference" page is now "Package index" since this page might contain more than just function details (#2181).
+* Very wide words are now automatically broken across lines and hyphenated (when possible) when they'd otherwise create a horizontal scrollbar on mobile (#1888).
+* The mobile version of pkgdown sites no longer has a scrollburglar (a small amount of horizontal scroll) (#2179, @netique).
+* Anchors are displayed when they're the target of a link.
+* New translation for "Search site", the label applied to the search box for screenreaders. This was previously incorrectly labelled as "Toggle navigation" (#2320).
+* pkgdown no longer overrides the default selection colours. This improves accessibility for users who have set their own colours in their browser settings (#2139, @glin).
+* If you put a dropdown menu (e.g. articles) on the right hand side of the navbar, it will now be right aligned. This makes longer titles more likely to stay on the page (#2421).
+* BS5 templates no longer include empty link to logo when none exists (#2536).
+
+## `_pkgdown.yaml`
+
+* Anywhere you can use `_pkgdown.yml`, you can now use `_pkgdown.yaml` (#2244).
+* Custom navbars that specify `icon` but not `aria-label` will now generate a message reminding you to provide one for to improve accessibility (#2533).
+* The `repo.source.url` field no longer requires a trailing slash (#2017).
+* The `template.bslib` item now also accepts a `bootswatch` key (@gadenbuie, #2483).
+* You can now choose where the search box is placed with the "search" navbar component. This has been documented for a very long time, but as far as I can tell, never worked (#2320). If you have made your own template with a custom `navbar`, you will need to remove the `<form>` with `role="search"` to avoid getting two search boxes.
+
+## Minor improvements and bug fixes
+
+* pkgdown now uses httr2 instead of httr (#2600).
+* Mathjax now uses version 3.2.2.
+* The addin now runs `build_site()` instead of `build_site_external()`, which generally should be more reliable (#2252).
+* `<source>` tags now have their `srcref` attributes tweaked in the same way that the `src` attributes of `<img>` tags are (#2402).
+* `as.pkgdown()` will no longer prompt you to install a missing template package from CRAN, since these are almost always found in GitHub (#2076).
+* `build_articles()` now recognises a new `external-articles` top-level field that allows you to define articles that live in other packages (#2028).
+* `build_article()` no long has a `data` argument. This is technically a breaking change, but I can't figure out why anyone would have ever used it.
+* `build_*()` (apart from `build_site()`) functions no longer default to previewing in interactive sessions since they now all emit specific links to newly generated files.
+* `build_article()` now translates the "Abstract" title if it's used.
+* `build_article()` now escapes html characters in the title (#2286).
+* `build_article()` no longer generates the wrong source link when you build your site outside of the root directory (#2172).
+* `build_articles()` now reports if you are missing alt-text for any images (#2357).
+* `build_articles()` now drops a section called "internal". This allows you to have articles that either aren't indexed at all or are included manually elsewhere in the navbar (#2205).
+* `build_home()` now correctly escapes special HTML characters in the bibtex citation (#2022).
+* `build_home()` no longer checks if the README is missing any images. This check is now performed in `build_site()`, after `build_articles()` so you can refer to images created by vignettes with warnings (#2194).
+* `build_home()` now includes the contents of `inst/AUTHORS` on the authors page (#2506).
+* `build_home_index()` now reports when rendering the home page (#2544).
+* `build_home_index()` now renders math if you use it in your home page (#2263).
 * `build_news()` only syntax highlights the page once, not twice, which prevents every block of R code getting a blank line at the start (#2630).
 
     ```R
     1 + 1
     ```
-
 * `build_reference()` no longer displays `\dontshow{}` or `\testonly{}` blocks in examples. It will run the code in `\dontshow{}`; it won't run the code in `\testonly{}`(#2188).
-* `build_article()` no long has a `data` argument. This is technically a breaking change, but I can't figure out why anyone would have ever used it.
 * `build_reference()` does a better job of parsing `\value{}` blocks (#2371).
-* When built on GitHub, source urls now use the name of the current upstream branch (rather than `HEAD`), which is more likely to generate correct links (#2597).
-* New `vignette("non-english")` that discusses non-English sites including how to submit new translations (#2605).
 * `build_reference()` now generates the usage that users actually type for infix and replacement methods (#2303).
-* @olivroy and @salim-b are now pkgdown authors in recognition of their contributions.
-* `pkgdown_sitrep()`/`check_pkgdown()` now check that you have up-to-date favicons if you have a package logo.
-* pkgdown now uses httr2 instead of httr (#2600).
-* New `template.math-rendering` allows you to control how math is rendered across your site. The default uses `mathml` which is low-dependency, but has the lowest fidelity. You can also use `mathjax`, the previous default, and `katex`, a faster alternative. (#1966).
-* Mathjax now uses version 3.2.2.
-* `build_sitemap()` no longer includes redirected pages (#2582).
-* All external assets (JS, CSS, fonts) are now directly included in the site instead of fetched from external CDN (@salim-b, #2249)
-* `build_reference_index()` now displays function lifecycle badges next to the function name (#2123). The badges are extracted only from the function description. You can now also use `has_lifecycle()` to select functions by their lifecycle status.
-* `build_articles()` now recognises a new `external-articles` top-level field that allows you to define articles that live in other packages (#2028).
-* New light switch makes it easy for users to switch between light and dark themes for the website (based on work in bslib by @gadenbuie). For now this behaviour is opt-in with `template.light-switch: true` but in the future we may turn it on automatically. See the customization vignette for details (#1696).
-* The search dropdown has been tweaked to look more like the other navbar menu items (#2338).
-* `vignette("search")` has been removed since BS3 is deprecated and all the BS5 docs are also included in `build_search()` (#2564).
-* YAML validation has been substantially improved so you should get much clearer errors if you have made a mistake (#1927). Please file an issue if you find a case where the error message is not helpful.
-* `template_reference()` and `template_article()` now only add backticks to function names if needed (#2561).
-* Custom navbars that specify `icon` but not `aria-label` will now generate a message reminding you to provide one for to improve accessibility (#2533).
-* `init_site()` will no longer automatically build favicons on CI systems (e.g. GHA). This is an expensive operation that uses an external service so it should only be run locally (#2553).
-* `build_home_index()` now reports when rendering the home page (#2544).
-* Bootstrap 3 has been deprecated. It was superseded in December 2021, and now we're starting to more directly encourage folks to move away from it.
-* Improve HTML5 compliance (#2369):
-  * No longer support IE9 or earlier
-  * Strip trailing whitespace
-  * Label `<nav>`s and improve navbar html.
-* `build_home_index()` now renders math if you use it in your home page (#2263).
-* `build_home()` now correctly escapes special HTML characters in the bibtex citation (#2022).
-* BS5 templates no longer include empty link to logo when none exists (#2536).
-* `build_articles()` now reports if you are missing alt-text for any images (#2357).
-* `check_pkgdown()` and `pkgdown_sitrep()` have been unified so that they both report on the same problems. They now only differ in the style of their output: `pkgdown_sitrep()` reports whether each category is ok or not ok, while `check_pkgdown()` errors on the first issue (#2463).
-* `build_site()` automatically runs `pkgdown_sitrep()` at the start of the process (#2380).
-* New `vignette("accessibility")` describes what manual tasks you need to perform to make your site as accessible as possible (#2344).
 * `build_reference()` now automatically translates `--`, `---`, ``` `` ```, and `''` to their unicode equivalents (#2530).
-* Tweaked navbar display on mobile so that long titles in drop downs (e.g. article titles) are now wrapped, and the search input spans the full width (#2512).
 * `build_reference()` now supports `\Sexpr[results=verbatim]` (@bastistician, #2510).
-* `build_home()` no longer checks if the README is missing any images. This check is now performed in `build_site()`, after `build_articles()` so you can refer to images created by vignettes with warnings (#2194).
-* `build_home()` now includes the contents of `inst/AUTHORS` on the authors page (#2506).
-* If you put a dropdown menu (e.g. articles) on the right hand side of the navbar, it will now be right aligned. This makes longer titles more likely to stay on the page (#2421).
-* The title for the "Reference" page is now "Package index" since this page might contain more than just function details (#2181).
+* `build_reference()` adds anchors to arguments making it possible to link directly to an argument, if desired. A subtle visual treatment makes it easy to see which argument is targeted (#2228).
+* `build_reference()` now automatically renders any tables created by gt (#2326).
+* `build_reference()` matches usage for S3 and S4 methods to the style used by R 4.0.0 and later (#2187).
+* `build_reference_index()` now displays function lifecycle badges next to the function name (#2123). The badges are extracted only from the function description. You can now also use `has_lifecycle()` to select functions by their lifecycle status.
+* `build_redirects()` is now exported to make it easier to document (#2500).
 * `build_redirects()` now automatically adds redirects for topic 
 aliases. This matches the behaviour of `?` and will help keep links stable in the long term (#1876).
 * `build_redirects()` now reports which redirects it is generating.
-* The addin now runs `build_site()` instead of `build_site_external()`, which generally should be more reliable (#2252).
-* Anchors are displayed when they're the target of a link.
-* `build_reference()` adds anchors to arguments making it possible to link directly to an argument, if desired. A subtle visual treatment makes it easy to see which argument is targeted (#2228).
-* `build_redirects()` is now exported to make it easier to document (#2500).
-* `build_reference()` now automatically renders any tables created by gt (#2326).
-* `build_articles()` now drops a section called "internal". This allows you to have articles that either aren't indexed at all or are included manually elsewhere in the navbar (#2205).
-* `as.pkgdown()` will no longer prompt you to install a missing template package from CRAN, since these are almost always found in GitHub (#2076).
+* `build_site()` automatically runs `pkgdown_sitrep()` at the start of the process (#2380).
+* `build_sitemap()` no longer includes redirected pages (#2582).
+* `check_pkgdown()` and `pkgdown_sitrep()` have been unified so that they both report on the same problems. They now only differ in the style of their output: `pkgdown_sitrep()` reports whether each category is ok or not ok, while `check_pkgdown()` errors on the first issue (#2463).
+* `init_site()` will no longer automatically build favicons on CI systems (e.g. GHA). This is an expensive operation that uses an external service so it should only be run locally (#2553).
 * `init_site()` once again describes one copy per line, and now uses a better prefix when copying assets from pkgdown itself (#2445).
-* Very wide words are now automatically broken across lines and hyphenated (when possible) when they'd otherwise create a horizontal scrollbar on mobile (#1888).
-* The `repo.source.url` field no longer requires a trailing slash (#2017).
-* Anywhere you can use `_pkgdown.yml`, you can now use `_pkgdown.yaml` (#2244).
-* pkgdown no longer overrides the default selection colours. This improves accessibility for users who have set their own colours in their browser settings (#2139, @glin).
-* `build_article()` now escapes html characters in the title (#2286).
-* `build_article()` no longer generates the wrong source link when you build your site outside of the root directory (#2172).
-* `build_reference()` matches usage for S3 and S4 methods to the style used by R 4.0.0 and later (#2187).
-* `<source>` tags now have their `srcref` attributes tweaked in the same way that the `src` attributes of `<img>` tags are (#2402).
-* New translation for "Search site", the label applied to the search box for screenreaders. This was previously incorrectly labelled as "Toggle navigation" (#2320).
-* You can now choose where the search box is placed with the "search" navbar component. This has been documented for a very long time, but as far as I can tell, never worked (#2320). If you have made your own template with a custom `navbar`, you will need to remove the `<form>` with `role="search"` to avoid getting two search boxes.
-* The mobile version of pkgdown sites no longer has a scrollburglar (a small amount of horizontal scroll) (#2179, @netique).
-* The `template.bslib` item now also accepts a `bootswatch` key (@gadenbuie, #2483).
+* `pkgdown_sitrep()`/`check_pkgdown()` now check that you have up-to-date favicons if you have a package logo.
+* `template_reference()` and `template_article()` now only add backticks to function names if needed (#2561).
+* `vignette("search")` has been removed since BS3 is deprecated and all the BS5 docs are also included in `build_search()` (#2564).
 
 # pkgdown 2.0.9
 
