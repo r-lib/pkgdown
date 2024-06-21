@@ -65,18 +65,18 @@
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
 <div class="section level3">
 <h3 id="major-changes-development-version">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-development-version"></a></h3>
-<ul><li>@olivroy and <a href="https://github.com/salim-b" class="external-link">@salim-b</a> are now pkgdown authors in recognition of their contributions.</li>
+<ul><li>Added <a href="https://github.com/olivroy" class="external-link">@olivroy</a> and <a href="https://github.com/salim-b" class="external-link">@salim-b</a> as pkgdown authors in recognition of their contributions.</li>
 <li>
 <code><a href="../reference/build_articles.html">build_articles()</a></code> and <code><a href="../reference/build_articles.html">build_article()</a></code> now support articles/vignettes written with quarto. Combining the disparate quarto and pkgdown templating systems is a delicate art, so while I’ve done my best to make it work, there may be some rough edges. So please file an issue you encounter quarto features that don’t work quite right. Learn more in <code><a href="../articles/quarto.html">vignette("quarto")</a></code>(<a href="https://github.com/r-lib/pkgdown/issues/2210" class="external-link">#2210</a>).</li>
 <li>New light switch makes it easy for users to switch between light and dark themes for the website (based on work in bslib by <a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>). For now this behaviour is opt-in with <code>template.light-switch: true</code> but in the future we may turn it on automatically. See the customization vignette for details (<a href="https://github.com/r-lib/pkgdown/issues/1696" class="external-link">#1696</a>).</li>
-<li>New <code>vignette("non-english")</code> that discusses non-English sites including how to submit new translations (<a href="https://github.com/r-lib/pkgdown/issues/2605" class="external-link">#2605</a>).</li>
+<li>New <code><a href="../articles/translations.html">vignette("translations")</a></code> that discusses non-English sites including how to submit new translations (<a href="https://github.com/r-lib/pkgdown/issues/2605" class="external-link">#2605</a>).</li>
 <li>New <code><a href="../articles/accessibility.html">vignette("accessibility")</a></code> describes what manual tasks you need to perform to make your site as accessible as possible (<a href="https://github.com/r-lib/pkgdown/issues/2344" class="external-link">#2344</a>).</li>
 <li>New <code>template.math-rendering</code> allows you to control how math is rendered across your site. The default uses <code>mathml</code> which is low-dependency, but has the lowest fidelity. You can also use <code>mathjax</code>, the previous default, and <code>katex</code>, a faster alternative. (<a href="https://github.com/r-lib/pkgdown/issues/1966" class="external-link">#1966</a>).</li>
 <li>All external assets (JS, CSS, fonts) are now directly included in the site instead of fetched from external CDN (<a href="https://github.com/salim-b" class="external-link">@salim-b</a>, <a href="https://github.com/r-lib/pkgdown/issues/2249" class="external-link">#2249</a>)</li>
 <li>YAML validation has been substantially improved so you should get much clearer errors if you have made a mistake (<a href="https://github.com/r-lib/pkgdown/issues/1927" class="external-link">#1927</a>). Please file an issue if you find a case where the error message is not helpful.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="lifecycle-chagnes-development-version">Lifecycle chagnes<a class="anchor" aria-label="anchor" href="#lifecycle-chagnes-development-version"></a></h3>
+<h3 id="lifecycle-changes-development-version">Lifecycle changes<a class="anchor" aria-label="anchor" href="#lifecycle-changes-development-version"></a></h3>
 <ul><li>
 <code><a href="../reference/autolink_html.html">autolink_html()</a></code> was deprecated in pkgdown 1.6.0 and now warns every time you use it. <code><a href="https://downlit.r-lib.org/reference/downlit_html_path.html" class="external-link">downlit::downlit_html_path()</a></code> should be used instead.</li>
 <li>
