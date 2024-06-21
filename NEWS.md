@@ -2,16 +2,16 @@
 
 ## Major changes
 
-* @olivroy and @salim-b are now pkgdown authors in recognition of their contributions.
+* Added @olivroy and @salim-b as pkgdown authors in recognition of their contributions.
 * `build_articles()` and `build_article()` now support articles/vignettes written with quarto. Combining the disparate quarto and pkgdown templating systems is a delicate art, so while I've done my best to make it work, there may be some rough edges. So please file an issue you encounter quarto features that don't work quite right. Learn more in `vignette("quarto")`(#2210).
 * New light switch makes it easy for users to switch between light and dark themes for the website (based on work in bslib by @gadenbuie). For now this behaviour is opt-in with `template.light-switch: true` but in the future we may turn it on automatically. See the customization vignette for details (#1696).
-* New `vignette("non-english")` that discusses non-English sites including how to submit new translations (#2605).
+* New `vignette("translations")` that discusses non-English sites including how to submit new translations (#2605).
 * New `vignette("accessibility")` describes what manual tasks you need to perform to make your site as accessible as possible (#2344).
 * New `template.math-rendering` allows you to control how math is rendered across your site. The default uses `mathml` which is low-dependency, but has the lowest fidelity. You can also use `mathjax`, the previous default, and `katex`, a faster alternative. (#1966).
 * All external assets (JS, CSS, fonts) are now directly included in the site instead of fetched from external CDN (@salim-b, #2249)
 * YAML validation has been substantially improved so you should get much clearer errors if you have made a mistake (#1927). Please file an issue if you find a case where the error message is not helpful.
 
-## Lifecycle chagnes
+## Lifecycle changes
 
 * `autolink_html()` was deprecated in pkgdown 1.6.0 and now warns every time you use it. `downlit::downlit_html_path()` should be used instead.
 * `build_site(document)` and `build_reference(document)` has been removed after being deprecated in pkgdown 1.4.0. `devel` should be used instead.
