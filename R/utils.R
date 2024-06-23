@@ -76,7 +76,7 @@ src_path <- cli::combine_ansi_styles(
 writing_file <- function(path, show) {
   path <- as.character(path)
   text <- dst_path(as.character(show))
-  cli::cli_inform("Writing {.run [{text}](pkgdown::preview_page('{path}'))}")
+  cli::cli_inform("Writing {.run [{text}](pkgdown::preview_site(path='{path}'))}")
 }
 
 has_internet <- function() {
