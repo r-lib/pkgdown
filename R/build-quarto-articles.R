@@ -1,8 +1,4 @@
 build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
-  check_required("quarto")
-  if (quarto::quarto_version() < "1.5") {
-    cli::cli_abort("Quarto articles require version 1.5 and above.", call = NULL)
-  }
   pkg <- as_pkgdown(pkg)
 
   qmds <- pkg$vignettes[pkg$vignettes$type == "qmd", ]
@@ -12,7 +8,10 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
   if (nrow(qmds) == 0) {
     return()
   }
-
+  check_installed("quarto")
+  if (quarto::quarto_version() < "1.5") {
+    cli::cli_abort("Quarto articles require version 1.5 and above.", call = NULL)
+  }
   # Let user know what's happening
   old_digest <- purrr::map_chr(path(pkg$dst_path, qmds$file_out), file_digest)
   for (file in qmds$file_in) {
