@@ -1,4 +1,15 @@
-data_dependencies <- function(pkg = ".") {
+build_home_depencies <- function(pkg = ".") {
+  pkg <- as_pkgdown(pkg)
+
+  deps <- dependencies_table(pkg)
+  cats <- split(deps$package, deps$type)
+  cats <- purrr::map_chr(cats, paste0, collapse = ", ")
+
+  # Need to translate category titles
+  paste0("<p>", names(cats), ": ", cats, "</p>")
+}
+
+dependencies_table <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 
   deps <- pkg$desc$get_deps()
