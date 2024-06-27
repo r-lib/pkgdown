@@ -3,7 +3,7 @@
 ## Major changes
 
 * Added @olivroy and @salim-b as pkgdown authors in recognition of their contributions.
-* `build_articles()` and `build_article()` now support articles/vignettes written with quarto. Combining the disparate quarto and pkgdown templating systems is a delicate art, so while I've done my best to make it work, there may be some rough edges. So please file an issue you encounter quarto features that don't work quite right. Learn more in `vignette("quarto")`(#2210).
+* `build_articles()` and `build_article()` now support articles/vignettes written with quarto (version 1.5 and above). Combining the disparate quarto and pkgdown templating systems is a delicate art, so while I've done my best to make it work, there may be some rough edges. So please file an issue you encounter quarto features that don't work quite right. Learn more in `vignette("quarto")`(#2210).
 * New light switch makes it easy for users to switch between light and dark themes for the website (based on work in bslib by @gadenbuie). For now this behaviour is opt-in with `template.light-switch: true` but in the future we may turn it on automatically. See the customization vignette for details (#1696).
 * New `vignette("translations")` that discusses non-English sites including how to submit new translations (#2605).
 * New `vignette("accessibility")` describes what manual tasks you need to perform to make your site as accessible as possible (#2344).
