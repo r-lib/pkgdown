@@ -15,8 +15,10 @@ clean_site <- function(pkg = ".", quiet = FALSE) {
 
   if (!dir_exists(pkg$dst_path)) return(invisible())
 
-  check_dest_is_pkgdown(pkg)
   top_level <- dest_files(pkg)
+  if (length(top_level) > 0) {
+    check_dest_is_pkgdown(pkg)
+  }
 
   is_dir <- is_dir(top_level)
   dir_delete(top_level[is_dir])
