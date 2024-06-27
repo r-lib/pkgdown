@@ -4,6 +4,7 @@ skip_if_no_pandoc <- function(version = "1.12.3") {
 skip_if_no_quarto <- function() {
   skip_on_os("windows") # quarto set up currently broken?
   skip_if(is.null(quarto::quarto_path()), "quarto not available")
+  skip_if_not(quarto::quarto_version() >= "1.5", "quarto 1.5 not available")
 }
 
 # Simulate a package --------------------------------------------------------

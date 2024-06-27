@@ -1,5 +1,8 @@
 build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
   check_required("quarto")
+  if (quarto::quarto_version() < "1.5") {
+    cli::cli_abort("Quarto articles require version 1.5 and above.", call = NULL)
+  }
   pkg <- as_pkgdown(pkg)
 
   qmds <- pkg$vignettes[pkg$vignettes$type == "qmd", ]
