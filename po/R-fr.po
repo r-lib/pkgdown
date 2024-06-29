@@ -171,7 +171,7 @@ msgstr "Version CRAN : %s"
 
 #: build-reference-index.R:22
 msgid "Package index"
-msgstr "Index du paquetage"
+msgstr "Index du paquet"
 
 #: build-reference-index.R:158
 msgid "All functions"
