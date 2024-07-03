@@ -52,7 +52,6 @@
 * `<source>` tags now have their `srcref` attributes tweaked in the same way that the `src` attributes of `<img>` tags are (#2402).
 * `as.pkgdown()` will no longer prompt you to install a missing template package from CRAN, since these are almost always found in GitHub (#2076).
 * `build_articles()` now recognises a new `external-articles` top-level field that allows you to define articles that live in other packages (#2028).
-* `build_article()` correctly labels the active article in the navbar (#2673).
 * `build_article()` no longer has a `data` argument. This is technically a breaking change, but I can't figure out why anyone would have ever used it.
 * `build_*()` (apart from `build_site()`) functions no longer default to previewing in interactive sessions since they now all emit specific links to newly generated files.
 * `build_article()` now translates the "Abstract" title if it's used.
