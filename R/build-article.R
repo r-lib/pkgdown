@@ -113,6 +113,10 @@ build_rmarkdown_article <- function(pkg,
       input_path = path_dir(input_path),
       pkg = pkg
     )
+    # Need re-active navbar now that we now the target path
+    update_html(path, function(html) {
+      activate_navbar(html, path_rel(path, pkg$dst_path), pkg)
+    })
   }
   if (digest != file_digest(output_path)) {
     writing_file(path_rel(output_path, pkg$dst_path), output_file)

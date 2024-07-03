@@ -29,9 +29,7 @@ render_page <- function(pkg = ".", name, data, path, depth = NULL, quiet = FALSE
   html <- render_page_html(pkg, name = name, data = data, depth = depth)
 
   tweak_page(html, name, pkg = pkg)
-  if (pkg$bs_version > 3) {
-    activate_navbar(html, data$output_file %||% path, pkg)
-  }
+  activate_navbar(html, data$output_file %||% path, pkg)
 
   rendered <- as.character(html, options = character())
   write_if_different(pkg, rendered, path, quiet = quiet)
