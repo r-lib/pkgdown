@@ -35,6 +35,7 @@
 * pkgdown no longer overrides the default selection colours. This improves accessibility for users who have set their own colours in their browser settings (#2139, @glin).
 * If you put a dropdown menu (e.g. articles) on the right hand side of the navbar, it will now be right aligned. This makes longer titles more likely to stay on the page (#2421).
 * BS5 templates no longer include empty link to logo when none exists (#2536).
+* Updated translations from @jplecavalier, @dieghernan, @krlmlr, @LDalby, @rich-iannone, @jmaspons, and @mine-cetinkaya-rundel (#2659).
 
 ## `_pkgdown.yaml`
 
