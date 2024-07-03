@@ -170,7 +170,7 @@
     Code
       data_navbar_(navbar = list(structure = list(left = 1)))
     Condition
-      Error in `navbar_links()`:
+      Error in `data_navbar_()`:
       ! In _pkgdown.yml, navbar.structure.left must be a character vector, not the number 1.
     Code
       data_navbar_(navbar = list(right = "github"))

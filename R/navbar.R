@@ -1,4 +1,4 @@
-data_navbar <- function(pkg = ".", depth = 0L) {
+data_navbar <- function(pkg = ".", depth = 0L, call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
   navbar <- config_pluck(pkg, "navbar")
@@ -13,7 +13,7 @@ data_navbar <- function(pkg = ".", depth = 0L) {
     )
   }
   
-  links <- navbar_links(pkg, depth = depth)
+  links <- navbar_links(pkg, depth = depth, call = call)
 
   c(style, links)
 }
@@ -43,12 +43,31 @@ navbar_structure <- function() {
   ))
 }
 
-navbar_links <- function(pkg, depth = 0L) {
-  # Combine default components with user supplied
-  components <- modify_list(
-    navbar_components(pkg),
-    config_pluck(pkg, "navbar.components")
+navbar_links <- function(pkg, depth = 0L, call = caller_env()) {
+  components <- navbar_link_components(pkg, call = call)
+
+  list(
+    left = render_navbar_links(
+      components$left,
+      depth = depth,
+      pkg = pkg,
+      side = "left"
+    ),
+    right = render_navbar_links(
+      components$right,
+      depth = depth,
+      pkg = pkg,
+      side = "right"
+    )
   )
+}
+
+navbar_link_components <- function(pkg, call = caller_env()) {
+  # Combine default components with user supplied: must not merge recursively
+  components <- navbar_components(pkg)
+  components_meta <- config_pluck(pkg, "navbar.components", default = list())
+  components[names(components_meta)] <- components_meta
+  components <- purrr::compact(components)
 
   # Combine default structure with user supplied
   # (must preserve NULLs in yaml to mean display nothing)
@@ -57,31 +76,18 @@ navbar_links <- function(pkg, depth = 0L) {
     config_pluck(pkg, "navbar.structure")
   )
   right_comp <- intersect(
-    config_pluck_character(pkg, "navbar.structure.right"),
+    config_pluck_character(pkg, "navbar.structure.right", call = call),
     names(components)
   )
   left_comp <- intersect(
-    config_pluck_character(pkg, "navbar.structure.left"),
+    config_pluck_character(pkg, "navbar.structure.left", call = call),
     names(components)
   )
   # Backward compatibility
   left <- config_pluck(pkg, "navbar.left") %||% components[left_comp]
   right <- config_pluck(pkg, "navbar.right") %||% components[right_comp]
 
-  list(
-    left = render_navbar_links(
-      left,
-      depth = depth,
-      pkg = pkg,
-      side = "left"
-    ),
-    right = render_navbar_links(
-      right,
-      depth = depth,
-      pkg = pkg,
-      side = "right"
-    )
-  )
+  list(left = left, right = right)
 }
 
 render_navbar_links <- function(x, depth = 0L, pkg, side = c("left", "right")) {
