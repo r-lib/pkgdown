@@ -106,6 +106,11 @@ test_that("pkg_timeline fails cleanly for unknown package", {
   expect_null(pkg_timeline("__XYZ__"))
 })
 
+test_that("pkg_timeline works for package that have been archived", {
+  skip_on_cran()
+  expect_no_error(pkg_timeline("PF"))
+})
+
 test_that("correct timeline for first ggplot2 releases", {
   skip_on_cran()
 

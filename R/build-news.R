@@ -279,11 +279,11 @@ pkg_timeline <- function(package) {
   }
 
   content <- httr2::resp_body_json(resp)
-  timeline <- content$timeline
+  timeline <- unlist(content$timeline)
 
   data.frame(
     version = names(timeline),
-    date = as.Date(unlist(timeline)),
+    date = as.Date(timeline),
     stringsAsFactors = FALSE,
     row.names = NULL
   )

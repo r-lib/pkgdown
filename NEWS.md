@@ -65,6 +65,7 @@
 * `build_home()` now includes the contents of `inst/AUTHORS` on the authors page (#2506).
 * `build_home_index()` now reports when rendering the home page (#2544).
 * `build_home_index()` now renders math if you use it in your home page (#2263).
+* `build_news()` now works if your package has been archived at some point (#2687).
 * `build_news()` only syntax highlights the page once, not twice, which prevents every block of R code getting a blank line at the start (#2630).
 
     ```R
