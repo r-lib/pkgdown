@@ -66,6 +66,19 @@ test_that("can control articles navbar through articles meta", {
 
 })
 
+test_that("can control articles navbar through navbar meta", {
+  pkg <- local_pkgdown_site(meta = list(
+    navbar = list(
+      components = list(articles = menu_submenu("Hi!", list(menu_heading("Hi"))))
+    )
+  ))
+  pkg <- pkg_add_file(pkg, "vignettes/a.Rmd", pkg_vignette())
+  pkg <- pkg_add_file(pkg, "vignettes/b.Rmd", pkg_vignette())
+
+  navbar <- navbar_link_components(pkg)
+  expect_equal(navbar$left$articles$text, "Hi!")
+})
+
 test_that("data_navbar() works by default", {
   pkg <- local_pkgdown_site(meta = list(
     repo = list(url = list(home = "https://github.com/r-lib/pkgdown/"))
