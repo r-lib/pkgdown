@@ -122,7 +122,13 @@ data_template <- function(pkg = ".", depth = 0L) {
 
   # Development settings; tooltip needs to be generated at render time
   out$development <- pkg$development
-  out$development$version_tooltip <- version_tooltip(pkg$development$mode)
+  if (identical(pkg$development$mode, "devel")) {
+    out$development$version_tooltip <- pkg$meta$development$version_tooltip %||%
+      version_tooltip(pkg$development$mode)
+  } else {
+    out$development$version_tooltip <- version_tooltip(pkg$development$mode)
+  }
+
 
   out$navbar <- data_navbar(pkg, depth = depth)
   out$footer <- data_footer(pkg)
@@ -163,7 +169,7 @@ check_open_graph <- function(pkg, og, file_path = NULL, call = caller_env()) {
   if (is.null(og)) {
     return()
   }
-  
+
   is_yaml <- is.null(file_path)
   base_path <- if (is_yaml) "template.opengraph" else "opengraph"
 
@@ -220,7 +226,7 @@ check_open_graph_list <- function(pkg,
   }
   not <- obj_type_friendly(x)
   config_abort(
-    pkg, 
+    pkg,
     "{.field {error_path}} must be a list, not {not}.",
     path = file_path,
     call = error_call
@@ -259,7 +265,7 @@ same_contents <- function(path, contents) {
 
   cur_contents <- paste0(read_lines(path), collapse = "\n")
   cur_hash <- digest::digest(cur_contents, serialize = FALSE)
-  
+
   identical(new_hash, cur_hash)
 }
 
