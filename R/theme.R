@@ -29,8 +29,10 @@ build_bslib <- function(pkg = ".", call = caller_env()) {
 
 data_deps <- function(pkg, depth) {
   if (!file_exists(data_deps_path(pkg))) {
+    # this is unlikely to occur after #2439 and #2571
     cli::cli_abort(
       "Run {.fn pkgdown::init_site} first.",
+      .internal = TRUE,
       call = caller_env()
     )
   }

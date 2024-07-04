@@ -28,8 +28,22 @@ highlight_examples <- function(code, topic, env = globalenv()) {
     do.call(fig_save, c(list(plot, name), fig_settings()))
   }
 
-  hide_dontshow <- function(src, call) {
-    if (is_call(call, c("DONTSHOW", "TESTONLY"))) NULL else src
+  hide_dontshow <- function(src, expr) {
+    if (is.expression(expr)) {
+      # evaluate 1.0.0
+      if (length(expr) > 0) {
+        hide <- is_call(expr[[1]], c("DONTSHOW", "TESTONLY"))
+      } else {
+        hide <- FALSE
+      }
+    } else if (is.call(expr)) {
+      # evaluate 0.24.0
+      hide <- is_call(expr, c("DONTSHOW", "TESTONLY"))
+    } else {
+      hide <- FALSE
+    }
+
+    if (hide) NULL else src
   }
   handler <- evaluate::new_output_handler(
     value = pkgdown_print,

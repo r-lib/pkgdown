@@ -198,8 +198,8 @@ build_articles <- function(pkg = ".",
                            lazy = TRUE,
                            seed = 1014L,
                            override = list(),
-                           preview = NA) {
-  pkg <- section_init(pkg, depth = 1L, override = override)
+                           preview = FALSE) {
+  pkg <- section_init(pkg, "articles", override = override)
   check_bool(quiet)
   check_bool(lazy)
   check_number_whole(seed, allow_null = TRUE)
@@ -212,13 +212,14 @@ build_articles <- function(pkg = ".",
 
   build_articles_index(pkg)
   unwrap_purrr_error(purrr::walk(
-    pkg$vignettes$name,
+    pkg$vignettes$name[pkg$vignettes$type == "rmd"],
     build_article,
     pkg = pkg,
     lazy = lazy,
     seed = seed,
     quiet = quiet
   ))
+  build_quarto_articles(pkg, quiet = quiet)
 
   preview_site(pkg, "articles", preview = preview)
 }
@@ -228,10 +229,8 @@ build_articles <- function(pkg = ".",
 #' @export
 #' @rdname build_articles
 #' @order 3
-build_articles_index <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  create_subdir(pkg, "articles")
+build_articles_index <- function(pkg = ".", override = list()) {
+  pkg <- section_init(pkg, "articles", override = override)
   render_page(
     pkg,
     "article-index",

@@ -1,7 +1,7 @@
 #' @export
 #' @rdname build_home
-build_home_index <- function(pkg = ".", quiet = TRUE) {
-  pkg <- section_init(pkg, depth = 0L)
+build_home_index <- function(pkg = ".", override = list(), quiet = TRUE) {
+  pkg <- section_init(pkg, override = override)
 
   src_path <- path_index(pkg)
   dst_path <- path(pkg$dst_path, "index.html")
@@ -225,4 +225,9 @@ req_pkgdown_cache <- function(req) {
     path = cache_path,
     max_age = 86400 # 1 day
   )
+}
+
+# authors forced to wrap words in '' to prevent spelling errors
+cran_unquote <- function(string) {
+  gsub("\\'(.*?)\\'", "\\1", string)
 }

@@ -12,7 +12,7 @@ build_articles(
   lazy = TRUE,
   seed = 1014L,
   override = list(),
-  preview = NA
+  preview = FALSE
 )
 
 build_article(
@@ -22,10 +22,11 @@ build_article(
   seed = 1014L,
   new_process = TRUE,
   pandoc_args = character(),
+  override = list(),
   quiet = TRUE
 )
 
-build_articles_index(pkg = ".")
+build_articles_index(pkg = ".", override = list())
 }
 \arguments{
 \item{pkg}{Path to package.}

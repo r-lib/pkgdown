@@ -50,6 +50,13 @@ flatten_para <- function(x, ...) {
   paste0(blocks, collapse = "")
 }
 
+split_at_linebreaks <- function(text) {
+  if (length(text) == 0) {
+    character()
+  } else {
+    strsplit(text, "\\n\\s*\\n")[[1]]
+  }
+}
 
 flatten_text <- function(x, ...) {
   if (length(x) == 0) return("")

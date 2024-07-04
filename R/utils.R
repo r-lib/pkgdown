@@ -1,18 +1,9 @@
-set_contains <- function(haystack, needles) {
-  all(needles %in% haystack)
-}
-
-split_at_linebreaks <- function(text) {
-  if (length(text) < 1)
-    return(character())
-  strsplit(text, "\\n\\s*\\n")[[1]]
-}
-
 up_path <- function(depth) {
   paste(rep.int("../", depth), collapse = "")
 }
 
 dir_depth <- function(x) {
+  # length(strsplit(path, "/")[[1]]) - 1L
   purrr::map_int(strsplit(x, ""), function(x) sum(x == "/"))
 }
 
@@ -53,6 +44,10 @@ unwrap_purrr_error <- function(code) {
   )
 }
 
+tr_ <- function(...) {
+  enc2utf8(gettext(..., domain = "R-pkgdown"))
+}
+
 # devtools metadata -------------------------------------------------------
 
 system_file <- function(..., package) {
@@ -81,25 +76,11 @@ src_path <- cli::combine_ansi_styles(
 writing_file <- function(path, show) {
   path <- as.character(path)
   text <- dst_path(as.character(show))
-  cli::cli_inform("Writing {.run [{text}](pkgdown::preview_page('{path}'))}")
-}
-
-skip_if_no_pandoc <- function(version = "1.12.3") {
-  testthat::skip_if_not(rmarkdown::pandoc_available(version))
+  cli::cli_inform("Writing {.run [{text}](pkgdown::preview_site(path='{path}'))}")
 }
 
 has_internet <- function() {
   getOption("pkgdown.internet", default = TRUE)
-}
-
-# remove '' quoting
-# e.g. 'title' becomes title.s
-cran_unquote <- function(string) {
-  gsub("\\'(.*?)\\'", "\\1", string)
-}
-
-isFALSE <- function(x) {
-  is.logical(x) && length(x) == 1L && !is.na(x) && !x
 }
 
 modify_list <- function(x, y) {
@@ -174,8 +155,9 @@ ruler <- function(width = getOption("width")) {
 get_section_level <- function(section) {
   class <- xml2::xml_attr(section, "class")
 
-  has_level <- grepl("level(\\d+)", class)
-  ifelse(has_level, as.numeric(gsub(".*section level(\\d+).*", '\\1', class)), 0)
+level <- as.numeric(re_match(class, "level(\\d+)")[[1]])
+  level[is.na(level)] <- 0
+  level
 }
 
 section_id <- function(section) {
@@ -198,15 +180,36 @@ print.print_yaml <- function(x, ...) {
 }
 
 write_yaml <- function(x, path) {
-  write_lines(yaml::as.yaml(x), path = path)
+  yaml::write_yaml(
+    x,
+    path,
+    handlers = list(logical = yaml::verbatim_logical)
+  )
 }
 
 # Helpers for testing -----------------------------------------------------
 
-xpath_xml <- function(x, xpath) {
-  x <- xml2::xml_find_all(x, xpath)
+xpath_xml <- function(x, xpath = NULL) {
+  if (!is.null(xpath)) {
+    x <- xml2::xml_find_all(x, xpath)
+  }
   structure(x, class = c("pkgdown_xml", class(x)))
 }
+xpath_contents <- function(x, xpath) {
+  x <- xml2::xml_find_all(x, xpath)
+
+  contents <- xml2::xml_contents(x)
+  if (length(contents) == 0) {
+    NULL
+  } else {
+    xml2str(contents)
+  }
+}
+xml2str <- function(x) {
+  strings <- as.character(x, options = c("format", "no_declaration"))
+  paste0(strings, collapse = "")
+}
+
 xpath_attr <- function(x, xpath, attr) {
   gsub("\r", "", xml2::xml_attr(xml2::xml_find_all(x, xpath), attr), fixed = TRUE)
 }
@@ -220,8 +223,4 @@ xpath_length <- function(x, xpath) {
 print.pkgdown_xml <- function(x, ...) {
   cat(as.character(x, options = c("format", "no_declaration")), sep = "\n")
   invisible(x)
-}
-
-tr_ <- function(...) {
-  enc2utf8(gettext(..., domain = "R-pkgdown"))
 }

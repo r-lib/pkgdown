@@ -1,5 +1,5 @@
 test_that("highlight_examples captures dependencies", {
-  withr::defer(file_delete(test_path("Rplot001.png")))
+  withr::defer(try(file_delete(test_path("Rplot001.png")), TRUE))
 
   dummy_dep <- htmltools::htmlDependency("dummy", "1.0.0", "dummy.js")
   widget <- htmlwidgets::createWidget("test", list(), dependencies = dummy_dep)
@@ -9,14 +9,13 @@ test_that("highlight_examples captures dependencies", {
   expect_equal(attr(out, "dependencies")[-1], list(dummy_dep))
 })
 
-
 test_that("highlight_examples runs and hides DONTSHOW calls()", {
   out <- highlight_examples("DONTSHOW(x <- 1)\nx")
   expect_snapshot(cat(strip_html_tags(out)))
 })
 
 test_that("highlight_text & highlight_examples include sourceCode div", {
-  withr::defer(file_delete(test_path("Rplot001.png")))
+  withr::defer(try(file_delete(test_path("Rplot001.png")), TRUE))
 
   html <- xml2::read_html(highlight_examples("a + a", "x"))
   expect_equal(xpath_attr(html, "./body/div", "class"), "sourceCode")

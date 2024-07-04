@@ -9,6 +9,8 @@ Authors@R: c(
     person("Maëlle", "Salmon", role = "aut",
            comment = c(ORCID = "0000-0002-2815-0399")),
     person("Olivier", "Roy", role = "aut"),
+    person("Salim", "Brüggemann", role = "aut",
+           comment = c(ORCID = "0000-0002-5329-5987")),
     person("Posit Software, PBC", role = c("cph", "fnd"))
   )
 Description: Generate an attractive and useful website from a source
@@ -26,7 +28,7 @@ Imports:
     cli (>= 3.6.1),
     desc (>= 1.4.0),
     digest,
-    downlit (>= 0.4.0),
+    downlit (>= 0.4.4),
     fontawesome,
     fs (>= 1.4.0),
     httr2 (>= 1.0.0),
@@ -44,7 +46,7 @@ Imports:
 Suggests:
     covr,
     diffviewer,
-    evaluate (>= 0.23.0.9000),
+    evaluate (>= 0.24.0),
     gert,
     gt,
     htmltools,
@@ -54,6 +56,7 @@ Suggests:
     magick,
     methods,
     pkgload (>= 1.0.2),
+    quarto,
     rsconnect,
     rstudioapi,
     rticles,
@@ -61,14 +64,14 @@ Suggests:
     testthat (>= 3.1.3),
     tools
 VignetteBuilder:
-    knitr
+    knitr,
+    quarto
 Config/Needs/website: usethis, servr
 Config/potools/style: explicit
 Config/testthat/edition: 3
 Config/testthat/parallel: true
-Config/testthat/start-first: build-article, build-reference
+Config/testthat/start-first: build-article, build-quarto-article, build-reference
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 SystemRequirements: pandoc
-Remotes: r-lib/evaluate

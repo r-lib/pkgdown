@@ -4,6 +4,8 @@ home:
   title: Build websites for R packages
 
 authors:
+  Salim Brüggemann:
+    href: https://salim.space
   Jay Hesselberth:
     href: https://hesselberthlab.org
   Maëlle Salmon:
@@ -33,6 +35,7 @@ articles:
   navbar: ~
   contents:
   - customise
+  - quarto
   - translations
   - accessibility
   - linking

@@ -13,8 +13,9 @@ build_article <- function(name,
                           seed = 1014L,
                           new_process = TRUE,
                           pandoc_args = character(),
+                          override = list(),
                           quiet = TRUE) {
-  pkg <- as_pkgdown(pkg)
+  pkg <- section_init(pkg, "articles", override = override)
 
   # Look up in pkg vignette data - this allows convenient automatic
   # specification of depth, output destination, and other parameters that
@@ -27,6 +28,7 @@ build_article <- function(name,
   input <- pkg$vignettes$file_in[vig]
   output_file <- pkg$vignettes$file_out[vig]
   depth <- pkg$vignettes$depth[vig]
+  type <- pkg$vignettes$type[vig]
 
   input_path <- path_abs(input, pkg$src_path)
   output_path <- path_abs(output_file, pkg$dst_path)
@@ -35,10 +37,39 @@ build_article <- function(name,
     return(invisible())
   }
 
-  cli::cli_inform("Reading {src_path(input)}")
+  if (type == "rmd") {
+    build_rmarkdown_article(
+      pkg = pkg,
+      input_file = input,
+      input_path = input_path,
+      output_file = output_file,
+      output_path = output_path,
+      depth = depth,
+      seed = seed,
+      new_process = new_process,
+      pandoc_args = pandoc_args,
+      quiet = quiet
+    )  
+  } else {
+    build_quarto_articles(pkg = pkg, article = name, quiet = quiet)
+  }
+}
+
+build_rmarkdown_article <- function(pkg,
+                                    input_file,
+                                    input_path,
+                                    output_file,
+                                    output_path,
+                                    depth,
+                                    seed = NULL,
+                                    new_process = TRUE,
+                                    pandoc_args = character(),
+                                    quiet = TRUE,
+                                    call = caller_env() ) {
+  cli::cli_inform("Reading {src_path(input_file)}")
   digest <- file_digest(output_path)
 
-  data <- data_article(pkg, input)
+  data <- data_article(pkg, input_file, call = call)
   if (data$as_is) {
     if (identical(data$ext, "html")) {
       setup <- rmarkdown_setup_custom(pkg, input_path, depth = depth, data = data)
@@ -67,7 +98,7 @@ build_article <- function(name,
   if (new_process) {
     path <- withCallingHandlers(
       callr::r_safe(rmarkdown_render_with_seed, args = args, show = !quiet),
-      error = function(cnd) wrap_rmarkdown_error(cnd, input)
+      error = function(cnd) wrap_rmarkdown_error(cnd, input_file, call)
     )
   } else {
     path <- inject(rmarkdown_render_with_seed(!!!args))
@@ -82,6 +113,10 @@ build_article <- function(name,
       input_path = path_dir(input_path),
       pkg = pkg
     )
+    # Need re-active navbar now that we now the target path
+    update_html(path, function(html) {
+      activate_navbar(html, path_rel(path, pkg$dst_path), pkg)
+    })
   }
   if (digest != file_digest(output_path)) {
     writing_file(path_rel(output_path, pkg$dst_path), output_file)
@@ -94,6 +129,7 @@ build_article <- function(name,
   invisible(path)
 
 }
+
 
 data_article <- function(pkg, input, call = caller_env()) {
   yaml <- rmarkdown::yaml_front_matter(path_abs(input, pkg$src_path))

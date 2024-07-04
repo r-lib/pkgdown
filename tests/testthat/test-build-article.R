@@ -74,6 +74,20 @@ test_that("BS5 article laid out correctly with and without TOC", {
   expect_equal(xpath_length(toc_false, ".//aside"), 0)
 })
 
+test_that("BS5 article gets correctly activated navbar", {
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/article.Rmd", pkg_vignette())
+  suppressMessages(article_path <- build_article("article", pkg))
+
+  html <- xml2::read_html(article_path)
+  navbar <- xml2::xml_find_first(html, ".//div[contains(@class, 'navbar')]")
+  
+  expect_equal(
+    xpath_text(navbar,".//li[contains(@class, 'active')]//button"),
+    "Articles"
+  )
+})
+
 test_that("titles are escaped when needed", {
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", pkg_vignette(title = "a <-> b"))

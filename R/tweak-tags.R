@@ -2,15 +2,19 @@ tweak_anchors <- function(html) {
   headings <- xml2::xml_find_all(html, ".//h1|.//h2|.//h3|.//h4|.//h5|.//h6")
   # Find all headings that are contained in a div with an id and
   # have class 'section'
+
   is_ok <- xml2::xml_find_lgl(headings,
-    "boolean(parent::div[contains(@class, 'section') and @id])"
+    "boolean(
+      (parent::div[contains(@class, 'section') and @id]) or
+      (parent::section[@id])
+    )"
   )
   headings <- headings[is_ok]
   if (length(headings) == 0) {
     return(invisible())
   }
 
-  id <- xml2::xml_find_chr(headings, "string(parent::div/@id)")
+  id <- xml2::xml_find_chr(headings, "string(parent::div/@id|parent::section/@id)")
 
   # Update ids: dot in the anchor breaks scrollspy and rd translation
   # doesn't have enough information to generate unique ids
@@ -156,7 +160,7 @@ tweak_tables <- function(html) {
 
 # from https://github.com/rstudio/bookdown/blob/ed31991df3bb826b453f9f50fb43c66508822a2d/R/bs4_book.R#L307
 tweak_footnotes <- function(html) {
-  container <- xml2::xml_find_all(html, ".//div[contains(@class, 'footnotes')]")
+  container <- xml2::xml_find_all(html, ".//div[contains(@class, 'footnotes')]|.//section[contains(@class, 'footnotes')]")
   if (length(container) != 1) {
     return()
   }

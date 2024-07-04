@@ -74,13 +74,12 @@
 #' @export
 build_news <- function(pkg = ".",
                        override = list(),
-                       preview = NA) {
-  pkg <- section_init(pkg, depth = 1L, override = override)
+                       preview = FALSE) {
+  pkg <- section_init(pkg, "news", override = override)
   if (!has_news(pkg$src_path))
     return(invisible())
 
   cli::cli_rule("Building news")
-  create_subdir(pkg, "news")
 
   one_page <- config_pluck_bool(pkg, "news.one_page", default = TRUE)
   if (one_page) {
@@ -280,11 +279,11 @@ pkg_timeline <- function(package) {
   }
 
   content <- httr2::resp_body_json(resp)
-  timeline <- content$timeline
+  timeline <- unlist(content$timeline)
 
   data.frame(
     version = names(timeline),
-    date = as.Date(unlist(timeline)),
+    date = as.Date(timeline),
     stringsAsFactors = FALSE,
     row.names = NULL
   )
@@ -333,7 +332,7 @@ tweak_news_anchor <- function(html, version) {
 }
 
 tweak_section_levels <- function(html) {
-  sections <- xml2::xml_find_all(html, ".//div[contains(@class, 'section level')]")
+  sections <- xml2::xml_find_all(html, ".//div[contains(@class, 'section level')]|//main/section")
 
   # Update headings
   xml2::xml_set_name(xml2::xml_find_all(sections, ".//h5"), "h6")

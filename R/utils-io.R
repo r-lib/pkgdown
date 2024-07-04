@@ -5,8 +5,8 @@ read_file <- function(path) {
   paste0(lines, "\n", collapse = "")
 }
 
-# Inspired by roxygen2 utils-io.R (https://github.com/klutometis/roxygen/) --------
 
+# Inspired by roxygen2 utils-io.R (https://github.com/klutometis/roxygen/) --------
 read_lines <- function(path, n = -1L) {
   base::readLines(path, n = n, encoding = "UTF-8", warn = FALSE) # nolint
 }
@@ -22,8 +22,7 @@ file_equal <- function(src, dst) {
     return(FALSE)
 
   src_hash <- digest::digest(file = src, algo = "xxhash64")
-  dst_hash <-  digest::digest(file = dst, algo = "xxhash64")
+  dst_hash <- digest::digest(file = dst, algo = "xxhash64")
 
   identical(src_hash, dst_hash)
 }
-

@@ -1,11 +1,34 @@
-section_init <- function(pkg, depth, override = list(), .frame = parent.frame()) {
-  pkg <- as_pkgdown(pkg, override = override)
-
+section_init <- function(pkg,
+                         subdir = NULL,
+                         override = list(),
+                         .frame = parent.frame()) {
   rstudio_save_all()
+  pkg <- as_pkgdown(pkg, override = override)
+  
+  if (length(dest_files(pkg)) > 0) {
+    check_dest_is_pkgdown(pkg) 
+  } else {
+    init_site(pkg)
+  }
+ 
+  if (is.null(subdir)) {
+    depth <- 0
+  } else {
+    depth <- 1
+    dir_create(path(pkg$dst_path, subdir))
+  }
+
   local_envvar_pkgdown(pkg, .frame)
   local_options_link(pkg, depth = depth, .frame = .frame)
+  cache_cli_colours(.frame = .frame)
 
   pkg
+}
+
+cache_cli_colours <- function(.frame = parent.frame()) {
+  # https://github.com/r-lib/cli/issues/607
+  num_col <- getOption("cli.num_colors", default = cli::num_ansi_colors())
+  withr::local_options(cli.num_colors = num_col, .local_envir = .frame)
 }
 
 local_options_link <- function(pkg, depth, .frame = parent.frame()) {

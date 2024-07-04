@@ -12,12 +12,12 @@ build_reference(
   run_dont_run = FALSE,
   seed = 1014L,
   override = list(),
-  preview = NA,
+  preview = FALSE,
   devel = TRUE,
   topics = NULL
 )
 
-build_reference_index(pkg = ".")
+build_reference_index(pkg = ".", override = list())
 }
 \arguments{
 \item{pkg}{Path to package.}

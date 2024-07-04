@@ -7,7 +7,6 @@
 preview_page(path, pkg = ".")
 }
 \description{
-Only works when rendering the working directory, as this is the most
-common interactive workflow.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use \code{\link[=preview_site]{preview_site()}} instead.
 }
 \keyword{internal}

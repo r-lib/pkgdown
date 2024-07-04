@@ -4,10 +4,13 @@
 \alias{init_site}
 \title{Initialise site infrastructure}
 \usage{
-init_site(pkg = ".")
+init_site(pkg = ".", override = list())
 }
 \arguments{
 \item{pkg}{Path to package.}
+
+\item{override}{An optional named list used to temporarily override
+values in \verb{_pkgdown.yml}}
 }
 \description{
 \code{init_site()}:
@@ -16,6 +19,16 @@ init_site(pkg = ".")
 \item generates a machine readable description of the site, used for autolinking,
 \item copies CSS/JS assets and extra files, and
 \item runs \code{build_favicons()}, if needed.
+}
+
+Typically, you will not need to call this function directly, as all \verb{build_*()}
+functions will run \code{init_site()} if needed.
+
+The only good reasons to call \code{init_site()} directly are the following:
+\itemize{
+\item If you add or modify a package logo.
+\item If you add or modify \code{pkgdown/extra.scss}.
+\item If you modify \code{template.bslib} variables in \verb{_pkgdown.yml}.
 }
 
 See \code{vignette("customise")} for the various ways you can customise the

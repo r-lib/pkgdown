@@ -8,6 +8,14 @@
 #' * copies CSS/JS assets and extra files, and
 #' * runs `build_favicons()`, if needed.
 #'
+#' Typically, you will not need to call this function directly, as all `build_*()`
+#' functions will run `init_site()` if needed.
+#'
+#' The only good reasons to call `init_site()` directly are the following:
+#' * If you add or modify a package logo.
+#' * If you add or modify `pkgdown/extra.scss`.
+#' * If you modify `template.bslib` variables in `_pkgdown.yml`.
+#'
 #' See `vignette("customise")` for the various ways you can customise the
 #' display of your site.
 #'
@@ -20,17 +28,12 @@
 #'
 #' @inheritParams build_articles
 #' @export
-init_site <- function(pkg = ".") {
-  pkg <- as_pkgdown(pkg)
-
-  if (is_non_pkgdown_site(pkg$dst_path)) {
-    cli::cli_abort(c(
-      "{.file {pkg$dst_path}} is non-empty and not built by pkgdown",
-      "!" = "Make sure it contains no important information \\
-             and use {.run pkgdown::clean_site()} to delete its contents."
-      )
-    )
-  }
+init_site <- function(pkg = ".", override = list()) {
+  # This is the only user facing function that doesn't call section_init()
+  # because section_init() can conditionally call init_site()
+  rstudio_save_all()
+  cache_cli_colours()
+  pkg <- as_pkgdown(pkg, override = override)
 
   cli::cli_rule("Initialising site")
   dir_create(pkg$dst_path)
@@ -155,15 +158,4 @@ site_meta <- function(pkg) {
   }
 
   print_yaml(yaml)
-}
-
-is_non_pkgdown_site <- function(dst_path) {
-  if (!dir_exists(dst_path)) {
-    return(FALSE)
-  }
-
-  top_level <- dir_ls(dst_path)
-  top_level <- top_level[!path_file(top_level) %in% c("CNAME", "dev", "deps")]
-
-  length(top_level) >= 1 && !"pkgdown.yml" %in% path_file(top_level)
 }

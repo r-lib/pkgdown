@@ -6,3 +6,5 @@ inst/doc
 .env
 *.tex
 docs
+
+/.quarto/

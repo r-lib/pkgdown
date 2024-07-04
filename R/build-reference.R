@@ -155,10 +155,10 @@ build_reference <- function(pkg = ".",
                             run_dont_run = FALSE,
                             seed = 1014L,
                             override = list(),
-                            preview = NA,
+                            preview = FALSE,
                             devel = TRUE,
                             topics = NULL) {
-  pkg <- section_init(pkg, depth = 1L, override = override)
+  pkg <- section_init(pkg, "reference", override = override)
   check_bool(lazy)
   check_bool(examples)
   check_bool(run_dont_run)
@@ -242,9 +242,8 @@ examples_env <- function(pkg, seed = 1014L, devel = TRUE, envir = parent.frame()
 
 #' @export
 #' @rdname build_reference
-build_reference_index <- function(pkg = ".") {
-  pkg <- section_init(pkg, depth = 1L)
-  create_subdir(pkg, "reference")
+build_reference_index <- function(pkg = ".", override = list()) {
+  pkg <- section_init(pkg, "reference", override = override)
 
   # Copy icons, if needed
   dir_copy_to(

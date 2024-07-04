@@ -1,0 +1,36 @@
+<div class="row">
+  <main id="main" class="col-md-9">
+    <div class="page-header">
+      {{#logo}}<img src="{{logo.src}}" class="logo" alt="">{{/logo}}
+      {{#meta}}
+      <h1>{{{title}}}</h1>
+      {{#subtitle}}<p class="subtitle">{{{.}}}</p>{{/subtitle}}
+      {{#author}}<p class="author">{{{.}}}</p>{{/author}}
+      {{#date}}<p class="date">{{{.}}}</p>{{/date}}
+      {{/meta}}
+
+      {{#source}}<small class="dont-index">{{{.}}}</small>{{/source}}
+      <div class="d-none name"><code>{{filename}}</code></div>
+    </div>
+
+    {{#abstract}}<div class="abstract">
+      <p class="abstract">{{#translate}}{{abstract}}{{/translate}}</p>
+      {{{.}}}
+    </div>{{/abstract}}
+    
+    {{#includes}}{{{before}}}{{/includes}}
+    
+    {{{body}}}
+
+    {{#includes}}{{{after}}}{{/includes}}
+
+  </main>
+ 
+  {{#toc}}
+  <aside class="col-md-3">
+    <nav id="toc" aria-label="{{#translate}}{{toc}}{{/translate}}">
+      <h2>{{#translate}}{{on_this_page}}{{/translate}}</h2>
+    </nav>
+  </aside>
+  {{/toc}}
+</div>
