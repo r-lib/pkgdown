@@ -236,13 +236,24 @@
 #' ```
 #'
 #' * `home`: path to package home on source code repository.
-#' * `source:`: path to source of individual file in default branch.
+#' * `source`: path to source of individual file in default branch 
+#'   (more on that below).
 #' * `issue`: path to individual issue.
 #' * `user`: path to user.
 #'
 #' The varying components (e.g. path, issue number, user name) are pasted on
 #' the end of these URLs so they should have trailing `/`s.
 #'
+#' When creating the link to pacge source, we have to link to a specific
+#' branch. The default behaviour is to use current branch when in GitHub
+#' actions and `HEAD` otherwise. You can overide this default with 
+#' `repo.branch`:
+#'
+#' ```yaml
+#' repo:
+#'   branch: devel
+#' ```
+#' 
 #' pkgdown can automatically link to Jira issues as well if specify both a
 #' custom `issue` URL as well Jira project names to auto-link in
 #' `jira_projects`. You can specify as many projects as you would like:
@@ -252,15 +263,6 @@
 #'   jira_projects: [this_project, another_project]
 #'   url:
 #'     issue: https://jira.organisation.com/jira/browse/
-#' ```
-#'
-#' pkgdown defaults to using the "HEAD" branch for source file URLs. This can
-#' be configured to use a specific branch when linking to source files by
-#' specifying a branch name:
-#'
-#' ```yaml
-#' repo:
-#'   branch: devel
 #' ```
 #'
 #' # Deployment (`deploy`)
