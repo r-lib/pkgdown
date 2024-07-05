@@ -46,7 +46,7 @@ Translations are contributed by community members so if your language is not cur
 
 To get started, first check the [pkgdown issues](https://github.com/r-lib/pkgdown/issues) to see if anyone has filed an existing issue. If so, the person who filed the issue might make for a great collaborator 😀.
 
-Next, install [potools](https://michaelchirico.github.io/potools) and [usethis](https://usethis.r-lib.org):
+Next, install [potools](https://michaelchirico.github.io/potools/) and [usethis](https://usethis.r-lib.org):
 
 ```{r}
 #| eval: false
