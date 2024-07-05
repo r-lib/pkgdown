@@ -353,11 +353,18 @@ field.</p>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">    </span><span class="fu">source</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/blob/HEAD/</span></span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="at">    </span><span class="fu">issue</span><span class="kw">:</span><span class="at"> https://github.com/r-lib/pkgdown/issues/</span></span>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="at">    </span><span class="fu">user</span><span class="kw">:</span><span class="at"> https://github.com/</span></span></code></pre><p></p></div><ul><li><p><code>home</code>: path to package home on source code repository.</p></li>
-<li><p><code>source:</code>: path to source of individual file in default branch.</p></li>
+<li><p><code>source</code>: path to source of individual file in default branch
+(more on that below).</p></li>
 <li><p><code>issue</code>: path to individual issue.</p></li>
 <li><p><code>user</code>: path to user.</p></li>
 </ul><p>The varying components (e.g. path, issue number, user name) are pasted on
 the end of these URLs so they should have trailing <code>/</code>s.</p>
+<p>When creating the link to pacge source, we have to link to a specific
+branch. The default behaviour is to use current branch when in GitHub
+actions and <code>HEAD</code> otherwise. You can overide this default with
+<code>repo.branch</code>:</p>
+<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> devel</span></span></code></pre><p></p></div>
 <p>pkgdown can automatically link to Jira issues as well if specify both a
 custom <code>issue</code> URL as well Jira project names to auto-link in
 <code>jira_projects</code>. You can specify as many projects as you would like:</p>
@@ -365,11 +372,6 @@ custom <code>issue</code> URL as well Jira project names to auto-link in
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">jira_projects</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">this_project</span><span class="kw">,</span><span class="at"> another_project</span><span class="kw">]</span></span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">  </span><span class="fu">url</span><span class="kw">:</span></span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">    </span><span class="fu">issue</span><span class="kw">:</span><span class="at"> https://jira.organisation.com/jira/browse/</span></span></code></pre><p></p></div>
-<p>pkgdown defaults to using the "HEAD" branch for source file URLs. This can
-be configured to use a specific branch when linking to source files by
-specifying a branch name:</p>
-<p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> devel</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="deployment-deploy-">Deployment (<code>deploy</code>)<a class="anchor" aria-label="anchor" href="#deployment-deploy-"></a></h2>
