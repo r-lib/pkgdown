@@ -276,6 +276,10 @@ citation_auto <- function(pkg) {
     path_file(pkg$src_path),
     lib.loc = path_dir(pkg$src_path)
   )
+  if (identical(cit_info, NA)) {
+    cli::cli_abort("Failed to find DESCRIPTION", .internal = TRUE)
+  }
+
   cit_info$`Date/Publication` <- cit_info$`Date/Publication` %||% Sys.time()
   if (!is.null(cit_info$Title)) cit_info$Title <- str_squish(cit_info$Title)
 
