@@ -285,13 +285,23 @@ Otherwise, you can supply your own in the \code{repo} field:
 }\if{html}{\out{</div>}}
 \itemize{
 \item \code{home}: path to package home on source code repository.
-\item \verb{source:}: path to source of individual file in default branch.
+\item \code{source}: path to source of individual file in default branch
+(more on that below).
 \item \code{issue}: path to individual issue.
 \item \code{user}: path to user.
 }
 
 The varying components (e.g. path, issue number, user name) are pasted on
 the end of these URLs so they should have trailing \code{/}s.
+
+When creating the link to pacge source, we have to link to a specific
+branch. The default behaviour is to use current branch when in GitHub
+actions and \code{HEAD} otherwise. You can overide this default with
+\code{repo.branch}:
+
+\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{repo:
+  branch: devel
+}\if{html}{\out{</div>}}
 
 pkgdown can automatically link to Jira issues as well if specify both a
 custom \code{issue} URL as well Jira project names to auto-link in
@@ -301,14 +311,6 @@ custom \code{issue} URL as well Jira project names to auto-link in
   jira_projects: [this_project, another_project]
   url:
     issue: https://jira.organisation.com/jira/browse/
-}\if{html}{\out{</div>}}
-
-pkgdown defaults to using the "HEAD" branch for source file URLs. This can
-be configured to use a specific branch when linking to source files by
-specifying a branch name:
-
-\if{html}{\out{<div class="sourceCode yaml">}}\preformatted{repo:
-  branch: devel
 }\if{html}{\out{</div>}}
 }
 
