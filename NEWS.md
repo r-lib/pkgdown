@@ -1,4 +1,4 @@
-# pkgdown (development version)
+# pkgdown 2.1.0
 
 ## Major changes
 
