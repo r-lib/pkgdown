@@ -1,174 +1,64 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://pkgdown.r-lib.org/404.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/customise.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/how-to-update-released-site.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/linking.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/pkgdown.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/search.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/test/long-toc.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/test/rendering.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/test/short.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/articles/test/widgets.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/index.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/as_pkgdown.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/autolink_html.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/build_articles.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/build_favicons.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/build_home.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/build_news.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/build_reference.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/build_search.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/build_site.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/build_site_github_pages.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/build_tutorials.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/check_pkgdown.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/clean_site.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/deploy_site_github.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/deploy_to_branch.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/fig_settings.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/in_pkgdown.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/index-topic.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/init_site.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/pkgdown-package.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/pkgdown_print.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/pkgdown_sitrep.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/preview_page.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/preview_site.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/rd2html.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/render_page.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/templates.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/test-crayon.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/test-dont.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/test-figures.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/test-links.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/test-lists.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/test-long-lines.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/test-output-styles.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/test-params.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/test-sexpr-title.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdown.r-lib.org/reference/test-verbatim.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://pkgdown.r-lib.org/404.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/CONTRIBUTING.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/LICENSE-text.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/LICENSE.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/articles/accessibility.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/articles/customise.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/articles/how-to-update-released-site.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/articles/index.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/articles/linking.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/articles/metadata.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/articles/pkgdown.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/articles/quarto.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/articles/test/long-toc.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/articles/test/quarto-features.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/articles/test/rendering.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/articles/test/short.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/articles/test/widgets.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/articles/translations.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/authors.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/index.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/news/index.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/as_pkgdown.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/autolink_html.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/build_articles.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/build_favicons.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/build_home.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/build_news.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/build_redirects.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/build_reference.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/build_search.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/build_site.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/build_site_github_pages.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/build_tutorials.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/check_pkgdown.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/clean_site.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/deploy_site_github.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/deploy_to_branch.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/fig_settings.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/in_pkgdown.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/index-topic.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/index.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/init_site.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/pkgdown-package.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/pkgdown_print.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/preview_page.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/preview_site.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/rd2html.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/render_page.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/templates.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/test-crayon.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/test-dont.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/test-figures.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/test-links.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/test-lists.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/test-long-lines.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/test-output-styles.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/test-params.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/test-sexpr-title.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/test-tables.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/test-verbatim.html</loc></url>
 </urlset>
+
