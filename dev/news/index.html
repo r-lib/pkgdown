@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.0.9.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.1.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,8 +63,11 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.1.0" id="pkgdown-210">pkgdown 2.1.0<a class="anchor" aria-label="anchor" href="#pkgdown-210"></a></h2><p class="text-muted">CRAN release: 2024-07-06</p>
 <div class="section level3">
-<h3 id="major-changes-development-version">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-development-version"></a></h3>
+<h3 id="major-changes-2-1-0">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-2-1-0"></a></h3>
 <ul><li>Added <a href="https://github.com/olivroy" class="external-link">@olivroy</a> and <a href="https://github.com/salim-b" class="external-link">@salim-b</a> as pkgdown authors in recognition of their contributions.</li>
 <li>
 <code><a href="../reference/build_articles.html">build_articles()</a></code> and <code><a href="../reference/build_articles.html">build_article()</a></code> now support articles/vignettes written with quarto (version 1.5 and above). Combining the disparate quarto and pkgdown templating systems is a delicate art, so while I’ve done my best to make it work, there may be some rough edges. So please file an issue you encounter quarto features that don’t work quite right. Learn more in <code><a href="../articles/quarto.html">vignette("quarto")</a></code>(<a href="https://github.com/r-lib/pkgdown/issues/2210" class="external-link">#2210</a>).</li>
@@ -76,7 +79,7 @@
 <li>YAML validation has been substantially improved so you should get much clearer errors if you have made a mistake (<a href="https://github.com/r-lib/pkgdown/issues/1927" class="external-link">#1927</a>). Please file an issue if you find a case where the error message is not helpful.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="lifecycle-changes-development-version">Lifecycle changes<a class="anchor" aria-label="anchor" href="#lifecycle-changes-development-version"></a></h3>
+<h3 id="lifecycle-changes-2-1-0">Lifecycle changes<a class="anchor" aria-label="anchor" href="#lifecycle-changes-2-1-0"></a></h3>
 <ul><li>
 <code><a href="../reference/autolink_html.html">autolink_html()</a></code> was deprecated in pkgdown 1.6.0 and now warns every time you use it. <code><a href="https://downlit.r-lib.org/reference/downlit_html_path.html" class="external-link">downlit::downlit_html_path()</a></code> should be used instead.</li>
 <li>
@@ -86,7 +89,7 @@
 <li>Bootstrap 3 has been deprecated. It was superseded in December 2021, and now we’re starting to more directly encourage folks to move away from it.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="front-end-changes-development-version">Front end changes<a class="anchor" aria-label="anchor" href="#front-end-changes-development-version"></a></h3>
+<h3 id="front-end-changes-2-1-0">Front end changes<a class="anchor" aria-label="anchor" href="#front-end-changes-2-1-0"></a></h3>
 <ul><li>When built on GitHub, source urls now use the name of the current upstream branch (rather than <code>HEAD</code>), which is more likely to generate correct links (<a href="https://github.com/r-lib/pkgdown/issues/2597" class="external-link">#2597</a>).</li>
 <li>The search dropdown has been tweaked to look more like the other navbar menu items (<a href="https://github.com/r-lib/pkgdown/issues/2338" class="external-link">#2338</a>).</li>
 <li>Improve HTML5 compliance (<a href="https://github.com/r-lib/pkgdown/issues/2369" class="external-link">#2369</a>):
@@ -106,7 +109,7 @@
 <li>Updated translations from <a href="https://github.com/jplecavalier" class="external-link">@jplecavalier</a>, <a href="https://github.com/dieghernan" class="external-link">@dieghernan</a>, <a href="https://github.com/krlmlr" class="external-link">@krlmlr</a>, <a href="https://github.com/LDalby" class="external-link">@LDalby</a>, <a href="https://github.com/rich-iannone" class="external-link">@rich-iannone</a>, <a href="https://github.com/jmaspons" class="external-link">@jmaspons</a>, and <a href="https://github.com/mine-cetinkaya-rundel" class="external-link">@mine-cetinkaya-rundel</a> (<a href="https://github.com/r-lib/pkgdown/issues/2659" class="external-link">#2659</a>).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="id__pkgdownyaml-development-version"><code>_pkgdown.yaml</code><a class="anchor" aria-label="anchor" href="#id__pkgdownyaml-development-version"></a></h3>
+<h3 id="id__pkgdownyaml-2-1-0"><code>_pkgdown.yaml</code><a class="anchor" aria-label="anchor" href="#id__pkgdownyaml-2-1-0"></a></h3>
 <ul><li>Anywhere you can use <code>_pkgdown.yml</code>, you can now use <code>_pkgdown.yaml</code> (<a href="https://github.com/r-lib/pkgdown/issues/2244" class="external-link">#2244</a>).</li>
 <li>Custom navbars that specify <code>icon</code> but not <code>aria-label</code> will now generate a message reminding you to provide one for to improve accessibility (<a href="https://github.com/r-lib/pkgdown/issues/2533" class="external-link">#2533</a>).</li>
 <li>The <code>repo.source.url</code> field no longer requires a trailing slash (<a href="https://github.com/r-lib/pkgdown/issues/2017" class="external-link">#2017</a>).</li>
@@ -114,7 +117,7 @@
 <li>You can now choose where the search box is placed with the “search” navbar component. This has been documented for a very long time, but as far as I can tell, never worked (<a href="https://github.com/r-lib/pkgdown/issues/2320" class="external-link">#2320</a>). If you have made your own template with a custom <code>navbar</code>, you will need to remove the <code>&lt;form&gt;</code> with <code>role="search"</code> to avoid getting two search boxes.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="minor-improvements-and-bug-fixes-development-version">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-development-version"></a></h3>
+<h3 id="minor-improvements-and-bug-fixes-2-1-0">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-2-1-0"></a></h3>
 <ul><li><p>pkgdown now uses httr2 instead of httr (<a href="https://github.com/r-lib/pkgdown/issues/2600" class="external-link">#2600</a>).</p></li>
 <li><p>Mathjax now uses version 3.2.2.</p></li>
 <li><p>The addin now runs <code><a href="../reference/build_site.html">build_site()</a></code> instead of <code>build_site_external()</code>, which generally should be more reliable (<a href="https://github.com/r-lib/pkgdown/issues/2252" class="external-link">#2252</a>).</p></li>
@@ -788,7 +791,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.0.9.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.1.0.9000.</p>
 </div>
 
     </footer></div>
