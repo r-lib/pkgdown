@@ -26,7 +26,7 @@ project:
 
 ### GitHub actions
 
-Currently, you'll need to manually install the pre-release version of Quarto in your GitHub actions. ([Hopefully this will change in the future](https://github.com/r-lib/actions/issues/866)). Add the following lines to install quarto:
+Currently, you'll need to manually install Quarto in your GitHub actions. ([Hopefully this will change in the future](https://github.com/r-lib/actions/issues/866)). Add the following lines to install quarto:
 
 ```yaml
      - name: Set up Quarto
