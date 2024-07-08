@@ -30,11 +30,7 @@ Currently, you'll need to manually install the pre-release version of Quarto in 
 
 ```yaml
      - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          version: pre-release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       uses: quarto-dev/quarto-actions/setup@v2
 ```
 
 ## Limitations
