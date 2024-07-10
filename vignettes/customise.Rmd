@@ -333,7 +333,7 @@ For example, the following yaml adds a new "twitter" component that appears to t
 ``` yaml
 navbar:
   structure:
-    right: [search, twitter, github]
+    right: [search, twitter, github, lightswitch]
   components:
     twitter:
       icon: fa-twitter
