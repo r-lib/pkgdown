@@ -282,6 +282,8 @@ It makes use of the the following built-in components:
 -   `github`, a link to the source repository (with an icon), if it can be automatically determined from the `DESCRIPTION`.
 -   `lightswitch`, a ["light switch"](#light-switch) to select light mode, dark mode, or auto mode.
 
+Note that customising `navbar` like this comes with a downside. If pkgdown later changes the defaults, you'll have to update your _pkgdown.yml.
+
 [^dots]: Note that dots (`.`) in the package name need to be replaced by hyphens (`-`) in the vignette filename to be recognized as the intro. That means for a
     package `foo.bar` the intro needs to be named `foo-bar.Rmd`.
 
