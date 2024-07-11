@@ -443,6 +443,9 @@ if it can be automatically determined from the
 <code>lightswitch</code>, a <a href="#light-switch">“light
 switch”</a> to select light mode, dark mode, or auto mode.</li>
 </ul>
+<p>Note that customising <code>navbar</code> like this comes with a
+downside: if pkgdown later changes the defaults, you’ll have to update
+your <code>_pkgdown.yml</code>.</p>
 <p>You can use the <code>structure</code> field to reorganise the navbar
 without changing the default contents:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
@@ -484,7 +487,7 @@ following yaml adds a new “twitter” component that appears to the left
 of the github icon.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
 <span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span></span>
-<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">twitter</span><span class="kw">,</span><span class="at"> github</span><span class="kw">]</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">search</span><span class="kw">,</span><span class="at"> twitter</span><span class="kw">,</span><span class="at"> github</span><span class="kw">,</span><span class="at"> lightswitch</span><span class="kw">]</span></span>
 <span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="at">  </span><span class="fu">components</span><span class="kw">:</span></span>
 <span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="at">    </span><span class="fu">twitter</span><span class="kw">:</span></span>
 <span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="at">      </span><span class="fu">icon</span><span class="kw">:</span><span class="at"> fa-twitter</span></span>
