@@ -48,10 +48,10 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = list(bs_version = 3)) {
   abs_src <- is_absolute_path(src)
   if (any(abs_src)) {
     img_target_nodes <- img[abs_src]
-    img_src_real <- path_real(URLdecode(src[abs_src]))
-    input_path_real <- path_real(URLdecode(input_path))
+    img_src_real <- path_real(utils::URLdecode(src[abs_src]))
+    input_path_real <- path_real(utils::URLdecode(input_path))
     img_rel_paths <- path_rel(path = img_src_real, start = input_path_real)
-    img_rel_paths <- URLencode(URL = img_rel_paths)
+    img_rel_paths <- utils::URLencode(URL = img_rel_paths)
 
     purrr::walk2(
       .x = img_target_nodes,

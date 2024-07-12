@@ -5,8 +5,6 @@
 #' @import fs
 #' @import rlang
 #' @importFrom utils installed.packages
-#' @importFrom utils URLdecode
-#' @importFrom utils URLencode
 ## usethis namespace: end
 NULL
 
