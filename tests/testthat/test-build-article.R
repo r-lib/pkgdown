@@ -276,6 +276,13 @@ test_that("warns about missing images", {
   expect_snapshot(build_article("kitten", pkg))
 })
 
+test_that("spaces in base paths do work", {
+  d <- withr::local_tempdir("basename with spaces")
+  fs::dir_copy(test_path("assets/articles-images"), d, overwrite = TRUE)
+
+  expect_no_error(build_article(name = "kitten", pkg = d))
+})
+
 test_that("warns about missing alt-text", {
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(pkg, "vignettes/kitten.Rmd", "![](kitten.jpg)")
