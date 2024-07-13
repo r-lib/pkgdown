@@ -218,8 +218,27 @@ cran_link <- function(pkg) {
   NULL
 }
 
+# modified from wch/r-source/src/library/tools/R/userdir.R
+user_cache_dir <- function(package) {
+  home <- path_home_r()
+
+  if (Sys.getenv("R_USER_CACHE_DIR") != "") {
+    cache_dir <- path(Sys.getenv("R_USER_CACHE_DIR"))
+  } else if(Sys.getenv("XDG_CACHE_HOME") != "") {
+    cache_dir <- path(Sys.getenv("XDG_CACHE_DIR"))
+  } else if(.Platform$OS.type == "windows") {
+    cache_dir <- path(Sys.getenv("LOCALAPPDATA"), "R", "cache")
+  } else if(Sys.info()["sysname"] == "Darwin") {
+    cache_dir <- path(home, "Library", "Caches", "org.R-project.R")
+  } else {
+    cache_dir <- path(home, ".cache")
+  }
+
+  path(cache_dir, "R", package, "cache")
+}
+
 req_pkgdown_cache <- function(req) {
-  cache_path <- dir_create(path(tools::R_user_dir("pkgdown", "cache"), "http"))
+  cache_path <- dir_create(path(user_cache_dir("pkgdown"), "http"))
   httr2::req_cache(
     req,
     path = cache_path,

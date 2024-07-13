@@ -24,6 +24,17 @@ clean_site <- function(pkg = ".", quiet = FALSE) {
   dir_delete(top_level[is_dir])
   file_delete(top_level[!is_dir])
 
+  # delete cache
+  cache_dir <- path(user_cache_dir("pkgdown"))
+
+  if (dir_exists(cache_dir)) {
+    if (!quiet) {
+      cli::cli_inform("Cleaning {.pkg {pkg$package}} pkgdown cache from {.path {cache_dir}}")
+    }
+
+    dir_delete(cache_dir)
+  }
+
   invisible(TRUE)
 }
 
