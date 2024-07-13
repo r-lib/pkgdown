@@ -91,7 +91,7 @@ math_dependency <- function(pkg, call = caller_env()) {
 }
 
 cached_dependency <- function(name, version, files) {
-  cache_dir <- path(tools::R_user_dir("pkgdown", "cache"), name, version)
+  cache_dir <- path(user_cache_dir("pkgdown"), name, version)
   dir_create(cache_dir)
 
   for (file in files) {
