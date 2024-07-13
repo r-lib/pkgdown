@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* pkgdown now depends on R >= 4.0.0 (#2714)
+
 # pkgdown 2.1.0
 
 ## Major changes
