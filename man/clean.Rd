@@ -2,9 +2,12 @@
 % Please edit documentation in R/clean.R
 \name{clean_site}
 \alias{clean_site}
+\alias{clean_cache}
 \title{Clean site}
 \usage{
 clean_site(pkg = ".", quiet = FALSE)
+
+clean_cache(pkg = ".", quiet = FALSE)
 }
 \arguments{
 \item{pkg}{Path to package.}
@@ -13,4 +16,6 @@ clean_site(pkg = ".", quiet = FALSE)
 }
 \description{
 Delete all files in \verb{docs/} (except for \code{CNAME}).
+
+Delete all files in the pkgdown cache directory.
 }
