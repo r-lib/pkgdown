@@ -146,6 +146,12 @@ test_that("package repo verification", {
   )
 })
 
+test_that("cache path is valid", {
+  cache_dir <- user_cache_dir("notarealpkg")
+  dir_create(cache_dir)
+  expect_true(is_dir(cache_dir))
+  dir_delete(cache_dir)
+})
 
 test_that("cran_unquote works", {
   expect_equal(
