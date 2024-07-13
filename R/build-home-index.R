@@ -238,7 +238,9 @@ user_cache_dir <- function(package) {
 }
 
 req_pkgdown_cache <- function(req) {
-  cache_path <- dir_create(path(user_cache_dir("pkgdown"), "http"))
+  cache_path <- path(user_cache_dir("pkgdown"), "http")
+  dir_create(cache_path)
+
   httr2::req_cache(
     req,
     path = cache_path,
