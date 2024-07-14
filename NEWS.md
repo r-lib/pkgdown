@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* New `clean_cache()` function removes the contents of the cache directory (#2718).
+
 # pkgdown 2.1.0
 
 ## Major changes
