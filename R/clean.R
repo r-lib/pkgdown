@@ -4,6 +4,7 @@
 #'
 #' @param quiet If `TRUE`, suppresses a message.
 #' @inheritParams build_site
+#' @rdname clean
 #' @export
 clean_site <- function(pkg = ".", quiet = FALSE) {
 
@@ -27,6 +28,30 @@ clean_site <- function(pkg = ".", quiet = FALSE) {
   invisible(TRUE)
 }
 
+#' Clean cache
+#'
+#' Delete all files in the pkgdown cache directory.
+#'
+#' @rdname clean
+#' @export
+clean_cache <- function(pkg = ".", quiet = FALSE) {
+
+  pkg <- as_pkgdown(pkg)
+  cache_path <- tools::R_user_dir("pkgdown", "cache")
+
+  if (dir_exists(cache_path)) {
+    if (!quiet) {
+      cli::cli_inform(
+        "Cleaning {.pkg {pkg$package}} cache files from {.path {cache_path}}"
+      )
+    }
+
+    dir_delete(cache_path)
+  }
+
+  invisible(TRUE)
+}
+
 check_dest_is_pkgdown <- function(pkg) {
   if (file_exists(path(pkg$dst_path, "pkgdown.yml"))) {
     return()
@@ -45,6 +70,6 @@ dest_files <- function(pkg) {
     character()
   } else {
     top_level <- dir_ls(pkg$dst_path)
-    top_level[!path_file(top_level) %in% c("CNAME", "dev")]  
+    top_level[!path_file(top_level) %in% c("CNAME", "dev")]
   }
 }
