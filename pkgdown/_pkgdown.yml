@@ -103,6 +103,8 @@ redirects:
 
 news:
   releases:
+  - text: "Version 2.1.0"
+    href: https://www.tidyverse.org/blog/2024/07/pkgdown-2-1-0/
   - text: "Version 2.0.0"
     href: https://www.tidyverse.org/blog/2021/12/pkgdown-2-0-0/
   - text: "Version 1.6.0"

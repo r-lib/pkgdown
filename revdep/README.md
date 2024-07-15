@@ -1,23 +1,10 @@
 # Revdeps
 
-## Failed to check (16)
+## Failed to check (3)
 
-|package               |version |error |warning |note |
-|:---------------------|:-------|:-----|:-------|:----|
-|biocthis              |?       |      |        |     |
-|biscuiteer            |?       |      |        |     |
-|CiteFuse              |?       |      |        |     |
-|decoupleR             |?       |      |        |     |
-|dorothea              |?       |      |        |     |
-|GenomicSuperSignature |?       |      |        |     |
-|lefser                |?       |      |        |     |
-|netZooR               |?       |      |        |     |
-|periodicDNA           |?       |      |        |     |
-|scClassify            |?       |      |        |     |
-|singscore             |?       |      |        |     |
-|SPIAT                 |?       |      |        |     |
-|spicyR                |?       |      |        |     |
-|velociraptor          |?       |      |        |     |
-|vissE                 |?       |      |        |     |
-|VplotR                |?       |      |        |     |
+|package   |version |error |warning |note |
+|:---------|:-------|:-----|:-------|:----|
+|clustree  |?       |      |        |     |
+|multinma  |0.7.1   |1     |        |     |
+|scDiffCom |?       |      |        |     |
 

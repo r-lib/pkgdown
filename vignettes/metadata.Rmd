@@ -125,4 +125,4 @@ In articles, the `opengraph` section works in the same way as the site-wide `tem
 
 [ogp]: https://ogp.me/
 [ogp-validator]: https://search.google.com/test/rich-results
-[twitter-card]: https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards
+[twitter-card]: https://developer.x.com/en/docs/twitter-for-websites/cards/overview/abouts-cards
