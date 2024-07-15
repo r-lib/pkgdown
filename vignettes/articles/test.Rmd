@@ -1,0 +1,23 @@
+---
+title: "test"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(pkgdown)
+```
+
+```{r}
+knitr::read_chunk("knitr-chunks.R")
+```
+
+```{r}
+#| label: simple
+```
+

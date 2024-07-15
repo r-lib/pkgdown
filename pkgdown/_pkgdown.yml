@@ -52,6 +52,11 @@ articles:
   contents:
   - starts_with("test")
 
+- title: internal
+  contents:
+  - articles/test
+  - articles/test-quarto
+
 reference:
 - title: Build
 
