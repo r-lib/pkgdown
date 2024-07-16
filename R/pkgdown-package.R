@@ -2,9 +2,9 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @import fs
-#' @import rlang
 #' @importFrom utils installed.packages
+#' @import rlang
+#' @import fs
 ## usethis namespace: end
 NULL
 
