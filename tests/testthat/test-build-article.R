@@ -81,7 +81,7 @@ test_that("BS5 article gets correctly activated navbar", {
 
   html <- xml2::read_html(article_path)
   navbar <- xml2::xml_find_first(html, ".//div[contains(@class, 'navbar')]")
-  
+
   expect_equal(
     xpath_text(navbar,".//li[contains(@class, 'active')]//button"),
     "Articles"
@@ -104,7 +104,7 @@ test_that("output is reproducible by default, i.e. 'seed' is respected", {
     r_code_block("runif(5L)")
   ))
   suppressMessages(path <- build_article("test", pkg))
-  
+
   html <- xml2::read_html(path)
   output <- xpath_text(html, "//main//pre")[[2]]
   expect_snapshot(cat(output))
@@ -133,7 +133,7 @@ test_that("can control math mode", {
   suppressMessages(path <- build_article("math", pkg))
   html <- xml2::read_html(path)
   expect_equal(xpath_length(html, ".//span[contains(@class, 'math')]"), 1)
-  
+
   pkg$meta$template$`math-rendering` <- "katex"
   suppressMessages(init_site(pkg))
   suppressMessages(path <- build_article("math", pkg))
@@ -276,11 +276,23 @@ test_that("warns about missing images", {
   expect_snapshot(build_article("kitten", pkg))
 })
 
-test_that("spaces in base paths do work", {
-  d <- withr::local_tempdir("basename with spaces")
-  fs::dir_copy(test_path("assets/articles-images"), d, overwrite = TRUE)
+test_that("spaces in sorce paths do work", {
+  # create simulated package
+  pkg0 <- local_pkgdown_site()
+  pkg0 <- pkg_add_file(pkg0, "vignettes/kitten.Rmd", "![Kitten](kitten.jpg)")
+  pkg0 <- pkg_add_kitten(pkg0, "vignettes")
 
-  expect_no_error(build_article(name = "kitten", pkg = d))
+  # copy simulated pkg to path that contains spaces
+  d <-
+    fs::dir_copy(
+      path = pkg0$src_path,
+      new_path = fs::file_temp(pattern = "beware of spaces-")
+    )
+
+  # check that pkgdown site builds anyways
+  expect_no_error(suppressMessages({
+    build_article(name = "kitten", pkg = as_pkgdown(pkg = d))
+  }))
 })
 
 test_that("warns about missing alt-text", {
