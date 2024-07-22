@@ -186,6 +186,10 @@ test_that("can parse dots", {
   expect_equal(usage$name, "f")
 })
 
+test_that("usage2text can parse symbols (#2727)", {
+	expect_no_error(usage2text("viridisLite::viridis(21)"))
+})
+
 # short_name --------------------------------------------------------------
 
 test_that("infix functions left as", {
