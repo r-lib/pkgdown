@@ -19,7 +19,7 @@ as_data.tag_usage <- function(x, ...) {
   lines <- strsplit(text, "\n", fixed = TRUE)[[1]]
   parsed <- lapply(lines, function(x) tryCatch(parse(text = x)[[1]], error = function(e) NULL))
   needs_tweak <- function(x) {
-    is_call(x) && !is_call(x, "=") && !is_syntactic(x[[1]])
+    is_call(x) && !is_call(x, "=") && (is_symbol(x[[1]]) && !is_syntactic(x[[1]]))
   }
   to_tweak <- vapply(parsed, needs_tweak, logical(1))
   lines[to_tweak] <- vapply(parsed[to_tweak], deparse1, character(1))
