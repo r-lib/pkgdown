@@ -142,7 +142,7 @@
           - is_installed()
           - check_installed()
           icon: ~
-        - path: https://rdrr.io/pkg/bslib/man/bs_bundle.html
+        - path: https://rstudio.github.io/bslib/reference/bs_bundle.html
           title: Add low-level theming customizations (from bslib)
           lifecycle: ~
           aliases:
