@@ -283,16 +283,12 @@ test_that("spaces in sorce paths do work", {
   pkg0 <- pkg_add_kitten(pkg0, "vignettes")
 
   # copy simulated pkg to path that contains spaces
-  d <-
-    fs::dir_copy(
-      path = pkg0$src_path,
-      new_path = fs::file_temp(pattern = "beware of spaces-")
-    )
+  pkg1 <- fs::dir_copy(pkg0$src_path, fs::file_temp(pattern = "beware of spaces-"))
 
   # check that pkgdown site builds anyways
-  expect_no_error(suppressMessages({
-    build_article(name = "kitten", pkg = as_pkgdown(pkg = d))
-  }))
+  expect_no_error(suppressMessages(
+    build_article("kitten", as_pkgdown(pkg1))
+  ))
 })
 
 test_that("warns about missing alt-text", {
