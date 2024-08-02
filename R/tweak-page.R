@@ -47,10 +47,16 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = list(bs_version = 3)) {
   src <- xml2::xml_attr(img, "src")
   abs_src <- is_absolute_path(src)
   if (any(abs_src)) {
+    img_target_nodes <- img[abs_src]
+    img_src_real <- path_real(xml2::url_unescape(src[abs_src]))
+    input_path_real <- path_real(xml2::url_unescape(input_path))
+    img_rel_paths <- path_rel(path = img_src_real, start = input_path_real)
+    img_rel_paths <- xml2::url_escape(img_rel_paths)
+
     purrr::walk2(
-      img[abs_src],
-      path_rel(path_real(src[abs_src]), path_real(input_path)),
-      xml2::xml_set_attr,
+      .x = img_target_nodes,
+      .y = img_rel_paths,
+      .f = xml2::xml_set_attr,
       attr = "src"
     )
   }

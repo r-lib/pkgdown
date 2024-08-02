@@ -14,7 +14,7 @@ check_missing_images <- function(pkg, src_path, dst_path) {
   img <- xml2::xml_find_all(html, ".//img")
   src <- xml2::xml_attr(img, "src")
 
-  rel_src <- src[xml2::url_parse(src)$scheme == ""]
+  rel_src <- xml2::url_unescape(src[xml2::url_parse(src)$scheme == ""])
   rel_path <- path_norm(path(path_dir(dst_path), rel_src))
   exists <- file_exists(path(pkg$dst_path, rel_path))
 
