@@ -244,7 +244,7 @@
 #' The varying components (e.g. path, issue number, user name) are pasted on
 #' the end of these URLs so they should have trailing `/`s.
 #'
-#' When creating the link to pacge source, we have to link to a specific
+#' When creating the link to a package source, we have to link to a specific
 #' branch. The default behaviour is to use current branch when in GitHub
 #' actions and `HEAD` otherwise. You can overide this default with 
 #' `repo.branch`:
