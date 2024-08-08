@@ -224,6 +224,7 @@ body > .container .row {
 main img {
   max-width: 100%;
   height: auto;
+  background-color: white;
 }
 main table {
   display: block;
@@ -311,6 +312,7 @@ img.logo {
   float: right;
   width: 100px;
   margin-left: 30px;
+  background-color: transparent;
 }
 .template-home img.logo {
   width: 120px;
