@@ -31,6 +31,7 @@ Other tests:
 \code{\link{test-links}},
 \code{\link{test-lists}},
 \code{\link{test-long-lines}},
+\code{\link{test-math-examples}},
 \code{\link{test-params}},
 \code{\link{test-sexpr-title}},
 \code{\link{test-tables}},
