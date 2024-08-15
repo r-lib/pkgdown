@@ -109,7 +109,6 @@ re_match <- function(text, pattern, perl = TRUE, ...) {
   matchstr[ start == -1 ] <- NA_character_
 
   res <- data.frame(
-    stringsAsFactors = FALSE,
     .text = text,
     .match = matchstr
   )
@@ -124,7 +123,7 @@ re_match <- function(text, pattern, perl = TRUE, ...) {
     groupstr[ gstart == -1 ] <- NA_character_
     dim(groupstr) <- dim(gstart)
 
-    res <- cbind(groupstr, res, stringsAsFactors = FALSE)
+    res <- cbind(groupstr, res)
   }
 
   names(res) <- c(attr(match, "capture.names"), ".text", ".match")
