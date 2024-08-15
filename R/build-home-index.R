@@ -158,10 +158,13 @@ data_home_sidebar_links <- function(pkg = ".") {
   repo <- cran_link(pkg$package)
   links <- config_pluck(pkg, "home.links")
 
+  bug_reports <- pkg$desc$get_field("BugReports", default = NULL)
+  if (grepl("@", bug_reports)) bug_reports <- paste0("mailto:", bug_reports)
+
   links <- c(
     link_url(sprintf(tr_("View on %s"), repo$repo), repo$url),
     link_url(tr_("Browse source code"), repo_home(pkg)),
-    link_url(tr_("Report a bug"), pkg$desc$get_field("BugReports", default = NULL)),
+    link_url(tr_("Report a bug"), bug_reports),
     purrr::map_chr(links, ~ link_url(.$text, .$href))
   )
 
