@@ -159,7 +159,9 @@ data_home_sidebar_links <- function(pkg = ".") {
   links <- config_pluck(pkg, "home.links")
 
   bug_reports <- pkg$desc$get_field("BugReports", default = NULL)
-  if (grepl("@", bug_reports)) bug_reports <- paste0("mailto:", bug_reports)
+  if (grepl("@", bug_reports)) {
+    bug_reports <- paste0("mailto:", bug_reports)
+  }
 
   links <- c(
     link_url(sprintf(tr_("View on %s"), repo$repo), repo$url),
