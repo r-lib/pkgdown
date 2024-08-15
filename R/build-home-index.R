@@ -159,7 +159,7 @@ data_home_sidebar_links <- function(pkg = ".") {
   links <- config_pluck(pkg, "home.links")
 
   bug_reports <- pkg$desc$get_field("BugReports", default = NULL)
-  if (grepl("@", bug_reports) && !startsWith(bug_reports, "hhtp")) {
+  if (grepl("@", bug_reports) && !startsWith(bug_reports, "http")) {
     bug_reports <- paste0("mailto:", bug_reports)
   }
 
