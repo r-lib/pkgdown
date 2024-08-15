@@ -89,8 +89,8 @@ You can find the correct height by running `$(".navbar").outerHeight()` in the [
 ### bslib variables
 
 Instead of picking a complete theme, you can tweak fonts and colours individually using bslib variables.
-[bslib](https://rstudio.github.io/bslib/) is an R package that wraps scss, the tool that Boostrap uses to produce CSS from a special language called [scss](https://sass-lang.com).
-The primary advantage of scss over CSS is that it is more programmable, so you can have a few key bslib variables that affect appearance of many HTML elements.
+[bslib](https://rstudio.github.io/bslib/) is an R package that wraps sass, the tool that Boostrap uses to produce CSS from a special language called [scss](https://sass-lang.com).
+The primary advantage of scss over CSS is that it's more programmable, so you can have a few key bslib variables that affect appearance of many HTML elements.
 
 There are three key variables that affect the colour:
 
@@ -112,7 +112,7 @@ For example, `table-border-color` defaults to `border-color` which defaults to `
 If you want to change the colour of all borders, you can set `border-color` and if you just want to change the colour of table borders, you can set `table-border-color`.
 You can find a full list of variables in the [bslib docs](https://rstudio.github.io/bslib/articles/bs5-variables/index.html).
 
-If you are using the light switch, [many colours](https://getbootstrap.com/docs/5.3/customize/color-modes/#sass-variables) are available for customisation specifically for the dark theme.
+If you're using the light switch, [many colours](https://getbootstrap.com/docs/5.3/customize/color-modes/#sass-variables) are available for customisation specifically for the dark theme.
 
 Theming with bslib is powered by `bslib::bs_theme()` and the `bslib` field is a direct translation of the arguments to that function.
 As a result, you can fully specify a bslib theme using the `template.bslib` field, making it easy to share YAML with the `output.html_document.theme` field [of an R Markdown document](https://rstudio.github.io/bslib/articles/theming/index.html).
@@ -142,7 +142,7 @@ template:
     code_font: {google: "JetBrains Mono"}
 ```
 
-If you want to use a non-Google font, you will need to do a bit more work. There are two steps: you need to first configure the font with CSS and then use it in your `_pkgdown.yml`. There are two ways you might get the CSS:
+If you want to use a non-Google font, you'll need to do a bit more work. There are two steps: you need to first configure the font with CSS and then use it in your `_pkgdown.yml`. There are two ways you might get the CSS:
 
 * As a block of CSS which you should put in `pkgdown/extra.scss` or `pkgdown/extra.css`. The CSS will look something like this:
 
@@ -178,9 +178,9 @@ template:
     base_font: proxima-nova
 ```
 
-Depending on where the font is from (and if you purchased it), you may need to take additional steps to ensure that it can only be used from your site, and/or make sure that it can still be used when you're previewing locally. If you are having problems getting a custom font to work, looking for errors in the [browser developer console](https://developer.mozilla.org/en-US/docs/Glossary/Developer_Tools) is a good place to start.
+Depending on where the font is from (and if you purchased it), you may need to take additional steps to ensure that it can only be used from your site, and/or make sure that it can still be used when you're previewing locally. If you're having problems getting a custom font to work, looking for errors in the [browser developer console](https://developer.mozilla.org/en-US/docs/Glossary/Developer_Tools) is a good place to start.
 
-When iterating on fonts, you will need to run `build_home_index(); init_site()` then refresh your browser to see the update.
+When iterating on fonts, you'll need to run `build_home_index(); init_site()` then refresh your browser to see the update.
 
 
 ### Syntax highlighting
@@ -243,12 +243,12 @@ navbar:
   bg: primary
 ```
 
-You generally don not need to set `bg` if you use a bootswatch theme, as pkgdown will pick the `bg` used on the [Bootstwatch preview](https://bootswatch.com/).
-Similarly, you do not usually need to set `type` because bootstrap will guess it for you.
+You generally don't need to set `bg` if you use a bootswatch theme, as pkgdown will pick the `bg` used on the [Bootstwatch preview](https://bootswatch.com/).
+Similarly, you don't usually need to set `type` because bootstrap will guess it for you.
 If the guess is wrong, you can override with `type: light` or `type: dark` depending on whether the background colour is light (so you need dark text) or `type: dark` if the background is dark (so you need light text).
-Unfortunately, these are defined relative to the page background, so if you have a dark site you will need to flip `light` and `dark` (a little experimentation should quickly determine what looks best).
+Unfortunately, these are defined relative to the page background, so if you have a dark site you'll need to flip `light` and `dark` (a little experimentation should quickly determine what looks best).
 
-Because the navbar is styled with HTML, you will need to `build_home_index(); init_site()` to see the effect of changing this parameter.
+Because the navbar is styled with HTML, you'll need to `build_home_index(); init_site()` to see the effect of changing this parameter.
 
 ## Layout {#layout}
 
@@ -259,7 +259,7 @@ They all use a similar structure that separately defines the overall `structure`
 ### Navbar {#navbar-heading}
 
 You can customise the navigation bar that appears at the top of the page with the `navbar` field.
-It is made up of two pieces: `structure`, which defines the overall layout, and `components`, which defines what each piece looks like.
+It's made up of two pieces: `structure`, which defines the overall layout, and `components`, which defines what each piece looks like.
 This organisation makes it easy to mix and match pkgdown defaults with your own customisations.
 
 This is the default structure:
@@ -282,7 +282,7 @@ It makes use of the the following built-in components:
 -   `github`: a link to the source repository (with an icon), if it can be automatically determined from the `DESCRIPTION`.
 -   `lightswitch`; a ["light switch"](#light-switch) to select light mode, dark mode, or auto mode.
 
-Note that customising `navbar` like this comes with a downside: if pkgdown later changes the defaults, you will have to update your `_pkgdown.yml`.
+Note that customising `navbar` like this comes with a downside: if pkgdown later changes the defaults, you'll have to update your `_pkgdown.yml`.
 
 [^dots]: Note that dots (`.`) in the package name need to be replaced by hyphens (`-`) in the vignette filename to be recognized as the intro. That means for a
     package `foo.bar` the intro needs to be named `foo-bar.Rmd`.
@@ -360,7 +360,7 @@ You can also customise the colour scheme of the navbar by using the `type` and `
 ### Footer
 
 You can customise the footer with the `footer` field.
-It is made up of two pieces: `structure`, which defines the overall layout, and `components`, which defines what each piece looks like.
+It's made up of two pieces: `structure`, which defines the overall layout, and `components`, which defines what each piece looks like.
 This organisation makes it easy to mix and match the pkgdown defaults with your own customisations.
 
 This is the default structure:
@@ -427,7 +427,7 @@ It can contain any of the following:
 -   A configuration file in `inst/pkgdown/_pkgdown.yml`. This can be used to set (e.g.) author definitions, Bootstrap version and variables, the sidebar, footer, navbar, etc.
 -   Templates in `inst/pkgdown/templates/` will override the default templates.
 -   Assets in `inst/pkgdown/assets/` will be copied in to the destination directory.
-    (Note these files are only copied; you will need to reference them in your stylesheet or elsewhere in order for them to be actually used.)
+    (Note these files are only copied; you'll need to reference them in your stylesheet or elsewhere in order for them to be actually used.)
 -   `inst/pkgdown/extra.scss` will be added to the bslib ruleset.
     (Note that `extra.css` is not supported in templates.)
 
@@ -440,7 +440,7 @@ template:
   package: theverybest
 ```
 
-You then also need to make sure it is available when your site is built. Typically, you will not want to publish this package to CRAN, but you will want to publish to GitHub. Once you have done that, and assuming you are using the [usethis workflow](https://usethis.r-lib.org/reference/use_pkgdown.html), add the following line to your `DESCRIPTION`:
+You then also need to make sure it's available when your site is built. Typically, you won't want to publish this package to CRAN, but you will want to publish to GitHub. Once you've done that, and assuming you're using the [usethis workflow](https://usethis.r-lib.org/reference/use_pkgdown.html), add the following line to your `DESCRIPTION`:
 
 ```yaml
 Config/Needs/website: myorg/theverybest
@@ -454,11 +454,11 @@ To get some sense of how a theming package works, you can look at:
 -   [quillt](https://pkgs.rstudio.com/quillt) used for R Markdown packages;
 -   [rotemplate](https://github.com/ropensci-org/rotemplate) used for rOpenSci packages.
 
-But please note that these templates are not suitable for use with your own package as they are all designed to give a common visual identity to a specific family of packages.
+But please note that these templates aren't suitable for use with your own package as they're all designed to give a common visual identity to a specific family of packages.
 
 ### Porting a template package
 
-If you are updating a template package that works with pkgdown 1.0.0, create directories `inst/pkgdown/BS5/templates` and `inst/pkgdown/BS5/assets` (if you do not have any templates/assets make sure to a add dummy file to ensure that git tracks them).
+If you are updating a template package that works with pkgdown 1.0.0, create directories `inst/pkgdown/BS5/templates` and `inst/pkgdown/BS5/assets` (if you don't have any templates/assets make sure to a add dummy file to ensure that git tracks them).
 The `templates` and `assets` directories directly under `inst/pkgdown` will be used by pkgdown 1.0.0 and by pkgdown 2.0.0 if `boostrap: 3`.
 The directories under `inst/pkgdown/BS5/` will be used for pkgdown 2.0.0 with `boostrap: 5`.
 This lets your package support both versions of Bootstrap and pkgdown.

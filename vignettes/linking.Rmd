@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 ## Within a package
 
-pkgdown will automatically link to documentation and articles wherever it is possible to do unambiguously. This includes:
+pkgdown will automatically link to documentation and articles wherever it's possible to do unambiguously. This includes:
 
 * Bare function calls, like `build_site()`.
 * Calls to `?`, like `?build_site` or `package?pkgdown`.

@@ -53,9 +53,9 @@ Next, install [potools](https://michaelchirico.github.io/potools/) and [usethis]
 install.packages(c("potools", "usethis"))
 ```
 
-You will then need to familiarise yourself with the basics of [translations with potools](https://michaelchirico.github.io/potools/articles/translators.html) and [creating pull requests](https://usethis.r-lib.org/articles/pr-functions.html) with usethis.
+You'll then need to familiarise yourself with the basics of [translations with potools](https://michaelchirico.github.io/potools/articles/translators.html) and [creating pull requests](https://usethis.r-lib.org/articles/pr-functions.html) with usethis.
 
-If you do not already know it, you will need to look up the ISO 639-1 abbreviation for [your language](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes). In the examples below, I will pretend I am providing translations for Zulu, which has code `zu`.
+If you don't already know it, you'll need to look up the ISO 639-1 abbreviation for [your language](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes). In the examples below, I'll pretend I'm providing translations for Zulu, which has code `zu`.
 
 Start by initialising a pull request:
 
@@ -81,7 +81,7 @@ devtools::load_all()
 build_site("~/path/to/your/site")
 ```
 
-Once you are happy with your work, make sure to compile the changes:
+Once you're happy with your work, make sure to compile the changes:
 
 ```{r}
 #| eval: false
