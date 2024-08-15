@@ -63,7 +63,7 @@ process_conditional_examples <- function(rd) {
         if (isTRUE(cond)) {
           remove <- c(remove, idx, idx + 1L)
         } else {
-          cond_expr_str <- paste(deparse(cond_expr), collapse = " ")
+          cond_expr_str <- deparse1(cond_expr)
           is_false <- cond_expr_str == "FALSE"
           if (!is_false) {
             new_cond <- paste0("if (FALSE) { # ", cond_expr_str)
