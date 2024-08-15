@@ -108,7 +108,7 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
     "home.sidebar.structure",
     default = default_sidebar_structure(),
     call = call
-  ) 
+  )
 
   # compute all default sections
   default_components <- list(
@@ -122,7 +122,7 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
   )
 
   needs_components <- setdiff(structure, names(default_components))
-  custom_yaml <- config_pluck_sidebar_components(pkg, needs_components, call = call)  
+  custom_yaml <- config_pluck_sidebar_components(pkg, needs_components, call = call)
   custom_components <- purrr::map(custom_yaml, function(x) {
     sidebar_section(x$title, markdown_text_block(pkg, x$text))
   })
@@ -140,11 +140,11 @@ default_sidebar_structure <- function() {
 config_pluck_sidebar_components <- function(pkg, new_components, call = caller_env()) {
   base_path <- "home.sidebar.components"
   components <- config_pluck_list(pkg, base_path, has_names = new_components, call = call)
-  
+
   for (name in names(components)) {
     component <- components[[name]]
     component_path <- paste0(base_path, ".", name)
-    
+
     config_pluck_list(pkg, component_path, has_names = c("title", "text"), call = call)
     config_pluck_string(pkg, paste0(component_path, ".title"), call = call)
     config_pluck_string(pkg, paste0(component_path, ".text"), call = call)
@@ -159,7 +159,7 @@ data_home_sidebar_links <- function(pkg = ".") {
   links <- config_pluck(pkg, "home.links")
 
   bug_reports <- pkg$desc$get_field("BugReports", default = NULL)
-  if (grepl("@", bug_reports)) {
+  if (grepl("@", bug_reports) && !startsWith(bug_reports, "hhtp")) {
     bug_reports <- paste0("mailto:", bug_reports)
   }
 

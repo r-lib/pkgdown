@@ -30,7 +30,7 @@ test_that("math is handled", {
   expect_equal(xpath_length(html, ".//math"), 1)
 })
 
-test_that("data_home() validates yaml metadata", {  
+test_that("data_home() validates yaml metadata", {
   data_home_ <- function(...) {
     pkg <- local_pkgdown_site(meta = list(...))
     data_home(pkg)

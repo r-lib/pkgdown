@@ -149,3 +149,11 @@
       ! In _pkgdown.yml, home.sidebar.components.fancy must have components "title" and "text".
       2 missing components: "title" and "text".
 
+# allow email in BugReports
+
+    Code
+      xpath_xml(html, ".//li/a")
+    Output
+      <a href="mailto:me@tidyverse.com">Report a bug</a>
+      <a href="authors.html#citation">Citing testpackage</a>
+
