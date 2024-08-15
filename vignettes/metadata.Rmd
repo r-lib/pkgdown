@@ -16,13 +16,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-Package authors can customize the metadata used by Twitter and the [Open Graph protocol][ogp] for rich social media cards. In addition to specifying an alternate description for the package and any individual articles, you may also choose the preview image shown and the style of the card used on Twitter.
+Package authors can customize the metadata used by Twitter and the [Open Graph protocol][ogp] for rich social media cards. In addition to specifying an alternate description for the package and any individual articles, you may also choose the preview the image(s) shown and the style of the card used on Twitter.
 
 You can preview and validate the appearance of the social media cards with online tools:
 
-* [Google Rich Results Test][ogp-validator];
-* Drafting a tweet to yourself;
-* Sending yourself a Slack message.
+* [Google Rich Results Test][ogp-validator]
+* Drafting a tweet to yourself
+* Sending yourself a Slack message
 
 ## Necessary configuration
 
@@ -52,7 +52,7 @@ template:
       card: summary_large_image
 ```
 
-The `home: title` and `home: description` fields override the `Title` and `Description` fields in the package `DESCRIPTION`. It's good practice to set these fields to make your package documentation easier to find via search, rather than sticking with the title and description needed by CRAN.
+The `home: title` and `home: description` fields override the `Title` and `Description` fields in the package `DESCRIPTION`. It is good practice to set these fields to make your package documentation easier to find via search, rather than sticking with the title and description needed by CRAN.
 
 The `template: opengraph` section allows you to further customize the social media card.
 
@@ -78,7 +78,7 @@ The `template: opengraph` section allows you to further customize the social med
     * `site`: The Twitter handle of the organization affiliated with the
       package author or sponsoring the package development. 
       
-    * If only one of `creator` or `site` is included, the provided value will 
+    * If only one of either `creator` or `site` is included, the provided value will 
       be used for both fields.
     
     * `card`: The [style of social media card][twitter-card] that Twitter will 
