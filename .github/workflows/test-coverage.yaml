@@ -29,6 +29,8 @@ jobs:
         with:
           extra-packages: any::covr, any::xml2
           needs: coverage
+      
+      - uses: r-lib/actions/setup-tinytex@v2
 
       - name: Test coverage
         run: |
