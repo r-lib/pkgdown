@@ -1,6 +1,9 @@
 # pkgdown (development version)
 
+* The `BugReports` field can now be an email (@catalamarti, #2275).
+
 * New `clean_cache()` function removes the contents of the cache directory (#2718).
+
 * pkgdown now depends on R >= 4.0.0 (#2714)
 * Updated GitHub Actions advice and workflows around Quarto install (@tanho63, #2743)
 

@@ -23,8 +23,8 @@ test_that("news is syntax highlighted once", {
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(pkg, "NEWS.md", c(
     "# testpackage 1.0.0.9000",
-    "```r", 
-    "x <- 1", 
+    "```r",
+    "x <- 1",
     "```"
   ))
   suppressMessages(build_news(pkg, preview = FALSE))
@@ -117,8 +117,7 @@ test_that("correct timeline for first ggplot2 releases", {
   timeline <- pkg_timeline("ggplot2")[1:3, ]
   expected <- data.frame(
     version = c("0.5", "0.5.1", "0.5.2"),
-    date = as.Date(c("2007-06-01", "2007-06-09", "2007-06-18")),
-    stringsAsFactors = FALSE
+    date = as.Date(c("2007-06-01", "2007-06-09", "2007-06-18"))
   )
 
   expect_equal(timeline, expected)
