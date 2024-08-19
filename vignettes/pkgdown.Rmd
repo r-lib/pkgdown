@@ -64,8 +64,8 @@ pkgdown's defaults work to ensure that your site is accessible to as many people
 ## Home page
 
 The contents of the home page are automatically generated from `index.md` or `README.md`.
-pkgdown tries them in order, so it's possible to have a different display on GitHub and pkgdown by providing both files.
-The homepage also includes a sidebar full of useful links; see `?build_home` for how these are generated and how you can customise them.
+pkgdown tries to put them in order, so it's possible to have a different display on GitHub and pkgdown by providing both files.
+The homepage also includes a sidebar full of useful links (see `?build_home` for how these are generated and how you can customise them).
 
 ## Reference
 
@@ -116,7 +116,7 @@ It just re-builds the index page, making it faster to quickly change `_pkgdown.y
 ## Articles
 
 pkgdown will automatically build all vignettes found in `vignettes/`, translating them to HTML files in `articles/`.
-It is recommended to name your intro article with your package name to generate a Get Started page automatically.
+It is recommended to name your intro article with your package name to generate a "Get Started" page automatically.
 
 Due to the way that pkgdown has to integrate R Markdown generated HTML with its own HTML, relatively little control is available over the output format.
 You can see the details in `?build_articles`.

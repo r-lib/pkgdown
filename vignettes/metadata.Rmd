@@ -20,9 +20,9 @@ Package authors can customize the metadata used by Twitter and the [Open Graph p
 
 You can preview and validate the appearance of the social media cards with online tools:
 
-* [Google Rich Results Test][ogp-validator];
-* Drafting a tweet to yourself;
-* Sending yourself a Slack message.
+* [Google Rich Results Test][ogp-validator]
+* Drafting a tweet to yourself
+* Sending yourself a Slack message
 
 ## Necessary configuration
 
@@ -78,7 +78,7 @@ The `template: opengraph` section allows you to further customize the social med
     * `site`: The Twitter handle of the organization affiliated with the
       package author or sponsoring the package development. 
       
-    * If only one of `creator` or `site` is included, the provided value will 
+    * If only one of either `creator` or `site` is included, the provided value will 
       be used for both fields.
     
     * `card`: The [style of social media card][twitter-card] that Twitter will 

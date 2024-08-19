@@ -51,7 +51,7 @@ If pkgdown can find a pkgdown site for the remote package, it will link to it; o
     url: https://dplyr.tidyverse.org
     ```
     
-    When this field is defined, pkgdown generate a public facing
+    When this field is defined, pkgdown generates a public facing
     [`pkgdown.yml` file](https://dplyr.tidyverse.org/pkgdown.yml) that provides
     metadata about the site:
     
