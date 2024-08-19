@@ -117,8 +117,8 @@ how to give multiple sites the same style using a package, then finish
 up with some workflow advice.</p>
 <p>In terms of your <code>_pkgdown.yml</code>, this vignette focusses on
 the most important fields nested under <code>template</code> and
-<code>navbar</code>. To learn more about customising other aspect of the
-site, see the documentation for the indiviudal functions like
+<code>navbar</code>. To learn more about customising other aspects of
+the site, see the documentation for the indiviudal functions like
 <code><a href="../reference/build_reference.html">build_reference()</a></code>, <code><a href="../reference/build_articles.html">build_articles()</a></code>,
 <code><a href="../reference/build_home.html">build_home()</a></code>, <code><a href="../reference/build_redirects.html">build_redirects()</a></code>, and
 <code><a href="../reference/init_site.html">init_site()</a></code>. To learn about less important fields nested
@@ -146,19 +146,19 @@ has a low chance of breaking your site unless you were using your <a href="#temp
 customising theme variables with <a href="https://rstudio.github.io/bslib/" class="external-link">bslib</a>. The following
 sections show you how.</p>
 <p>Please note that pkgdown’s default theme has been carefully optimised
-to be accessible, so if you make changes, make sure that to also read
+to be accessible, so if you make changes, make sure to also read
 <code><a href="../articles/accessibility.html">vignette("accessibility")</a></code> to learn about potential
 accessibility pitfalls.</p>
 <div class="section level3">
 <h3 id="light-switch">Light switch<a class="anchor" aria-label="anchor" href="#light-switch"></a>
 </h3>
-<p>You can provide a “light switch” to allow your uses to switch between
-dark and light themes by setting the <code>light-switch</code> template
-option to true:</p>
+<p>You can provide a “light switch” to allow your users to switch
+between dark and light themes by setting the <code>light-switch</code>
+template option to true:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="at">  </span><span class="fu">light-switch</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
 <p>This will add a <code>lightswitch</code> component to the navbar,
-which defaults to appearing at the far right. This allows the user to
+which by default appears at the far right. This allows the user to
 select light mode, dark mode, or auto mode (which follows the system
 setting). The modes are applied using Bootstrap 5.3’s <a href="https://getbootstrap.com/docs/5.3/customize/color-modes/" class="external-link">colours
 modes</a> so are not separate themes, but a thin layer of colour
@@ -229,7 +229,7 @@ hover colour in the navbar and sidebar.</li>
 variables, taking advantage of inheritance where possible. For example,
 <code>table-border-color</code> defaults to <code>border-color</code>
 which defaults to <code>gray-300</code>. If you want to change the
-colour of all borders, you can set <code>border-color</code>; if you
+colour of all borders, you can set <code>border-color</code> and if you
 just want to change the colour of table borders, you can set
 <code>table-border-color</code>. You can find a full list of variables
 in the <a href="https://rstudio.github.io/bslib/articles/bs5-variables/index.html" class="external-link">bslib
@@ -303,15 +303,15 @@ you just specified:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="at">  </span><span class="fu">bslib</span><span class="kw">:</span></span>
 <span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="at">    </span><span class="fu">base_font</span><span class="kw">:</span><span class="at"> proxima-nova</span></span></code></pre></div>
-<p>Depending on where the font is from (and if you paid money for it),
-you may need to take additional steps to ensure that it can only be used
+<p>Depending on where the font is from (and if you purchased it), you
+may need to take additional steps to ensure that it can only be used
 from your site, and/or make sure that it can still be used when you’re
 previewing locally. If you’re having problems getting a custom font to
 work, looking for errors in the <a href="https://developer.mozilla.org/en-US/docs/Glossary/Developer_Tools" class="external-link">browser
 developer console</a> is a good place to start.</p>
 <p>When iterating on fonts, you’ll need to run
-<code><a href="../reference/build_home.html">build_home_index(); init_site()</a></code> then refresh you browser to
-see the update.</p>
+<code><a href="../reference/build_home.html">build_home_index(); init_site()</a></code> then refresh your browser
+to see the update.</p>
 </div>
 <div class="section level3">
 <h3 id="syntax-highlighting">Syntax highlighting<a class="anchor" aria-label="anchor" href="#syntax-highlighting"></a>
@@ -378,7 +378,7 @@ of <code>light</code>, <code>dark</code>, or <code>primary</code>:</p>
 bootswatch theme, as pkgdown will pick the <code>bg</code> used on the
 <a href="https://bootswatch.com/" class="external-link">Bootstwatch preview</a>. Similarly,
 you don’t usually need to set <code>type</code> because bootstrap will
-guess it for you. If it guesses wrong, override with
+guess it for you. If the guess is wrong, you can override with
 <code>type: light</code> or <code>type: dark</code> depending on whether
 the background colour is light (so you need dark text) or
 <code>type: dark</code> if the background is dark (so you need light
@@ -424,23 +424,23 @@ be recognized as the intro. That means for a package
 &lt;code&gt;foo.bar&lt;/code&gt; the intro needs to be named
 &lt;code&gt;foo-bar.Rmd&lt;/code&gt;.&lt;/p&gt;"><sup>1</sup></a>.</li>
 <li>
-<code>reference</code>, if there are any <code>.Rd</code>
+<code>reference</code>: if there are any <code>.Rd</code>
 files.</li>
 <li>
-<code>articles</code>, if there are any vignettes or articles.</li>
+<code>articles</code>: if there are any vignettes or articles.</li>
 <li>
-<code>tutorials</code>, if there any tutorials.</li>
+<code>tutorials</code>: if there any tutorials.</li>
 <li>
-<code>news</code>, if <code>NEWS.md</code> exists.</li>
+<code>news</code>: if <code>NEWS.md</code> exists.</li>
 <li>
-<code>search</code>, the search box (see <code><a href="../reference/build_search.html">?build_search</a></code>
+<code>search</code>: the search box (see <code><a href="../reference/build_search.html">?build_search</a></code>
 for more details).</li>
 <li>
-<code>github</code>, a link to the source repository (with an icon),
+<code>github</code>: a link to the source repository (with an icon),
 if it can be automatically determined from the
 <code>DESCRIPTION</code>.</li>
 <li>
-<code>lightswitch</code>, a <a href="#light-switch">“light
+<code>lightswitch</code>; a <a href="#light-switch">“light
 switch”</a> to select light mode, dark mode, or auto mode.</li>
 </ul>
 <p>Note that customising <code>navbar</code> like this comes with a
@@ -500,7 +500,7 @@ navbar:</p>
 <span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="fu">    before_title</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the package title in the header -</span><span class="ch">&gt;</span></span>
 <span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="fu">    before_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the navbar links --</span><span class="ch">&gt;</span></span>
 <span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="fu">    after_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted after the navbar links --</span><span class="ch">&gt;</span></span></code></pre></div>
-<p>These includes will appear on all screen sizes, and will not be
+<p>These inclusions will appear on all screen sizes, and will not be
 collapsed into the the navbar drop down.</p>
 <p>You can also customise the colour scheme of the navbar by using the
 <code>type</code> and <code>bg</code> parameters. See above for
@@ -522,16 +522,16 @@ defaults with your own customisations.</p>
 <p>Which uses two of the three built-in components:</p>
 <ul>
 <li>
-<code>developed_by</code>, a sentence describing the main authors of
+<code>developed_by</code>: a sentence describing the main authors of
 the package. (See <code><a href="../reference/build_home.html">?build_home</a></code> if you want to tweak
 <em>which</em> authors appear in the footer.)</li>
 <li>
-<code>built_with</code>, a sentence advertising pkgdown.</li>
+<code>built_with</code>: a sentence advertising pkgdown.</li>
 <li>
-<code>package</code>, the name of the package.</li>
+<code>package</code>: the name of the package.</li>
 </ul>
 <p>You can override these defaults with the <code>footer</code> field.
-The example below puts the authors’ information on the right along with
+The example below puts the author’s information on the right along with
 a legal disclaimer, and puts the pkgdown link on the left.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
 <span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span></span>
@@ -560,7 +560,7 @@ following locations:</p>
 place:</p>
 <ul>
 <li><p><code>pkgdown/extra.css</code> and <code>pkgdown/extra.js</code>
-will be copied in to rendered site and linked from
+will be copied to the rendered site and linked from
 <code>&lt;head&gt;</code> (after the pkgdown defaults).</p></li>
 <li><p><code>pkgdown/extra.scss</code> will be added to the scss ruleset
 used to generate the site CSS.</p></li>
@@ -601,7 +601,7 @@ you need to set it as your site’s theme:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> theverybest</span></span></code></pre></div>
 <p>You then also need to make sure it’s available when your site is
-build. Typically, you won’t want to publish this package to CRAN, but
+built. Typically, you won’t want to publish this package to CRAN, but
 you will want to publish to GitHub. Once you’ve done that, and assuming
 you’re using the <a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">usethis
 workflow</a>, add the following line to your
@@ -637,7 +637,7 @@ directly under <code>inst/pkgdown</code> will be used by pkgdown 1.0.0
 and by pkgdown 2.0.0 if <code>boostrap: 3</code>. The directories under
 <code>inst/pkgdown/BS5/</code> will be used for pkgdown 2.0.0 with
 <code>boostrap: 5</code>. This lets your package support both versions
-of bootstrap and pkgdown.</p>
+of Bootstrap and pkgdown.</p>
 </div>
 </div>
 <div class="section level2">

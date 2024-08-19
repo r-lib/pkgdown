@@ -167,11 +167,11 @@ only a human can solve, so make sure to also read
 <h2 id="home-page">Home page<a class="anchor" aria-label="anchor" href="#home-page"></a>
 </h2>
 <p>The contents of the home page are automatically generated from
-<code>index.md</code> or <code>README.md</code>. pkgdown tries them in
-order, so it’s possible to have a different display on GitHub and
-pkgdown by providing both files. The homepage also includes a sidebar
-full of useful links; see <code><a href="../reference/build_home.html">?build_home</a></code> for how these are
-generated and how you can customise them.</p>
+<code>index.md</code> or <code>README.md</code>. pkgdown tries to put
+them in order, so it’s possible to have a different display on GitHub
+and pkgdown by providing both files. The homepage also includes a
+sidebar full of useful links (see <code><a href="../reference/build_home.html">?build_home</a></code> for how these
+are generated and how you can customise them).</p>
 </div>
 <div class="section level2">
 <h2 id="reference">Reference<a class="anchor" aria-label="anchor" href="#reference"></a>
@@ -233,7 +233,8 @@ and see how it affects your site.</p>
 <p>pkgdown will automatically build all vignettes found in
 <code>vignettes/</code>, translating them to HTML files in
 <code>articles/</code>. It is recommended to name your intro article
-with your package name to generate a Get Started page automatically.</p>
+with your package name to generate a “Get Started” page
+automatically.</p>
 <p>Due to the way that pkgdown has to integrate R Markdown generated
 HTML with its own HTML, relatively little control is available over the
 output format. You can see the details in
