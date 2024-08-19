@@ -1,6 +1,4 @@
 test_that("link_license matchs exactly", {
-  # R 3.1 uses http url
-  skip_if_not(getRversion() >= "3.2.0")
 
   # Shouldn't match first GPL-2
   expect_equal(
