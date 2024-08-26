@@ -294,7 +294,7 @@ Otherwise, you can supply your own in the \code{repo} field:
 The varying components (e.g. path, issue number, user name) are pasted on
 the end of these URLs so they should have trailing \code{/}s.
 
-When creating the link to pacge source, we have to link to a specific
+When creating the link to a package source, we have to link to a specific
 branch. The default behaviour is to use current branch when in GitHub
 actions and \code{HEAD} otherwise. You can overide this default with
 \code{repo.branch}:
