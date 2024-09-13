@@ -146,14 +146,14 @@ Run this R code to generate the git code to pull changes for the most
 common locations:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  <span class="co"># overall site config </span></span>
+<span>  <span class="co"># overall site config</span></span>
 <span>  <span class="st">"_pkgdown.yml"</span>,</span>
 <span>  <span class="co"># the workflow that builds the site</span></span>
 <span>  <span class="st">".github/workflows/pkgdown.yaml"</span>,</span>
 <span>  <span class="co"># readme and vignettes</span></span>
 <span>  <span class="st">"README.md"</span>, <span class="st">"vignettes"</span>,</span>
 <span>  <span class="co"># logo and favicon</span></span>
-<span>  <span class="st">"man/figures/"</span>, <span class="st">"pkgdown/"</span>, </span>
+<span>  <span class="st">"man/figures/"</span>, <span class="st">"pkgdown/"</span>,</span>
 <span>  <span class="co"># Author metadata and Config/Needs/Website</span></span>
 <span>  <span class="st">"DESCRIPTION"</span></span>
 <span><span class="op">)</span></span>
@@ -261,16 +261,16 @@ config:</p>
 <span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="at">  </span><span class="fu">release</span><span class="kw">:</span></span>
 <span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="at">    </span><span class="fu">types</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">published</span><span class="kw">]</span></span>
 <span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="at">  </span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a></span>
 <span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="at">&lt;snip, snip&gt;</span></span>
 <span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a></span>
 <span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build site</span></span>
 <span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> Rscript -e 'pkgdown::build_site_github_pages(...)'</span></span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="at">        </span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a></span>
 <span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy to GitHub pages 🚀</span></span>
 <span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
 <span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> JamesIves/github-pages-deploy-action@4.1.4</span></span>
-<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="at">        </span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a></span>
 <span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="at">        &lt;snip, snip&gt;</span></span></code></pre></div>
 <p>Altogether this means that we:</p>
 <ul>
