@@ -14,7 +14,8 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = FALSE
+  eval = FALSE,
+  purl = FALSE
 )
 ```
 
@@ -55,14 +56,14 @@ Run this R code to generate the git code to pull changes for the most common loc
 
 ```{r}
 files <- c(
-  # overall site config 
+  # overall site config
   "_pkgdown.yml",
   # the workflow that builds the site
   ".github/workflows/pkgdown.yaml",
   # readme and vignettes
   "README.md", "vignettes",
   # logo and favicon
-  "man/figures/", "pkgdown/", 
+  "man/figures/", "pkgdown/",
   # Author metadata and Config/Needs/Website
   "DESCRIPTION"
 )
@@ -137,7 +138,7 @@ Automatic development mode is recommended for packages with a broad user base be
 
 Now that we've established the meaning of a released (vs dev) site, we have to consider how the site is built (i.e. how the HTML is generated) and deployed (i.e. how the HTML is published to a website so people can see it.).
 
-We recommend `usethis::use_pkgdown_github_pages()` to do basic pkgdown setup and configure a GitHub Actions (GHA) workflow to automatically render and publish the site to GitHub Pages. This function is basically a shortcut for calling the following functions individually: 
+We recommend `usethis::use_pkgdown_github_pages()` to do basic pkgdown setup and configure a GitHub Actions (GHA) workflow to automatically render and publish the site to GitHub Pages. This function is basically a shortcut for calling the following functions individually:
 
 * `use_pkgdown()`
 * `use_github_pages()`
@@ -159,16 +160,16 @@ on:
   release:
     types: [published]
   workflow_dispatch:
-  
+
 <snip, snip>
 
       - name: Build site
         run: Rscript -e 'pkgdown::build_site_github_pages(...)'
-        
+
       - name: Deploy to GitHub pages 🚀
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@4.1.4
-        
+
         <snip, snip>
 ```
 
@@ -178,7 +179,7 @@ Altogether this means that we:
 
 * Build, but don't deploy, for pull requests against `main`.
   This reveals any pkgdown errors, but ensures the live site isn't
-  updated until the pull request is merged (because the code is 
+  updated until the pull request is merged (because the code is
   pushed to `main`).
 
 * Build and deploy when we publish a GitHub release.
@@ -203,13 +204,13 @@ The overall goal is to create a branch that combines some features of the releas
 
 For example, if readr's latest release is 2.1.1:
 
-```         
+```
 git checkout -b update-pkgdown-2-1-1 v2.1.1
 ```
 
 And here is the general pattern:
 
-```         
+```
 git checkout -b NEW-BRANCH-NAME NAME-OF-RELEASE-TAG
 ```
 
@@ -231,21 +232,21 @@ Here are some tips on backporting specific changes into this branch.
 If you are lucky, there are specific commits in your default branch that contain all the necessary changes.
 In that case, we can cherry pick such a commit by its SHA:
 
-```         
+```
 git cherry-pick SHA
 ```
 
 If that doesn't cover everything for each file you want to update, identify a Git reference (meaning: a SHA, tag, or branch) where the file is in the desired state.
 Checkout that specific file path from that specific ref:
 
-```         
+```
 git checkout main -- path/to/the/file
 ```
 
 For example, readr recently gained a new vignette that applies to the released version of readr, i.e. it does not document any dev-only features or functions.
 We can bring that into the current branch with:
 
-```         
+```
 git checkout main -- vignettes/column-types.Rmd
 ```
 
