@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,7 +97,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/pkgdown-v2.1.0/vignettes/quarto.qmd" class="external-link"><code>vignettes/quarto.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/main/vignettes/quarto.qmd" class="external-link"><code>vignettes/quarto.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -112,11 +112,9 @@
 <p>pkgdown turns your articles directory into a quarto project by temporarily adding a <code>_quarto.yml</code> to your articles. You can also add your own if you want to control options for all quarto articles. If you do so, and you have a mix of <code>.qmd</code> and <code>.Rmd</code> files, you’ll need to include the following yaml so that RMarkdown can continue to handle the .Rmd files:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">render</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'*.qmd'</span><span class="kw">]</span></span></code></pre></div>
-<section class="level3"><h3 id="github-actions">GitHub actions<a class="anchor" aria-label="anchor" href="#github-actions"></a>
+<section class="level3"><h3 id="github-actions">GitHub Actions<a class="anchor" aria-label="anchor" href="#github-actions"></a>
 </h3>
-<p>Currently, you’ll need to manually install Quarto in your GitHub actions. (<a href="https://github.com/r-lib/actions/issues/866" class="external-link">Hopefully this will change in the future</a>). Add the following lines to install quarto:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">     </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Set up Quarto</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">       </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> quarto-dev/quarto-actions/setup@v2</span></span></code></pre></div>
+<p>The <code>setup-r-dependencies</code> action will <a href="https://github.com/r-lib/actions/tree/v2-branch/setup-r-dependencies#usage" class="external-link">automatically</a> install Quarto in your GitHub Actions if a .qmd file is present in your repository (see the <code>install-quarto</code> parameter for more details).</p>
 </section></section><section class="level2"><h2 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
 </h2>
 <ul>
@@ -135,7 +133,7 @@
 </ul></section><section class="level3"><h3 id="code">Code<a class="anchor" aria-label="anchor" href="#code"></a>
 </h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></span>
 <span><span class="co">#&gt; [1] 2</span></span>
 <span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span></span>
@@ -315,7 +313,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>

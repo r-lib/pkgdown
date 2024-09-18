@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,7 +102,7 @@ skipped from the TOC</h4>
             <h4 data-toc-skip class="date">Date is skipped from the
 TOC</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/pkgdown-v2.1.0/vignettes/test/rendering.Rmd" class="external-link"><code>vignettes/test/rendering.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/main/vignettes/test/rendering.Rmd" class="external-link"><code>vignettes/test/rendering.Rmd</code></a></small>
       <div class="d-none name"><code>rendering.Rmd</code></div>
     </div>
 
@@ -190,13 +190,11 @@ intensity</td>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pkgdown</span><span class="fu">:::</span><span class="fu">ruler</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8</span></span>
-<span><span class="co">#&gt; 12345678901234567890123456789012345678901234567890123456789012345678901234567890</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; 12345678901234567890123456789012345678901234567890123456789012345678901234567890</span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"x "</span>, <span class="fl">100</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
-<span><span class="co">#&gt; x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"xy"</span>, <span class="fl">100</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span><span class="co">#&gt; x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"xy"</span>, <span class="fl">100</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
 <span><span class="co">#&gt; xyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxyxy</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -205,13 +203,13 @@ intensity</td>
 <p>Valid R code in <code>\preformatted{}</code>:</p>
 <pre><code><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span></code></pre>
 <p>R code in <code>R</code> block:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p>R code in <code>r</code> block:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p>Yaml</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">yaml</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">a</span><span class="kw">,</span><span class="at"> </span><span class="dv">1</span><span class="kw">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">yaml</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">a</span><span class="kw">,</span><span class="at"> </span><span class="dv">1</span><span class="kw">]</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="shouldnt-be-highlighted">Shouldn’t be highlighted<a class="anchor" aria-label="anchor" href="#shouldnt-be-highlighted"></a>
@@ -222,25 +220,22 @@ intensity</td>
 <div class="section level3">
 <h3 id="crayon">Crayon<a class="anchor" aria-label="anchor" href="#crayon"></a>
 </h3>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/ansi-styles.html" class="external-link">col_red</a></span><span class="op">(</span><span class="st">"This is red"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">This is red</span></span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/ansi-styles.html" class="external-link">col_blue</a></span><span class="op">(</span><span class="st">"This is blue\n"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">This is red</span></span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/ansi-styles.html" class="external-link">col_blue</a></span><span class="op">(</span><span class="st">"This is blue\n"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">This is blue</span></span></span>
-<span><span class="co"><span style="color: #0000BB;">#&gt; </span></span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co"><span style="color: #0000BB;">#&gt; </span></span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/ansi-styles.html" class="external-link">col_green</a></span><span class="op">(</span><span class="st">"This is green"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">This is green</span></span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">This is green</span></span></span>
+<span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning</a></span><span class="op">(</span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/ansi-styles.html" class="external-link">style_bold</a></span><span class="op">(</span><span class="st">"This is bold"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: <span style="font-weight: bold;">This is bold</span></span></span></code></pre></div>
 <p>Some text</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/ansi-styles.html" class="external-link">style_italic</a></span><span class="op">(</span><span class="st">"This is italic"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in eval(expr, envir, enclos): <span style="font-style: italic;">This is italic</span></span></span></code></pre></div>
+<span><span class="co">#&gt; Error: <span style="font-style: italic;">This is italic</span></span></span></code></pre></div>
 <p>Some more text</p>
 </div>
 </div>
@@ -276,7 +271,7 @@ intensity</td>
 <div class="active  tab-pane" id="tab-1" role="tabpanel" aria-labelledby="tab-1-tab">
 
 <p>blablablabla</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></span></code></pre></div>
 <p>Should be “cool” heading below</p>
 <div class="section level5">
@@ -304,7 +299,7 @@ intensity</td>
 <div class="tab-pane" id="tab-1-1" role="tabpanel" aria-labelledby="tab-1-1-tab">
 
 <p>something nice</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">42</span><span class="op">)</span></span></code></pre></div>
 <p><img src="rendering_files/figure-html/unnamed-chunk-8-1.png" alt="Another test plot" width="700"></p>
 </div>
@@ -376,7 +371,7 @@ than making the page scroll horizontally:</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>

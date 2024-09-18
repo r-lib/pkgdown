@@ -32,7 +32,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,7 +101,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>How to update a released site</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/pkgdown-v2.1.0/vignettes/how-to-update-released-site.Rmd" class="external-link"><code>vignettes/how-to-update-released-site.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/main/vignettes/how-to-update-released-site.Rmd" class="external-link"><code>vignettes/how-to-update-released-site.Rmd</code></a></small>
       <div class="d-none name"><code>how-to-update-released-site.Rmd</code></div>
     </div>
 
@@ -110,8 +110,8 @@
 <p>This vignette shows you how to update the released version of your
 site to match the dev version of the site, so the first step is to
 ensure that the dev site looks the way that you want it.</p>
-<p>This site assumes that you’re a using recent version of our recommend
-<a href="https://github.com/r-lib/actions/blob/HEAD/examples/pkgdown.yaml" class="external-link">pkgdown
+<p>This site assumes that you’re using a recent version of our
+recommended <a href="https://github.com/r-lib/actions/blob/HEAD/examples/pkgdown.yaml" class="external-link">pkgdown
 action</a>. If your workflow does not contain
 <code>workflow_dispatch</code>, you will need to update
 <code>.github/actions/pkgdown.yaml</code> by running
@@ -129,10 +129,10 @@ the latest version:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_branch.html" class="external-link">git_branch_checkout</a></span><span class="op">(</span><span class="st">"main"</span><span class="op">)</span></span>
 <span><span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_fetch.html" class="external-link">git_pull</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Next figure out the released version that we’re updating:</p>
+<p>Next figure out the released version that you’re updating:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ver</span> <span class="op">&lt;-</span> <span class="fu">desc</span><span class="fu">::</span><span class="fu"><a href="https://desc.r-lib.org/reference/desc_get_version.html" class="external-link">desc_get_version</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
-<p>We’ll use this to create and checkout the branch that you’ll work
+<p>You will use this to create and checkout the branch that you’ll work
 in:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_branch.html" class="external-link">git_branch_create</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"pkgdown-v"</span>, <span class="va">ver</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"v"</span>, <span class="va">ver</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -145,14 +145,14 @@ Run this R code to generate the git code to pull changes for the most
 common locations:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  <span class="co"># overall site config </span></span>
+<span>  <span class="co"># overall site config</span></span>
 <span>  <span class="st">"_pkgdown.yml"</span>,</span>
 <span>  <span class="co"># the workflow that builds the site</span></span>
 <span>  <span class="st">".github/workflows/pkgdown.yaml"</span>,</span>
 <span>  <span class="co"># readme and vignettes</span></span>
 <span>  <span class="st">"README.md"</span>, <span class="st">"vignettes"</span>,</span>
 <span>  <span class="co"># logo and favicon</span></span>
-<span>  <span class="st">"man/figures/"</span>, <span class="st">"pkgdown/"</span>, </span>
+<span>  <span class="st">"man/figures/"</span>, <span class="st">"pkgdown/"</span>,</span>
 <span>  <span class="co"># Author metadata and Config/Needs/Website</span></span>
 <span>  <span class="st">"DESCRIPTION"</span></span>
 <span><span class="op">)</span></span>
@@ -162,7 +162,7 @@ common locations:</p>
 change to the <code>Version</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">desc</span><span class="fu">::</span><span class="fu"><a href="https://desc.r-lib.org/reference/desc_set_version.html" class="external-link">desc_set_version</a></span><span class="op">(</span><span class="va">ver</span><span class="op">)</span></span></code></pre></div>
-<p>Now build the site locally and check that it looks as you expect:</p>
+<p>Now build the site locally and check that it looks as expected:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="../reference/build_site.html">build_site</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -211,7 +211,7 @@ and released versions of your package.”</p>
 mode:</p>
 <p><a href="https://readr.tidyverse.org" class="external-link">readr.tidyverse.org</a>
 documents the released version, i.e. what
-<code><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages()</a></code> would deliver.<br><a href="https://readr.tidyverse.org/dev/" class="external-link">readr.tidyverse.org/dev/</a>
+<code><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages()</a></code> will deliver.<br><a href="https://readr.tidyverse.org/dev/" class="external-link">readr.tidyverse.org/dev/</a>
 documents the dev version, i.e. what you’d get by installing from
 GitHub.</p>
 <p>In this mode, <code><a href="../reference/build_site.html">pkgdown::build_site()</a></code>, consults
@@ -222,8 +222,8 @@ For a released version number, the site is written to
 they are reading documentation for a dev version vs. a released
 version.)</p>
 <p>Automatic development mode is recommended for packages with a broad
-user base, because it maximizes the chance that a user will read
-web-based documentation that reflects the package version that is
+user base because it maximizes the chance that a user will read
+web-based documentation which reflects the package version that is
 locally installed.</p>
 </div>
 <div class="section level3">
@@ -236,7 +236,7 @@ people can see it.).</p>
 <p>We recommend <code><a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">usethis::use_pkgdown_github_pages()</a></code> to do
 basic pkgdown setup and configure a GitHub Actions (GHA) workflow to
 automatically render and publish the site to GitHub Pages. This function
-is bascially a shortcut for calling the following functions
+is basically a shortcut for calling the following functions
 individually:</p>
 <ul>
 <li><code>use_pkgdown()</code></li>
@@ -260,16 +260,16 @@ config:</p>
 <span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="at">  </span><span class="fu">release</span><span class="kw">:</span></span>
 <span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="at">    </span><span class="fu">types</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">published</span><span class="kw">]</span></span>
 <span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="at">  </span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a></span>
 <span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="at">&lt;snip, snip&gt;</span></span>
 <span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a></span>
 <span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build site</span></span>
 <span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> Rscript -e 'pkgdown::build_site_github_pages(...)'</span></span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="at">        </span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a></span>
 <span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy to GitHub pages 🚀</span></span>
 <span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
 <span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> JamesIves/github-pages-deploy-action@4.1.4</span></span>
-<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="at">        </span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a></span>
 <span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="at">        &lt;snip, snip&gt;</span></span></code></pre></div>
 <p>Altogether this means that we:</p>
 <ul>
@@ -340,7 +340,7 @@ If you are lucky, there are specific commits in your default branch that
 contain all the necessary changes. In that case, we can cherry pick such
 a commit by its SHA:</p>
 <pre><code>git cherry-pick SHA</code></pre>
-<p>If that doesn’t cover everything, for each file you want to update,
+<p>If that doesn’t cover everything for each file you want to update,
 identify a Git reference (meaning: a SHA, tag, or branch) where the file
 is in the desired state. Checkout that specific file path from that
 specific ref:</p>
@@ -390,7 +390,7 @@ be helpful for seeing how it has evolved over time.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
