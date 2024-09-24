@@ -36,7 +36,7 @@ Imports:
     openssl,
     purrr (>= 1.0.0),
     ragg,
-    rlang (>= 1.1.0),
+    rlang (>= 1.1.4),
     rmarkdown (>= 2.27),
     tibble,
     whisker,
