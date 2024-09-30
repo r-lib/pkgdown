@@ -15,8 +15,8 @@ test_that("data_authors validates yaml inputs", {
 
   expect_snapshot(error = TRUE, {
     data_authors_(authors = 1)
-    data_authors_(template = list(authors = list(before = 1)))
-    data_authors_(template = list(authors = list(after = 1)))
+    data_authors_(authors = list(before = 1))
+    data_authors_(authors = list(after = 1))
   })
 })
 
