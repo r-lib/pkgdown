@@ -55,6 +55,7 @@ Other tests:
 \code{\link{test-figures}},
 \code{\link{test-links}},
 \code{\link{test-long-lines}},
+\code{\link{test-math-examples}},
 \code{\link{test-output-styles}},
 \code{\link{test-params}},
 \code{\link{test-sexpr-title}},
