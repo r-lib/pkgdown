@@ -25,6 +25,14 @@ Yay[^footnote]
 plot(1:10)
 ```
 
+Use a white background for base plots in dark mode.
+
+```{r}
+#| fig.alt: Test plot with white background
+par(bg = 'white')
+plot(50:10)
+```
+
 ## External files
 
 ```{r}
