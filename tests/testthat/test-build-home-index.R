@@ -160,3 +160,15 @@ test_that("allow email in BugReports", {
   html <- xml2::read_html(data_home_sidebar(pkg))
   expect_snapshot(xpath_xml(html, ".//li/a"))
 })
+
+test_that("ANSI are handled", {
+  withr::local_options(cli.num_colors = 256)
+  pkg <- local_pkgdown_site()
+
+  pkg <- pkg_add_file(pkg, "README.md", sprintf("prefer %s", cli::col_blue("a")))
+  suppressMessages(build_home_index(pkg))
+
+  html <- xml2::read_html(path(pkg$dst_path, "index.html"))
+  readme_p <- xml2::xml_find_first(html, ".//main[@id='main']/p")
+  expect_equal(xml2::xml_text(readme_p), "prefer \u2029[34ma\u2029[39m")
+})
