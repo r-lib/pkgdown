@@ -165,7 +165,7 @@ test_that("ANSI are handled", {
   withr::local_options(cli.num_colors = 256)
   pkg <- local_pkgdown_site()
 
-  pkg <- pkg_add_file(pkg, "README.md", sprintf("prefer %s", cli::col_blue("a")))
+  pkg <- pkg_add_file(pkg, "index.md", sprintf("prefer %s", cli::col_blue("a")))
   suppressMessages(build_home_index(pkg))
 
   html <- xml2::read_html(path(pkg$dst_path, "index.html"))
