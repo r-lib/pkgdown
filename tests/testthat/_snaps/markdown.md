@@ -19,3 +19,12 @@
       Error in `config_math_rendering_()`:
       ! In _pkgdown.yml, template.math-rendering must be one of mathml, mathjax, and katex, not math.
 
+# preserves ANSI characters
+
+    Code
+      markdown_text(pkg, sprintf("prefer %s", cli::col_blue("a")))
+    Output
+      {html_document}
+      <html>
+      [1] <body><p>prefer \u2029[34ma\u2029[39m</p></body>
+

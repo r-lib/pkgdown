@@ -8,7 +8,7 @@ markdown_text <- function(pkg, text, ...) {
   markdown_path_html(pkg, md_path, ...)
 }
 
-markdown_text_inline <- function(pkg, 
+markdown_text_inline <- function(pkg,
                                  text,
                                  error_path,
                                  error_call = caller_env()) {
@@ -62,7 +62,7 @@ markdown_body <- function(pkg, path, strip_header = FALSE) {
 markdown_path_html <- function(pkg, path, strip_header = FALSE) {
   html_path <- withr::local_tempfile()
   convert_markdown_to_html(pkg, path, html_path)
-  xml <- xml2::read_html(html_path, encoding = "UTF-8")
+  xml <- read_html_keep_ansi(html_path)
   if (!inherits(xml, "xml_node")) {
     return(NULL)
   }
