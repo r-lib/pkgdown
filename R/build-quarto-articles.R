@@ -1,7 +1,11 @@
 build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
   pkg <- as_pkgdown(pkg)
   if (pkg$bs_version < 5) {
-    cli::cli_abort("Quarto articles require Bootstrap 5.", call = NULL)
+    cli::cli_abort(c(
+      "Quarto articles require Bootstrap 5.",
+      "i" = "See details at {.url pkgdown.r-lib.org/articles/customise.html#getting-started}"),
+      call = NULL
+    )
   }
 
   qmds <- pkg$vignettes[pkg$vignettes$type == "qmd", ]
