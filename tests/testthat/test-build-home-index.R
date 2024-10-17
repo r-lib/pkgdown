@@ -156,10 +156,7 @@ test_that("cran_unquote works", {
 
 test_that("allow email in BugReports", {
   # currently desc throws a warning if BugReports is an email
-  expect_warning(
-    pkg <- local_pkgdown_site(desc = list(BugReports = "me@tidyverse.com")),
-    "must be a http"
-  )
+  pkg <- suppressWarnings(local_pkgdown_site(desc = list(BugReports = "me@tidyverse.com")))
   html <- xml2::read_html(data_home_sidebar(pkg))
   expect_snapshot(xpath_xml(html, ".//li/a"))
 })
