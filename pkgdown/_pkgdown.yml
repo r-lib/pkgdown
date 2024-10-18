@@ -17,6 +17,7 @@ authors:
 
 template:
   bootstrap: 5
+  math-rendering: mathjax
   light-switch: true
   bslib:
     primary: "#0054AD"
