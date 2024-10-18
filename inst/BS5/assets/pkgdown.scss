@@ -78,6 +78,12 @@ input[type="search"] {
   }
 }
 
+// make long dropdown menus scrollable
+.dropdown-menu {
+    max-height: 280px;
+    overflow-y: auto;
+}
+
 /* headroom.js -------------------------------------------------------------- */
 
 .headroom {
