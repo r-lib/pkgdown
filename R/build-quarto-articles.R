@@ -1,12 +1,5 @@
 build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
   pkg <- as_pkgdown(pkg)
-  if (pkg$bs_version < 5) {
-    cli::cli_abort(c(
-      "Quarto articles require Bootstrap 5.",
-      "i" = "See details at {.url pkgdown.r-lib.org/articles/customise.html#getting-started}"),
-      call = NULL
-    )
-  }
 
   qmds <- pkg$vignettes[pkg$vignettes$type == "qmd", ]
   if (!is.null(article)) {
@@ -14,6 +7,13 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
   }
   if (nrow(qmds) == 0) {
     return()
+  }
+  if (pkg$bs_version < 5) {
+    cli::cli_abort(c(
+      "Quarto articles require Bootstrap 5.",
+      "i" = "See details at {.url pkgdown.r-lib.org/articles/customise.html#getting-started}"),
+      call = NULL
+    )
   }
   check_installed("quarto")
   if (quarto::quarto_version() < "1.5") {
