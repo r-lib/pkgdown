@@ -112,7 +112,10 @@ get_pkg_lang <- function(pkg) {
   }
 
   if (pkg$desc$has_fields("Language")) {
-    return(pkg$desc$get_field("Language"))
+    field <- pkg$desc$get_field("Language")
+    if (length(field) && nchar(field) > 0) {
+      return(regmatches(field, regexpr("[^,]+", field)))
+    }
   }
 
   return("en")
