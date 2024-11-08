@@ -137,6 +137,12 @@ test_that("h1 section headings adjusted to h2 (and so on)", {
 })
 
 test_that("slashes not URL encoded during relative path conversion", {
+
+  # Since the URL conversion process in tweak_markdown_html() makes calls to
+  # fs::path_real() (which requires paths to exist), we create a
+  # temporary pkgdown site directory and populate it with an image file, which
+  # we can then reference in our test HTML file.
+
   # Create a site
   pkg <- local_pkgdown_site()
 
