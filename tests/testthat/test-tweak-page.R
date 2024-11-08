@@ -144,7 +144,7 @@ test_that("slashes not URL encoded during relative path conversion", {
   pkg <- pkg_add_kitten(pkg, "vignettes/img/")
 
   # Get the full path to the image.
-  sim_path <- path(pkg$src_path, "vignettes/img/kitten.jpg")
+  sim_path <- path_real(path(pkg$src_path, "vignettes/img/kitten.jpg"))
 
   # Simulate an output HTML file referencing the absolute path.
   html <- xml2::read_html(
