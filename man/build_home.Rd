@@ -170,7 +170,7 @@ authors page.
 
 \subsection{Additional control via YAML}{
 
-You can control additinal aspects of the authors display via the \code{authors}
+You can control additional aspects of the authors display via the \code{authors}
 YAML field:
 \itemize{
 \item display of each author in the footer, sidebar and authors page,
