@@ -3,11 +3,16 @@
 .row > main {
   // Ensure contents never become unreadably wide
   max-width: 50rem;
-  
-  // And that we can break and hypenate very long words
-  overflow-wrap: break-word;
-  hyphens: auto;
 }
+
+@media (max-width: 800px) {
+  .row > main {
+    // break and hypenate very long words on small screens
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+}
+
 // Put extra space between content and navbar
 @include media-breakpoint-only(xl) {
   .container .row { justify-content: space-evenly; }
