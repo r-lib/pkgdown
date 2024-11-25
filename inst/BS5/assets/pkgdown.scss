@@ -3,15 +3,21 @@
 .row > main {
   // Ensure contents never become unreadably wide
   max-width: 50rem;
-  
-  // And that we can break and hypenate very long words
-  overflow-wrap: break-word;
-  hyphens: auto;
 }
+
+// break and hypenate very long words on small screens
+@include media-breakpoint-down(md) {
+  .row > main {
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+}
+
 // Put extra space between content and navbar
 @include media-breakpoint-only(xl) {
   .container .row { justify-content: space-evenly; }
 }
+
 // Boost font size and give big (but not infinite) margin on sidebar
 @include media-breakpoint-up(xxl) {
   body { font-size: 18px }
