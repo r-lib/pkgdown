@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* The language of the site is set from the first `Language:` in the `DESCRIPTION` if it is available and no other language is specified (@jonthegeek, #2808).
+
 # pkgdown 2.1.1
 
 * Added keyboard shortcut, `/`, to focus search bar (#2423).
