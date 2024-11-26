@@ -11,7 +11,7 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
   if (pkg$bs_version < 5) {
     cli::cli_abort(c(
       "Quarto articles require Bootstrap 5.",
-      "i" = "See details at {.url pkgdown.r-lib.org/articles/customise.html#getting-started}"),
+      "i" = "See details at {.url https://pkgdown.r-lib.org/articles/customise.html#getting-started}"),
       call = NULL
     )
   }
