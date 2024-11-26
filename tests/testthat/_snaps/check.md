@@ -26,7 +26,7 @@
       v Articles metadata ok.
       x Reference metadata not ok.
         In _pkgdown.yml, 1 topic missing from index: "?".
-        Either use `@keywords internal` to drop from index, or
+        Either add to the reference index, or use `@keywords internal` to drop from the index.
 
 # checks fails on first problem
 

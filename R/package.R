@@ -75,7 +75,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   if (!is.null(pkg$meta$url)) {
     pkg$meta$url <- sub("/$", "", pkg$meta$url)
   }
-  
+
   pkg$development <- meta_development(pkg)
   pkg$prefix <- pkg$development$prefix
 
@@ -85,7 +85,7 @@ as_pkgdown <- function(pkg = ".", override = list()) {
     pkg$dst_path <- path(pkg$dst_path, pkg$development$destination)
   }
 
-  pkg$lang <- pkg$meta$lang %||% "en"
+  pkg$lang <- get_pkg_lang(pkg)
   pkg$install_metadata <- config_pluck_bool(pkg, "deploy.install_metadata", FALSE)
   pkg$figures <- meta_figures(pkg)
   pkg$repo <- package_repo(pkg)
@@ -104,6 +104,21 @@ read_desc <- function(path = ".") {
     cli::cli_abort("Can't find {.file DESCRIPTION}", call = caller_env())
   }
   desc::description$new(path)
+}
+
+get_pkg_lang <- function(pkg) {
+  if (!is.null(pkg$meta$lang)) {
+    return(pkg$meta$lang)
+  }
+
+  if (pkg$desc$has_fields("Language")) {
+    field <- pkg$desc$get_field("Language")
+    if (length(field) && nchar(field) > 0) {
+      return(regmatches(field, regexpr("[^,]+", field)))
+    }
+  }
+
+  return("en")
 }
 
 get_bootstrap_version <- function(pkg,
@@ -270,7 +285,7 @@ extract_lifecycle <- function(x) {
   fig <- extract_figure(desc)
 
   if (!is.null(fig) && length(fig) > 0 && length(fig[[1]]) > 0) {
-    path <- as.character(fig[[1]][[1]])  
+    path <- as.character(fig[[1]][[1]])
     if (grepl("lifecycle", path)) {
       name <- gsub("lifecycle-", "", path)
       name <- path_ext_remove(name)
@@ -351,12 +366,12 @@ article_metadata <- function(path) {
   if (path_ext(path) == "qmd") {
     inspect <- quarto::quarto_inspect(path)
     meta <- inspect$formats[[1]]$metadata
-  
+
     out <- list(
       title = meta$title %||% "UNKNOWN TITLE",
       desc = meta$description %||% NA_character_,
       ext = path_ext(inspect$formats[[1]]$pandoc$`output-file`) %||% "html"
-    )  
+    )
   } else {
     yaml <- rmarkdown::yaml_front_matter(path)
     out <- list(

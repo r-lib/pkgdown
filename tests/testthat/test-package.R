@@ -118,3 +118,32 @@ test_that("malformed figures fail gracefully", {
   expect_null(rd_lifecycle("{\\figure{deprecated.svg}}"))
   expect_null(rd_lifecycle("{\\figure{}}"))
 })
+
+# language ---------------------------------------------------------------------
+
+test_that("as_pkgdown sets language", {
+  # Default
+  pkg <- as_pkgdown(test_path("assets/reference"))
+  expect_equal(
+    pkg$lang,
+    "en"
+  )
+  # Single language specified in DESCRIPTION
+  pkg <- as_pkgdown(test_path("assets/reference-language/one"))
+  expect_equal(
+    pkg$lang,
+    "fr"
+  )
+  # Two languages specified in DESCRIPTION
+  pkg <- as_pkgdown(test_path("assets/reference-language/two"))
+  expect_equal(
+    pkg$lang,
+    "en-US"
+  )
+  # Language specified in _pkgdown.yml or override.
+  pkg <- as_pkgdown(test_path("assets/reference-language/two"), override = list(lang = "en-GB"))
+  expect_equal(
+    pkg$lang,
+    "en-GB"
+  )
+})

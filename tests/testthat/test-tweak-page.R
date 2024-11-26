@@ -135,3 +135,36 @@ test_that("h1 section headings adjusted to h2 (and so on)", {
     c("page-header", "section level2", "section level3", "section level2")
   )
 })
+
+test_that("slashes not URL encoded during relative path conversion", {
+
+  # Since the URL conversion process in tweak_markdown_html() makes calls to
+  # fs::path_real() (which requires paths to exist), we create a
+  # temporary pkgdown site directory and populate it with an image file, which
+  # we can then reference in our test HTML file.
+
+  # Create a site
+  pkg <- local_pkgdown_site()
+
+  # Add the referenced image in a subdirectory of vignettes.
+  pkg <- pkg_add_kitten(pkg, "vignettes/img/")
+
+  # Get the full path to the image.
+  sim_path <- path_real(path(pkg$src_path, "vignettes/img/kitten.jpg"))
+
+  # Simulate an output HTML file referencing the absolute path.
+  html <- xml2::read_html(
+    sprintf('
+    <body>
+      <img src="%s" />
+    </body>
+    ', sim_path)
+  )
+
+  # Function should update the absolute path to a relative path.
+  tweak_rmarkdown_html(html, path(pkg$src_path, "vignettes"))
+
+  # Check that the relative path has a non-encoded slash.
+  expect_equal(xpath_attr(html, ".//img", "src"), "img/kitten.jpg")
+
+})

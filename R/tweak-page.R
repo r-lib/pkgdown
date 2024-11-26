@@ -51,7 +51,7 @@ tweak_rmarkdown_html <- function(html, input_path, pkg = list(bs_version = 3)) {
     img_src_real <- path_real(xml2::url_unescape(src[abs_src]))
     input_path_real <- path_real(xml2::url_unescape(input_path))
     img_rel_paths <- path_rel(path = img_src_real, start = input_path_real)
-    img_rel_paths <- xml2::url_escape(img_rel_paths)
+    img_rel_paths <- xml2::url_escape(img_rel_paths, reserved="/")
 
     purrr::walk2(
       .x = img_target_nodes,
@@ -96,14 +96,19 @@ tweak_useless_toc <- function(html) {
 
 # Update file on disk -----------------------------------------------------
 
-update_html <- function(path, tweak, ...) {
-
+read_html_keep_ansi <- function(path) {
   raw <- read_file(path)
   # Following the xml 1.0 spec, libxml2 drops low-bit ASCII characters
   # so we convert to \u2029, relying on downlit to convert back in
   # token_escape().
   raw <- gsub("\033", "\u2029", raw, fixed = TRUE)
-  html <- xml2::read_html(raw, encoding = "UTF-8")
+  # Use charToRaw() to always interpret as string,
+  # even for length 1 vectors
+  xml2::read_html(charToRaw(raw), encoding = "UTF-8")
+}
+
+update_html <- function(path, tweak, ...) {
+  html <- read_html_keep_ansi(path)
   tweak(html, ...)
 
   xml2::write_html(html, path, format = FALSE)

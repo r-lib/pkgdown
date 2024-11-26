@@ -173,7 +173,10 @@ check_missing_topics <- function(rows, pkg, error_call = caller_env()) {
       pkg,
       c(
         "{sum(missing)} topic{?s} missing from index: {.val {pkg$topics$name[missing]}}.",
-        i = "Either use {.code @keywords internal} to drop from index, or"
+        i = paste(
+          "Either add to the reference index,",
+          "or use {.code @keywords internal} to drop from the index."
+        )
       ),
       call = error_call
     )
