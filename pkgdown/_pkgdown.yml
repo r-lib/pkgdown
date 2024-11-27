@@ -51,6 +51,8 @@ articles:
     easily be tested automatically.
   contents:
   - starts_with("test")
+  - articles/test-rmarkdown-article
+  - articles/test-quarto-article
 
 reference:
 - title: Build

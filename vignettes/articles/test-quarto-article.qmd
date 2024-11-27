@@ -1,0 +1,7 @@
+---
+title: "Test quarto article"
+format: html
+editor: visual
+---
+
+This article should appear on the pkgdown site but not in the built package.
