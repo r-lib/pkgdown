@@ -129,7 +129,7 @@ NULL
 #'   x <- 4
 #' }
 #' x # should be 1
-#' 
+#'
 #' # \dontshow{} -------------------------------------------------------
 #' # never shown, always run
 #'
@@ -145,7 +145,7 @@ NULL
 #' # If FALSE, wrapped in if; if TRUE, not seen
 #'
 #' x <- 1
-#' 
+#'
 #' @examplesIf FALSE
 #' x <- 2
 #' @examplesIf TRUE
@@ -272,6 +272,20 @@ NULL
 #' Test case: \Sexpr[stage=render,results=rd]{"sexpr"}
 #'
 #' @name test-sexpr-title
+#' @keywords internal
+#' @family tests
+NULL
+
+#' Test case: math rendering in examples
+#'
+#' @param x \eqn{f(x) > 0}: inline equation
+#'
+#' @details
+#' Display equation:
+#'
+#' \deqn{y = \alpha + \beta X + \varepsilon}
+#'
+#' @name test-math-examples
 #' @keywords internal
 #' @family tests
 NULL
