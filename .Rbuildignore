@@ -21,3 +21,4 @@
 ^tools$
 ^\.lintr.R$
 ^vignettes/\.quarto$
+^vignettes/articles$
