@@ -3,10 +3,11 @@
 #' Delete all files in `docs/` (except for `CNAME`).
 #'
 #' @param quiet If `TRUE`, suppresses a message.
+#' @param force If `TRUE`, delete contents of `docs` even if it is not a pkgdown site.
 #' @inheritParams build_site
 #' @rdname clean
 #' @export
-clean_site <- function(pkg = ".", quiet = FALSE) {
+clean_site <- function(pkg = ".", quiet = FALSE, force = FALSE) {
 
   pkg <- as_pkgdown(pkg)
 
@@ -17,7 +18,7 @@ clean_site <- function(pkg = ".", quiet = FALSE) {
   if (!dir_exists(pkg$dst_path)) return(invisible())
 
   top_level <- dest_files(pkg)
-  if (length(top_level) > 0) {
+  if (length(top_level) > 0 && !force) {
     check_dest_is_pkgdown(pkg)
   }
 
@@ -60,7 +61,7 @@ check_dest_is_pkgdown <- function(pkg) {
   cli::cli_abort(c(
     "{.file {pkg$dst_path}} is non-empty and not built by pkgdown",
     "!" = "Make sure it contains no important information \\
-            and use {.run pkgdown::clean_site()} to delete its contents."
+            and use {.run pkgdown::clean_site(force = TRUE)} to delete its contents."
     )
   )
 }
