@@ -1,7 +1,6 @@
 ---
 title: "Test Rmarkdown article"
 output: html_document
-date: "2024-11-27"
 ---
 
 This article should appear on the pkgdown site but not in the built package.
