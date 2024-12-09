@@ -42,6 +42,12 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
   }
   output_dir <- quarto_render(pkg, src_path, quiet = quiet)
 
+  # check for articles (in the `vignette/articles` sense)
+  article_dir <- fs::path(output_dir,"articles")
+  if (fs::dir_exists(article_dir)){
+    fs::file_move(dir_ls(article_dir), output_dir)
+  }
+
   # Read generated data from quarto template and render into pkgdown template
   unwrap_purrr_error(purrr::walk2(qmds$file_in, qmds$file_out, function(input_file, output_file) {
     built_path <- path(output_dir, path_rel(output_file, "articles"))

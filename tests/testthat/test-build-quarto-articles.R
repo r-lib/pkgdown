@@ -83,7 +83,7 @@ test_that("quarto articles are included in the index", {
 
   suppressMessages(build_article("vig1", pkg))
   index <- build_search_index(pkg)
-  
+
   expect_equal(index[[1]]$path, "/articles/vig1.html")
   expect_equal(index[[1]]$what, "Heading 1")
   expect_equal(index[[1]]$text, "text") # some is a stop word
@@ -102,4 +102,21 @@ test_that("quarto headings get anchors", {
   html <- xml2::read_html(path(pkg$dst_path, "articles/vig1.html"))
   headings <- xpath_xml(html, "//h2|//h3")
   expect_equal(xpath_attr(headings, "./a", "href"), c("#heading-1", "#heading-2"))
+})
+
+test_that("can build quarto articles in articles folder", {
+  skip_if_no_quarto()
+
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "vignettes/articles/vig1.qmd")
+  pkg <- pkg_add_file(pkg, "vignettes/vig2.qmd")
+  pkg <- pkg_add_file(pkg, "vignettes/articles/vig3.rmd")
+  pkg <- pkg_add_file(pkg, "vignettes/vig4.rmd")
+
+  suppressMessages(build_articles(pkg))
+
+  expect_true(file_exists(path(pkg$dst_path, "articles/vig1.html")))
+  expect_true(file_exists(path(pkg$dst_path, "articles/vig2.html")))
+  expect_true(file_exists(path(pkg$dst_path, "articles/vig3.html")))
+  expect_true(file_exists(path(pkg$dst_path, "articles/vig4.html")))
 })
