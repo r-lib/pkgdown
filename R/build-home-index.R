@@ -165,6 +165,7 @@ data_home_sidebar_links <- function(pkg = ".") {
 
   links <- c(
     link_url(sprintf(tr_("View on %s"), repo$repo), repo$url),
+    link_url(sprintf("See dependencies"), repo$repo), repo$url),
     link_url(tr_("Browse source code"), repo_home(pkg)),
     link_url(tr_("Report a bug"), bug_reports),
     purrr::map_chr(links, ~ link_url(.$text, .$href))
