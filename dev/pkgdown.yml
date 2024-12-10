@@ -15,9 +15,11 @@ articles:
   quarto: quarto.html
   test/rendering: test/rendering.html
   test/short: test/short.html
+  articles/test-quarto-article: test-quarto-article.html
+  articles/test-rmarkdown-article: test-rmarkdown-article.html
   translations: translations.html
   test/widgets: test/widgets.html
-last_built: 2024-12-01T22:28Z
+last_built: 2024-12-10T20:10Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
