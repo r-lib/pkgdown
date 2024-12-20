@@ -109,6 +109,7 @@ convert_markdown_to_html <- function(pkg, in_path, out_path, ...) {
       cli::cli_abort("Pandoc not available")
     }
   }
+
   rmarkdown::pandoc_convert(
     input = in_path,
     output = out_path,
@@ -120,7 +121,12 @@ convert_markdown_to_html <- function(pkg, in_path, out_path, ...) {
       "--indented-code-classes=R",
       "--section-divs",
       "--wrap=none",
-      paste0("--", config_math_rendering(pkg)),
+      ifelse(
+        # katex is handled separately
+        config_math_rendering(pkg) == "katex",
+        "",
+        paste0("--", config_math_rendering(pkg))
+      ),
       ...
     ))
   )
