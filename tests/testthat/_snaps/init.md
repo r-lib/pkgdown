@@ -4,6 +4,7 @@
       init_site(pkg)
     Message
       -- Initialising site -----------------------------------------------------------
+      Copying <pkgdown>/BS5/assets/katex-auto.js to katex-auto.js
       Copying <pkgdown>/BS5/assets/lightswitch.js to lightswitch.js
       Copying <pkgdown>/BS5/assets/link.svg to link.svg
       Copying <pkgdown>/BS5/assets/pkgdown.js to pkgdown.js
