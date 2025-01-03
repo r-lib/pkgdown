@@ -121,12 +121,7 @@ convert_markdown_to_html <- function(pkg, in_path, out_path, ...) {
       "--indented-code-classes=R",
       "--section-divs",
       "--wrap=none",
-      ifelse(
-        # katex is handled separately
-        config_math_rendering(pkg) == "katex",
-        "",
-        paste0("--", config_math_rendering(pkg))
-      ),
+      paste0("--", config_math_rendering(pkg)),
       ...
     ))
   )
