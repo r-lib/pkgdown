@@ -141,7 +141,7 @@ test_that("can control math mode", {
   expect_equal(xpath_length(html, ".//span[contains(@class, 'math')]"), 1)
   expect_contains(
     path_file(xpath_attr(html, ".//script", "src")),
-    c("katex-auto.js", "katex.min.js")
+    c("katex-auto.js", "auto-render.min.js", "katex.min.js")
   )
 })
 

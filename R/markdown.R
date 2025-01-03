@@ -109,6 +109,7 @@ convert_markdown_to_html <- function(pkg, in_path, out_path, ...) {
       cli::cli_abort("Pandoc not available")
     }
   }
+
   rmarkdown::pandoc_convert(
     input = in_path,
     output = out_path,
