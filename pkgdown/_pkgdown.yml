@@ -52,6 +52,7 @@ articles:
     easily be tested automatically.
   contents:
   - starts_with("test")
+  - starts_with("articles/test")
 
 reference:
 - title: Build
