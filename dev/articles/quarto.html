@@ -92,7 +92,7 @@
 </nav><div class="container template-quarto">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1></h1>
+      <img src="../logo.png" class="logo" alt=""><h1>quarto vignettes</h1>
 
 
 
@@ -106,32 +106,32 @@
 
 
 
-    <header id="title-block-header" class="quarto-title-block"><h1 class="title">quarto vignettes</h1></header><p>pkgdown effectively uses quarto only to generate HTML and then supplies its own CSS and JS. This means that when quarto introduces new features, pkgdown may lag behind in their support. If you’re trying out something that doesn’t work (and isn’t mentioned explicitly below), please <a href="https://github.com/r-lib/pkgdown/issues" class="external-link">file an issue</a> so we can look into it.</p>
-<section class="section level3"><h3 id="operation">Operation<a class="anchor" aria-label="anchor" href="#operation"></a>
-</h3>
+    <p>pkgdown effectively uses quarto only to generate HTML and then supplies its own CSS and JS. This means that when quarto introduces new features, pkgdown may lag behind in their support. If you’re trying out something that doesn’t work (and isn’t mentioned explicitly below), please <a href="https://github.com/r-lib/pkgdown/issues" class="external-link">file an issue</a> so we can look into it.</p>
+<section class="level2"><h2 id="operation">Operation<a class="anchor" aria-label="anchor" href="#operation"></a>
+</h2>
 <p>pkgdown turns your articles directory into a quarto project by temporarily adding a <code>_quarto.yml</code> to your articles. You can also add your own if you want to control options for all quarto articles. If you do so, and you have a mix of <code>.qmd</code> and <code>.Rmd</code> files, you’ll need to include the following yaml so that RMarkdown can continue to handle the .Rmd files:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">render</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'*.qmd'</span><span class="kw">]</span></span></code></pre></div>
-<section class="level3"><h4 id="github-actions">GitHub Actions<a class="anchor" aria-label="anchor" href="#github-actions"></a>
-</h4>
-<p>The <code>setup-r-dependencies</code> action will <a href="https://github.com/r-lib/actions/tree/v2-branch/setup-r-dependencies#usage" class="external-link">automatically</a> install Quarto in your GitHub Actions if a .qmd file is present in your repository (see the <code>install-quarto</code> parameter for more details).</p>
-</section></section><section class="section level3"><h3 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
+<section class="level3"><h3 id="github-actions">GitHub Actions<a class="anchor" aria-label="anchor" href="#github-actions"></a>
 </h3>
+<p>The <code>setup-r-dependencies</code> action will <a href="https://github.com/r-lib/actions/tree/v2-branch/setup-r-dependencies#usage" class="external-link">automatically</a> install Quarto in your GitHub Actions if a .qmd file is present in your repository (see the <code>install-quarto</code> parameter for more details).</p>
+</section></section><section class="level2"><h2 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
+</h2>
 <ul>
 <li><p>Callouts are not currently supported (<a href="https://github.com/quarto-dev/quarto-cli/issues/9963" class="external-link uri">https://github.com/quarto-dev/quarto-cli/issues/9963</a>).</p></li>
 <li><p>pkgdown assumes that you’re using <a href="https://quarto-dev.github.io/quarto-r/articles/hello.html" class="external-link">quarto vignette style</a>, or more generally an html format with <a href="https://quarto.org/docs/output-formats/html-basics.html#minimal-html" class="external-link"><code>minimal: true</code></a>. Specifically, only HTML vignettes are currently supported.</p></li>
 <li><p>You can’t customise mermaid styles with quarto mermaid themes. If you want to change the colours, you’ll need to provide your own custom CSS as shown in <a href="https://quarto.org/docs/authoring/diagrams.html#customizing-mermaid" class="external-link">the quarto docs</a>.</p></li>
 <li><p>pkgdown will pass the <code>lang</code> setting on to quarto, but the set of available language is not perfectly matched. Learn more in <a href="https://quarto.org/docs/authoring/language.html" class="external-link uri">https://quarto.org/docs/authoring/language.html</a>, including how to supply your own translations.</p></li>
-</ul></section><section class="section level3"><h3 id="supported-features">Supported features<a class="anchor" aria-label="anchor" href="#supported-features"></a>
-</h3>
+</ul></section><section class="level2"><h2 id="supported-features">Supported features<a class="anchor" aria-label="anchor" href="#supported-features"></a>
+</h2>
 <p>The following sections demonstrate a bunch of useful quarto features so that we can make sure that they work.</p>
-<section class="level3"><h4 id="inline-formatting">Inline formatting<a class="anchor" aria-label="anchor" href="#inline-formatting"></a>
-</h4>
+<section class="level3"><h3 id="inline-formatting">Inline formatting<a class="anchor" aria-label="anchor" href="#inline-formatting"></a>
+</h3>
 <ul>
 <li><p><span class="smallcaps">Small caps</span></p></li>
 <li><p>Here is a footnote reference<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;And here is the footnote.&lt;/p&gt;"><sup>1</sup></a></p></li>
-</ul></section><section class="level3"><h4 id="code">Code<a class="anchor" aria-label="anchor" href="#code"></a>
-</h4>
+</ul></section><section class="level3"><h3 id="code">Code<a class="anchor" aria-label="anchor" href="#code"></a>
+</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></span>
@@ -147,8 +147,8 @@
 </div>
 </div>
 </div>
-</section><section class="level3"><h4 id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a>
-</h4>
+</section><section class="level3"><h3 id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a>
+</h3>
 <div id="fig-puppies" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-puppies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
@@ -178,20 +178,20 @@
 Figure 1: Cute puppies
 </figcaption></figure>
 </div>
-</section><section class="level3"><h4 id="equations">Equations<a class="anchor" aria-label="anchor" href="#equations"></a>
-</h4>
+</section><section class="level3"><h3 id="equations">Equations<a class="anchor" aria-label="anchor" href="#equations"></a>
+</h3>
 <p><span id="eq-black-scholes"><span class="math display">\[
 \frac{\partial \mathrm C}{ \partial \mathrm t } + \frac{1}{2}\sigma^{2} \mathrm S^{2}
 \frac{\partial^{2} \mathrm C}{\partial \mathrm C^2}
   + \mathrm r \mathrm S \frac{\partial \mathrm C}{\partial \mathrm S}\ =
   \mathrm r \mathrm C
 \tag{1}\]</span></span></p>
-</section><section class="level3"><h4 id="cross-references">Cross references<a class="anchor" aria-label="anchor" href="#cross-references"></a>
-</h4>
+</section><section class="level3"><h3 id="cross-references">Cross references<a class="anchor" aria-label="anchor" href="#cross-references"></a>
+</h3>
 <p>See <a href="#fig-puppies" class="quarto-xref">Figure 1</a> for two cute puppies.</p>
 <p>Black-Scholes (<a href="#eq-black-scholes" class="quarto-xref">Equation 1</a>) is a mathematical model that seeks to explain the behavior of financial derivatives, most commonly options.</p>
-</section></section><section class="section level3"><h3 id="to-do">To do<a class="anchor" aria-label="anchor" href="#to-do"></a>
-</h3>
+</section></section><section class="level2"><h2 id="to-do">To do<a class="anchor" aria-label="anchor" href="#to-do"></a>
+</h2>
 <ul class="task-list">
 <li><label><input type="checkbox">Code annotations</label></li>
 <li><label><input type="checkbox">Tabsets</label></li>
