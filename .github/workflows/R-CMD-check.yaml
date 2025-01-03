@@ -58,7 +58,7 @@ jobs:
         with:
           extra-packages: any::rcmdcheck
           needs: check
-          quarto-version: 1.5.57
+          quarto-version: 1.6.40
 
       - uses: r-lib/actions/check-r-package@v2
         with:
