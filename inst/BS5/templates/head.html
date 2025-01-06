@@ -20,6 +20,17 @@
 <script src="{{#site}}{{root}}{{/site}}katex-auto.js"></script>
 {{/uses_katex}}
 
+{{#uses_mathjax}}
+<!-- mathjax math fonts -->
+<script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script>
+{{/uses_mathjax}}
+
 {{#lightswitch}}<script src="{{#site}}{{root}}{{/site}}lightswitch.js"></script>{{/lightswitch}}
 
 {{{headdeps}}}

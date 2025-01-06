@@ -128,6 +128,7 @@ data_template <- function(pkg = ".", depth = 0L) {
   out$footer <- data_footer(pkg)
   out$lightswitch <- uses_lightswitch(pkg)
   out$uses_katex <- config_math_rendering(pkg) == "katex"
+  out$uses_mathjax <- config_math_rendering(pkg) == "mathjax"
 
   print_yaml(out)
 }
