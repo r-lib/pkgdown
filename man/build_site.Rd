@@ -246,14 +246,15 @@ recommend getting the HTML directly from the tool:
   includes:
     in_header: |
        <!-- Global site tag (gtag.js) - Google Analytics -->
-       <script async src="https://www.googletagmanager.com/gtag/js?id=\{YOUR TRACKING ID\}"#' ></script>
+       <script async src="https://www.googletagmanager.com/gtag/js?id=\{YOUR MEASUREMENT ID\}" ></script>
        <script>
          window.dataLayer = window.dataLayer || [];
          function gtag()\{dataLayer.push(arguments);\}
          gtag('js', new Date());
 
-         gtag('config', '\{YOUR TRACKING ID\}');
+         gtag('config', '\{YOUR MEASUREMENT ID\}');
        </script>
+       <!-- Google tag (gtag.js) -->
 }\if{html}{\out{</div>}}
 \item \href{https://www.goatcounter.com}{GoatCounter}:
 
