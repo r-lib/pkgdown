@@ -129,6 +129,20 @@ Some text
 stop(cli::style_italic("This is italic"))
 ```
 
+```{r}
+#| error: TRUE
+f <- function() {
+  cli::cli_abort(c(
+    "i" = "A bullet with color",
+    "v" = "A bullet with color",
+    "x" = "A bullet with color",
+    "!" =  "A bullet with color"
+  ))
+}
+f()
+```
+
+
 Some more text
 
 ## Quoted text
