@@ -222,8 +222,8 @@
 #' of your source repository. This is used in the navbar, on the homepage,
 #' in articles and reference topics, and in the changelog (to link to issue
 #' numbers and user names). pkgdown can automatically figure out the necessary
-#' URLs if you link to a GitHub or GitLab repo in your `BugReports` or `URL`
-#' field.
+#' URLs if you link to a GitHub, GitLab or Codeberg repo in your `BugReports`
+#' or `URL` field.
 #'
 #' Otherwise, you can supply your own in the `repo` field:
 #'

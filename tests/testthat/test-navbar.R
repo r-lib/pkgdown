@@ -1,4 +1,4 @@
-test_that("adds github/gitlab link when available", {
+test_that("adds github/gitlab/codeberg link when available", {
   pkg <- pkg_navbar()
   expect_snapshot_output(navbar_components(pkg))
 
@@ -6,6 +6,9 @@ test_that("adds github/gitlab link when available", {
   expect_snapshot_output(navbar_components(pkg))
 
   pkg <- pkg_navbar(github_url = "https://gitlab.com/r-lib/pkgdown")
+  expect_snapshot_output(navbar_components(pkg))
+
+  pkg <- pkg_navbar(github_url = "https://codeberg.org/r-lib/pkgdown")
   expect_snapshot_output(navbar_components(pkg))
 })
 

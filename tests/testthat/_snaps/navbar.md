@@ -1,4 +1,4 @@
-# adds github/gitlab link when available
+# adds github/gitlab/codeberg link when available
 
     reference:
       text: Reference
@@ -31,6 +31,19 @@
       icon: fab fa-gitlab fa-lg
       href: https://gitlab.com/r-lib/pkgdown
       aria-label: GitLab
+    
+
+---
+
+    reference:
+      text: Reference
+      href: reference/index.html
+    search:
+      search: []
+    github:
+      icon: fas fa-code fa-lg
+      href: https://codeberg.org/r-lib/pkgdown
+      aria-label: Codeberg
     
 
 # vignette with package name turns into getting started

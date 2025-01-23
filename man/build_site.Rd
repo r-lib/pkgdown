@@ -272,8 +272,8 @@ Use the \code{repo} field to override pkgdown's automatically discovery
 of your source repository. This is used in the navbar, on the homepage,
 in articles and reference topics, and in the changelog (to link to issue
 numbers and user names). pkgdown can automatically figure out the necessary
-URLs if you link to a GitHub or GitLab repo in your \code{BugReports} or \code{URL}
-field.
+URLs if you link to a GitHub, GitLab or Codeberg repo in your \code{BugReports}
+or \code{URL} field.
 
 Otherwise, you can supply your own in the \code{repo} field:
 
