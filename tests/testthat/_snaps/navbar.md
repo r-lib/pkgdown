@@ -33,19 +33,6 @@
       aria-label: GitLab
     
 
----
-
-    reference:
-      text: Reference
-      href: reference/index.html
-    search:
-      search: []
-    github:
-      icon: fas fa-code fa-lg
-      href: https://codeberg.org/r-lib/pkgdown
-      aria-label: Codeberg
-    
-
 # vignette with package name turns into getting started
 
     reference:
