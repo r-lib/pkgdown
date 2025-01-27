@@ -1,4 +1,4 @@
-# adds github/gitlab link when available
+# adds github/gitlab/codeberg link when available
 
     reference:
       text: Reference

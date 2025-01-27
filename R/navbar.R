@@ -165,6 +165,7 @@ navbar_components <- function(pkg = ".") {
     repo_type(pkg),
     github = menu_icon("fab fa-github fa-lg", repo_home(pkg), "GitHub"),
     gitlab = menu_icon("fab fa-gitlab fa-lg", repo_home(pkg), "GitLab"),
+    codeberg = menu_icon("fas fa-code fa-lg", repo_home(pkg), "Codeberg"),
     NULL
   )
 
