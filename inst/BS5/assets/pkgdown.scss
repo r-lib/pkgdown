@@ -26,8 +26,13 @@
 
 /* navbar =================================================================== */
 
-$pkgdown-navbar-bg: null !default;
-$pkgdown-navbar-bg-dark: null !default;
+// pkgdown will follow bslib navbar variables by default
+$navbar-bg: null !default;
+$navbar-light-bg: if($navbar-bg, $navbar-bg, null) !default;
+$navbar-dark-bg: if($navbar-bg, $navbar-bg, null) !default;
+
+$pkgdown-navbar-bg: if($navbar-light-bg, $navbar-light-bg, null) !default;
+$pkgdown-navbar-bg-dark: if($navbar-dark-bg, $navbar-dark-bg, null) !default;
 
 // BS navbars appears to be designed with the idea that you have a coloured
 // navbar that looks the same in both light and dark mode. We prefer a mildly
