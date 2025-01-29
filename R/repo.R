@@ -5,6 +5,8 @@ repo_type <- function(pkg) {
     "github"
   } else if (grepl("^https?://gitlab\\..+/", home)) {
     "gitlab"
+  } else if (grepl("^https?://codeberg\\..+/", home)) {
+    "codeberg"
   } else {
     "other"
   }
@@ -75,7 +77,7 @@ package_repo <- function(pkg) {
     pkg$desc$get_urls()
   )
 
-  gh_links <- grep("^https?://git(hub|lab)\\..+/", urls, value = TRUE)
+  gh_links <- grep("^https?://(git(hub|lab)|codeberg)\\..+/", urls, value = TRUE)
   if (length(gh_links) > 0) {
     branch <- config_pluck_string(pkg, "repo.branch")
     return(repo_meta_gh_like(gh_links[[1]], branch))
@@ -98,10 +100,11 @@ repo_meta <- function(home = NULL, source = NULL, issue = NULL, user = NULL) {
 repo_meta_gh_like <- function(link, branch = NULL) {
   gh <- parse_github_like_url(link)
   branch <- branch %||% gha_current_branch()
+  blob <- if (grepl("^https?://codeberg\\.", link)) "/src/branch/" else "/blob/"
 
   repo_meta(
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/"),
-    paste0(gh$host, "/", gh$owner, "/", gh$repo, "/blob/", branch, "/"),
+    paste0(gh$host, "/", gh$owner, "/", gh$repo, blob, branch, "/"),
     paste0(gh$host, "/", gh$owner, "/", gh$repo, "/issues/"),
     paste0(gh$host, "/")
   )
