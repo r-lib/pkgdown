@@ -235,7 +235,7 @@ template:
 
 ### Navbar style
 
-The primary navbar colours are determined by HTML classes, not CSS, and can be customized using the `navbar` fields `bg` and `type` which control the background and foreground colours respectively.
+When [light-switch](#light-switch) is disabled, the primary navbar colours are determined by HTML classes, not CSS, and can be customized using the `navbar` fields `bg` and `type` which control the background and foreground colours respectively.
 Typically `bg` will be one of `light`, `dark`, or `primary`:
 
 ``` yaml
@@ -247,6 +247,17 @@ You generally don't need to set `bg` if you use a bootswatch theme, as pkgdown w
 Similarly, you don't usually need to set `type` because bootstrap will guess it for you.
 If the guess is wrong, you can override with `type: light` or `type: dark` depending on whether the background colour is light (so you need dark text) or `type: dark` if the background is dark (so you need light text).
 Unfortunately, these are defined relative to the page background, so if you have a dark site you'll need to flip `light` and `dark` (a little experimentation should quickly determine what looks best).
+
+When [light-switch](#light-switch) is enabled, navbar background colours can be customized via Sass variables provided to `template.bslib`.
+Use `$navbar-bg` to set a constant navbar colour in both light and dark mode, or `$navbar-light-bg` and `$navbar-dark-bg` to choose separate colours.
+
+```yaml
+template:
+  bslib:
+    # navbar-bg: "#306CC9"
+    navbar-light-bg: "#9CBAE7"
+    navbar-dark-bg: "#183663"
+```
 
 Because the navbar is styled with HTML, you'll need to `build_home_index(); init_site()` to see the effect of changing this parameter.
 
