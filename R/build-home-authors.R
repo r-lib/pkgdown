@@ -143,8 +143,8 @@ author_list <- function(x, authors_info = NULL, comment = FALSE, pkg = ".") {
     name = name,
     roles = roles,
     comment = linkify(x$comment),
-    # can't have both ORCID and ROR
-    uniqueid = orcid_link(orcid) %||% ror_link(ror)
+    orcid = orcid_link(orcid),
+    ror = ror_link(ror)
   )
 }
 
