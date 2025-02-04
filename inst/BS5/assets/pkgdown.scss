@@ -51,7 +51,7 @@ $pkgdown-navbar-bg-dark: if($navbar-dark-bg, $navbar-dark-bg, null) !default;
 }
 
 // make both the active nav and the hovered nav more clear by mixing the
-// background colour with the body and primary colours respectively 
+// background colour with the body and primary colours respectively
 .nav-item .nav-link {
   @include border-radius($border-radius);
 }
@@ -312,6 +312,11 @@ dt:target + dd {
   color: #A6CE39;
   margin-right: 4px;
 }
+// ror badge
+.ror {
+  height: 16px;
+  margin-right: 4px;
+}
 // activate font awesome
 .fab {
   font-family: "Font Awesome 5 Brands" !important;
@@ -372,7 +377,7 @@ a[href='#main'] {
 }
 .lifecycle-stable       { background-color: rgb(16, 128, 1);  color: var(--bs-white);}
 .lifecycle-superseded   { background-color: rgb(7, 64, 128);  color: var(--bs-white);}
-.lifecycle-experimental, 
+.lifecycle-experimental,
 .lifecycle-deprecated   { background-color: rgb(253, 128, 8); color: var(--bs-black);}
 
 /* Footnotes ---------------------------------------------------------------- */
@@ -452,7 +457,7 @@ pre, pre code {
 // Default dark mode styling does not look good for code
 [data-bs-theme="dark"] {
   pre, code {
-    background-color: RGBA(var(--bs-body-color-rgb), 0.1); 
+    background-color: RGBA(var(--bs-body-color-rgb), 0.1);
   }
   // don't double apply transparency
   pre code {
@@ -594,7 +599,7 @@ span.smallcaps {font-variant: small-caps;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
   vertical-align: middle;
 }
 

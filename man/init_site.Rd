@@ -35,7 +35,7 @@ See \code{vignette("customise")} for the various ways you can customise the
 display of your site.
 }
 \section{Build-ignored files}{
-We recommend using \code{\link[usethis:use_pkgdown_github_pages]{usethis::use_pkgdown_github_pages()}} to build-ignore \verb{docs/} and
+We recommend using \code{\link[usethis:use_pkgdown]{usethis::use_pkgdown_github_pages()}} to build-ignore \verb{docs/} and
 \verb{_pkgdown.yml}. If use another directory, or create the site manually,
 you'll need to add them to \code{.Rbuildignore} yourself. A \code{NOTE} about
 an unexpected file during \verb{R CMD CHECK} is an indication you have not
