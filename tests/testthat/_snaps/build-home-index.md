@@ -64,7 +64,7 @@
       <h2 data-toc-skip>Developers</h2>
       <ul class='list-unstyled'>
       <li>Jo Doe <br />
-      <small class = 'roles'> Author, maintainer </small>  </li>
+      <small class = 'roles'> Author, maintainer </small>   </li>
       </ul>
       </div>
       
@@ -80,8 +80,8 @@
     <div class="developers">
     <h2 data-toc-skip>Developers</h2>
     <ul class="list-unstyled">
-    <li>Hadley Wickham <br><small class="roles"> Author, maintainer </small>  </li>
-    <li>RStudio <br><small class="roles"> Copyright holder, funder </small>  </li>
+    <li>Hadley Wickham <br><small class="roles"> Author, maintainer </small>   </li>
+    <li>RStudio <br><small class="roles"> Copyright holder, funder </small>   </li>
     <li><a href="authors.html">More about authors...</a></li>
     </ul>
     </div>

@@ -44,7 +44,7 @@
       <ul class='list-unstyled'>
       <li>BEFORE</li>
       <li>Jo Doe <br />
-      <small class = 'roles'> Author, maintainer </small>  </li>
+      <small class = 'roles'> Author, maintainer </small>   </li>
       <li>AFTER</li>
       </ul>
       </div>
