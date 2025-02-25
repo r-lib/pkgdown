@@ -25,7 +25,7 @@ pkgdown_print.default <- function(x, visible = TRUE) {
   if (isTRUE(attr(x, "browsable_html", exact = TRUE))) {
     x
   } else {
-    print(x)
+    show(x)
   }
 }
 
