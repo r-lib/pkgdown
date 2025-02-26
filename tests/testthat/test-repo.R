@@ -140,12 +140,14 @@ test_that("GitLab subgroups are properly parsed", {
   }
 
   base <- "https://gitlab.com/salim_b/r/pkgs/pal"
-  expected <- paste0(base, "/issues/")
-  
-  expect_equal(issue_url(URL = base), expected)
-  expect_equal(issue_url(URL = paste0(base, "/")), expected)
-  expect_equal(issue_url(BugReports = paste0(base, "/issues")), expected)
-  expect_equal(issue_url(BugReports = paste0(base, "/issues/")), expected)
+  expected <- paste0(base, "/-/issues/")
+
+  expect_identical(issue_url(URL = base), expected)
+  expect_identical(issue_url(URL = paste0(base, "/")), expected)
+  expect_identical(issue_url(BugReports = paste0(base, "/issues")), expected)
+  expect_identical(issue_url(BugReports = paste0(base, "/issues/")), expected)
+  expect_identical(issue_url(BugReports = paste0(base, "/-/issues")), expected)
+  expect_identical(issue_url(BugReports = paste0(base, "/-/issues/")), expected)
 })
 
 test_that("can find github enterprise url", {
