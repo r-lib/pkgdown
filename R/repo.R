@@ -65,7 +65,7 @@ package_repo <- function(pkg) {
   # Use metadata if available
   repo <- config_pluck_list(pkg, "repo")
   url <- config_pluck_list(pkg, "repo.url")
-  
+
 
   if (!is.null(url)) {
     return(repo)
@@ -117,13 +117,13 @@ gha_current_branch <- function() {
   if (ref != "") {
     return(ref)
   }
-  
+
   # Set everywhere but might not be a branch
   ref <- Sys.getenv("GITHUB_REF_NAME")
   if (ref != "") {
     return(ref)
   }
-  
+
   "HEAD"
 }
 
