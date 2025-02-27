@@ -176,11 +176,16 @@ test_that("build_article yields useful error if pandoc fails", {
   skip_if_no_pandoc("2.18")
 
   pkg <- local_pkgdown_site()
-  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", "Hi")
+  pkg <- pkg_add_file(pkg, "vignettes/test.Rmd", c(
+    "Some text.",
+    "",
+    "[^1]: Unreferenced footnote.",
+    ""
+  ))
 
-  expect_snapshot(
+  expect_error(
     build_article("test", pkg, pandoc_args = "--fail-if-warnings"),
-    error = TRUE
+    "Note with key .+ defined at .+ but not used"
   )
 })
 
