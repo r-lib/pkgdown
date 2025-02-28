@@ -50,7 +50,7 @@ new keypair specifically for deploying the site. The easiest way is to use
 which we no longer recommend, so this function is deprecated. There are
 two replacements:
 \itemize{
-\item \code{\link[usethis:use_pkgdown_github_pages]{usethis::use_pkgdown_github_pages()}} will setup a GitHub action to
+\item \code{\link[usethis:use_pkgdown]{usethis::use_pkgdown_github_pages()}} will setup a GitHub action to
 automatically build and deploy your package website to GitHub pages.
 \item \code{\link[=deploy_to_branch]{deploy_to_branch()}} can be called locally to build and deploy your
 website to any desired branch.

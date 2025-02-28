@@ -1,6 +1,8 @@
 # pkgdown (development version)
 
-* pkgdown now uses the same Sass variables as bslib to set the navbar background color: `$navbar-bg` for the background color in light and dark mode, or `$navbar-light-bg` and `$navbar-dark-bg` for individually controlling light and dark mode background colors. `pkgdown-navbar-bg` and `$pkgdown-navbar-bg-dark` both still provide pkgdown-specific overrides (@gadenbuie, #2847).
+* pkgdown now transforms ROR IDs in `DESCRIPTION` into icons, like it already did for ORCID IDs. (#2850)
+
+** pkgdown now uses the same Sass variables as bslib to set the navbar background color: `$navbar-bg` for the background color in light and dark mode, or `$navbar-light-bg` and `$navbar-dark-bg` for individually controlling light and dark mode background colors. `pkgdown-navbar-bg` and `$pkgdown-navbar-bg-dark` both still provide pkgdown-specific overrides (@gadenbuie, #2847).
 * Code repositories hosted on Codeberg are now supported in the `BugReports` and `URL` fields (@nfrerebeau, #2843).
 * Articles (i.e., vignettes in `vignettes/articles`, created by `usethis::use_article()` and available on pkgdown sites but not included in a built package) have improved test cases (thanks to @venpopov and @ethanbass).
 * New `clean_site(force = TRUE)` for cleaning of `docs/` regardless of whether it was built by pkgdown (#2827).

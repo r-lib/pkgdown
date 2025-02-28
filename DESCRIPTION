@@ -11,7 +11,8 @@ Authors@R: c(
     person("Olivier", "Roy", role = "aut"),
     person("Salim", "Brüggemann", role = "aut",
            comment = c(ORCID = "0000-0002-5329-5987")),
-    person("Posit Software, PBC", role = c("cph", "fnd"))
+    person("Posit Software, PBC", role = c("cph", "fnd"),
+           comment = c(ROR = "03wc8by49"))
   )
 Description: Generate an attractive and useful website from a source
     package.  'pkgdown' converts your documentation, vignettes, 'README',
@@ -73,5 +74,5 @@ Config/testthat/parallel: true
 Config/testthat/start-first: build-article, build-quarto-article, build-reference
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.2.9000
 SystemRequirements: pandoc

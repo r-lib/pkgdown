@@ -40,6 +40,6 @@ package documentation in the \verb{v.1.2.3/} directory of your site.}
 }
 \description{
 Assumes that you're in a git clone of the project, and the package is
-already installed. Use \code{\link[usethis:use_pkgdown_github_pages]{usethis::use_pkgdown_github_pages()}} to automate
+already installed. Use \code{\link[usethis:use_pkgdown]{usethis::use_pkgdown_github_pages()}} to automate
 this process using GitHub actions.
 }
