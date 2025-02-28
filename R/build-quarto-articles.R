@@ -9,15 +9,20 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
     return()
   }
   if (pkg$bs_version < 5) {
-    cli::cli_abort(c(
-      "Quarto articles require Bootstrap 5.",
-      "i" = "See details at {.url https://pkgdown.r-lib.org/articles/customise.html#getting-started}"),
+    cli::cli_abort(
+      c(
+        "Quarto articles require Bootstrap 5.",
+        "i" = "See details at {.url https://pkgdown.r-lib.org/articles/customise.html#getting-started}"
+      ),
       call = NULL
     )
   }
   check_installed("quarto")
   if (quarto::quarto_version() < "1.5") {
-    cli::cli_abort("Quarto articles require version 1.5 and above.", call = NULL)
+    cli::cli_abort(
+      "Quarto articles require version 1.5 and above.",
+      call = NULL
+    )
   }
   # Let user know what's happening
   old_digest <- purrr::map_chr(path(pkg$dst_path, qmds$file_out), file_digest)
@@ -30,7 +35,10 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
   if (is.null(article)) {
     project_path <- path(pkg$src_path, "vignettes", "_quarto.yaml")
     if (!file_exists(project_path)) {
-      yaml::write_yaml(list(project = list(render = list("*.qmd"))), project_path)
+      yaml::write_yaml(
+        list(project = list(render = list("*.qmd"))),
+        project_path
+      )
       withr::defer(file_delete(project_path))
     }
   }
@@ -43,26 +51,30 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
   output_dir <- quarto_render(pkg, src_path, quiet = quiet)
 
   # check for articles (in the `vignette/articles` sense)
-  article_dir <- fs::path(output_dir,"articles")
-  if (fs::dir_exists(article_dir)){
+  article_dir <- fs::path(output_dir, "articles")
+  if (fs::dir_exists(article_dir)) {
     fs::file_move(dir_ls(article_dir), output_dir)
   }
 
   # Read generated data from quarto template and render into pkgdown template
-  unwrap_purrr_error(purrr::walk2(qmds$file_in, qmds$file_out, function(input_file, output_file) {
-    built_path <- path(output_dir, path_rel(output_file, "articles"))
-    if (!file_exists(built_path)) {
-      cli::cli_abort("No built file found for {.file {input_file}}")
-    }
-    if (path_ext(output_file) == "html") {
-      data <- data_quarto_article(pkg, built_path, input_file)
-      render_page(pkg, "quarto", data, output_file, quiet = TRUE)
+  unwrap_purrr_error(purrr::walk2(
+    qmds$file_in,
+    qmds$file_out,
+    function(input_file, output_file) {
+      built_path <- path(output_dir, path_rel(output_file, "articles"))
+      if (!file_exists(built_path)) {
+        cli::cli_abort("No built file found for {.file {input_file}}")
+      }
+      if (path_ext(output_file) == "html") {
+        data <- data_quarto_article(pkg, built_path, input_file)
+        render_page(pkg, "quarto", data, output_file, quiet = TRUE)
 
-      update_html(path(pkg$dst_path, output_file), tweak_quarto_html)
-    } else {
-      file_copy(built_path, path(pkg$dst_path, output_file), overwrite = TRUE)
+        update_html(path(pkg$dst_path, output_file), tweak_quarto_html)
+      } else {
+        file_copy(built_path, path(pkg$dst_path, output_file), overwrite = TRUE)
+      }
     }
-  }))
+  ))
 
   # Report on which files have changed
   new_digest <- purrr::map_chr(path(pkg$dst_path, qmds$file_out), file_digest)
@@ -96,14 +108,19 @@ quarto_render <- function(pkg, path, quiet = TRUE, frame = caller_env()) {
   write_yaml(quarto_format(pkg), metadata_path)
 
   output_dir <- withr::local_tempdir("pkgdown-quarto-", .local_envir = frame)
-  quarto::quarto_render(
-    path,
-    metadata_file = metadata_path,
-    execute_dir = output_dir,
-    quarto_args = c("--output-dir", output_dir),
-    quiet = quiet,
-    as_job = FALSE
-  )
+
+  # set the lib path to the temporary pkgdown installation directory
+  lib_path <- .libPaths()[1]
+  withr::with_libpaths(lib_path, code = {
+    quarto::quarto_render(
+      path,
+      metadata_file = metadata_path,
+      execute_dir = output_dir,
+      quarto_args = c("--output-dir", output_dir),
+      quiet = quiet,
+      as_job = FALSE
+    )
+  })
 
   output_dir
 }
@@ -127,7 +144,7 @@ quarto_format <- function(pkg) {
   )
 }
 
-data_quarto_article <- function(pkg, path, input_path) { 
+data_quarto_article <- function(pkg, path, input_path) {
   html <- xml2::read_html(path, encoding = "UTF-8")
   meta_div <- xml2::xml_find_first(html, "//body/div[@class='meta']")
 
@@ -137,7 +154,7 @@ data_quarto_article <- function(pkg, path, input_path) {
 
   list(
     pagetitle = escape_html(xpath_text(html, "//head/title")),
-    toc = TRUE, 
+    toc = TRUE,
     source = repo_source(pkg, input_path),
     includes = list(
       head = xml2str(head),
@@ -156,7 +173,7 @@ data_quarto_article <- function(pkg, path, input_path) {
   )
 }
 
-tweak_quarto_html <- function(html) { 
+tweak_quarto_html <- function(html) {
   # If top-level headings use h1, move everything down one level
   h1 <- xml2::xml_find_all(html, "//h1")
   if (length(h1) > 1) {
