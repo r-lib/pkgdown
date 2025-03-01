@@ -79,10 +79,13 @@ test_that("gives informative errors", {
     data_reference_index_(list(list(subtitle = 1)))
     data_reference_index_(list(list(subtitle = "a\n\nb")))
     data_reference_index_(list(list(title = "bla", contents = 1)))
-    data_reference_index_(list(list(title = "bla", contents = NULL)) )
+    data_reference_index_(list(list(title = "bla", contents = NULL)))
     data_reference_index_(list(list(title = "bla", contents = list("a", NULL))))
     data_reference_index_(list(list(title = "bla", contents = list())))
-    data_reference_index_(list(list(title = "bla", contents = "notapackage::lala")))
+    data_reference_index_(list(list(
+      title = "bla",
+      contents = "notapackage::lala"
+    )))
     data_reference_index_(list(list(title = "bla", contents = "rlang::lala")))
   })
 })
@@ -93,7 +96,10 @@ test_that("can exclude topics", {
     list(
       reference = list(
         list(title = "Exclude", contents = c("a", "b", "-a")),
-        list(title = "Exclude multiple", contents = c("a", "b", "c", "-matches('a|b')")),
+        list(
+          title = "Exclude multiple",
+          contents = c("a", "b", "c", "-matches('a|b')")
+        ),
         list(title = "Everything else", contents = c("a", "c", "e", "?"))
       )
     )
@@ -108,9 +114,16 @@ test_that("can exclude topics", {
 })
 
 test_that("can use a topic from another package", {
-  pkg <- local_pkgdown_site(meta = list(reference = list(
-    list(title = "bla", contents = c("rlang::is_installed()", "bslib::bs_add_rules"))
-  )))
+  pkg <- local_pkgdown_site(
+    meta = list(
+      reference = list(
+        list(
+          title = "bla",
+          contents = c("rlang::is_installed()", "bslib::bs_add_rules")
+        )
+      )
+    )
+  )
 
   expect_snapshot(data_reference_index(pkg))
 })

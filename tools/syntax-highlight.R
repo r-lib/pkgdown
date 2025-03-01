@@ -10,6 +10,7 @@ library(fs)
 # Summary at
 # https://docs.google.com/spreadsheets/d/1JhBtQSCtQ2eu2RepLTJONFdLEnhM3asUyMMLYE3tdYk/edit#gid=0
 
+# fmt: skip
 class <- c(
   "Keyword"        = "span.kw",
   "DataType"       = "span.dt",
@@ -48,23 +49,37 @@ class <- c(
 read_theme <- function(name) {
   jsonlite::read_json(paste0(
     "https://raw.githubusercontent.com/quarto-dev/quarto-cli/",
-    "main/src/resources/pandoc/highlight-styles/", name
+    "main/src/resources/pandoc/highlight-styles/",
+    name
   ))
 }
 
 theme_df <- function(theme) {
-  bg <- pluck(theme, "background-color") %||% pluck(theme, "editor-colors", "BackgroundColor")
+  bg <- pluck(theme, "background-color") %||%
+    pluck(theme, "editor-colors", "BackgroundColor")
   fg <- pluck(theme, "text-color")
 
   df <- purrr::map_df(theme$`text-styles`, compact, .id = "name")
   df |>
-    rename(color = any_of("text-color"), background = any_of("background-color")) |>
+    rename(
+      color = any_of("text-color"),
+      background = any_of("background-color")
+    ) |>
     mutate(class = class[name], name = name, `selected-text-color` = NULL) |>
     arrange(class) |>
     structure(bg = bg, fg = fg)
 }
 
-style_to_css <- function(name, class, color = NA, background = NA, bold = FALSE, italic = FALSE, underline = FALSE, ...) {
+style_to_css <- function(
+  name,
+  class,
+  color = NA,
+  background = NA,
+  bold = FALSE,
+  italic = FALSE,
+  underline = FALSE,
+  ...
+) {
   attr <- c(
     if (!is.na(color)) paste0("color:", color),
     if (!is.na(background)) paste0("background-color:", background),
@@ -73,7 +88,15 @@ style_to_css <- function(name, class, color = NA, background = NA, bold = FALSE,
     if (!is.na(underline) && underline) "text-decoration: underline"
   )
 
-  paste0("pre code ", class, " /* ", name, " */ {", paste0(attr, collapse = "; "), "}")
+  paste0(
+    "pre code ",
+    class,
+    " /* ",
+    name,
+    " */ {",
+    paste0(attr, collapse = "; "),
+    "}"
+  )
 }
 
 
@@ -89,11 +112,15 @@ theme_as_css <- function(df, path = stdout()) {
 
   attrs <- attributes(df)
   if (any(c("bg", "fg") %in% names(attrs))) {
-    pre <- paste0("pre {",
-      paste(c(
-        paste0("background-color: ", attrs$bg, ";", recycle0 = TRUE),
-        paste0("color: ", attrs$fg, ";", recycle0 = TRUE)
-      ), collapse = " "),
+    pre <- paste0(
+      "pre {",
+      paste(
+        c(
+          paste0("background-color: ", attrs$bg, ";", recycle0 = TRUE),
+          paste0("color: ", attrs$fg, ";", recycle0 = TRUE)
+        ),
+        collapse = " "
+      ),
       "}"
     )
     css <- c(pre, css)
@@ -108,7 +135,8 @@ save_theme <- function(theme, name) {
   theme_as_css(df, path("inst", "highlight-styles", path_ext_set(name, "scss")))
 }
 
-json <- gh::gh("/repos/{owner}/{repo}/contents/{path}",
+json <- gh::gh(
+  "/repos/{owner}/{repo}/contents/{path}",
   owner = "quarto-dev",
   repo = "quarto-cli",
   path = "src/resources/pandoc/highlight-styles"

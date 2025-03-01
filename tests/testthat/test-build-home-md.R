@@ -23,6 +23,3 @@ test_that("drops files that don't need to be rendered", {
 
   expect_equal(withr::with_dir(dir, package_mds(".")), character())
 })
-
-
-

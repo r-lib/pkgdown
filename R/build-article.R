@@ -7,14 +7,16 @@
 #'   `TRUE`, ensures that every article is build in a fresh environment, but
 #'   you may want to set it to `FALSE` to make debugging easier.
 #' @param pandoc_args Pass additional arguments to pandoc. Used for testing.
-build_article <- function(name,
-                          pkg = ".",
-                          lazy = FALSE,
-                          seed = 1014L,
-                          new_process = TRUE,
-                          pandoc_args = character(),
-                          override = list(),
-                          quiet = TRUE) {
+build_article <- function(
+  name,
+  pkg = ".",
+  lazy = FALSE,
+  seed = 1014L,
+  new_process = TRUE,
+  pandoc_args = character(),
+  override = list(),
+  quiet = TRUE
+) {
   pkg <- section_init(pkg, "articles", override = override)
 
   # Look up in pkg vignette data - this allows convenient automatic
@@ -49,35 +51,47 @@ build_article <- function(name,
       new_process = new_process,
       pandoc_args = pandoc_args,
       quiet = quiet
-    )  
+    )
   } else {
     build_quarto_articles(pkg = pkg, article = name, quiet = quiet)
   }
 }
 
-build_rmarkdown_article <- function(pkg,
-                                    input_file,
-                                    input_path,
-                                    output_file,
-                                    output_path,
-                                    depth,
-                                    seed = NULL,
-                                    new_process = TRUE,
-                                    pandoc_args = character(),
-                                    quiet = TRUE,
-                                    call = caller_env() ) {
+build_rmarkdown_article <- function(
+  pkg,
+  input_file,
+  input_path,
+  output_file,
+  output_path,
+  depth,
+  seed = NULL,
+  new_process = TRUE,
+  pandoc_args = character(),
+  quiet = TRUE,
+  call = caller_env()
+) {
   cli::cli_inform("Reading {src_path(input_file)}")
   digest <- file_digest(output_path)
 
   data <- data_article(pkg, input_file, call = call)
   if (data$as_is) {
     if (identical(data$ext, "html")) {
-      setup <- rmarkdown_setup_custom(pkg, input_path, depth = depth, data = data)
+      setup <- rmarkdown_setup_custom(
+        pkg,
+        input_path,
+        depth = depth,
+        data = data
+      )
     } else {
       setup <- list(format = NULL, options = NULL)
     }
   } else {
-    setup <- rmarkdown_setup_pkgdown(pkg, depth = depth, data = data, pandoc_args = pandoc_args)
+    setup <- rmarkdown_setup_pkgdown(
+      pkg,
+      depth = depth,
+      data = data,
+      pandoc_args = pandoc_args
+    )
   }
 
   local_envvar_pkgdown(pkg)
@@ -127,7 +141,6 @@ build_rmarkdown_article <- function(pkg,
   }
 
   invisible(path)
-
 }
 
 
@@ -136,7 +149,7 @@ data_article <- function(pkg, input, call = caller_env()) {
 
   opengraph <- check_open_graph(pkg, yaml$opengraph, input, call = call)
   opengraph$description <- opengraph$description %||% yaml$description
-  
+
   list(
     opengraph = opengraph,
     pagetitle = escape_html(yaml$title),
@@ -148,11 +161,13 @@ data_article <- function(pkg, input, call = caller_env()) {
   )
 }
 
-rmarkdown_setup_custom <- function(pkg,
-                                   input_path,
-                                   depth = 1L,
-                                   data = list(),
-                                   env = caller_env()) {
+rmarkdown_setup_custom <- function(
+  pkg,
+  input_path,
+  depth = 1L,
+  data = list(),
+  env = caller_env()
+) {
   template <- rmarkdown_template(pkg, depth = depth, data = data, env = env)
 
   # Override defaults & values supplied in metadata
@@ -160,7 +175,7 @@ rmarkdown_setup_custom <- function(pkg,
     template = template,
     self_contained = FALSE
   )
-  
+
   output <- rmarkdown::default_output_format(input_path)
   if (output$name != "rmarkdown::html_vignette") {
     # Force to NULL unless overridden by user
@@ -170,12 +185,13 @@ rmarkdown_setup_custom <- function(pkg,
   list(format = NULL, options = options)
 }
 
-rmarkdown_setup_pkgdown <- function(pkg,
-                                    depth = 1L,
-                                    data = list(),
-                                    pandoc_args = character(),
-                                    env = caller_env()) {
-
+rmarkdown_setup_pkgdown <- function(
+  pkg,
+  depth = 1L,
+  data = list(),
+  pandoc_args = character(),
+  env = caller_env()
+) {
   template <- rmarkdown_template(pkg, depth = depth, data = data, env = env)
 
   format <- rmarkdown::html_document(
@@ -187,7 +203,10 @@ rmarkdown_setup_pkgdown <- function(pkg,
     extra_dependencies = bs_theme_deps_suppress(),
     pandoc_args = pandoc_args
   )
-  format$knitr$opts_chunk <- fig_opts_chunk(pkg$figures, format$knitr$opts_chunk)
+  format$knitr$opts_chunk <- fig_opts_chunk(
+    pkg$figures,
+    format$knitr$opts_chunk
+  )
 
   width <- config_pluck_number_whole(pkg, "code.width", default = 80)
   old_pre <- format$pre_knit
@@ -202,7 +221,12 @@ rmarkdown_setup_pkgdown <- function(pkg,
 }
 
 # Generates pandoc template by rendering templates/content-article.html
-rmarkdown_template <- function(pkg, data = list(), depth = 1L, env = caller_env()) {
+rmarkdown_template <- function(
+  pkg,
+  data = list(),
+  depth = 1L,
+  env = caller_env()
+) {
   path <- withr::local_tempfile(
     pattern = "pkgdown-rmd-template-",
     fileext = ".html",

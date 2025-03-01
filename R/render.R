@@ -19,7 +19,14 @@
 #' @param depth Depth of path relative to base directory.
 #' @param quiet If `quiet`, will suppress output messages
 #' @export
-render_page <- function(pkg = ".", name, data, path, depth = NULL, quiet = FALSE) {
+render_page <- function(
+  pkg = ".",
+  name,
+  data,
+  path,
+  depth = NULL,
+  quiet = FALSE
+) {
   pkg <- as_pkgdown(pkg)
 
   if (is.null(depth)) {
@@ -188,7 +195,11 @@ check_open_graph <- function(pkg, og, file_path = NULL, call = caller_env()) {
     error_path = paste0(base_path, ".twitter"),
     error_call = call
   )
-  if (!is.null(og$twitter) && is.null(og$twitter$creator) && is.null(og$twitter$site)) {
+  if (
+    !is.null(og$twitter) &&
+      is.null(og$twitter$creator) &&
+      is.null(og$twitter$site)
+  ) {
     msg <- "{.field opengraph.twitter} must include either {.field creator} or {.field site}."
     config_abort(pkg, msg, path = file_path, call = call)
   }
@@ -204,17 +215,18 @@ check_open_graph <- function(pkg, og, file_path = NULL, call = caller_env()) {
 
 render_template <- function(path, data) {
   template <- read_file(path)
-  if (length(template) == 0)
-    return("")
+  if (length(template) == 0) return("")
 
   whisker::whisker.render(template, data)
 }
 
-check_open_graph_list <- function(pkg,
-                                  x,
-                                  file_path,
-                                  error_path,
-                                  error_call = caller_env()) {
+check_open_graph_list <- function(
+  pkg,
+  x,
+  file_path,
+  error_path,
+  error_call = caller_env()
+) {
   if (is.list(x) || is.null(x)) {
     return()
   }
@@ -227,7 +239,13 @@ check_open_graph_list <- function(pkg,
   )
 }
 
-write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE) {
+write_if_different <- function(
+  pkg,
+  contents,
+  path,
+  quiet = FALSE,
+  check = TRUE
+) {
   # Almost all uses are relative to destination, except for rmarkdown templates
   full_path <- path_abs(path, start = pkg$dst_path)
 
@@ -252,8 +270,7 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE)
 }
 
 same_contents <- function(path, contents) {
-  if (!file_exists(path))
-    return(FALSE)
+  if (!file_exists(path)) return(FALSE)
 
   new_hash <- digest::digest(contents, serialize = FALSE)
 

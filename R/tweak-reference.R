@@ -27,11 +27,17 @@ tweak_reference_highlighting <- function(html) {
 }
 
 is_wrapped_pre <- function(html) {
-  xml2::xml_find_lgl(html, "boolean(parent::div[contains(@class, 'sourceCode')])")
+  xml2::xml_find_lgl(
+    html,
+    "boolean(parent::div[contains(@class, 'sourceCode')])"
+  )
 }
 
 is_handled_section <- function(html) {
-  xml2::xml_find_lgl(html, "boolean(ancestor::div[@id='ref-examples' or @id='ref-usage'])")
+  xml2::xml_find_lgl(
+    html,
+    "boolean(ancestor::div[@id='ref-examples' or @id='ref-usage'])"
+  )
 }
 
 tweak_highlight_r <- function(block) {
@@ -83,7 +89,10 @@ xml_replace_contents <- function(node, new) {
 
 
 tweak_extra_logo <- function(html) {
-  img <- xml2::xml_find_all(html, ".//div[contains(@class,'ref-description')]//img[contains(@src,'logo')]")
+  img <- xml2::xml_find_all(
+    html,
+    ".//div[contains(@class,'ref-description')]//img[contains(@src,'logo')]"
+  )
   xml2::xml_remove(img)
 
   invisible()

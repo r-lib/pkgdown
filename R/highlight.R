@@ -68,9 +68,13 @@ highlight_examples <- function(code, topic, env = globalenv()) {
 
 pre <- function(x, r_code = FALSE) {
   paste0(
-    "<pre", if (r_code) " class='sourceCode r'", ">", "<code>",
+    "<pre",
+    if (r_code) " class='sourceCode r'",
+    ">",
+    "<code>",
     x,
-    "</code>","</pre>"
+    "</code>",
+    "</pre>"
   )
 }
 

@@ -25,12 +25,24 @@ tweak_tabset <- function(div) {
   fade <- has_class(div, "tabset-fade")
 
   id <- section_id(div)
-  nav <- xml2::xml_add_child(div, "ul", class = nav_class, id = id, role = "tablist")
+  nav <- xml2::xml_add_child(
+    div,
+    "ul",
+    class = nav_class,
+    id = id,
+    role = "tablist"
+  )
   content <- xml2::xml_add_child(div, "div", class = "tab-content")
 
   # Fill the ul for nav and div for content
   purrr::walk(tabs, tablist_item, nav = nav, parent_id = id)
-  purrr::walk(tabs, tablist_content, content = content, parent_id = id, fade = fade)
+  purrr::walk(
+    tabs,
+    tablist_content,
+    content = content,
+    parent_id = id,
+    fade = fade
+  )
 
   # if not tabs active, activate the first tab
   if (!any(has_class(xml2::xml_children(content), "active"))) {
@@ -51,8 +63,15 @@ tablist_item <- function(tab, nav, parent_id) {
   # Activate (if there was "{.active}" in the source Rmd)
   active <- has_class(tab, "active")
   li_class <- paste0("nav-link", if (active) " active")
-  li <- xml2::xml_add_child(nav, "li", role = "presentation", class = "nav-item")
-  button <- xml2::xml_add_child(li, "button",
+  li <- xml2::xml_add_child(
+    nav,
+    "li",
+    role = "presentation",
+    class = "nav-item"
+  )
+  button <- xml2::xml_add_child(
+    li,
+    "button",
     `data-bs-toggle` = "tab",
     `data-bs-target` = paste0("#", id),
     id = paste0(id, "-tab"),

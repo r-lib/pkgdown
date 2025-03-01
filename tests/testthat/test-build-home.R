@@ -3,11 +3,13 @@
 test_that("can build site even if no Authors@R present", {
   skip_if_no_pandoc()
 
-  pkg <- local_pkgdown_site(desc = list(
-    Author = "Hadley Wickham",
-    Maintainer = "Hadley Wickham <hadley@rstudio.com>",
-    `Authors@R` = NA
-  ))
+  pkg <- local_pkgdown_site(
+    desc = list(
+      Author = "Hadley Wickham",
+      Maintainer = "Hadley Wickham <hadley@rstudio.com>",
+      `Authors@R` = NA
+    )
+  )
 
   expect_no_error(suppressMessages(build_home_index(pkg)))
 })

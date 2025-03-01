@@ -21,9 +21,18 @@ build_citation_authors <- function(pkg = ".") {
   render_page(pkg, "citation-authors", data, "authors.html")
 }
 
-data_authors <- function(pkg = ".", roles = default_roles(), call = caller_env()) {
+data_authors <- function(
+  pkg = ".",
+  roles = default_roles(),
+  call = caller_env()
+) {
   pkg <- as_pkgdown(pkg)
-  author_info <- config_pluck_list(pkg, "authors", default = list(), call = call)
+  author_info <- config_pluck_list(
+    pkg,
+    "authors",
+    default = list(),
+    call = call
+  )
 
   inst_path <- path(pkg$src_path, "inst", "AUTHORS")
   if (file_exists(inst_path)) {
@@ -85,8 +94,16 @@ data_home_sidebar_authors <- function(pkg = ".", call = caller_env()) {
   data <- data_authors(pkg, roles)
   authors <- purrr::map_chr(data$main, author_desc, comment = FALSE)
 
-  before <- config_pluck_markdown_inline(pkg, "authors.sidebar.before", call = call)
-  after <- config_pluck_markdown_inline(pkg, "authors.sidebar.after", call = call)
+  before <- config_pluck_markdown_inline(
+    pkg,
+    "authors.sidebar.before",
+    call = call
+  )
+  after <- config_pluck_markdown_inline(
+    pkg,
+    "authors.sidebar.after",
+    call = call
+  )
 
   bullets <- c(before, authors, after)
   if (data$needs_page) {
@@ -151,7 +168,9 @@ author_list <- function(x, authors_info = NULL, comment = FALSE, pkg = ".") {
 author_desc <- function(x, comment = TRUE) {
   paste(
     x$name,
-    "<br />\n<small class = 'roles'>", x$roles, "</small>",
+    "<br />\n<small class = 'roles'>",
+    x$roles,
+    "</small>",
     if (!is.null(x$orcid)) {
       x$orcid
     },
@@ -170,7 +189,9 @@ orcid_link <- function(orcid) {
   }
 
   paste0(
-    "<a href='https://orcid.org/", orcid, "' target='orcid.widget' aria-label='ORCID'>",
+    "<a href='https://orcid.org/",
+    orcid,
+    "' target='orcid.widget' aria-label='ORCID'>",
     "<span class='fab fa-orcid orcid' aria-hidden='true'></span></a>"
   )
 }
@@ -181,7 +202,9 @@ ror_link <- function(ror) {
   }
 
   paste0(
-    "<a href='https://ror.org/", ror, "'>",
+    "<a href='https://ror.org/",
+    ror,
+    "'>",
     "<img src='https://raw.githubusercontent.com/ror-community/ror-logos/main/ror-icon-rgb.svg' class='ror' alt='ROR'></a>"
   )
 }
@@ -297,7 +320,7 @@ citation_auto <- function(pkg) {
   #   lib.loc = path_dir(pkg$src_path)
   # )
   # browser()
-# C
+  # C
   cit_info$`Date/Publication` <- cit_info$`Date/Publication` %||% Sys.time()
   if (!is.null(cit_info$Title)) cit_info$Title <- str_squish(cit_info$Title)
 

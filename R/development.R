@@ -1,10 +1,19 @@
 meta_development <- function(pkg, call = caller_env()) {
   config_pluck_list(pkg, "development", call = call)
-  
+
   mode <- dev_mode(pkg, call = call)
-  
-  destination <- config_pluck_string(pkg, "development.destination", default = "dev", call = call)
-  version_label <- config_pluck_string(pkg, "development.version_label", call = call)
+
+  destination <- config_pluck_string(
+    pkg,
+    "development.destination",
+    default = "dev",
+    call = call
+  )
+  version_label <- config_pluck_string(
+    pkg,
+    "development.version_label",
+    call = call
+  )
   if (is.null(version_label)) {
     if (mode %in% c("release", "default")) {
       version_label <- if (pkg$bs_version == 3) "default" else "muted"
@@ -26,7 +35,12 @@ meta_development <- function(pkg, call = caller_env()) {
 dev_mode <- function(pkg, call = caller_env()) {
   mode <- Sys.getenv("PKGDOWN_DEV_MODE")
   if (identical(mode, "")) {
-    mode <- config_pluck_string(pkg, "development.mode", default = "default", call = call)
+    mode <- config_pluck_string(
+      pkg,
+      "development.mode",
+      default = "default",
+      call = call
+    )
   }
 
   if (mode == "auto") {
@@ -62,7 +76,8 @@ dev_mode_auto <- function(version) {
 
 # Called in render_page() so that LANG env var set up
 version_tooltip <- function(mode) {
-  switch(mode,
+  switch(
+    mode,
     default = "",
     release = tr_("Released version"),
     devel = tr_("In-development version"),

@@ -136,7 +136,7 @@ compute_hash <- function(path, size) {
   con <- file(path, encoding = "UTF-8")
   openssl::base64_encode(openssl::sha2(con, size))
 }
- 
+
 parse_integrity <- function(x) {
   size <- as.integer(regmatches(x, regexpr("(?<=^sha)\\d{3}", x, perl = TRUE)))
   hash <- regmatches(x, regexpr("(?<=^sha\\d{3}-).+", x, perl = TRUE))

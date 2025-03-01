@@ -20,8 +20,14 @@ activate_navbar <- function(html, path, pkg = list(bs_version = 5)) {
 
 navbar_links_haystack <- function(html, pkg, path) {
   # Extract links from the menu items
-  html_navbar <- xml2::xml_find_first(html, ".//div[contains(@class, 'navbar')]")
-  nav_items <- xml2::xml_find_all(html_navbar,".//li[contains(@class, 'nav-item')]")
+  html_navbar <- xml2::xml_find_first(
+    html,
+    ".//div[contains(@class, 'navbar')]"
+  )
+  nav_items <- xml2::xml_find_all(
+    html_navbar,
+    ".//li[contains(@class, 'nav-item')]"
+  )
 
   get_hrefs <- function(nav_item, pkg = pkg) {
     href <- xml2::xml_attr(xml2::xml_child(nav_item), "href")
@@ -36,7 +42,10 @@ navbar_links_haystack <- function(html, pkg, path) {
 
     tibble::tibble(
       nav_item = list(nav_item),
-      links = remove_useless_parts(links[is_internal_link(links, pkg = pkg)], pkg = pkg)
+      links = remove_useless_parts(
+        links[is_internal_link(links, pkg = pkg)],
+        pkg = pkg
+      )
     )
   }
 
@@ -66,7 +75,11 @@ navbar_links_haystack <- function(html, pkg, path) {
       sum(similar, na.rm = TRUE)
     }
   }
-  haystack$similar <- purrr::map_dbl(haystack$links, get_similarity, needle = path)
+  haystack$similar <- purrr::map_dbl(
+    haystack$links,
+    get_similarity,
+    needle = path
+  )
 
   # Only return rows of links with some similarity to the current path
   haystack[haystack$similar > 0, ]
