@@ -1,19 +1,14 @@
 test_that("data_news works as expected for h1 & h2", {
   skip_if_no_pandoc()
 
+  # fmt: skip
   lines_h1 <- c(
-    "# testpackage 1.0.0.9000",
-    "",
-    "* bullet (#222 @someone)",
-    "",
-    "# testpackage 1.0.0",
-    "",
-    "## sub-heading",
-    "",
-    "* first thing (#111 @githubuser)",
-    "",
-    "* second thing",
-    ""
+    "# testpackage 1.0.0.9000", "",
+    "* bullet (#222 @someone)", "",
+    "# testpackage 1.0.0", "",
+    "## sub-heading", "",
+    "* first thing (#111 @githubuser)", "",
+    "* second thing", ""
   )
   lines_h2 <- gsub("^#", "##", lines_h1)
 
@@ -46,31 +41,19 @@ test_that("multi-page news are rendered", {
   skip_if_no_pandoc()
 
   pkg <- local_pkgdown_site(meta = list(news = list(one_page = FALSE)))
-  pkg <- pkg_add_file(
-    pkg,
-    "NEWS.md",
-    c(
-      "# testpackage 2.0",
-      "",
-      "* bullet (#222 @someone)",
-      "",
-      "# testpackage 1.1",
-      "",
-      "* bullet (#222 @someone)",
-      "",
-      "# testpackage 1.0.1",
-      "",
-      "* bullet (#222 @someone)",
-      "",
-      "# testpackage 1.0.0",
-      "",
-      "## sub-heading",
-      "",
-      "* first thing (#111 @githubuser)",
-      "",
-      "* second thing"
-    )
-  )
+  # fmt: skip
+  pkg <- pkg_add_file(pkg, "NEWS.md", c(
+    "# testpackage 2.0", "",
+    "* bullet (#222 @someone)", "",
+    "# testpackage 1.1", "",
+    "* bullet (#222 @someone)", "",
+    "# testpackage 1.0.1", "",
+    "* bullet (#222 @someone)", "",
+    "# testpackage 1.0.0", "",
+    "## sub-heading", "",
+    "* first thing (#111 @githubuser)", "",
+    "* second thing"
+  ))
 
   expect_snapshot(data_news(pkg)[c("version", "page", "anchor")])
   expect_snapshot(build_news(pkg))
@@ -110,19 +93,13 @@ test_that("github links are added to news items", {
     )
   )
 
-  pkg <- pkg_add_file(
-    pkg,
-    "NEWS.md",
-    c(
-      "# testpackage 0.1.0",
-      "",
-      "## Major changes",
-      "",
-      "- Bug fixes (@hadley, #100)",
-      "",
-      "- Merges (@josue-rodriguez)"
-    )
-  )
+  # fmt: skip
+  pkg <- pkg_add_file(pkg, "NEWS.md", c(
+    "# testpackage 0.1.0", "",
+    "## Major changes", "",
+    "- Bug fixes (@hadley, #100)", "",
+    "- Merges (@josue-rodriguez)"
+  ))
   news_tbl <- data_news(pkg)
   html <- xml2::read_xml(news_tbl$html)
 
@@ -236,66 +213,45 @@ test_that("news headings get class and release date", {
 # Header checks ----------------------------------------------------------
 test_that("clear error for bad hierarchy - bad nesting", {
   pkg <- local_pkgdown_site()
-  pkg <- pkg_add_file(
-    pkg,
-    "NEWS.md",
-    c(
-      "### testpackage 1.0.0.9000",
-      "",
-      "* bullet (#222 @someone)",
-      "",
-      "# testpackage 1.0.0",
-      "",
-      "## sub-heading",
-      "",
-      "* first thing (#111 @githubuser)",
-      "",
-      "* second thing",
-      ""
-    )
-  )
+  # fmt: skip
+  pkg <- pkg_add_file(pkg, "NEWS.md", c(
+    "### testpackage 1.0.0.9000", "",
+    "* bullet (#222 @someone)", "",
+    "# testpackage 1.0.0", "",
+    "## sub-heading", "",
+    "* first thing (#111 @githubuser)", "",
+    "* second thing", ""
+  ))
 
   expect_snapshot(data_news(pkg), error = TRUE)
 })
 
 test_that("clear error for bad hierarchy - h3", {
   pkg <- local_pkgdown_site()
-  pkg <- pkg_add_file(
-    pkg,
-    "NEWS.md",
-    c(
-      "### testpackage 1.0.0.9000",
-      "",
-      "* bullet (#222 @someone)",
-      "",
-      "### testpackage 1.0.0",
-      "",
-      "#### sub-heading",
-      "",
-      "* first thing (#111 @githubuser)",
-      "",
-      "* second thing",
-      ""
-    )
-  )
+  # fmt: skip
+  pkg <- pkg_add_file(pkg, "NEWS.md", c(
+    "### testpackage 1.0.0.9000", "",
+    "* bullet (#222 @someone)", "",
+    "### testpackage 1.0.0", "",
+    "#### sub-heading", "",
+    "* first thing (#111 @githubuser)", "",
+    "* second thing", ""
+  ))
 
   expect_snapshot(data_news(pkg), error = TRUE)
 })
 
 test_that("news can contain footnotes", {
   pkg <- local_pkgdown_site()
-  pkg <- pkg_add_file(
-    pkg,
-    "NEWS.md",
-    c(
-      "## testpackage 1.0.0.9000",
-      "",
-      "* bullet",
-      "",
-      "* inline footnote^[used to fail] ",
-      ""
-    )
-  )
+  # fmt: skip
+  pkg <- pkg_add_file(pkg, "NEWS.md", c(
+    "## testpackage 1.0.0.9000",
+    "",
+    "* bullet",
+    "",
+    "* inline footnote^[used to fail] ",
+    ""
+  ))
 
   expect_snapshot(x <- data_news(pkg))
 })
@@ -304,6 +260,7 @@ test_that("data_news warns if no headings found", {
   skip_if_no_pandoc()
 
   pkg <- local_pkgdown_site()
+  # fmt: skip
   pkg <- pkg_add_file(
     pkg,
     "NEWS.md",

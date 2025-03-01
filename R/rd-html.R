@@ -118,19 +118,11 @@ as_html.tag_subsection <- function(x, ..., subsection_level = 3L) {
   id <- make_slug(title)
   text <- flatten_para(x[[2]], ..., subsection_level = subsection_level + 1L)
 
+  # fmt: skip
   paste0(
-    "<div class='section' id='",
-    id,
-    "'>\n",
-    "<",
-    h,
-    ">",
-    title,
-    "</",
-    h,
-    ">\n",
-    text,
-    "\n",
+    "<div class='section' id='", id, "'>\n",
+    "<", h, ">", title, "</", h, ">\n",
+    text, "\n",
     "</div>"
   )
 }
