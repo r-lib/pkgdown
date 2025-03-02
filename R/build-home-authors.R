@@ -84,10 +84,10 @@ data_home_sidebar_authors <- function(pkg = ".", call = caller_env()) {
   )
   data <- data_authors(pkg, roles)
   authors <- purrr::map_chr(data$main, author_desc, comment = FALSE)
-  
+
   before <- config_pluck_markdown_inline(pkg, "authors.sidebar.before", call = call)
   after <- config_pluck_markdown_inline(pkg, "authors.sidebar.after", call = call)
-  
+
   bullets <- c(before, authors, after)
   if (data$needs_page) {
     bullets <- c(bullets, a(tr_("More about authors..."), "authors.html"))
@@ -136,11 +136,15 @@ author_list <- function(x, authors_info = NULL, comment = FALSE, pkg = ".") {
   orcid <- purrr::pluck(x$comment, "ORCID")
   x$comment <- remove_orcid(x$comment)
 
+  ror <- purrr::pluck(x$comment, "ROR")
+  x$comment <- remove_ror(x$comment)
+
   list(
     name = name,
     roles = roles,
     comment = linkify(x$comment),
-    orcid = orcid_link(orcid)
+    orcid = orcid_link(orcid),
+    ror = ror_link(ror)
   )
 }
 
@@ -150,6 +154,9 @@ author_desc <- function(x, comment = TRUE) {
     "<br />\n<small class = 'roles'>", x$roles, "</small>",
     if (!is.null(x$orcid)) {
       x$orcid
+    },
+    if (!is.null(x$ror)) {
+      x$ror
     },
     if (comment && !is.null(x$comment) && length(x$comment) != 0) {
       paste0("<br/>\n<small>(", linkify(x$comment), ")</small>")
@@ -165,6 +172,17 @@ orcid_link <- function(orcid) {
   paste0(
     "<a href='https://orcid.org/", orcid, "' target='orcid.widget' aria-label='ORCID'>",
     "<span class='fab fa-orcid orcid' aria-hidden='true'></span></a>"
+  )
+}
+
+ror_link <- function(ror) {
+  if (is.null(ror)) {
+    return(NULL)
+  }
+
+  paste0(
+    "<a href='https://ror.org/", ror, "'>",
+    "<img src='https://raw.githubusercontent.com/ror-community/ror-logos/main/ror-icon-rgb.svg' class='ror' alt='ROR'></a>"
   )
 }
 
@@ -295,6 +313,13 @@ citation_auto <- function(pkg) {
 # Not strictly necessary, but produces a simpler data structure testing
 remove_orcid <- function(x) {
   out <- x[names2(x) != "ORCID"]
+  if (all(names(out) == "")) {
+    names(out) <- NULL
+  }
+  out
+}
+remove_ror <- function(x) {
+  out <- x[names2(x) != "ROR"]
   if (all(names(out) == "")) {
     names(out) <- NULL
   }

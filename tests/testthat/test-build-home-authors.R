@@ -56,6 +56,27 @@ test_that("ORCID can be identified & removed from all comment styles", {
   )
 })
 
+test_that("ROR can be identified & removed from all comment styles", {
+  desc <- desc::desc(text = c(
+    'Authors@R: c(',
+    '    person("no comment"),',
+    '    person("bare comment", comment = "comment"),',
+    '    person("ror only",   comment = c(ROR = "1")),',
+    '    person("both",         comment = c("comment", ROR = "2"))',
+    '  )'
+  ))
+  authors <- purrr::map(desc$get_authors(), author_list, list())
+  expect_equal(
+    purrr::map(authors, "ror"),
+    list(NULL, NULL, ror_link("1"), ror_link("2"))
+  )
+
+  expect_equal(
+    purrr::map(authors, "comment"),
+    list(character(), "comment", character(), "comment")
+  )
+})
+
 test_that("author comments linkified with escaped angle brackets (#2127)", {
   p <- list(name = "Jane Doe", roles = "rev", comment = "<https://x.org/>")
   expect_match(
