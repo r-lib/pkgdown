@@ -52,27 +52,8 @@ external_dependencies <- function(pkg, call = caller_env()) {
           integrity = "sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww=="
         )
       )
-    ),
-    math_dependency(pkg, call = call)
-  ))
-}
-
-math_dependency <- function(pkg, call = caller_env()) {
-  math <- config_math_rendering(pkg)
-  if (math == "mathjax") {
-    cached_dependency(
-      name = "MathJax",
-      version = "3.2.2",
-      files = list(
-        list(
-          url = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js",
-          integrity = "sha512-T8xxpazDtODy3WOP/c6hvQI2O9UPdARlDWE0CvH1Cfqc0TXZF6GZcEKL7tIR8VbfS/7s/J6C+VOqrD6hIo++vQ=="
-        )
-      )
     )
-  } else {
-    NULL
-  }
+  ))
 }
 
 cached_dependency <- function(name, version, files) {
