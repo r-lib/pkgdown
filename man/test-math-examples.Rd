@@ -13,6 +13,18 @@ Test case: math rendering in examples
 Display equation:
 
 \deqn{y = \alpha + \beta X + \varepsilon}
+
+Multi-line equation (correctly rendered by katex only):
+
+\deqn{\mathit{Minimize} \space l \\
+\mathit{subject \space to} \\
+\sum_{i = 1}^{I} x_i r_{ij} + y_j \geq t_j \forall j \in J \\
+l \geq \frac{y_j}{t_j} \forall j \in J \\
+\sum_{i = 1}^{I} x_i c_i \leq B}{
+Minimize l subject to
+sum_i^I (xi * rij) + yj >= tj for all j in J &
+l >= (yj / tj) for all j in J &
+sum_i^I (xi * ci) <= B}
 }
 \seealso{
 Other tests: 

@@ -52,42 +52,8 @@ external_dependencies <- function(pkg, call = caller_env()) {
           integrity = "sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww=="
         )
       )
-    ),
-    math_dependency(pkg, call = call)
+    )
   ))
-}
-
-math_dependency <- function(pkg, call = caller_env()) {
-  math <- config_math_rendering(pkg)
-  if (math == "mathjax") {
-    cached_dependency(
-      name = "MathJax",
-      version = "3.2.2",
-      files = list(
-        list(
-          url = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js",
-          integrity = "sha512-T8xxpazDtODy3WOP/c6hvQI2O9UPdARlDWE0CvH1Cfqc0TXZF6GZcEKL7tIR8VbfS/7s/J6C+VOqrD6hIo++vQ=="
-        )
-      )
-    )
-  } else if (math == "katex") {
-    cached_dependency(
-      name = "KaTex",
-      version = "0.16.10",
-      files = list(
-        list(
-          url = "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js",
-          integrity = "sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
-        ),
-        list(
-          url = "https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css",
-          integrity = "sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww"
-        )
-      )
-    )
-  } else {
-    NULL
-  }
 }
 
 cached_dependency <- function(name, version, files) {
@@ -136,7 +102,7 @@ compute_hash <- function(path, size) {
   con <- file(path, encoding = "UTF-8")
   openssl::base64_encode(openssl::sha2(con, size))
 }
- 
+
 parse_integrity <- function(x) {
   size <- as.integer(regmatches(x, regexpr("(?<=^sha)\\d{3}", x, perl = TRUE)))
   hash <- regmatches(x, regexpr("(?<=^sha\\d{3}-).+", x, perl = TRUE))
