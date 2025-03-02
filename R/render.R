@@ -122,7 +122,13 @@ data_template <- function(pkg = ".", depth = 0L) {
 
   # Development settings; tooltip needs to be generated at render time
   out$development <- pkg$development
-  out$development$version_tooltip <- version_tooltip(pkg$development$mode)
+  if (identical(pkg$development$mode, "devel")) {
+    out$development$version_tooltip <- pkg$meta$development$version_tooltip %||%
+      version_tooltip(pkg$development$mode)
+  } else {
+    out$development$version_tooltip <- version_tooltip(pkg$development$mode)
+  }
+
 
   out$navbar <- data_navbar(pkg, depth = depth)
   out$footer <- data_footer(pkg)
