@@ -75,7 +75,9 @@ test_that("can specify link target", {
 })
 
 test_that("can construct theme menu", {
-  pkg <- local_pkgdown_site(meta = list(template = list(bootstrap = 5, `light-switch` = TRUE)))
+  pkg <- local_pkgdown_site(
+    meta = list(template = list(bootstrap = 5, `light-switch` = TRUE))
+  )
   lightswitch <- navbar_components(pkg)$lightswitch
   expect_snapshot(cat(navbar_html(lightswitch)))
 })
@@ -98,7 +100,11 @@ test_that("navbar_html_text() combines icons and text", {
     '<span class="fas fas-github"></span>'
   )
   expect_equal(
-    navbar_html_text(list(text = "a", icon = "fas-github", `aria-label` = "github")),
+    navbar_html_text(list(
+      text = "a",
+      icon = "fas-github",
+      `aria-label` = "github"
+    )),
     '<span class="fas fas-github"></span> a'
   )
 })

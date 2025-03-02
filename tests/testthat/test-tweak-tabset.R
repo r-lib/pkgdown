@@ -1,7 +1,9 @@
 test_that("sections with class .tabset are converted to tabsets", {
   skip_on_os("windows") # some line ending problem
   pkg <- local_pkgdown_site()
-  html <- markdown_to_html(pkg, "
+  html <- markdown_to_html(
+    pkg,
+    "
     # Tabset {.tabset .tabset-pills}
 
     ## Tab 1
@@ -11,7 +13,8 @@ test_that("sections with class .tabset are converted to tabsets", {
     ## Tab 2
 
     Contents 2
-  ")
+  "
+  )
 
   tweak_tabsets(html)
 
@@ -25,7 +28,9 @@ test_that("sections with class .tabset are converted to tabsets", {
 test_that("can adjust active tab", {
   skip_on_os("windows") # some line ending problem
   pkg <- local_pkgdown_site()
-  html <- markdown_to_html(pkg, "
+  html <- markdown_to_html(
+    pkg,
+    "
     ## Tabset {.tabset .tabset-pills}
 
     ### Tab 1
@@ -35,7 +40,8 @@ test_that("can adjust active tab", {
     ### Tab 2 {.active}
 
     Contents 2
-  ")
+  "
+  )
   tweak_tabsets(html)
 
   expect_equal(
@@ -46,7 +52,9 @@ test_that("can adjust active tab", {
 
 test_that("can fade", {
   pkg <- local_pkgdown_site()
-  html <- markdown_to_html(pkg, "
+  html <- markdown_to_html(
+    pkg,
+    "
     ## Tabset {.tabset .tabset-fade}
 
     ### Tab 1
@@ -56,7 +64,8 @@ test_that("can fade", {
     ### Tab 2 {.active}
 
     Contents 2
-  ")
+  "
+  )
 
   tweak_tabsets(html)
   expect_equal(
@@ -67,7 +76,9 @@ test_that("can fade", {
 
 test_that("can accept html", {
   pkg <- local_pkgdown_site()
-  html <- markdown_to_html(pkg, "
+  html <- markdown_to_html(
+    pkg,
+    "
     ## Tabset {.tabset}
 
     ### Tab 1 `with_code` {#toc-1}
@@ -81,7 +92,8 @@ test_that("can accept html", {
     ### Normal Tab {#toc-normal}
 
     Contents of normal tab
-  ")
+  "
+  )
 
   tweak_tabsets(html)
 

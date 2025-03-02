@@ -16,7 +16,7 @@ test_that("docsearch.json and sitemap.xml are valid for BS 3 site", {
   suppressMessages(build_docsearch_json(pkg))
   json <- path(pkg$dst_path, "docsearch.json")
   expect_true(jsonlite::validate(read_lines(json)))
-  
+
   suppressMessages(build_sitemap(pkg))
   xml <- path(pkg$dst_path, "sitemap.xml")
   schema <- xml2::read_xml(test_path("assets/sitemaps-schema-0.9.xsd"))
@@ -28,10 +28,14 @@ test_that("build_search_index() has expected structure", {
     desc = list(Version = "1.0.0"),
     meta = list(url = "https://example.com")
   )
-  pkg <- pkg_add_file(pkg, "README.md", c(
-    "# My Package",
-    "What the pakage does"
-  ))
+  pkg <- pkg_add_file(
+    pkg,
+    "README.md",
+    c(
+      "# My Package",
+      "What the pakage does"
+    )
+  )
 
   suppressMessages(init_site(pkg))
   suppressMessages(build_home_index(pkg))
@@ -52,10 +56,14 @@ test_that("build sitemap only messages when it updates", {
 
 test_that("build_search() builds the expected search.json with no URL", {
   pkg <- local_pkgdown_site(desc = list(Version = "1.0.0"))
-  pkg <- pkg_add_file(pkg, "README.md", c(
-    "# My Package",
-    "What the pakage does"
-  ))
+  pkg <- pkg_add_file(
+    pkg,
+    "README.md",
+    c(
+      "# My Package",
+      "What the pakage does"
+    )
+  )
 
   suppressMessages(build_home(pkg))
 
@@ -65,10 +73,12 @@ test_that("build_search() builds the expected search.json with no URL", {
 })
 
 test_that("sitemap excludes redirects", {
-  pkg <- local_pkgdown_site(meta = list(
-    url = "https://example.com",
-    redirects = list(c("a.html", "b.html"))
-  ))
+  pkg <- local_pkgdown_site(
+    meta = list(
+      url = "https://example.com",
+      redirects = list(c("a.html", "b.html"))
+    )
+  )
   suppressMessages(build_redirects(pkg))
   expect_equal(get_site_paths(pkg), character())
 })

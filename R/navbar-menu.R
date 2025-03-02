@@ -37,7 +37,7 @@ menu_type <- function(x, menu_depth = 0L) {
     not <- obj_type_friendly(x)
     cli::cli_abort("Navbar components must be named lists, not {not}.")
   } else if (!is.null(x$menu)) {
-# https://github.com/twbs/bootstrap/pull/6342
+    # https://github.com/twbs/bootstrap/pull/6342
 
     if (menu_depth > 0) {
       cli::cli_abort("Nested menus are not supported.")
@@ -63,7 +63,12 @@ menu_type <- function(x, menu_depth = 0L) {
 
 # Menu renderers --------------------------------------------------------------
 
-navbar_html <- function(x, path_depth = 0L, menu_depth = 0L, side = c("left", "right")) {
+navbar_html <- function(
+  x,
+  path_depth = 0L,
+  menu_depth = 0L,
+  side = c("left", "right")
+) {
   if (is.null(x)) {
     return("")
   }
@@ -71,8 +76,14 @@ navbar_html <- function(x, path_depth = 0L, menu_depth = 0L, side = c("left", "r
   side <- arg_match(side)
   type <- menu_type(x, menu_depth = menu_depth)
 
-  text <- switch(type,
-    menu = navbar_html_menu(x, menu_depth = menu_depth, path_depth = path_depth, side = side),
+  text <- switch(
+    type,
+    menu = navbar_html_menu(
+      x,
+      menu_depth = menu_depth,
+      path_depth = path_depth,
+      side = side
+    ),
     heading = navbar_html_heading(x),
     link = navbar_html_link(x, menu_depth = menu_depth),
     separator = navbar_html_separator(),
@@ -87,7 +98,12 @@ navbar_html <- function(x, path_depth = 0L, menu_depth = 0L, side = c("left", "r
   html_tag("li", class = class, text)
 }
 
-navbar_html_list <- function(x, path_depth = 0L, menu_depth = 0L, side = "left") {
+navbar_html_list <- function(
+  x,
+  path_depth = 0L,
+  menu_depth = 0L,
+  side = "left"
+) {
   tags <- unwrap_purrr_error(purrr::map_chr(
     x,
     navbar_html,
@@ -98,10 +114,16 @@ navbar_html_list <- function(x, path_depth = 0L, menu_depth = 0L, side = "left")
   paste0(tags, collapse = "\n")
 }
 
-navbar_html_menu <- function(x, path_depth = 0L, menu_depth = 0L, side = "left") {
+navbar_html_menu <- function(
+  x,
+  path_depth = 0L,
+  menu_depth = 0L,
+  side = "left"
+) {
   id <- paste0("dropdown-", x$id %||% make_slug(x$text))
 
-  button <- html_tag("button",
+  button <- html_tag(
+    "button",
     type = "button",
     class = c(if (menu_depth == 0L) "nav-link", "dropdown-toggle"),
     id = id,
@@ -204,7 +226,10 @@ html_tag <- function(tag, ..., class = NULL) {
   needs_close <- !tag %in% "input"
 
   paste0(
-    "<", tag, html_attr, ">",
+    "<",
+    tag,
+    html_attr,
+    ">",
     html_child,
     if (needs_close) paste0("</", tag, ">")
   )

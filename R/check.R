@@ -47,7 +47,6 @@ pkgdown_sitrep <- function(pkg = ".") {
   error_to_sitrep("Open graph metadata", data_open_graph(pkg))
   error_to_sitrep("Articles metadata", data_articles_index(pkg))
   error_to_sitrep("Reference metadata", data_reference_index(pkg))
-
 }
 
 error_to_sitrep <- function(title, code) {

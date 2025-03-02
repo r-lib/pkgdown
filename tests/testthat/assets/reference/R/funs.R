@@ -4,22 +4,26 @@
 #' @param a a letter
 #' @param b a a number
 #' @param c a logical
-a <- function(a, b, c) {}
+a <- function(a, b, c) {
+}
 
 #' B
 #' @export
 #' @concept graphics
-b <- function() {}
+b <- function() {
+}
 
 #' C
 #' @export
-c <- function() {}
+c <- function() {
+}
 
 #' D
 #' @usage
 #' \special{?topic}
 #' @export
-`?` <- function() {}
+`?` <- function() {
+}
 
 #' E
 #' @name e
@@ -29,7 +33,9 @@ NULL
 #' @keywords internal
 #' @examples
 #' testpackage:::f()
-f <- function() {runif(5L)}
+f <- function() {
+  runif(5L)
+}
 
 
 #' g <-> h

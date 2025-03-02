@@ -7,7 +7,9 @@ build_home_license <- function(pkg) {
 
   license_raw <- path_first_existing(pkg$src_path, c("LICENSE", "LICENCE"))
   if (!is.null(license_raw)) {
-    render_page(pkg, "title-body",
+    render_page(
+      pkg,
+      "title-body",
       data = list(
         pagetitle = tr_("License"),
         body = paste0("<pre>", escape_html(read_file(license_raw)), "</pre>")

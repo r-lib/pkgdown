@@ -30,19 +30,41 @@ test_that("validates external-articles", {
     data_articles_(1)
     data_articles_(list(1))
     data_articles_(list(list(name = "x")))
-    data_articles_(list(list(name = 1, title = "x", href = "x", description = "x")))
-    data_articles_(list(list(name = "x", title = 1, href = "x", description = "x")))
-    data_articles_(list(list(name = "x", title = "x", href = 1, description = "x")))
-    data_articles_(list(list(name = "x", title = "x", href = "x", description = 1)))
+    data_articles_(list(list(
+      name = 1,
+      title = "x",
+      href = "x",
+      description = "x"
+    )))
+    data_articles_(list(list(
+      name = "x",
+      title = 1,
+      href = "x",
+      description = "x"
+    )))
+    data_articles_(list(list(
+      name = "x",
+      title = "x",
+      href = 1,
+      description = "x"
+    )))
+    data_articles_(list(list(
+      name = "x",
+      title = "x",
+      href = "x",
+      description = 1
+    )))
   })
 })
 
 test_that("data_articles includes external articles", {
-  pkg <- local_pkgdown_site(meta = list(
-    `external-articles` = list(
-      list(name = "c", title = "c", href = "c", description = "*c*")
+  pkg <- local_pkgdown_site(
+    meta = list(
+      `external-articles` = list(
+        list(name = "c", title = "c", href = "c", description = "*c*")
+      )
     )
-  ))
+  )
   pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
   pkg <- pkg_add_file(pkg, "vignettes/b.Rmd")
 
@@ -67,11 +89,13 @@ test_that("articles in vignettes/articles/ are unnested into articles/", {
 })
 
 test_that("warns about articles missing from index", {
-  pkg <- local_pkgdown_site(meta = list(
-    articles = list(
-      list(title = "External", contents = c("a", "b"))
+  pkg <- local_pkgdown_site(
+    meta = list(
+      articles = list(
+        list(title = "External", contents = c("a", "b"))
+      )
     )
-  ))
+  )
   pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
   pkg <- pkg_add_file(pkg, "vignettes/b.Rmd")
   pkg <- pkg_add_file(pkg, "vignettes/c.Rmd")
@@ -80,9 +104,9 @@ test_that("warns about articles missing from index", {
 })
 
 test_that("internal articles aren't included and don't trigger warning", {
-  pkg <- local_pkgdown_site(meta = 
-    list(articles = 
-      list(
+  pkg <- local_pkgdown_site(
+    meta = list(
+      articles = list(
         list(title = "External", contents = c("a", "b")),
         list(title = "internal", contents = "c")
       )
@@ -105,9 +129,11 @@ test_that("default template includes all articles", {
 })
 
 test_that("check doesn't include getting started vignette", {
-  pkg <- local_pkgdown_site(meta = list(
-    articles = list(list(title = "Vignettes", contents = "a"))
-  ))
+  pkg <- local_pkgdown_site(
+    meta = list(
+      articles = list(list(title = "Vignettes", contents = "a"))
+    )
+  )
   pkg <- pkg_add_file(pkg, "vignettes/a.Rmd")
   pkg <- pkg_add_file(pkg, "vignettes/testpackage.Rmd")
 

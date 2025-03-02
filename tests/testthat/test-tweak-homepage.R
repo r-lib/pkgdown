@@ -1,18 +1,22 @@
 test_that("first header is wrapped in page-header div", {
-  html <- xml2::read_html('
+  html <- xml2::read_html(
+    '
     <h1>First</h1>
     <h1>Second</h1>
-  ')
+  '
+  )
 
   tweak_homepage_html(html)
   expect_equal(xpath_attr(html, ".//div", "class"), "page-header")
 })
 
 test_that("removes dummy page-header", {
-  html <- xml2::read_html('
+  html <- xml2::read_html(
+    '
     <div class="page-header"><h1>Page header</h1></div>
     <h1>Header</h1>
-  ')
+  '
+  )
 
   tweak_homepage_html(html)
   expect_equal(xpath_text(html, ".//h1"), "Header")
@@ -20,10 +24,12 @@ test_that("removes dummy page-header", {
 
 
 test_that("can remove first header", {
-  html <- xml2::read_html('
+  html <- xml2::read_html(
+    '
     <h1>First</h1>
     <h1>Second</h1>
-  ')
+  '
+  )
 
   tweak_homepage_html(html, strip_header = TRUE)
   expect_equal(xpath_length(html, ".//div"), 0)
@@ -31,16 +37,20 @@ test_that("can remove first header", {
 
 test_that("can remove logo", {
   # Without link
-  html <- xml2::read_html('
+  html <- xml2::read_html(
+    '
     <h1>First <img src="logo.png" /></h1>
-  ')
+  '
+  )
   tweak_homepage_html(html, bs_version = 5, logo = "mylogo.png")
   expect_snapshot(xpath_xml(html, ".//div"))
 
   # With link
-  html <- xml2::read_html('
+  html <- xml2::read_html(
+    '
     <h1>First <a><img src="logo.png" /></a></h1>
-  ')
+  '
+  )
   tweak_homepage_html(html, bs_version = 5, logo = "mylogo.png")
   expect_snapshot(xpath_xml(html, ".//div"))
 })
@@ -48,37 +58,43 @@ test_that("can remove logo", {
 # badges -------------------------------------------------------------------
 
 test_that("can move badges to sidebar", {
-  html <- xml2::read_html('
+  html <- xml2::read_html(
+    '
     <h1>Title</h1>
     <div id="badges">
       <p><a href="x"><img src="y"></a></p>
     </div>
     <div class="dev-status"></div>
-  ')
+  '
+  )
   tweak_sidebar_html(html)
   expect_snapshot(xpath_xml(html, ".//div"))
 })
 
 
 test_that("remove badges even if no dev-status div", {
-  html <- xml2::read_html('
+  html <- xml2::read_html(
+    '
     <h1>Title</h1>
     <div id="badges">
       <p><a href="x"><img src="y"></a></p>
     </div>
-  ')
+  '
+  )
   tweak_sidebar_html(html)
   expect_snapshot(html)
 })
 
 test_that("remove dev-status & badges if badges suppress", {
-  html <- xml2::read_html('
+  html <- xml2::read_html(
+    '
     <h1>Title</h1>
     <div id="badges">
       <p><a href="x"><img src="y"></a></p>
     </div>
     <div class="dev-status"></div>
-  ')
+  '
+  )
   tweak_sidebar_html(html, show_badges = FALSE)
   expect_equal(xpath_length(html, "//div"), 0)
 })
@@ -89,7 +105,9 @@ test_that("doesn't find badges when they don't exist", {
 
   # first paragraph contains non-image components
   expect_equal(
-    badges_extract_text('<p><a href="url"><img src="img" alt="alt" /></a>Hi!</p>'),
+    badges_extract_text(
+      '<p><a href="url"><img src="img" alt="alt" /></a>Hi!</p>'
+    ),
     character()
   )
 })
@@ -103,13 +121,17 @@ test_that("finds single badge", {
 
 test_that("finds badges in #badges div", {
   expect_equal(
-    badges_extract_text('<p></p><div id="badges"><a href="x"><img src="y"></a></div>'),
+    badges_extract_text(
+      '<p></p><div id="badges"><a href="x"><img src="y"></a></div>'
+    ),
     '<a href="x"><img src="y"></a>'
   )
 
   # even if there's extra text
   expect_equal(
-    badges_extract_text('<p></p><p><div id="badges"><a href="x"><img src="y"></a>Hi!</div></p>'),
+    badges_extract_text(
+      '<p></p><p><div id="badges"><a href="x"><img src="y"></a>Hi!</div></p>'
+    ),
     '<a href="x"><img src="y"></a>'
   )
 })

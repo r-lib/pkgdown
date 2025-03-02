@@ -3,5 +3,4 @@
 #' \url{}
 #' @export
 f <- function() {
-
 }

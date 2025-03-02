@@ -87,12 +87,21 @@ build_favicons <- function(pkg = ".", overwrite = FALSE) {
   resp <- httr2::req_perform(req, tmp)
 
   withCallingHandlers(
-    paths <- utils::unzip(tmp, exdir = path(pkg$src_path, "pkgdown", "favicon")),
+    paths <- utils::unzip(
+      tmp,
+      exdir = path(pkg$src_path, "pkgdown", "favicon")
+    ),
     warning = function(e) {
-      cli::cli_abort("Your logo file couldn't be processed and may be corrupt.", parent = e)
+      cli::cli_abort(
+        "Your logo file couldn't be processed and may be corrupt.",
+        parent = e
+      )
     },
     error = function(e) {
-      cli::cli_abort("Your logo file couldn't be processed and may be corrupt.", parent = e)
+      cli::cli_abort(
+        "Your logo file couldn't be processed and may be corrupt.",
+        parent = e
+      )
     }
   )
   cli::cli_inform(c("v" = "Added {.path {sort(path_file(paths))}}."))
