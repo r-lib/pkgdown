@@ -12,22 +12,26 @@ test_that("sitrep complains about BS3", {
 test_that("sitrep reports all problems", {
   pkg <- local_pkgdown_site(
     test_path("assets/reference"),
-    list(reference = list(
-      list(title = "Title", contents = c("a", "b", "c", "e"))
-    ))
+    list(
+      reference = list(
+        list(title = "Title", contents = c("a", "b", "c", "e"))
+      )
+    )
   )
-  
+
   expect_snapshot(pkgdown_sitrep(pkg))
 })
 
 test_that("checks fails on first problem", {
   pkg <- local_pkgdown_site(
     test_path("assets/reference"),
-    list(reference = list(
-      list(title = "Title", contents = c("a", "b", "c", "e"))
-    ))
+    list(
+      reference = list(
+        list(title = "Title", contents = c("a", "b", "c", "e"))
+      )
+    )
   )
-  
+
   expect_snapshot(check_pkgdown(pkg), error = TRUE)
 })
 
@@ -66,7 +70,7 @@ test_that("check_favicons reports problems", {
   # logo but no favicons
   file_touch(path(pkg$src_path, "logo.svg"))
   expect_snapshot(check_favicons(pkg), error = TRUE)
-  
+
   # logo and old favicons
   dir_create(path_favicons(pkg))
   file_touch(path(path_favicons(pkg), "favicon.ico"), Sys.time() - 86400)

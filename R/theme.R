@@ -6,7 +6,11 @@ build_bslib <- function(pkg = ".", call = caller_env()) {
   cur_digest <- purrr::map_chr(cur_deps, file_digest)
 
   deps <- c(bslib::bs_theme_dependencies(bs_theme), external_dependencies(pkg))
-  deps <- lapply(deps, htmltools::copyDependencyToDir, path(pkg$dst_path, "deps"))
+  deps <- lapply(
+    deps,
+    htmltools::copyDependencyToDir,
+    path(pkg$dst_path, "deps")
+  )
   deps <- lapply(deps, htmltools::makeDependencyRelative, pkg$dst_path)
 
   new_deps <- find_deps(pkg)
@@ -80,7 +84,11 @@ bs_theme <- function(pkg = ".", call = caller_env()) {
 
   # Add dark theme if needed
   if (uses_lightswitch(pkg)) {
-   dark_theme <- config_pluck_string(pkg, "template.theme-dark", default = "arrow-dark")
+    dark_theme <- config_pluck_string(
+      pkg,
+      "template.theme-dark",
+      default = "arrow-dark"
+    )
     check_theme(
       dark_theme,
       error_pkg = pkg,
@@ -106,7 +114,7 @@ bs_theme_rules <- function(pkg, call = caller_env()) {
     error_call = call
   )
   paths <- c(paths, highlight_path(theme))
-  
+
   package <- config_pluck_string(pkg, "template.package")
   if (!is.null(package)) {
     package_extra <- path_package_pkgdown("extra.scss", package, pkg$bs_version)
@@ -124,19 +132,20 @@ bs_theme_rules <- function(pkg, call = caller_env()) {
   paths
 }
 
-check_theme <- function(theme,
-                        error_pkg,
-                        error_path,
-                        error_call = caller_env()) {
-
-   if (theme %in% highlight_styles()) {
+check_theme <- function(
+  theme,
+  error_pkg,
+  error_path,
+  error_call = caller_env()
+) {
+  if (theme %in% highlight_styles()) {
     return()
-   }
-   config_abort(
-     error_pkg,
-     "{.field {error_path}} uses theme {.val {theme}}",
-     call = error_call
-   )
+  }
+  config_abort(
+    error_pkg,
+    "{.field {error_path}} uses theme {.val {theme}}",
+    call = error_call
+  )
 }
 
 highlight_path <- function(theme) {
@@ -177,10 +186,12 @@ get_bslib_theme <- function(pkg) {
   check_bslib_theme(themes[[field]], pkg, field)
 }
 
-check_bslib_theme <- function(theme,
-                              pkg,
-                              field = "template.bootswatch",
-                              bs_version = pkg$bs_version) {
+check_bslib_theme <- function(
+  theme,
+  pkg,
+  field = "template.bootswatch",
+  bs_version = pkg$bs_version
+) {
   bslib_themes <- c(
     bslib::bootswatch_themes(bs_version),
     bslib::builtin_themes(bs_version),
@@ -210,12 +221,15 @@ bs_theme_deps_suppress <- function(deps = list()) {
   bs_dep_names <- c("jquery", "bootstrap", "header-attrs")
   bs_deps <- purrr::map(bs_dep_names, function(name) {
     # minimal version of htmltools::htmlDependency() (see suppressDependencies())
-    structure(list(
-      name = name,
-      version = "9999",
-      src = list(href = ""),
-      all_files = TRUE
-    ), class = "html_dependency")
+    structure(
+      list(
+        name = name,
+        version = "9999",
+        src = list(href = ""),
+        all_files = TRUE
+      ),
+      class = "html_dependency"
+    )
   })
 
   c(deps, bs_deps)

@@ -8,10 +8,12 @@ markdown_text <- function(pkg, text, ...) {
   markdown_path_html(pkg, md_path, ...)
 }
 
-markdown_text_inline <- function(pkg,
-                                 text,
-                                 error_path,
-                                 error_call = caller_env()) {
+markdown_text_inline <- function(
+  pkg,
+  text,
+  error_path,
+  error_call = caller_env()
+) {
   html <- markdown_text(pkg, text)
   if (is.null(html)) {
     return()

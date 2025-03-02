@@ -47,11 +47,20 @@ repo_auto_link <- function(pkg, text) {
 
   if (!is.null(url$issue)) {
     issue_link <- paste0("<a href='", url$issue, "\\2'>#\\2</a>")
-    text <- gsub("(p>|\\(|\\s)#(\\d+)", paste0("\\1", issue_link), text, perl = TRUE)
+    text <- gsub(
+      "(p>|\\(|\\s)#(\\d+)",
+      paste0("\\1", issue_link),
+      text,
+      perl = TRUE
+    )
 
     if (!is.null(pkg$repo$jira_projects)) {
       issue_link <- paste0("<a href='", url$issue, "\\1\\2'>\\1\\2</a>")
-      issue_regex <- paste0("(", paste0(pkg$repo$jira_projects, collapse = "|"),")(-\\d+)")
+      issue_regex <- paste0(
+        "(",
+        paste0(pkg$repo$jira_projects, collapse = "|"),
+        ")(-\\d+)"
+      )
       text <- gsub(issue_regex, issue_link, text, perl = TRUE)
     }
   }
@@ -66,18 +75,25 @@ package_repo <- function(pkg) {
   repo <- config_pluck_list(pkg, "repo")
   url <- config_pluck_list(pkg, "repo.url")
 
-
   if (!is.null(url)) {
     return(repo)
   }
 
   # Otherwise try and guess from `BugReports` (1st priority) and `URL`s (2nd priority)
   urls <- c(
-    sub("(/-)?/issues/?", "/", pkg$desc$get_field("BugReports", default = character())),
+    sub(
+      "(/-)?/issues/?",
+      "/",
+      pkg$desc$get_field("BugReports", default = character())
+    ),
     pkg$desc$get_urls()
   )
 
-  gh_links <- grep("^https?://(git(hub|lab)|codeberg)\\..+/", urls, value = TRUE)
+  gh_links <- grep(
+    "^https?://(git(hub|lab)|codeberg)\\..+/",
+    urls,
+    value = TRUE
+  )
   if (length(gh_links) > 0) {
     branch <- config_pluck_string(pkg, "repo.branch")
     return(repo_meta_gh_like(gh_links[[1]], branch))
@@ -133,7 +149,9 @@ parse_github_like_url <- function(link) {
     "^",
     "(?<host>https?://[^/]+)/",
     "(?<owner>[^/]+)/",
-    "(?<repo>[^#", "/"[!supports_subgroups], "]+)/"
+    "(?<repo>[^#",
+    "/"[!supports_subgroups],
+    "]+)/"
   )
   re_match(sub("([^/]$)", "\\1/", link), rx)
 }

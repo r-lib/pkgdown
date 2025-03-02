@@ -87,11 +87,13 @@ copy_assets <- function(pkg = ".") {
   invisible()
 }
 
-copy_asset_dir <- function(pkg,
-                           dir,
-                           src_root = pkg$src_path,
-                           src_label = "",
-                           file_regexp = NULL) {
+copy_asset_dir <- function(
+  pkg,
+  dir,
+  src_root = pkg$src_path,
+  src_label = "",
+  file_regexp = NULL
+) {
   src_dir <- path_abs(dir, pkg$src_path)
   if (!file_exists(src_dir)) {
     return(character())
@@ -143,7 +145,10 @@ site_meta <- function(pkg) {
 
   yaml <- list(
     pandoc = as.character(rmarkdown::pandoc_version()),
-    pkgdown = as.character(utils::packageDescription("pkgdown", fields = "Version")),
+    pkgdown = as.character(utils::packageDescription(
+      "pkgdown",
+      fields = "Version"
+    )),
     pkgdown_sha = utils::packageDescription("pkgdown")$GithubSHA1,
     articles = as.list(article_index),
     last_built = timestamp()

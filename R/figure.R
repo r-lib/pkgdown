@@ -1,17 +1,17 @@
-fig_save <- function(plot,
-                     name,
-                     dev = "ragg::agg_png",
-                     dpi = 96L,
-                     dev.args = list(),
-                     fig.ext = "png",
-                     fig.width = 700 / 96,
-                     fig.height = NULL,
-                     fig.retina = 2L,
-                     fig.asp = 1 / 1.618, # golden ratio
-                     bg = NULL,
-                     other.parameters = list()
-                     ) {
-
+fig_save <- function(
+  plot,
+  name,
+  dev = "ragg::agg_png",
+  dpi = 96L,
+  dev.args = list(),
+  fig.ext = "png",
+  fig.width = 700 / 96,
+  fig.height = NULL,
+  fig.retina = 2L,
+  fig.asp = 1 / 1.618, # golden ratio
+  bg = NULL,
+  other.parameters = list()
+) {
   path <- paste0(name, ".", fig.ext)
   dev <- match_fun(dev)
 
@@ -136,7 +136,10 @@ match_fun <- function(x) {
     f <- eval(e, globalenv())
 
     if (!is.function(f)) {
-      cli::cli_abort("{.var x} must evaluate to a function", call = caller_env())
+      cli::cli_abort(
+        "{.var x} must evaluate to a function",
+        call = caller_env()
+      )
     }
 
     f

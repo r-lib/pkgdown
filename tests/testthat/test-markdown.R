@@ -65,9 +65,9 @@ test_that("validates math yaml", {
 })
 
 test_that("preserves ANSI characters", {
-    withr::local_options(cli.num_colors = 256)
-    pkg <- local_pkgdown_site()
-    expect_snapshot(
-      markdown_text(pkg, sprintf("prefer %s", cli::col_blue("a")))
-    )
+  withr::local_options(cli.num_colors = 256)
+  pkg <- local_pkgdown_site()
+  expect_snapshot(
+    markdown_text(pkg, sprintf("prefer %s", cli::col_blue("a")))
+  )
 })

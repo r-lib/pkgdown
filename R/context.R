@@ -1,16 +1,18 @@
-section_init <- function(pkg,
-                         subdir = NULL,
-                         override = list(),
-                         .frame = parent.frame()) {
+section_init <- function(
+  pkg,
+  subdir = NULL,
+  override = list(),
+  .frame = parent.frame()
+) {
   rstudio_save_all()
   pkg <- as_pkgdown(pkg, override = override)
-  
+
   if (length(dest_files(pkg)) > 0) {
-    check_dest_is_pkgdown(pkg) 
+    check_dest_is_pkgdown(pkg)
   } else {
     init_site(pkg)
   }
- 
+
   if (is.null(subdir)) {
     depth <- 0
   } else {
@@ -49,10 +51,11 @@ local_options_link <- function(pkg, depth, .frame = parent.frame()) {
 }
 
 local_context_eval <- function(
-                               figures = NULL,
-                               src_path = getwd(),
-                               sexpr_env = child_env(globalenv()),
-                               .frame = parent.frame()) {
+  figures = NULL,
+  src_path = getwd(),
+  sexpr_env = child_env(globalenv()),
+  .frame = parent.frame()
+) {
   context_set_scoped("figures", figures, scope = .frame)
   context_set_scoped("src_path", src_path, scope = .frame)
   context_set_scoped("sexpr_env", sexpr_env, scope = .frame)

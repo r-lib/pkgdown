@@ -3,13 +3,22 @@ data_footer <- function(pkg = ".", call = caller_env()) {
 
   config_pluck_list(pkg, "footer", call = call)
   meta_components <- config_pluck_list(pkg, "footer.components", call = call)
-  components <- modify_list(footnote_components(pkg, call = call), meta_components)
+  components <- modify_list(
+    footnote_components(pkg, call = call),
+    meta_components
+  )
 
   meta_structure <- config_pluck_list(pkg, "footer.structure", call = call)
   structure <- modify_list(footnote_structure(), meta_structure)
 
-  left <- markdown_text_block(pkg, paste0(components[structure$left], collapse = " "))
-  right <- markdown_text_block(pkg, paste0(components[structure$right], collapse = " "))
+  left <- markdown_text_block(
+    pkg,
+    paste0(components[structure$left], collapse = " ")
+  )
+  right <- markdown_text_block(
+    pkg,
+    paste0(components[structure$right], collapse = " ")
+  )
 
   list(left = left, right = right)
 }

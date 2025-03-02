@@ -1,9 +1,11 @@
-dir_copy_to <- function(src_dir,
-                        dst_dir,
-                        src_root,
-                        dst_root,
-                        src_label = "",
-                        dst_label = "") {
+dir_copy_to <- function(
+  src_dir,
+  dst_dir,
+  src_root,
+  dst_root,
+  src_label = "",
+  dst_label = ""
+) {
   check_string(src_dir)
   check_string(dst_dir)
 
@@ -29,12 +31,14 @@ dir_copy_to <- function(src_dir,
   )
 }
 
-file_copy_to <- function(src_paths,
-                         dst_paths,
-                         src_root,
-                         dst_root,
-                         src_label = NULL,
-                         dst_label = "") {
+file_copy_to <- function(
+  src_paths,
+  dst_paths,
+  src_root,
+  dst_root,
+  src_label = NULL,
+  dst_label = ""
+) {
   # Ensure all the "to" directories exist
   dst_dirs <- unique(path_dir(dst_paths))
   dir_create(dst_dirs)
@@ -50,7 +54,7 @@ file_copy_to <- function(src_paths,
       src <- paste0(src_label, path_rel(src_paths[!eq], src_root))
       purrr::walk2(src, dst, function(src, dst) {
         cli::cli_inform("Copying {src_path(src)} to {dst_path(dst)}")
-      }) 
+      })
     }
   }
 
@@ -82,17 +86,18 @@ path_abs <- function(path, start = ".") {
 path_first_existing <- function(...) {
   paths <- path(...)
   for (path in paths) {
-    if (file_exists(path))
-      return(path)
+    if (file_exists(path)) return(path)
   }
 
   NULL
 }
 
-path_package_pkgdown <- function(path,
-                                 package,
-                                 bs_version,
-                                 error_call = caller_env()) {
+path_package_pkgdown <- function(
+  path,
+  package,
+  bs_version,
+  error_call = caller_env()
+) {
   # package will usually be a github package, and check_installed()
   # tries to install from CRAN, which is highly likely to fail.
   if (!is_installed(package)) {
