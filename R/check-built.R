@@ -1,4 +1,3 @@
-
 check_built_site <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
 

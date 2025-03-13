@@ -1,4 +1,3 @@
-
 # Reference --------------------------------------------------------------------
 
 test_that("usage escapes special characters", {
@@ -187,7 +186,7 @@ test_that("can parse dots", {
 })
 
 test_that("usage2text can parse symbols (#2727)", {
-	expect_no_error(usage2text("viridisLite::viridis(21)"))
+  expect_no_error(usage2text("viridisLite::viridis(21)"))
 })
 
 # short_name --------------------------------------------------------------

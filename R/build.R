@@ -237,7 +237,7 @@
 #' ```
 #'
 #' * `home`: path to package home on source code repository.
-#' * `source`: path to source of individual file in default branch 
+#' * `source`: path to source of individual file in default branch
 #'   (more on that below).
 #' * `issue`: path to individual issue.
 #' * `user`: path to user.
@@ -247,14 +247,14 @@
 #'
 #' When creating the link to a package source, we have to link to a specific
 #' branch. The default behaviour is to use current branch when in GitHub
-#' actions and `HEAD` otherwise. You can overide this default with 
+#' actions and `HEAD` otherwise. You can overide this default with
 #' `repo.branch`:
 #'
 #' ```yaml
 #' repo:
 #'   branch: devel
 #' ```
-#' 
+#'
 #' pkgdown can automatically link to Jira issues as well if specify both a
 #' custom `issue` URL as well Jira project names to auto-link in
 #' `jira_projects`. You can specify as many projects as you would like:
@@ -320,16 +320,18 @@
 #'
 #' build_site(override = list(destination = tempdir()))
 #' }
-build_site <- function(pkg = ".",
-                       examples = TRUE,
-                       run_dont_run = FALSE,
-                       seed = 1014L,
-                       lazy = FALSE,
-                       override = list(),
-                       preview = NA,
-                       devel = FALSE,
-                       new_process = !devel,
-                       install = !devel) {
+build_site <- function(
+  pkg = ".",
+  examples = TRUE,
+  run_dont_run = FALSE,
+  seed = 1014L,
+  lazy = FALSE,
+  override = list(),
+  preview = NA,
+  devel = FALSE,
+  new_process = !devel,
+  install = !devel
+) {
   pkg <- as_pkgdown(pkg, override = override)
   check_bool(devel)
   check_bool(new_process)
@@ -337,12 +339,19 @@ build_site <- function(pkg = ".",
 
   if (install) {
     withr::local_temp_libpaths()
-    cli::cli_rule("Installing package {.pkg {pkg$package}} into temporary library")
+    cli::cli_rule(
+      "Installing package {.pkg {pkg$package}} into temporary library"
+    )
     # Keep source, so that e.g. pillar can show the source code
     # of its functions in its articles
     withr::with_options(
       list(keep.source.pkgs = TRUE, keep.parse.data.pkgs = TRUE),
-      utils::install.packages(pkg$src_path, repos = NULL, type = "source", quiet = TRUE)
+      utils::install.packages(
+        pkg$src_path,
+        repos = NULL,
+        type = "source",
+        quiet = TRUE
+      )
     )
   }
 
@@ -371,14 +380,16 @@ build_site <- function(pkg = ".",
   }
 }
 
-build_site_external <- function(pkg = ".",
-                                examples = TRUE,
-                                run_dont_run = FALSE,
-                                seed = 1014L,
-                                lazy = FALSE,
-                                override = list(),
-                                preview = NA,
-                                devel = TRUE) {
+build_site_external <- function(
+  pkg = ".",
+  examples = TRUE,
+  run_dont_run = FALSE,
+  seed = 1014L,
+  lazy = FALSE,
+  override = list(),
+  preview = NA,
+  devel = TRUE
+) {
   pkg <- as_pkgdown(pkg, override = override)
   args <- list(
     pkg = pkg,
@@ -410,21 +421,24 @@ build_site_external <- function(pkg = ".",
     timeout = getOption('pkgdown.timeout', Inf)
   )
 
-  cli::cli_rule("Finished building pkgdown site for package {.pkg {pkg$package}}")
+  cli::cli_rule(
+    "Finished building pkgdown site for package {.pkg {pkg$package}}"
+  )
 
   preview_site(pkg, preview = preview)
   invisible()
 }
 
-build_site_local <- function(pkg = ".",
-                             examples = TRUE,
-                             run_dont_run = FALSE,
-                             seed = 1014L,
-                             lazy = FALSE,
-                             override = list(),
-                             preview = NA,
-                             devel = TRUE) {
-
+build_site_local <- function(
+  pkg = ".",
+  examples = TRUE,
+  run_dont_run = FALSE,
+  seed = 1014L,
+  lazy = FALSE,
+  override = list(),
+  preview = NA,
+  devel = TRUE
+) {
   pkg <- section_init(pkg, override = override)
 
   cli::cli_rule("Building pkgdown site for package {.pkg {pkg$package}}")
@@ -463,6 +477,8 @@ build_site_local <- function(pkg = ".",
 
   check_built_site(pkg)
 
-  cli::cli_rule("Finished building pkgdown site for package {.pkg {pkg$package}}")
+  cli::cli_rule(
+    "Finished building pkgdown site for package {.pkg {pkg$package}}"
+  )
   preview_site(pkg, preview = preview)
 }

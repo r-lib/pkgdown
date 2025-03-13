@@ -8,7 +8,7 @@ test_that("extra.css and extra.js copied and linked", {
   dir_create(path(pkg$src_path, "pkgdown"))
   file_create(path(pkg$src_path, "pkgdown", "extra.css"))
   file_create(path(pkg$src_path, "pkgdown", "extra.js"))
-  
+
   suppressMessages(init_site(pkg))
   expect_true(file_exists(path(pkg$dst_path, "extra.css")))
   expect_true(file_exists(path(pkg$dst_path, "extra.js")))
@@ -39,7 +39,12 @@ test_that("asset subdirectories are copied", {
   suppressMessages(init_site(pkg))
 
   expect_true(file_exists(path(pkg$dst_path, "subdir1", "file1.txt")))
-  expect_true(file_exists(path(pkg$dst_path, "subdir1", "subdir2", "file2.txt")))
+  expect_true(file_exists(path(
+    pkg$dst_path,
+    "subdir1",
+    "subdir2",
+    "file2.txt"
+  )))
 })
 
 test_that("site meta doesn't break unexpectedly", {

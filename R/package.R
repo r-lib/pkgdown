@@ -9,7 +9,9 @@
 #' @export
 as_pkgdown <- function(pkg = ".", override = list()) {
   if (!is.list(override)) {
-    cli::cli_abort("{.arg override} must be a list, not {obj_type_friendly(override)}.")
+    cli::cli_abort(
+      "{.arg override} must be a list, not {obj_type_friendly(override)}."
+    )
   }
 
   if (is_pkgdown(pkg)) {
@@ -19,18 +21,20 @@ as_pkgdown <- function(pkg = ".", override = list()) {
 
   check_string(pkg)
   if (!dir_exists(pkg)) {
-    if (dir.exists(pkg)) { #nolint
+    if (dir.exists(pkg)) {
+      #nolint
       # path expansion with fs and base R is different on Windows.
       # By default "~/", is typically C:/Users/username/Documents, while fs see "~/" as C:/Users/username, to be more platform portable.
       # Read more in ?fs::path_expand
       cli::cli_abort(
-      "pkgdown accepts {.href [fs paths](https://fs.r-lib.org/reference/path_expand.html#details)}."
+        "pkgdown accepts {.href [fs paths](https://fs.r-lib.org/reference/path_expand.html#details)}."
       )
     }
     cli::cli_abort("{.file {pkg}} is not an existing directory")
   }
 
-  if (!dir.exists(pkg)) { #nolint
+  if (!dir.exists(pkg)) {
+    #nolint
     # Use complete path if fs path doesn't exist according to base R #2639
     pkg <- path_expand(pkg)
   }
@@ -61,7 +65,11 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   template_meta <- find_template_config(template_package, bs_version_local)
 
   if (is.null(bs_version_local)) {
-    bs_version_remote <- get_bootstrap_version(pkg, template_meta$template, template_package)
+    bs_version_remote <- get_bootstrap_version(
+      pkg,
+      template_meta$template,
+      template_package
+    )
   } else {
     bs_version_remote <- NULL
   }
@@ -86,7 +94,11 @@ as_pkgdown <- function(pkg = ".", override = list()) {
   }
 
   pkg$lang <- get_pkg_lang(pkg)
-  pkg$install_metadata <- config_pluck_bool(pkg, "deploy.install_metadata", FALSE)
+  pkg$install_metadata <- config_pluck_bool(
+    pkg,
+    "deploy.install_metadata",
+    FALSE
+  )
   pkg$figures <- meta_figures(pkg)
   pkg$repo <- package_repo(pkg)
   pkg$topics <- package_topics(src_path)
@@ -121,10 +133,12 @@ get_pkg_lang <- function(pkg) {
   return("en")
 }
 
-get_bootstrap_version <- function(pkg,
-                                  template,
-                                  template_package = NULL,
-                                  call = caller_env()) {
+get_bootstrap_version <- function(
+  pkg,
+  template,
+  template_package = NULL,
+  call = caller_env()
+) {
   if (is.null(template)) {
     return(NULL)
   }
@@ -146,7 +160,11 @@ get_bootstrap_version <- function(pkg,
   template_bootstrap %||% template_bslib
 }
 
-check_bootstrap_version <- function(version, error_pkg, error_call = caller_env()) {
+check_bootstrap_version <- function(
+  version,
+  error_pkg,
+  error_call = caller_env()
+) {
   if (version %in% c(3, 5)) {
     version
   } else if (version == 4) {
@@ -172,9 +190,12 @@ pkgdown_config_path <- function(path) {
   path_first_existing(
     path,
     c(
-      "_pkgdown.yml", "_pkgdown.yaml",
-      "pkgdown/_pkgdown.yml", "pkgdown/_pkgdown.yaml",
-      "inst/_pkgdown.yml", "inst/_pkgdown.yaml"
+      "_pkgdown.yml",
+      "_pkgdown.yaml",
+      "pkgdown/_pkgdown.yml",
+      "pkgdown/_pkgdown.yaml",
+      "inst/_pkgdown.yml",
+      "inst/_pkgdown.yaml"
     )
   )
 }
@@ -291,7 +312,8 @@ extract_lifecycle <- function(x) {
       name <- path_ext_remove(name)
 
       # Translate the most common lifecylce names
-      name <- switch(name,
+      name <- switch(
+        name,
         deprecated = tr_("deprecated"),
         superseded = tr_("superseded"),
         experimental = tr_("experimental"),
@@ -327,7 +349,12 @@ package_vignettes <- function(path = ".") {
   if (!dir_exists(base)) {
     vig_path <- character()
   } else {
-    vig_path <- dir_ls(base, regexp = "\\.[Rrq]md$", type = "file", recurse = TRUE)
+    vig_path <- dir_ls(
+      base,
+      regexp = "\\.[Rrq]md$",
+      type = "file",
+      recurse = TRUE
+    )
   }
 
   vig_path <- path_rel(vig_path, base)
@@ -346,7 +373,8 @@ package_vignettes <- function(path = ".") {
   file_in <- path("vignettes", vig_path)
   file_out <- path_ext_set(vig_path, ext)
   file_out[!path_has_parent(file_out, "articles")] <- path(
-    "articles", file_out[!path_has_parent(file_out, "articles")]
+    "articles",
+    file_out[!path_has_parent(file_out, "articles")]
   )
   check_unique_article_paths(file_in, file_out)
 
@@ -388,9 +416,11 @@ article_metadata <- function(path) {
   out
 }
 
-find_template_config <- function(package,
-                                 bs_version = NULL,
-                                 error_call = caller_env()) {
+find_template_config <- function(
+  package,
+  bs_version = NULL,
+  error_call = caller_env()
+) {
   if (is.null(package)) {
     return(list())
   }

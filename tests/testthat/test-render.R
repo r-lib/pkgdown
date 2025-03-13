@@ -2,20 +2,27 @@ test_that("capture data_template()", {
   pkg <- local_pkgdown_site()
   data <- data_template(pkg)
   data$year <- "<year>"
-  data$footer$right <- gsub(packageVersion("pkgdown"), "{version}", data$footer$right, fixed = TRUE)
+  data$footer$right <- gsub(
+    packageVersion("pkgdown"),
+    "{version}",
+    data$footer$right,
+    fixed = TRUE
+  )
   expect_snapshot_output(data)
 })
 
 test_that("can include text in header, before body, and after body", {
-  pkg <- local_pkgdown_site(meta = list(
-    template = list(
-      includes = list(
-        in_header = "<test>in header</test>",
-        before_body = "<test>before body</test>",
-        after_body = "<test>after body</test>"
+  pkg <- local_pkgdown_site(
+    meta = list(
+      template = list(
+        includes = list(
+          in_header = "<test>in header</test>",
+          before_body = "<test>before body</test>",
+          after_body = "<test>after body</test>"
+        )
       )
     )
-  ))
+  )
 
   expect_named(
     data_template(pkg)$includes,

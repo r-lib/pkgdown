@@ -10,11 +10,12 @@ rd2ex <- function(x, ...) {
   }
 }
 
-run_examples <- function(x,
-                         topic = "unknown",
-                         env = globalenv(),
-                         run_dont_run = FALSE) {
-
+run_examples <- function(
+  x,
+  topic = "unknown",
+  env = globalenv(),
+  run_dont_run = FALSE
+) {
   if (!inherits(x, "tag")) {
     x <- rd_text(x)
   }
@@ -42,7 +43,8 @@ run_examples <- function(x,
 process_conditional_examples <- function(rd) {
   if (is.list(rd)) {
     which_exif <- which(purrr::map_lgl(rd, function(x) {
-      "tag_dontshow" %in% class(x) &&
+      "tag_dontshow" %in%
+        class(x) &&
         is.character(x[[1]]) &&
         grepl("# examplesIf$", x[[1]])
     }))
@@ -78,7 +80,10 @@ process_conditional_examples <- function(rd) {
       } else {
         # End of @examplesIf
         if (modes[1] == "begin") {
-          cli::cli_abort("@examplesIf error, closed twice?", call = caller_env())
+          cli::cli_abort(
+            "@examplesIf error, closed twice?",
+            call = caller_env()
+          )
         }
         if (isTRUE(cond)) {
           remove <- c(remove, idx, idx + 1L)
@@ -90,12 +95,10 @@ process_conditional_examples <- function(rd) {
     }
     if (length(remove)) rd <- rd[-remove]
     rd
-
   } else {
     rd
   }
 }
-
 
 
 # as_example --------------------------------------------------------------
@@ -204,8 +207,11 @@ flatten_ex <- function(x, run_dont_run = FALSE) {
 }
 
 can_parse <- function(x) {
-  tryCatch({
-    parse(text = x)
-    TRUE
-  }, error = function(e) FALSE)
+  tryCatch(
+    {
+      parse(text = x)
+      TRUE
+    },
+    error = function(e) FALSE
+  )
 }

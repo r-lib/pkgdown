@@ -47,7 +47,8 @@ set_classes <- function(rd) {
 }
 
 set_class <- function(x) {
-  structure(x,
+  structure(
+    x,
     class = c(attr(x, "class"), tag(x), "tag"),
     Rd_tag = NULL,
     srcref = NULL,

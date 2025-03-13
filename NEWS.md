@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Support for math rendering using katex and mathjax was improved and now includes necessary components using CDN (#2704).
+* Articles (i.e., Rmarkdown/Quarto documents in `vignettes/articles`, created by `usethis::use_article()` and available on pkgdown sites but not included in a built package) have improved test cases (thanks to @venpopov and @ethanbass).
 * ROR IDs in `DESCRIPTION` are transformed into icons, similar to ORCID IDs. (#2850)
 * Sass variables from bslib are now used to set the navbar background color: `$navbar-bg` for the background color in light and dark mode, or `$navbar-light-bg` and `$navbar-dark-bg` for individually controlling light and dark mode background colors. `pkgdown-navbar-bg` and `$pkgdown-navbar-bg-dark` both still provide pkgdown-specific overrides (@gadenbuie, #2847).
 * Code repositories hosted on Codeberg are now supported in the `BugReports` and `URL` fields (@nfrerebeau, #2843).
