@@ -40,7 +40,9 @@ render_md <- function(pkg, filename) {
   body <- markdown_body(pkg, filename, strip_header = TRUE)
   path <- path_ext_set(path_file(filename), "html")
 
-  render_page(pkg, "title-body",
+  render_page(
+    pkg,
+    "title-body",
     data = list(
       pagetitle = attr(body, "title"),
       body = body,

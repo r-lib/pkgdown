@@ -45,7 +45,10 @@ test_that("test usage ok on rendered page", {
   suppressMessages(build_reference(pkg, topics = "c"))
   html <- xml2::read_html(path(pkg$dst_path, "reference", "c.html"))
   # tweak_anchors() moves id into <h2>
-  expect_equal(xpath_text(html, "//div[h2[@id='ref-usage']]/div", trim = TRUE), "c()")
+  expect_equal(
+    xpath_text(html, "//div[h2[@id='ref-usage']]/div", trim = TRUE),
+    "c()"
+  )
 })
 
 test_that(".Rd without usage doesn't get Usage section", {
@@ -75,7 +78,10 @@ test_that("pkgdown html dependencies are suppressed from examples in references"
   html <- xml2::read_html(path(pkg$dst_path, "reference", "a.html"))
 
   # jquery is only loaded once, even though it's included by an example
-  expect_equal(xpath_length(html, ".//script[(@src and contains(@src, '/jquery'))]"), 1)
+  expect_equal(
+    xpath_length(html, ".//script[(@src and contains(@src, '/jquery'))]"),
+    1
+  )
 
   # same for bootstrap js and css
   str_subset_bootstrap <- function(x) {
@@ -83,12 +89,20 @@ test_that("pkgdown html dependencies are suppressed from examples in references"
     grep(bs_rgx, x, value = TRUE, perl = TRUE)
   }
   bs_js_src <- str_subset_bootstrap(
-    xpath_attr(html, ".//script[(@src and contains(@src, '/bootstrap'))]", "src")
+    xpath_attr(
+      html,
+      ".//script[(@src and contains(@src, '/bootstrap'))]",
+      "src"
+    )
   )
   expect_length(bs_js_src, 1)
 
   bs_css_href <- str_subset_bootstrap(
-    xpath_attr(html, ".//link[(@href and contains(@href, '/bootstrap'))]", "href")
+    xpath_attr(
+      html,
+      ".//link[(@href and contains(@href, '/bootstrap'))]",
+      "href"
+    )
   )
   expect_length(bs_css_href, 1)
 })
@@ -111,7 +125,6 @@ test_that("arguments get individual ids", {
 
   html <- xml2::read_html(path(pkg$dst_path, "reference", "a.html"))
   expect_equal(xpath_attr(html, "//dt", "id"), c("arg-a", "arg-b", "arg-c"))
-
 })
 
 test_that("title and page title escapes html", {
@@ -120,7 +133,10 @@ test_that("title and page title escapes html", {
   suppressMessages(build_reference(pkg, topics = "g"))
 
   html <- xml2::read_html(path(pkg$dst_path, "reference", "g.html"))
-  expect_equal(xpath_text(html, "//title", trim = TRUE), "g <-> h — g • testpackage")
+  expect_equal(
+    xpath_text(html, "//title", trim = TRUE),
+    "g <-> h — g • testpackage"
+  )
   expect_equal(xpath_text(html, "//h1", trim = TRUE), "g <-> h")
 })
 

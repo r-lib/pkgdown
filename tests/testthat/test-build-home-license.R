@@ -1,5 +1,4 @@
 test_that("link_license matchs exactly", {
-
   # Shouldn't match first GPL-2
   expect_equal(
     autolink_license("LGPL-2"),

@@ -289,11 +289,12 @@
 #' @family site components
 #' @export
 #' @order 1
-build_home <- function(pkg = ".",
-                       override = list(),
-                       preview = FALSE,
-                       quiet = TRUE) {
-
+build_home <- function(
+  pkg = ".",
+  override = list(),
+  preview = FALSE,
+  quiet = TRUE
+) {
   pkg <- section_init(pkg, override = override)
   check_bool(quiet)
 
@@ -308,7 +309,6 @@ build_home <- function(pkg = ".",
   if (!pkg$development$in_dev) {
     build_404(pkg)
   }
-
 
   preview_site(pkg, "/", preview = preview)
 }

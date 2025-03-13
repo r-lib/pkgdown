@@ -46,13 +46,13 @@ build_sitemap <- function(pkg = ".") {
 }
 
 #' Build search index
-#' 
+#'
 #' @description
-#' Generate a JSON search index from the built site. This is used by 
+#' Generate a JSON search index from the built site. This is used by
 #' [fuse.js](https://www.fusejs.io/) to provide a javascript powered search for
 #' BS5 powered pkgdown sites.
 #'
-#' NB: `build_search()` is called automatically by [build_site()]; you don't 
+#' NB: `build_search()` is called automatically by [build_site()]; you don't
 #' need call it yourself. This page documents how it works and its customisation
 #' options.
 #'
@@ -77,8 +77,7 @@ build_sitemap <- function(pkg = ".") {
 #' @inheritParams build_articles
 #' @export
 #'
-build_search <- function(pkg = ".",
-                         override = list()) {
+build_search <- function(pkg = ".", override = list()) {
   pkg <- section_init(pkg, override = override)
   cli::cli_rule("Building search index")
 
@@ -92,13 +91,19 @@ build_search <- function(pkg = ".",
 
 build_search_index <- function(pkg) {
   paths <- get_site_paths(pkg)
-  paths <- paths[!paths %in% c("404.html", "articles/index.html", "reference/index.html")]
+  paths <- paths[
+    !paths %in% c("404.html", "articles/index.html", "reference/index.html")
+  ]
 
   # user-defined exclusions
   paths <- paths[!paths %in% config_pluck_character(pkg, "search.exclude")]
 
   if ("news/index.html" %in% paths) {
-    index <- lapply(paths[paths != "news/index.html"], file_search_index, pkg = pkg)
+    index <- lapply(
+      paths[paths != "news/index.html"],
+      file_search_index,
+      pkg = pkg
+    )
     index <- unlist(index, recursive = FALSE)
     index <- c(index, news_search_index("news/index.html", pkg = pkg))
   } else {
@@ -120,7 +125,10 @@ news_search_index <- function(path, pkg) {
 
   # Get contents minus logo
   node <- xml2::xml_find_all(html, ".//main")
-  xml2::xml_remove(xml2::xml_find_first(node, ".//img[contains(@class, 'pkg-logo')]"))
+  xml2::xml_remove(xml2::xml_find_first(
+    node,
+    ".//img[contains(@class, 'pkg-logo')]"
+  ))
   sections <- xml2::xml_find_all(node, ".//*[contains(@class, 'section')]")
 
   purrr::pmap(
@@ -143,8 +151,14 @@ file_search_index <- function(path, pkg) {
 
   # Get contents minus logo
   node <- xml2::xml_find_all(html, ".//main")
-  xml2::xml_remove(xml2::xml_find_first(node, ".//img[contains(@class, 'pkg-logo')]"))
-  sections <- xml2::xml_find_all(node, ".//div[contains(@class, 'section')]|.//section")
+  xml2::xml_remove(xml2::xml_find_first(
+    node,
+    ".//img[contains(@class, 'pkg-logo')]"
+  ))
+  sections <- xml2::xml_find_all(
+    node,
+    ".//div[contains(@class, 'section')]|.//section"
+  )
 
   purrr::pmap(
     list(
@@ -156,7 +170,6 @@ file_search_index <- function(path, pkg) {
     dir = get_dir(path),
     path = paste0("/", pkg$prefix, path)
   )
-
 }
 # Directory parts (where in the site)
 get_dir <- function(path) {
@@ -173,7 +186,11 @@ get_headings <- function(section, depth) {
     return("")
   }
 
-  headings <- purrr::map_chr(seq(depth - 1, level - 1), get_h, section = section)
+  headings <- purrr::map_chr(
+    seq(depth - 1, level - 1),
+    get_h,
+    section = section
+  )
   paste0(headings[headings != ""], collapse = " > ")
 }
 # Function for extracting all headers
@@ -183,19 +200,26 @@ get_h <- function(level, section) {
     return("")
   }
   parents <- parents[!is.na(xml2::xml_attr(parents, "class"))]
-  h_section <- parents[grepl(paste0("section level", level), xml2::xml_attr(parents, "class"))]
+  h_section <- parents[grepl(
+    paste0("section level", level),
+    xml2::xml_attr(parents, "class")
+  )]
   h <- xml2::xml_contents(h_section)[is_heading(xml2::xml_contents(h_section))]
   sub("^\\n", "", xml_text1(h))
-
 }
 get_version <- function(section) {
   parents <- xml2::xml_parents(section)
   parents <- parents[!is.na(xml2::xml_attr(parents, "class"))]
-  h_section <- parents[grepl("section level2", xml2::xml_attr(parents, "class"))]
+  h_section <- parents[grepl(
+    "section level2",
+    xml2::xml_attr(parents, "class")
+  )]
   if (length(h_section) == 0) {
     h <- xml2::xml_contents(section)[is_heading(xml2::xml_contents(section))]
   } else {
-    h <- xml2::xml_contents(h_section)[is_heading(xml2::xml_contents(h_section))]
+    h <- xml2::xml_contents(h_section)[is_heading(xml2::xml_contents(
+      h_section
+    ))]
   }
 
   sub("^\\n", "", xml_text1(h))
@@ -207,19 +231,37 @@ bs4_index_data <- function(node, previous_headings, title, dir, path) {
   # Make a copy of the node because we will remove contents from it for getting the data
   node_copy <- node
   # remove sections nested inside the current section to prevent duplicating content
-  xml2::xml_remove(xml2::xml_find_all(node_copy, ".//*[contains(@class, 'section')]"))
+  xml2::xml_remove(xml2::xml_find_all(
+    node_copy,
+    ".//*[contains(@class, 'section')]"
+  ))
   # remove dont-index sections
-  xml2::xml_remove(xml2::xml_find_all(node_copy, ".//*[contains(@class, 'dont-index')]"))
+  xml2::xml_remove(xml2::xml_find_all(
+    node_copy,
+    ".//*[contains(@class, 'dont-index')]"
+  ))
 
   # Helpers for XPath queries
   # We want to find all nodes corresponding to ... but whose descendants
   # do not correspond to any ... otherwise we would treat some text/code twice,
   # e.g. the text of p nested within li.
   all <- function(...) {
-    not <- sprintf("[not(%s)]", paste0(paste0("descendant::", c(...)), collapse = "|"))
+    not <- sprintf(
+      "[not(%s)]",
+      paste0(paste0("descendant::", c(...)), collapse = "|")
+    )
     paste0(".//", c(...), not, collapse = "|")
   }
-  text_xpath <- all("p", "li", "caption", "figcaption", "dt", "dd", "blockquote", "div[contains(@class, 'line-block')]")
+  text_xpath <- all(
+    "p",
+    "li",
+    "caption",
+    "figcaption",
+    "dt",
+    "dd",
+    "blockquote",
+    "div[contains(@class, 'line-block')]"
+  )
   code_xpath <- all("pre")
   code <- xml2::xml_find_all(node_copy, code_xpath)
 
@@ -271,9 +313,7 @@ bs4_index_data <- function(node, previous_headings, title, dir, path) {
 
 xml_text1 <- function(x) {
   trimws(
-    gsub("(\r\n|\r|\n)", " ",
-      paste0(trimws(xml2::xml_text(x)), collapse = " ")
-    )
+    gsub("(\r\n|\r|\n)", " ", paste0(trimws(xml2::xml_text(x)), collapse = " "))
   )
 }
 
@@ -296,7 +336,9 @@ get_site_paths <- function(pkg) {
   paths_rel <- path_rel(paths, pkg$dst_path)
 
   # do not include dev package website in search index / sitemap
-  paths_rel <- paths_rel[!path_has_parent(paths_rel, pkg$development$destination)]
+  paths_rel <- paths_rel[
+    !path_has_parent(paths_rel, pkg$development$destination)
+  ]
 
   # do not include redirects
   redirects <- purrr::map_chr(data_redirects(pkg, has_url = TRUE), 1)

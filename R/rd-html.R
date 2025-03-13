@@ -18,8 +18,12 @@ flatten_para <- function(x, ...) {
 
   # Or tags that are converted to HTML blocks
   block_tags <- c(
-    "tag_preformatted", "tag_itemize", "tag_enumerate", "tag_tabular",
-    "tag_describe", "tag_subsection"
+    "tag_preformatted",
+    "tag_itemize",
+    "tag_enumerate",
+    "tag_tabular",
+    "tag_describe",
+    "tag_subsection"
   )
   is_block <- purrr::map_lgl(x, inherits, block_tags)
 
@@ -69,7 +73,7 @@ flatten_text <- function(x, ...) {
 as_html.Rd <- function(x, ...) flatten_text(x, ...)
 
 #' @export
-as_html.LIST <-  flatten_text
+as_html.LIST <- flatten_text
 
 # Leaves  -----------------------------------------------------------------
 
@@ -84,7 +88,7 @@ as_html.character <- function(x, ..., escape = TRUE) {
   }
 }
 #' @export
-as_html.TEXT <-  function(x, ..., escape = TRUE) {
+as_html.TEXT <- function(x, ..., escape = TRUE) {
   # tools:::htmlify
   x <- gsub("---", "\u2014", x)
   x <- gsub("--", "\u2013", x)
@@ -97,24 +101,24 @@ as_html.TEXT <-  function(x, ..., escape = TRUE) {
 #' @export
 as_html.RCODE <- as_html.character
 #' @export
-as_html.VERB <-  as_html.character
+as_html.VERB <- as_html.character
 #' @export
 as_html.COMMENT <- function(x, ...) {
   paste0("<!-- ", flatten_text(x), " -->")
 }
 # USERMACRO appears first, followed by the rendered macro
 #' @export
-as_html.USERMACRO <-  function(x, ...) ""
+as_html.USERMACRO <- function(x, ...) ""
 
 #' @export
 as_html.tag_subsection <- function(x, ..., subsection_level = 3L) {
-
   h <- paste0("h", subsection_level)
 
   title <- flatten_text(x[[1]], ...)
   id <- make_slug(title)
   text <- flatten_para(x[[2]], ..., subsection_level = subsection_level + 1L)
 
+  # fmt: skip
   paste0(
     "<div class='section' id='", id, "'>\n",
     "<", h, ">", title, "</", h, ">\n",
@@ -223,8 +227,7 @@ as_html.tag_Sexpr <- function(x, ...) {
     outlines <- utils::capture.output({
       out <- withVisible(eval(parse(text = code), env))
       res <- out$value
-      if (out$visible)
-        print(res)
+      if (out$visible) print(res)
     })
     paste0(
       "<pre>\n",
@@ -233,7 +236,8 @@ as_html.tag_Sexpr <- function(x, ...) {
     )
   } else {
     res <- eval(parse(text = code), env)
-    switch(results,
+    switch(
+      results,
       text = as.character(res),
       rd = flatten_text(rd_text(as.character(res))),
       hide = "",
@@ -319,14 +323,18 @@ as_html.tag_tabular <- function(x, ...) {
   cell_grp <- rev(cumsum(-rev(sep)))
   cells <- unname(split(contents, cell_grp))
   # Remove trailing content (that does not match the dimensions of the table)
-  cells <- cells[seq_len(length(cells) - length(cells)%%length(align))]
+  cells <- cells[seq_len(length(cells) - length(cells) %% length(align))]
   cell_contents <- purrr::map_chr(cells, flatten_text, ...)
   cell_contents <- paste0("<td>", str_trim(cell_contents), "</td>")
   cell_contents <- matrix(cell_contents, ncol = length(align), byrow = TRUE)
 
   rows <- apply(cell_contents, 1, paste0, collapse = "")
 
-  paste0("<table class='table'>\n", paste0("<tr>", rows, "</tr>\n", collapse = ""), "</table>\n")
+  paste0(
+    "<table class='table'>\n",
+    paste0("<tr>", rows, "</tr>\n", collapse = ""),
+    "</table>\n"
+  )
 }
 
 
@@ -343,7 +351,7 @@ as_html.tag_figure <- function(x, ...) {
     opt <- paste(trimws(as.character(x[[2]])), collapse = " ")
     if (substr(opt, 1, 9) == "options: ") {
       extra <- substr(opt, 9, nchar(opt))
-      paste0("<img src='figures/", path, "'",  extra, " />")
+      paste0("<img src='figures/", path, "'", extra, " />")
     } else {
       paste0("<img src='figures/", path, "' alt='", opt, "' />")
     }
@@ -409,8 +417,15 @@ parse_descriptions <- function(rd, ..., id_prefix = NULL) {
         anchor <- ""
       }
       paste0(
-        "<dt", id_attr, ">", term, anchor, "</dt>\n",
-        "<dd>", def , "</dd>\n"
+        "<dt",
+        id_attr,
+        ">",
+        term,
+        anchor,
+        "</dt>\n",
+        "<dd>",
+        def,
+        "</dd>\n"
       )
     } else {
       flatten_text(x, ...)
@@ -431,19 +446,19 @@ tag_wrapper <- function(prefix, suffix = NULL) {
 }
 
 #' @export
-as_html.tag_emph <-         tag_wrapper("<em>", "</em>")
+as_html.tag_emph <- tag_wrapper("<em>", "</em>")
 #' @export
-as_html.tag_strong <-       tag_wrapper("<strong>", "</strong>")
+as_html.tag_strong <- tag_wrapper("<strong>", "</strong>")
 #' @export
-as_html.tag_bold <-         tag_wrapper("<b>", "</b>")
+as_html.tag_bold <- tag_wrapper("<b>", "</b>")
 
 #' @export
-as_html.tag_dQuote <-       tag_wrapper("&#8220;", "&#8221;")
+as_html.tag_dQuote <- tag_wrapper("&#8220;", "&#8221;")
 #' @export
-as_html.tag_sQuote <-       tag_wrapper("&#8216;", "&#8217;")
+as_html.tag_sQuote <- tag_wrapper("&#8216;", "&#8217;")
 
 #' @export
-as_html.tag_code <-         function(x, ..., auto_link = TRUE) {
+as_html.tag_code <- function(x, ..., auto_link = TRUE) {
   text <- flatten_text(x, ...)
 
   if (auto_link) {
@@ -461,32 +476,32 @@ as_html.tag_preformatted <- function(x, ...) {
 }
 
 #' @export
-as_html.tag_kbd <-          tag_wrapper("<kbd>", "</kbd>")
+as_html.tag_kbd <- tag_wrapper("<kbd>", "</kbd>")
 #' @export
-as_html.tag_samp <-         tag_wrapper('<samp>',"</samp>")
+as_html.tag_samp <- tag_wrapper('<samp>', "</samp>")
 #' @export
-as_html.tag_verb <-         tag_wrapper("<code>", "</code>")
+as_html.tag_verb <- tag_wrapper("<code>", "</code>")
 
 #' @export
-as_html.tag_pkg <-          tag_wrapper('<span class="pkg">',"</span>")
+as_html.tag_pkg <- tag_wrapper('<span class="pkg">', "</span>")
 #' @export
-as_html.tag_file <-         tag_wrapper('<code class="file">', '</code>')
+as_html.tag_file <- tag_wrapper('<code class="file">', '</code>')
 
 #' @export
-as_html.tag_var <-          tag_wrapper("<var>", "</var>")
+as_html.tag_var <- tag_wrapper("<var>", "</var>")
 #' @export
-as_html.tag_env <-          tag_wrapper('<code class="env">', '</code>')
+as_html.tag_env <- tag_wrapper('<code class="env">', '</code>')
 #' @export
-as_html.tag_option <-       tag_wrapper('<span class="option">',"</span>")
+as_html.tag_option <- tag_wrapper('<span class="option">', "</span>")
 #' @export
-as_html.tag_command <-      tag_wrapper("<code class='command'>", "</code>")
+as_html.tag_command <- tag_wrapper("<code class='command'>", "</code>")
 
 #' @export
-as_html.tag_dfn <-          tag_wrapper("<dfn>", "</dfn>")
+as_html.tag_dfn <- tag_wrapper("<dfn>", "</dfn>")
 #' @export
-as_html.tag_cite <-         tag_wrapper("<cite>", "</cite>")
+as_html.tag_cite <- tag_wrapper("<cite>", "</cite>")
 #' @export
-as_html.tag_acronym <-      tag_wrapper('<acronym>','</acronym>')
+as_html.tag_acronym <- tag_wrapper('<acronym>', '</acronym>')
 
 #' @export
 as_html.tag_out <- function(x, ...) flatten_text(x, ..., escape = FALSE)
@@ -494,13 +509,13 @@ as_html.tag_out <- function(x, ...) flatten_text(x, ..., escape = FALSE)
 # Insertions --------------------------------------------------------------
 
 #' @export
-as_html.tag_R <-     function(x, ...) '<span style="R">R</span>'
+as_html.tag_R <- function(x, ...) '<span style="R">R</span>'
 #' @export
-as_html.tag_dots <-  function(x, ...) "..."
+as_html.tag_dots <- function(x, ...) "..."
 #' @export
 as_html.tag_ldots <- function(x, ...) "..."
 #' @export
-as_html.tag_cr <-    function(x, ...) "<br>"
+as_html.tag_cr <- function(x, ...) "<br>"
 
 # First element of enc is the encoded version (second is the ascii version)
 #' @export
@@ -515,7 +530,7 @@ as_html.tag_enc <- function(x, ...) {
 # Elements that don't return anything ----------------------------------------
 
 #' @export
-as_html.tag_tab <-      function(x, ...) ""
+as_html.tag_tab <- function(x, ...) ""
 #' @export
 as_html.tag_newcommand <- function(x, ...) ""
 #' @export
@@ -536,10 +551,8 @@ as_html.tag <- function(x, ...) {
 trim_ws_nodes <- function(x, side = c("both", "left", "right")) {
   is_ws <- purrr::map_lgl(x, ~ inherits(., "TEXT") && grepl("^\\s*$", .[[1]]))
 
-  if (!any(is_ws))
-    return(x)
-  if (all(is_ws))
-    return(x[0])
+  if (!any(is_ws)) return(x)
+  if (all(is_ws)) return(x[0])
 
   which_not <- which(!is_ws)
 
@@ -570,7 +583,6 @@ parse_opts <- function(string) {
   args <- list("text", "verbatim", "rd", "hide", "build", "install", "render")
   names(args) <- args
   arg_env <- child_env(baseenv(), !!!args)
-
 
   args <- strsplit(string, ",")[[1]]
   exprs <- purrr::map(args, parse_expr)

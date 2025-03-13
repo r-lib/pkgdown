@@ -13,8 +13,7 @@ has_support <- function(path = ".") {
     file_exists(path(path, '.github', 'SUPPORT.md'))
 }
 
-data_home_sidebar_community <- function (pkg){
-
+data_home_sidebar_community <- function(pkg) {
   pkg <- as_pkgdown(pkg)
 
   links <- NULL
@@ -36,5 +35,4 @@ data_home_sidebar_community <- function (pkg){
   }
 
   sidebar_section(tr_("Community"), links)
-
 }

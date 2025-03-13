@@ -1,4 +1,3 @@
-
 test_that("config_pluck_character coerces empty values to character", {
   pkg <- local_pkgdown_site(meta = list(x = NULL, y = list()))
   expect_equal(config_pluck_character(pkg, "x"), character())

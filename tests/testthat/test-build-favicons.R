@@ -1,7 +1,8 @@
 test_that("missing logo generates message", {
   pkg <- local_pkgdown_site()
 
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     expect_output(build_favicons(pkg), "Building favicons")
   )
 })
