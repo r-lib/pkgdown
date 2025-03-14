@@ -111,16 +111,16 @@ quarto_render <- function(pkg, path, quiet = TRUE, frame = caller_env()) {
 
   # set the lib path to the temporary pkgdown installation directory
   lib_path <- .libPaths()[1]
-  withr::with_libpaths(lib_path, code = {
-    quarto::quarto_render(
-      path,
-      metadata_file = metadata_path,
-      execute_dir = output_dir,
-      quarto_args = c("--output-dir", output_dir),
-      quiet = quiet,
-      as_job = FALSE
-    )
-  })
+  withr::local_libpaths(lib_path)
+
+  quarto::quarto_render(
+    path,
+    metadata_file = metadata_path,
+    execute_dir = output_dir,
+    quarto_args = c("--output-dir", output_dir),
+    quiet = quiet,
+    as_job = FALSE
+  )
 
   output_dir
 }
