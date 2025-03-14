@@ -10,15 +10,10 @@ select_topics_ <- function(topic, topics, check = TRUE) {
 }
 
 test_that("bad inputs give informative warnings", {
+  # fmt: skip
   topics <- tibble::tribble(
-    ~name,
-    ~alias,
-    ~internal,
-    ~concepts,
-    "x",
-    c("x", "x1"),
-    FALSE,
-    character(),
+    ~name, ~alias,        ~internal,  ~concepts,
+    "x",   c("x", "x1"), FALSE,      character(),
   )
 
   expect_snapshot(error = TRUE, {
@@ -33,15 +28,10 @@ test_that("bad inputs give informative warnings", {
 })
 
 test_that("selector functions validate their inputs", {
+  # fmt: skip
   topics <- tibble::tribble(
-    ~name,
-    ~alias,
-    ~internal,
-    ~concepts,
-    "x",
-    c("x", "x1"),
-    FALSE,
-    character(),
+    ~name, ~alias,        ~internal,  ~concepts,
+    "x",   c("x", "x1"), FALSE,      character(),
   )
 
   expect_snapshot(error = TRUE, {
@@ -52,31 +42,23 @@ test_that("selector functions validate their inputs", {
 
 
 test_that("empty input returns empty vector", {
+  # fmt: skip
   topics <- tibble::tribble(
-    ~name,
-    ~alias,
-    ~internal,
-    ~concepts,
-    "x",
-    c("x", "x1"),
-    FALSE,
-    character(),
+    ~name, ~alias,        ~internal,  ~concepts,
+    "x",   c("x", "x1"), FALSE,      character(),
   )
+
   expect_equal(select_topics(character(), topics), integer())
 })
 
 test_that("can select by name or alias", {
+  # fmt: skip
   topics <- tibble::tribble(
-    ~name,
-    ~alias,
-    "x",
-    c("a1", "a2"),
-    "a",
-    c("a3"),
-    "a-b",
-    "b-a",
-    "c::d",
-    "d",
+    ~name, ~alias,
+    "x",   c("a1", "a2"),
+    "a",   c("a3"),
+    "a-b", "b-a",
+    "c::d", "d",
   )
 
   expect_equal(select_topics_("x", topics), 1)
@@ -97,37 +79,25 @@ test_that("can select by name or alias", {
 })
 
 test_that("selection preserves original order", {
+  # fmt: skip
   topics <- tibble::tribble(
-    ~name,
-    ~alias,
-    "x",
-    c("a1", "a2"),
-    "a",
-    c("a3"),
-    "b",
-    "b1"
+    ~name, ~alias,
+    "x",   c("a1", "a2"),
+    "a",   c("a3"),
+    "b",   "b1"
   )
 
   expect_equal(select_topics_(c("a", "b1", "x"), topics), c(2, 3, 1))
 })
 
 test_that("can select by name", {
+  # fmt: skip
   topics <- tibble::tribble(
-    ~name,
-    ~alias,
-    ~internal,
-    "a",
-    "a",
-    FALSE,
-    "b1",
-    "b1",
-    FALSE,
-    "b2",
-    "b2",
-    FALSE,
-    "b3",
-    "b3",
-    TRUE,
+    ~name, ~alias,   ~internal,
+    "a",   "a",      FALSE,
+    "b1",  "b1",     FALSE,
+    "b2",  "b2",     FALSE,
+    "b3",  "b3",     TRUE,
   )
   topics$alias <- as.list(topics$alias)
 
@@ -142,23 +112,12 @@ test_that("can select by name", {
 })
 
 test_that("can select by presense or absence of concept", {
+  # fmt: skip
   topics <- tibble::tribble(
-    ~name,
-    ~alias,
-    ~internal,
-    ~concepts,
-    "b1",
-    "b1",
-    FALSE,
-    "a",
-    "b2",
-    "b2",
-    FALSE,
-    c("a", "b"),
-    "b3",
-    "b3",
-    FALSE,
-    character()
+    ~name, ~alias,        ~internal,  ~concepts,
+    "b1",  "b1",          FALSE,      "a",
+    "b2",  "b2",          FALSE,      c("a", "b"),
+    "b3",  "b3",          FALSE,      character()
   )
   topics$alias <- as.list(topics$alias)
 
@@ -168,19 +127,11 @@ test_that("can select by presense or absence of concept", {
 })
 
 test_that("can select by keyword", {
+  # fmt: skip
   topics <- tibble::tribble(
-    ~name,
-    ~alias,
-    ~internal,
-    ~keywords,
-    "b1",
-    "b1",
-    FALSE,
-    "a",
-    "b2",
-    "b2",
-    FALSE,
-    c("a", "b"),
+    ~name, ~alias,        ~internal,  ~keywords,
+    "b1",  "b1",          FALSE,      "a",
+    "b2",  "b2",          FALSE,      c("a", "b"),
   )
   topics$alias <- as.list(topics$alias)
   expect_equal(select_topics_("has_keyword('a')", topics), c(1, 2))
@@ -192,22 +143,11 @@ test_that("can select by keyword", {
 })
 
 test_that("can select by lifecycle", {
+  # fmt: skip
   topics <- tibble::tribble(
-    ~name,
-    ~alias,
-    ~internal,
-    ~keywords,
-    ~lifecycle,
-    "b1",
-    "b1",
-    FALSE,
-    "a",
-    list("stable"),
-    "b2",
-    "b2",
-    FALSE,
-    c("a", "b"),
-    NULL
+    ~name, ~alias,        ~internal,  ~keywords, ~lifecycle,
+    "b1",  "b1",          FALSE,      "a",         list("stable"),
+    "b2",  "b2",          FALSE,      c("a", "b"), NULL
   )
   expect_equal(select_topics_("has_lifecycle('stable')", topics), 1)
   expect_equal(
@@ -217,24 +157,14 @@ test_that("can select by lifecycle", {
 })
 
 test_that("can combine positive and negative selections", {
+  # fmt: skip
   topics <- tibble::tribble(
-    ~name,
-    ~alias,
-    ~internal,
-    "x",
-    c("a1", "a2"),
-    FALSE,
-    "a",
-    c("a3"),
-    FALSE,
-    "b",
-    "b1",
-    FALSE,
-    "d",
-    "d",
-    TRUE,
+    ~name, ~alias,        ~internal,
+    "x",   c("a1", "a2"), FALSE,
+    "a",   c("a3"),       FALSE,
+    "b",   "b1",          FALSE,
+    "d",   "d",           TRUE,
   )
-
   expect_equal(select_topics_("-x", topics), c(2, 3))
   expect_equal(select_topics_(c("-x", "-a"), topics), 3)
   expect_equal(select_topics_(c("-x", "x"), topics), c(2, 3, 1))
@@ -244,22 +174,13 @@ test_that("can combine positive and negative selections", {
 })
 
 test_that("an unmatched selection generates a warning", {
+  # fmt: skip
   topics <- tibble::tribble(
-    ~name,
-    ~alias,
-    ~internal,
-    "x",
-    c("a1", "a2"),
-    FALSE,
-    "a",
-    c("a3"),
-    FALSE,
-    "b",
-    "b1",
-    FALSE,
-    "d",
-    "d",
-    TRUE,
+    ~name, ~alias,        ~internal,
+    "x",   c("a1", "a2"), FALSE,
+    "a",   c("a3"),       FALSE,
+    "b",   "b1",          FALSE,
+    "d",   "d",           TRUE,
   )
 
   expect_snapshot(
@@ -270,25 +191,11 @@ test_that("an unmatched selection generates a warning", {
 
 test_that("uses funs or aliases", {
   pkg <- local_pkgdown_site()
+  # fmt: skip
   pkg$topics <- tibble::tribble(
-    ~name,
-    ~funs,
-    ~alias,
-    ~file_out,
-    ~title,
-    ~lifecycle,
-    "x",
-    character(),
-    c("x1", "x2"),
-    "x.html",
-    "X",
-    NULL,
-    "y",
-    c("y1", "y2"),
-    "y3",
-    "y.html",
-    "Y",
-    NULL
+    ~name, ~funs,         ~alias,        ~file_out, ~title, ~lifecycle,
+    "x",   character(),   c("x1", "x2"), "x.html",  "X", NULL,
+    "y",   c("y1", "y2"), "y3",          "y.html",  "Y", NULL
   )
 
   out <- section_topics(pkg, c("x", "y"), error_path = "reference[1].contents")
@@ -316,22 +223,13 @@ test_that("full topic selection process works", {
 })
 
 test_that("an unmatched selection with a matched selection does not select everything", {
+  # fmt: skip
   topics <- tibble::tribble(
-    ~name,
-    ~alias,
-    ~internal,
-    "x",
-    c("a1", "a2"),
-    FALSE,
-    "a",
-    c("a3"),
-    FALSE,
-    "b",
-    "b1",
-    FALSE,
-    "d",
-    "d",
-    TRUE,
+    ~name, ~alias,        ~internal,
+    "x",   c("a1", "a2"), FALSE,
+    "a",   c("a3"),       FALSE,
+    "b",   "b1",          FALSE,
+    "d",   "d",           TRUE,
   )
 
   expect_equal(
