@@ -109,9 +109,11 @@ quarto_render <- function(pkg, path, quiet = TRUE, frame = caller_env()) {
 
   output_dir <- withr::local_tempdir("pkgdown-quarto-", .local_envir = frame)
 
-  # set the lib path to the temporary pkgdown installation directory
+  # set the lib path to the pkgdown installation directory.
+  # if build_site(install = TRUE), this will be the temporary installation directory,
+  # otherwise the default library location
   lib_path <- .libPaths()[1]
-  withr::local_libpaths(lib_path)
+  withr::local_libpaths(lib_path, .local_envir = frame)
 
   quarto::quarto_render(
     path,
