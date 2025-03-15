@@ -19,7 +19,7 @@ articles:
   articles/test-rmarkdown-article: test-rmarkdown-article.html
   translations: translations.html
   test/widgets: test/widgets.html
-last_built: 2025-03-14T13:37Z
+last_built: 2025-03-15T21:26Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
