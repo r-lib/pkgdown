@@ -273,17 +273,17 @@ write_if_different <- function(
 same_contents <- function(path, contents) {
   if (!file_exists(path)) return(FALSE)
 
-  new_hash <- digest::digest(contents, serialize = FALSE)
+  new_hash <- rlang::hash(contents)
 
   cur_contents <- paste0(read_lines(path), collapse = "\n")
-  cur_hash <- digest::digest(cur_contents, serialize = FALSE)
+  cur_hash <- rlang::hash(cur_contents)
 
   identical(new_hash, cur_hash)
 }
 
 file_digest <- function(path) {
   if (file_exists(path)) {
-    digest::digest(file = path, algo = "xxhash64")
+    rlang::hash_file(path)
   } else {
     "MISSING"
   }
