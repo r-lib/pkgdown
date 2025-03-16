@@ -222,18 +222,21 @@ sidebar customization, see the sidebar section.</p>
 </ul><p>This documentation describes how to customise the overall author display.
 See <code>?build_home</code> and <code><a href="build_site.html">?build_site</a></code> for details about changing the location
 of the authors information within the home sidebar and the site footer.</p><div class="section">
-<h3 id="authors-orcid-and-bio">Authors ORCID and bio<a class="anchor" aria-label="anchor" href="#authors-orcid-and-bio"></a></h3>
+<h3 id="authors-orcid-ror-and-bio">Authors ORCID, ROR and bio<a class="anchor" aria-label="anchor" href="#authors-orcid-ror-and-bio"></a></h3>
 
 
 <p>Author ORCID identification numbers in the <code>DESCRIPTION</code> are linked using
-the ORCID logo:</p>
+the ORCID logo,
+author ROR identification numbers are linked using the ROR logo:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">Authors</span><span class="op">@</span><span class="va">R</span><span class="op">:</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/person.html" class="external-link">person</a></span><span class="op">(</span><span class="st">"Hadley"</span>, <span class="st">"Wickham"</span>, , <span class="st">"hadley@rstudio.com"</span>, role <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aut"</span>, <span class="st">"cre"</span><span class="op">)</span>,</span>
 <span>      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0003-4757-117X"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/person.html" class="external-link">person</a></span><span class="op">(</span><span class="st">"Jay"</span>, <span class="st">"Hesselberth"</span>, role <span class="op">=</span> <span class="st">"aut"</span>,</span>
 <span>      comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ORCID <span class="op">=</span> <span class="st">"0000-0002-6299-179X"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>   <span class="fu"><a href="https://rdrr.io/r/utils/person.html" class="external-link">person</a></span><span class="op">(</span><span class="st">"Posit Software, PBC"</span>, role <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cph"</span>, <span class="st">"fnd"</span><span class="op">)</span>,</span>
+<span>          comment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>ROR <span class="op">=</span> <span class="st">"03wc8by49"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre><p></p></div>
 <p>If you want to add more details about authors or their involvement with the
 package, you can use the comment field, which will be rendered on the
