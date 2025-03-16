@@ -221,10 +221,6 @@ sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
 }
 
 cran_link <- function(pkg) {
-  if (!has_internet()) {
-    return(NULL)
-  }
-
   cran_url <- paste0("https://cloud.r-project.org/package=", pkg)
   req <- httr2::request(cran_url)
   req <- req_pkgdown_cache(req)

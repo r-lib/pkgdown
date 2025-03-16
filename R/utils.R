@@ -82,10 +82,6 @@ writing_file <- function(path, show) {
   )
 }
 
-has_internet <- function() {
-  getOption("pkgdown.internet", default = TRUE)
-}
-
 modify_list <- function(x, y) {
   if (is.null(x)) {
     return(y)
