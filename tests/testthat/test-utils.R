@@ -1,8 +1,3 @@
-test_that("pkgdown.internet can be set and read", {
-  options(pkgdown.internet = FALSE)
-  expect_false(has_internet())
-})
-
 test_that("is_internal_link() works", {
   pkg = list(meta = list(url = "https://pkgdown.r-lib.org"))
   expect_false(is_internal_link("https://github.com", pkg = pkg))

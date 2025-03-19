@@ -270,10 +270,6 @@ has_news <- function(path = ".") {
 }
 
 pkg_timeline <- function(package) {
-  if (!has_internet()) {
-    return(NULL)
-  }
-
   url <- paste0("https://crandb.r-pkg.org/", package, "/all")
   req <- httr2::request(url)
   req <- httr2::req_retry(req, max_tries = 3)

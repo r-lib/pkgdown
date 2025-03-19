@@ -279,18 +279,6 @@
 #'    deploy:
 #'      install_metadata: true
 #'    ```
-#'
-#' # Options
-#' Users with limited internet connectivity can disable CRAN checks by setting
-#' `options(pkgdown.internet = FALSE)`. This will also disable some features
-#' from pkgdown that requires an internet connectivity. However, if it is used
-#' to build docs for a package that requires internet connectivity in examples
-#' or vignettes, this connection is required as this option won't apply on them.
-#'
-#' Users can set a timeout for `build_site(new_process = TRUE)` with
-#' `options(pkgdown.timeout = Inf)`, which is useful to prevent stalled builds from
-#' hanging in cron jobs.
-#'
 #' @inheritParams build_articles
 #' @inheritParams build_reference
 #' @param lazy If `TRUE`, will only rebuild articles and reference pages
@@ -403,22 +391,19 @@ build_site_external <- function(
     new_process = FALSE,
     devel = devel,
     cli_colors = cli::num_ansi_colors(),
-    hyperlinks = cli::ansi_has_hyperlink_support(),
-    pkgdown_internet = has_internet()
+    hyperlinks = cli::ansi_has_hyperlink_support()
   )
   callr::r(
-    function(..., cli_colors, hyperlinks, pkgdown_internet) {
+    function(..., cli_colors, hyperlinks) {
       options(
         cli.num_colors = cli_colors,
         cli.hyperlink = hyperlinks,
-        cli.hyperlink_run = hyperlinks,
-        pkgdown.internet = pkgdown_internet
+        cli.hyperlink_run = hyperlinks
       )
       pkgdown::build_site(...)
     },
     args = args,
-    show = TRUE,
-    timeout = getOption('pkgdown.timeout', Inf)
+    show = TRUE
   )
 
   cli::cli_rule(

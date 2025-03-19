@@ -330,18 +330,6 @@ time (e.g. because behind a firewall or requires auth).
 }
 }
 
-\section{Options}{
-Users with limited internet connectivity can disable CRAN checks by setting
-\code{options(pkgdown.internet = FALSE)}. This will also disable some features
-from pkgdown that requires an internet connectivity. However, if it is used
-to build docs for a package that requires internet connectivity in examples
-or vignettes, this connection is required as this option won't apply on them.
-
-Users can set a timeout for \code{build_site(new_process = TRUE)} with
-\code{options(pkgdown.timeout = Inf)}, which is useful to prevent stalled builds from
-hanging in cron jobs.
-}
-
 \examples{
 \dontrun{
 build_site()
