@@ -1,6 +1,6 @@
 ---
 title: quarto vignettes
-description: > 
+description: >
   Learn how quarto vignettes work with pkgdown, including currently supported
   features and known limitations.
 vignette: >
@@ -8,10 +8,17 @@ vignette: >
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 knitr:
-  opts_chunk: 
+  opts_chunk:
     collapse: true
     comment: '#>'
 ---
+
+```{r}
+#| include: false
+# this library call is a regression test for quarto build errors on GHA
+# see https://github.com/r-lib/pkgdown/issues/2830 and related issues
+library(pkgdown)
+```
 
 pkgdown effectively uses quarto only to generate HTML and then supplies its own CSS and JS. This means that when quarto introduces new features, pkgdown may lag behind in their support. If you're trying out something that doesn't work (and isn't mentioned explicitly below), please [file an issue](https://github.com/r-lib/pkgdown/issues) so we can look into it.
 
@@ -26,7 +33,7 @@ project:
 
 ### GitHub Actions
 
-The `setup-r-dependencies` action will [automatically](https://github.com/r-lib/actions/tree/v2-branch/setup-r-dependencies#usage) install Quarto in your GitHub Actions if a .qmd file is present in your repository (see the `install-quarto` parameter for more details). 
+The `setup-r-dependencies` action will [automatically](https://github.com/r-lib/actions/tree/v2-branch/setup-r-dependencies#usage) install Quarto in your GitHub Actions if a .qmd file is present in your repository (see the `install-quarto` parameter for more details).
 
 
 ## Limitations
@@ -41,7 +48,7 @@ The `setup-r-dependencies` action will [automatically](https://github.com/r-lib/
 
 ## Supported features
 
-The following sections demonstrate a bunch of useful quarto features so that we can make sure that they work. 
+The following sections demonstrate a bunch of useful quarto features so that we can make sure that they work.
 
 ### Inline formatting
 
@@ -76,7 +83,7 @@ $$
 \frac{\partial \mathrm C}{ \partial \mathrm t } + \frac{1}{2}\sigma^{2} \mathrm S^{2}
 \frac{\partial^{2} \mathrm C}{\partial \mathrm C^2}
   + \mathrm r \mathrm S \frac{\partial \mathrm C}{\partial \mathrm S}\ =
-  \mathrm r \mathrm C 
+  \mathrm r \mathrm C
 $$ {#eq-black-scholes}
 
 
