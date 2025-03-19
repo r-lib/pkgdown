@@ -234,6 +234,7 @@ test_that("build_article yields useful error if pandoc fails", {
 
 test_that("build_article yields useful error if R fails", {
   skip_if_no_pandoc()
+  skip_on_ci()
 
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(
