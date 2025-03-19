@@ -36,7 +36,7 @@
     Condition
       Error in `build_article()`:
       ! Failed to render 'vignettes/test.Rmd'.
-      x Quitting from lines 5-9 [unnamed-chunk-1] (test.Rmd)
+      x Quitting from test.Rmd:4-9 [unnamed-chunk-1]
       Caused by error:
       ! Error!
 
@@ -50,7 +50,7 @@
       <error/rlang_error>
       Error in `build_article()`:
       ! Failed to render 'vignettes/test.Rmd'.
-      x Quitting from lines 5-9 [unnamed-chunk-1] (test.Rmd)
+      x Quitting from test.Rmd:4-9 [unnamed-chunk-1]
       Caused by error:
       ! Error!
       ---
