@@ -13,13 +13,6 @@ knitr:
     comment: '#>'
 ---
 
-```{r}
-#| include: false
-# this library call is a regression test for quarto build errors on GHA
-# see https://github.com/r-lib/pkgdown/issues/2830 and related issues
-library(pkgdown)
-```
-
 pkgdown effectively uses quarto only to generate HTML and then supplies its own CSS and JS. This means that when quarto introduces new features, pkgdown may lag behind in their support. If you're trying out something that doesn't work (and isn't mentioned explicitly below), please [file an issue](https://github.com/r-lib/pkgdown/issues) so we can look into it.
 
 ## Operation
@@ -104,3 +97,13 @@ Black-Scholes (@eq-black-scholes) is a mathematical model that seeks to explain 
 * [x] Cross-references
 * [x] Footnotes
 * [x] Callouts
+
+## Regression tests
+
+This is a regression test for quarto build errors on GHA. See https://github.com/r-lib/pkgdown/issues/2830 and related issues.
+
+```{r}
+library(pkgdown)
+packageVersion("pkgdown")
+packageVersion("quarto")
+```
