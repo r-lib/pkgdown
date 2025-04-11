@@ -244,6 +244,7 @@ test_that("build_article yields useful error if R fails", {
       "title: title",
       "---",
       "```{r}",
+      "options(cli.num_colors = 1L)",
       "f <- function() g()",
       "g <- function() h()",
       "h <- function() rlang::abort('Error!')",
@@ -252,8 +253,12 @@ test_that("build_article yields useful error if R fails", {
     )
   )
 
-  # check that error looks good
-  expect_snapshot(build_article("test", pkg), error = TRUE)
+  # check that error looks good (opt out color)
+  expect_snapshot(
+    build_article("test", pkg),
+    error = TRUE,
+    variant = if (is_checking()) "rcmdcheck" else "not-in-rcmcheck"
+  )
   # check that traceback looks good - need extra work because rlang
   # avoids tracebacks in snapshots
   expect_snapshot(summary(expect_error(build_article("test", pkg))))
