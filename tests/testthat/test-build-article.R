@@ -234,6 +234,12 @@ test_that("build_article yields useful error if pandoc fails", {
 
 test_that("build_article yields useful error if R fails", {
   skip_if_no_pandoc()
+  # R 4.1.3 does not have UTF-8 support on Windows which breaks snapshot
+  skip_if(
+    R.version$minor < 4.2 &&
+      identical(tolower(Sys.info()[['sysname']]), "windows"),
+    "R on Windows before 4.2 does not have UTF-8 support."
+  )
 
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(
