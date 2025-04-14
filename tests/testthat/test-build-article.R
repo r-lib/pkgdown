@@ -258,8 +258,8 @@ test_that("build_article yields useful error if R fails", {
       "```"
     )
   )
-
-  # check that error looks good (opt out color)
+  # For following snapshot we opted-out color setting option in the Rmd file
+  # check that error looks good
   expect_snapshot(
     build_article("test", pkg),
     error = TRUE,
@@ -267,7 +267,10 @@ test_that("build_article yields useful error if R fails", {
   )
   # check that traceback looks good - need extra work because rlang
   # avoids tracebacks in snapshots
-  expect_snapshot(summary(expect_error(build_article("test", pkg))))
+  expect_snapshot(
+    summary(expect_error(build_article("test", pkg))),
+    variant = if (is_checking()) "rcmdcheck" else "not-in-rcmcheck"
+  )
 })
 
 # Images -----------------------------------------------------------------------
