@@ -35,7 +35,7 @@ Imports:
     jsonlite,
     openssl,
     purrr (>= 1.0.0),
-    ragg,
+    ragg (>= 1.4.0),
     rlang (>= 1.1.4),
     rmarkdown (>= 2.27),
     tibble,
