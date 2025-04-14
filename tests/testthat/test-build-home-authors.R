@@ -7,6 +7,16 @@ test_that("authors page includes inst/AUTHORS", {
   expect_match(lines, "<pre>Hello</pre>", all = FALSE)
 })
 
+test_that("authors page includes multiline inst/AUTHORS", {
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(pkg, "inst/AUTHORS", c("Hello", "------", "bla bla"))
+  suppressMessages(build_citation_authors(pkg))
+
+  lines <- read_lines(path(pkg$dst_path, "authors.html"))
+  content <- paste(lines, collapse = " ")
+  expect_match(content, "<pre>Hello ------ bla bla</pre>")
+})
+
 test_that("data_authors validates yaml inputs", {
   data_authors_ <- function(...) {
     pkg <- local_pkgdown_site(meta = list(...))
