@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* Option `pkgdown.internet` was removed because CDN file caching now requires an internet connection.
 * Support for math rendering using katex and mathjax was improved and now includes necessary components using CDN (#2704).
 * Articles (i.e., Rmarkdown/Quarto documents in `vignettes/articles`, created by `usethis::use_article()` and available on pkgdown sites but not included in a built package) have improved test cases (thanks to @venpopov and @ethanbass).
 * ROR IDs in `DESCRIPTION` are transformed into icons, similar to ORCID IDs. (#2850)
