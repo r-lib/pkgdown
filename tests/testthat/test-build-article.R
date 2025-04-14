@@ -263,13 +263,13 @@ test_that("build_article yields useful error if R fails", {
   expect_snapshot(
     build_article("test", pkg),
     error = TRUE,
-    variant = if (is_checking()) "rcmdcheck" else "not-in-rcmcheck"
+    variant = if (in_rcmd_check()) "rcmdcheck" else "not-in-rcmcheck"
   )
   # check that traceback looks good - need extra work because rlang
   # avoids tracebacks in snapshots
   expect_snapshot(
     summary(expect_error(build_article("test", pkg))),
-    variant = if (is_checking()) "rcmdcheck" else "not-in-rcmcheck"
+    variant = if (in_rcmd_check()) "rcmdcheck" else "not-in-rcmcheck"
   )
 })
 

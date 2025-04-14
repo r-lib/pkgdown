@@ -118,3 +118,8 @@ local_pkgdown_template_pkg <- function(
 
   path
 }
+
+in_rcmd_check <- function() {
+  !is.na(Sys.getenv("_R_CHECK_PACKAGE_NAME_", NA)) ||
+    tolower(Sys.getenv("_R_CHECK_LICENSE_")) == "true"
+}
