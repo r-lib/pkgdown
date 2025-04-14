@@ -391,17 +391,6 @@ time (e.g. because behind a firewall or requires auth).</p>
 <p></p><div class="sourceCode yaml"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">deploy</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">install_metadata</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre><p></p></div></li>
 </ul></div>
-    <div class="section level2">
-    <h2 id="options">Options<a class="anchor" aria-label="anchor" href="#options"></a></h2>
-    <p>Users with limited internet connectivity can disable CRAN checks by setting
-<code>options(pkgdown.internet = FALSE)</code>. This will also disable some features
-from pkgdown that requires an internet connectivity. However, if it is used
-to build docs for a package that requires internet connectivity in examples
-or vignettes, this connection is required as this option won't apply on them.</p>
-<p>Users can set a timeout for <code>build_site(new_process = TRUE)</code> with
-<code>options(pkgdown.timeout = Inf)</code>, which is useful to prevent stalled builds from
-hanging in cron jobs.</p>
-    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
