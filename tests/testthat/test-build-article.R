@@ -241,6 +241,10 @@ test_that("build_article yields useful error if R fails", {
     "R on Windows before 4.2 does not have UTF-8 support."
   )
 
+  # workaround an as-yet unreleassed knitr version
+  # https://github.com/yihui/knitr/issues/2399#issuecomment-2803554647
+  skip_if(packageVersion('knitr') < '1.50.3')
+
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(
     pkg,
