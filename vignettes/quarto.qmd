@@ -37,7 +37,7 @@ The `setup-r-dependencies` action will [automatically](https://github.com/r-lib/
 
 * You can't customise mermaid styles with quarto mermaid themes. If you want to change the colours, you'll need to provide your own custom CSS as shown in [the quarto docs](https://quarto.org/docs/authoring/diagrams.html#customizing-mermaid).
 
-* pkgdown will pass the `lang` setting on to quarto, but the set of available language is not perfectly matched. Learn more in <https://quarto.org/docs/authoring/language.html>, including how to supply your own translations.
+* pkgdown will pass the `lang` setting on to quarto, but the set of available languages is not perfectly matched. Learn more in <https://quarto.org/docs/authoring/language.html>, including how to supply your own translations.
 
 ## Supported features
 
