@@ -51,7 +51,7 @@ Suggests:
     gt,
     htmltools,
     htmlwidgets,
-    knitr (>= 1.50.3),
+    knitr (>= 1.50),
     lifecycle,
     magick,
     methods,
