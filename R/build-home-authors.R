@@ -36,7 +36,7 @@ data_authors <- function(
 
   inst_path <- path(pkg$src_path, "inst", "AUTHORS")
   if (file_exists(inst_path)) {
-    inst <- read_lines(inst_path)
+    inst <- paste(read_lines(inst_path), collapse = "\n")
   } else {
     inst <- NULL
   }

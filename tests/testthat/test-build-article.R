@@ -234,7 +234,16 @@ test_that("build_article yields useful error if pandoc fails", {
 
 test_that("build_article yields useful error if R fails", {
   skip_if_no_pandoc()
-  skip_on_ci()
+  # R 4.1.3 does not have UTF-8 support on Windows which breaks snapshot
+  skip_if(
+    R.version$minor < 4.2 &&
+      identical(tolower(Sys.info()[['sysname']]), "windows"),
+    "R on Windows before 4.2 does not have UTF-8 support."
+  )
+
+  # workaround an as-yet unreleassed knitr version
+  # https://github.com/yihui/knitr/issues/2399#issuecomment-2803554647
+  skip_if(packageVersion('knitr') < '1.50.3')
 
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(
@@ -245,6 +254,7 @@ test_that("build_article yields useful error if R fails", {
       "title: title",
       "---",
       "```{r}",
+      "options(cli.num_colors = 1L)",
       "f <- function() g()",
       "g <- function() h()",
       "h <- function() rlang::abort('Error!')",
@@ -252,12 +262,19 @@ test_that("build_article yields useful error if R fails", {
       "```"
     )
   )
-
+  # For following snapshot we opted-out color setting option in the Rmd file
   # check that error looks good
-  expect_snapshot(build_article("test", pkg), error = TRUE)
+  expect_snapshot(
+    build_article("test", pkg),
+    error = TRUE,
+    variant = if (in_rcmd_check()) "rcmdcheck" else "not-in-rcmcheck"
+  )
   # check that traceback looks good - need extra work because rlang
   # avoids tracebacks in snapshots
-  expect_snapshot(summary(expect_error(build_article("test", pkg))))
+  expect_snapshot(
+    summary(expect_error(build_article("test", pkg))),
+    variant = if (in_rcmd_check()) "rcmdcheck" else "not-in-rcmcheck"
+  )
 })
 
 # Images -----------------------------------------------------------------------
