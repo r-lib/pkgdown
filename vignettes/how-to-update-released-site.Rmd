@@ -68,7 +68,7 @@ files <- c(
   "DESCRIPTION"
 )
 
-glue::glue("git checkout v{ver} -- {files}")
+glue::glue("git checkout main -- {files}")
 ```
 
 If you backport `DESCRIPTION`, you'll also need undo the change to the `Version`:
