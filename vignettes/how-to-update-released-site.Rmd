@@ -52,6 +52,9 @@ gert::git_branch_create(
 )
 ```
 
+This assumes that the `ver` version of your package, e.g. version X.Y.Z, has been marked with the the git tag 'vX.Y.Z'.
+This happens automatically if you use `usethis::use_github_release()`.
+
 ### Backport changes
 
 Now you need to backport changes from the dev site into this branch.
@@ -86,6 +89,8 @@ Now build the site locally and check that it looks as expected:
 pkgdown::build_site()
 ```
 
+Make sure to commit these changes.
+
 ### Publish
 
 Now you need to publish the site.
@@ -105,7 +110,7 @@ If there's no dropdown menu for this, that means your pkgdown workflow config is
 
 ## Context
 
-Before we talk about **how** to update a released site, we first establish **why** you might need to do this.
+Now that we've sketched **how** to update a released site, we discuss **why** you might need to do this.
 What is a released site?
 What other kind of pkgdown site could you have?
 Why does updating a released site take special effort?
