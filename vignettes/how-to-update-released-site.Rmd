@@ -94,7 +94,7 @@ usethis:::git_push_first()
 
 Then trigger the pkgdown workflow:
 
-1.  Go to your package's GHA page, e.g. with `usethis::browse_github_actions())`.
+1.  Go to your package's GHA page, e.g. with `usethis::browse_github_actions()`.
 2.  Select the pkgdown workflow.
 3.  Click *Run workflow* and select the branch you just pushed.
 
