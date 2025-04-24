@@ -46,7 +46,10 @@ ver <- desc::desc_get_version()[1, 1:3]
 You will use this to create and checkout the branch that you'll work in:
 
 ```{r}
-gert::git_branch_create(paste0("pkgdown-v", ver), paste0("v", ver))
+gert::git_branch_create(
+  branch = paste0("pkgdown-v", ver),
+  ref = paste0("v", ver)
+)
 ```
 
 ### Backport changes
