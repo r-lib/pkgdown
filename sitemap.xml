@@ -17,6 +17,8 @@
 <url><loc>https://pkgdown.r-lib.org/articles/test/rendering.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/articles/test/short.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/articles/test/widgets.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/articles/test-quarto-article.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/articles/test-rmarkdown-article.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/articles/translations.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/authors.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/index.html</loc></url>
@@ -55,6 +57,7 @@
 <url><loc>https://pkgdown.r-lib.org/reference/test-links.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/test-lists.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/test-long-lines.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/test-math-examples.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/test-output-styles.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/test-params.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/test-sexpr-title.html</loc></url>

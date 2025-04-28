@@ -6,16 +6,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Customise your site • pkgdown</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Customise your site">
 <meta name="description" content="Learn how to change the look and feel of your pkgdown site.
 ">
@@ -32,7 +37,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,7 +106,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Customise your site</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/main/vignettes/customise.Rmd" class="external-link"><code>vignettes/customise.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/v2.1.2/vignettes/customise.Rmd" class="external-link"><code>vignettes/customise.Rmd</code></a></small>
       <div class="d-none name"><code>customise.Rmd</code></div>
     </div>
 
@@ -354,11 +359,12 @@ override the variables yourself, e.g.:</p>
 <div class="section level3">
 <h3 id="math-rendering">Math rendering<a class="anchor" aria-label="anchor" href="#math-rendering"></a>
 </h3>
-<p>By default, pkgdown will render math using mathml. mathml is the
-official standard for rendering math on the web, and requires no
-additional javascript or css dependencies. However, browser support for
-complex math is not always that good, so if you are including complex
-equations in your documentation, you may want to switch to either <a href="https://katex.org" class="external-link"><code>katex</code></a> or <a href="https://www.mathjax.org" class="external-link"><code>mathjax</code></a> by using the
+<p>By default, pkgdown will render math using <a href="https://w3c.github.io/mathml/" class="external-link">mathml</a>. mathml is the official
+standard for rendering math on the web, and requires no additional
+javascript or css dependencies. However, browser support for complex
+math is not always that good, so if you are including complex equations
+in your documentation, you may want to switch to either <a href="https://katex.org" class="external-link"><code>katex</code></a>, which we recommend for
+display of complex math expressions, or <a href="https://www.mathjax.org" class="external-link"><code>mathjax</code></a> by using the
 <code>template.math-rendering</code> field:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
 <span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="at">  </span><span class="fu">math-rendering</span><span class="kw">:</span><span class="at"> katex</span></span></code></pre></div>
@@ -366,11 +372,12 @@ equations in your documentation, you may want to switch to either <a href="https
 <div class="section level3">
 <h3 id="navbar-style">Navbar style<a class="anchor" aria-label="anchor" href="#navbar-style"></a>
 </h3>
-<p>The primary navbar colours are determined by HTML classes, not CSS,
-and can be customized using the <code>navbar</code> fields
-<code>bg</code> and <code>type</code> which control the background and
-foreground colours respectively. Typically <code>bg</code> will be one
-of <code>light</code>, <code>dark</code>, or <code>primary</code>:</p>
+<p>When <a href="#light-switch">light-switch</a> is disabled, the
+primary navbar colours are determined by HTML classes, not CSS, and can
+be customized using the <code>navbar</code> fields <code>bg</code> and
+<code>type</code> which control the background and foreground colours
+respectively. Typically <code>bg</code> will be one of
+<code>light</code>, <code>dark</code>, or <code>primary</code>:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
 <span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="at">  </span><span class="fu">bg</span><span class="kw">:</span><span class="at"> primary</span></span></code></pre></div>
 <p>You generally don’t need to set <code>bg</code> if you use a
@@ -385,6 +392,17 @@ text). Unfortunately, these are defined relative to the page background,
 so if you have a dark site you’ll need to flip <code>light</code> and
 <code>dark</code> (a little experimentation should quickly determine
 what looks best).</p>
+<p>When <a href="#light-switch">light-switch</a> is enabled, navbar
+background colours can be customized via Sass variables provided to
+<code>template.bslib</code>. Use <code>$navbar-bg</code> to set a
+constant navbar colour in both light and dark mode, or
+<code>$navbar-light-bg</code> and <code>$navbar-dark-bg</code> to choose
+separate colours.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="at">  </span><span class="fu">bslib</span><span class="kw">:</span></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="co">    # navbar-bg: "#306CC9"</span></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="at">    </span><span class="fu">navbar-light-bg</span><span class="kw">:</span><span class="at"> </span><span class="st">"#9CBAE7"</span></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a><span class="at">    </span><span class="fu">navbar-dark-bg</span><span class="kw">:</span><span class="at"> </span><span class="st">"#183663"</span></span></code></pre></div>
 <p>Because the navbar is styled with HTML, you’ll need to
 <code><a href="../reference/build_home.html">build_home_index(); init_site()</a></code> to see the effect of
 changing this parameter.</p>
@@ -409,10 +427,10 @@ page with the <code>navbar</code> field. It’s made up of two pieces:
 organisation makes it easy to mix and match pkgdown defaults with your
 own customisations.</p>
 <p>This is the default structure:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span></span>
-<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at">  </span><span class="kw">[</span><span class="at">intro</span><span class="kw">,</span><span class="at"> reference</span><span class="kw">,</span><span class="at"> articles</span><span class="kw">,</span><span class="at"> tutorials</span><span class="kw">,</span><span class="at"> news</span><span class="kw">]</span></span>
-<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">search</span><span class="kw">,</span><span class="at"> github</span><span class="kw">,</span><span class="at"> lightswitch</span><span class="kw">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at">  </span><span class="kw">[</span><span class="at">intro</span><span class="kw">,</span><span class="at"> reference</span><span class="kw">,</span><span class="at"> articles</span><span class="kw">,</span><span class="at"> tutorials</span><span class="kw">,</span><span class="at"> news</span><span class="kw">]</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">search</span><span class="kw">,</span><span class="at"> github</span><span class="kw">,</span><span class="at"> lightswitch</span><span class="kw">]</span></span></code></pre></div>
 <p>It makes use of the the following built-in components:</p>
 <ul>
 <li>
@@ -447,26 +465,26 @@ downside: if pkgdown later changes the defaults, you’ll have to update
 your <code>_pkgdown.yml</code>.</p>
 <p>You can use the <code>structure</code> field to reorganise the navbar
 without changing the default contents:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span></span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at">  </span><span class="kw">[</span><span class="at">search</span><span class="kw">]</span></span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">reference</span><span class="kw">,</span><span class="at"> articles</span><span class="kw">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at">  </span><span class="kw">[</span><span class="at">search</span><span class="kw">]</span></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">reference</span><span class="kw">,</span><span class="at"> articles</span><span class="kw">]</span></span></code></pre></div>
 <p>You can use <code>components</code> to override the default content.
 For example, this yaml provides a custom articles menu:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="at"> </span><span class="fu">components</span><span class="kw">:</span></span>
-<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="at">   </span><span class="fu">articles</span><span class="kw">:</span></span>
-<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a><span class="at">    </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Articles</span></span>
-<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a><span class="at">    </span><span class="fu">menu</span><span class="kw">:</span></span>
-<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Category A</span></span>
-<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Title A1</span></span>
-<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> articles/a1.html</span></span>
-<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Title A2</span></span>
-<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> articles/a2.html</span></span>
-<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> -------</span></span>
-<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Category B"</span></span>
-<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Article B1</span></span>
-<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> articles/b1.html</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="at"> </span><span class="fu">components</span><span class="kw">:</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="at">   </span><span class="fu">articles</span><span class="kw">:</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="at">    </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Articles</span></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="at">    </span><span class="fu">menu</span><span class="kw">:</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Category A</span></span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Title A1</span></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> articles/a1.html</span></span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Title A2</span></span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> articles/a2.html</span></span>
+<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> -------</span></span>
+<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Category B"</span></span>
+<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> Article B1</span></span>
+<span id="cb21-14"><a href="#cb21-14" tabindex="-1"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> articles/b1.html</span></span></code></pre></div>
 <p>Components uses the same syntax as <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation" class="external-link">RMarkdown
 menus</a>. The elements of <code>menu</code> can be:</p>
 <ul>
@@ -484,21 +502,21 @@ screenreader users.</p></li>
 <code>structure</code> and <code>components</code>. For example, the
 following yaml adds a new “twitter” component that appears to the left
 of the github icon.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span></span>
-<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">search</span><span class="kw">,</span><span class="at"> twitter</span><span class="kw">,</span><span class="at"> github</span><span class="kw">,</span><span class="at"> lightswitch</span><span class="kw">]</span></span>
-<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="at">  </span><span class="fu">components</span><span class="kw">:</span></span>
-<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="at">    </span><span class="fu">twitter</span><span class="kw">:</span></span>
-<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="at">      </span><span class="fu">icon</span><span class="kw">:</span><span class="at"> fa-twitter</span></span>
-<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> http://twitter.com/hadleywickham</span></span>
-<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="at">      </span><span class="fu">aria-label</span><span class="kw">:</span><span class="at"> Twitter</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">navbar</span><span class="kw">:</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">search</span><span class="kw">,</span><span class="at"> twitter</span><span class="kw">,</span><span class="at"> github</span><span class="kw">,</span><span class="at"> lightswitch</span><span class="kw">]</span></span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="at">  </span><span class="fu">components</span><span class="kw">:</span></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="at">    </span><span class="fu">twitter</span><span class="kw">:</span></span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a><span class="at">      </span><span class="fu">icon</span><span class="kw">:</span><span class="at"> fa-twitter</span></span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> http://twitter.com/hadleywickham</span></span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a><span class="at">      </span><span class="fu">aria-label</span><span class="kw">:</span><span class="at"> Twitter</span></span></code></pre></div>
 <p>Finally, you can add arbitrary HTML to three locations in the
 navbar:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
-<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="fu">    before_title</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the package title in the header -</span><span class="ch">&gt;</span></span>
-<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="fu">    before_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the navbar links --</span><span class="ch">&gt;</span></span>
-<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="fu">    after_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted after the navbar links --</span><span class="ch">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a><span class="fu">    before_title</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the package title in the header -</span><span class="ch">&gt;</span></span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a><span class="fu">    before_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the navbar links --</span><span class="ch">&gt;</span></span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a><span class="fu">    after_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted after the navbar links --</span><span class="ch">&gt;</span></span></code></pre></div>
 <p>These inclusions will appear on all screen sizes, and will not be
 collapsed into the the navbar drop down.</p>
 <p>You can also customise the colour scheme of the navbar by using the
@@ -514,10 +532,10 @@ layout, and <code>components</code>, which defines what each piece looks
 like. This organisation makes it easy to mix and match the pkgdown
 defaults with your own customisations.</p>
 <p>This is the default structure:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
-<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> developed_by</span></span>
-<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> built_with</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> developed_by</span></span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> built_with</span></span></code></pre></div>
 <p>Which uses two of the three built-in components:</p>
 <ul>
 <li>
@@ -532,12 +550,12 @@ the package. (See <code><a href="../reference/build_home.html">?build_home</a></
 <p>You can override these defaults with the <code>footer</code> field.
 The example below puts the author’s information on the right along with
 a legal disclaimer, and puts the pkgdown link on the left.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
-<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> pkgdown</span></span>
-<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">developed_by</span><span class="kw">,</span><span class="at"> legal</span><span class="kw">]</span></span>
-<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a><span class="at">  </span><span class="fu">components</span><span class="kw">:</span></span>
-<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a><span class="at">    </span><span class="fu">legal</span><span class="kw">:</span><span class="at"> Provided without **any warranty**.</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">footer</span><span class="kw">:</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> pkgdown</span></span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a><span class="at">    </span><span class="fu">right</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">developed_by</span><span class="kw">,</span><span class="at"> legal</span><span class="kw">]</span></span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a><span class="at">  </span><span class="fu">components</span><span class="kw">:</span></span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a><span class="at">    </span><span class="fu">legal</span><span class="kw">:</span><span class="at"> Provided without **any warranty**.</span></span></code></pre></div>
 <p>Each side is pasted into a single string (separated by
 <code>" "</code>) and then converted from markdown to HTML.</p>
 </div>
@@ -547,14 +565,14 @@ a legal disclaimer, and puts the pkgdown link on the left.</p>
 </h2>
 <p>If you need to include additional HTML, you can add it in the
 following locations:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
-<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a><span class="fu">    in_header</span><span class="kw">: </span><span class="at">&lt;!-- inserted at the end of the head --</span><span class="ch">&gt;</span></span>
-<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a><span class="fu">    before_body</span><span class="kw">: </span><span class="at">&lt;!-- inserted at the beginning of the body --</span><span class="ch">&gt;</span></span>
-<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a><span class="fu">    after_body</span><span class="kw">: </span><span class="at">&lt;!-- inserted at the end of the body --</span><span class="ch">&gt;</span></span>
-<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a><span class="fu">    before_title</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the package title in the header -</span><span class="ch">&gt;</span></span>
-<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a><span class="fu">    before_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the navbar links --</span><span class="ch">&gt;</span></span>
-<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a><span class="fu">    after_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted after the navbar links --</span><span class="ch">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a><span class="fu">    in_header</span><span class="kw">: </span><span class="at">&lt;!-- inserted at the end of the head --</span><span class="ch">&gt;</span></span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="fu">    before_body</span><span class="kw">: </span><span class="at">&lt;!-- inserted at the beginning of the body --</span><span class="ch">&gt;</span></span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a><span class="fu">    after_body</span><span class="kw">: </span><span class="at">&lt;!-- inserted at the end of the body --</span><span class="ch">&gt;</span></span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a><span class="fu">    before_title</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the package title in the header -</span><span class="ch">&gt;</span></span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a><span class="fu">    before_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the navbar links --</span><span class="ch">&gt;</span></span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a><span class="fu">    after_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted after the navbar links --</span><span class="ch">&gt;</span></span></code></pre></div>
 <p>You can include additional files by putting them in the right
 place:</p>
 <ul>
@@ -597,15 +615,15 @@ templates.)</li>
 are in turn overridden by package specific settings.</p>
 <p>Once you have created your template package <code>theverybest</code>,
 you need to set it as your site’s theme:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> theverybest</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> theverybest</span></span></code></pre></div>
 <p>You then also need to make sure it’s available when your site is
 built. Typically, you won’t want to publish this package to CRAN, but
 you will want to publish to GitHub. Once you’ve done that, and assuming
 you’re using the <a href="https://usethis.r-lib.org/reference/use_pkgdown.html" class="external-link">usethis
 workflow</a>, add the following line to your
 <code>DESCRIPTION</code>:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">Config/Needs/website</span><span class="kw">:</span><span class="at"> myorg/theverybest</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">Config/Needs/website</span><span class="kw">:</span><span class="at"> myorg/theverybest</span></span></code></pre></div>
 <p>This will ensure that the GitHub action will automatically install it
 from GitHub when building your pkgdown site.</p>
 <p>To get some sense of how a theming package works, you can look
@@ -686,7 +704,7 @@ topics 😉.</li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer>

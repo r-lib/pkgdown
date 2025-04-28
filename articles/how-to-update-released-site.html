@@ -6,16 +6,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>How to update a released site • pkgdown</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="How to update a released site">
 <meta name="description" content='A guide to updating the "released" version of your pkgdown site without having to release a new version of your package.
 '>
@@ -32,7 +37,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,7 +106,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>How to update a released site</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/main/vignettes/how-to-update-released-site.Rmd" class="external-link"><code>vignettes/how-to-update-released-site.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/v2.1.2/vignettes/how-to-update-released-site.Rmd" class="external-link"><code>vignettes/how-to-update-released-site.Rmd</code></a></small>
       <div class="d-none name"><code>how-to-update-released-site.Rmd</code></div>
     </div>
 
@@ -135,7 +140,14 @@ the latest version:</p>
 <p>You will use this to create and checkout the branch that you’ll work
 in:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_branch.html" class="external-link">git_branch_create</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"pkgdown-v"</span>, <span class="va">ver</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"v"</span>, <span class="va">ver</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">gert</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/gert/reference/git_branch.html" class="external-link">git_branch_create</a></span><span class="op">(</span></span>
+<span>  branch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"pkgdown-v"</span>, <span class="va">ver</span><span class="op">)</span>,</span>
+<span>  ref <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"v"</span>, <span class="va">ver</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>This assumes that the <code>ver</code> version of your package,
+e.g. version X.Y.Z, has been marked with the the git tag ‘vX.Y.Z’. This
+happens automatically if you use
+<code><a href="https://usethis.r-lib.org/reference/use_github_release.html" class="external-link">usethis::use_github_release()</a></code>.</p>
 </div>
 <div class="section level3">
 <h3 id="backport-changes">Backport changes<a class="anchor" aria-label="anchor" href="#backport-changes"></a>
@@ -157,7 +169,7 @@ common locations:</p>
 <span>  <span class="st">"DESCRIPTION"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"git checkout v{ver} -- {files}"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"git checkout main -- {files}"</span><span class="op">)</span></span></code></pre></div>
 <p>If you backport <code>DESCRIPTION</code>, you’ll also need undo the
 change to the <code>Version</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -165,6 +177,7 @@ change to the <code>Version</code>:</p>
 <p>Now build the site locally and check that it looks as expected:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="../reference/build_site.html">build_site</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Make sure to commit these changes.</p>
 </div>
 <div class="section level3">
 <h3 id="publish">Publish<a class="anchor" aria-label="anchor" href="#publish"></a>
@@ -176,7 +189,7 @@ GitHub:</p>
 <p>Then trigger the pkgdown workflow:</p>
 <ol style="list-style-type: decimal">
 <li>Go to your package’s GHA page, e.g. with
-<code>usethis::browse_github_actions())</code>.</li>
+<code><a href="https://usethis.r-lib.org/reference/browse-this.html" class="external-link">usethis::browse_github_actions()</a></code>.</li>
 <li>Select the pkgdown workflow.</li>
 <li>Click <em>Run workflow</em> and select the branch you just
 pushed.</li>
@@ -188,9 +201,9 @@ workflow config is not current.</p>
 <div class="section level2">
 <h2 id="context">Context<a class="anchor" aria-label="anchor" href="#context"></a>
 </h2>
-<p>Before we talk about <strong>how</strong> to update a released site,
-we first establish <strong>why</strong> you might need to do this. What
-is a released site? What other kind of pkgdown site could you have? Why
+<p>Now that we’ve sketched <strong>how</strong> to update a released
+site, we discuss <strong>why</strong> you might need to do this. What is
+a released site? What other kind of pkgdown site could you have? Why
 does updating a released site take special effort?</p>
 <div class="section level3">
 <h3 id="automatic-development-mode">Automatic development mode<a class="anchor" aria-label="anchor" href="#automatic-development-mode"></a>
@@ -390,7 +403,7 @@ be helpful for seeing how it has evolved over time.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer>
