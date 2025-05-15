@@ -74,6 +74,13 @@ test_that("can specify link target", {
   )
 })
 
+test_that("can specify class and id", {
+  expect_equal(
+    navbar_html(menu_link("a", "#", class = "class", id = "id")),
+    '<li class="nav-item"><a class="nav-link class" id="id" href="#">a</a></li>'
+  )
+})
+
 test_that("can construct theme menu", {
   pkg <- local_pkgdown_site(
     meta = list(template = list(bootstrap = 5, `light-switch` = TRUE))
