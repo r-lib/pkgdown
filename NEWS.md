@@ -1,4 +1,4 @@
-# pkgdown (development version)
+# pkgdown 2.1.3
 
 * Menu items can now set `class` and `id`.
 
