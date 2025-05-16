@@ -1,3 +1,4 @@
+
 test_that("can construct menu with children", {
   menu <- menu_submenu(
     "Title",
@@ -71,6 +72,21 @@ test_that("can specify link target", {
     navbar_html(menu_link("a", "b", target = "_blank")),
     'target="_blank"',
     fixed = TRUE
+  )
+})
+
+test_that("can specify class, id, and title", {
+  expect_equal(
+    navbar_html(menu_link("a", "#", class = "class")),
+    '<li class="nav-item"><a class="nav-link class" href="#">a</a></li>'
+  )
+  expect_equal(
+    navbar_html(menu_link("a", "#", id = "id")),
+    '<li class="nav-item"><a class="nav-link" id="id" href="#">a</a></li>'
+  )
+  expect_equal(
+    navbar_html(menu_link("a", "#", title = "title")),
+    '<li class="nav-item"><a class="nav-link" href="#" title="title">a</a></li>'
   )
 })
 

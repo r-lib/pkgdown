@@ -330,7 +330,7 @@ navbar:
 Components uses the same syntax as [RMarkdown menus](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
 The elements of `menu` can be:
 
--   Linked text (`text`, `href`, and an optional `target`). 
+-   Linked text (`text`, `href`, and optional `target`, `class`, and `id`.). 
 
 -   A linked icon (`icon`, `aria-label`, `href`, and an optional `target`). 
     You can find a list of available icons at [fontawesome](https://fontawesome.com/icons?d=gallery). Provide a text description of the icon in the `aria-label` field

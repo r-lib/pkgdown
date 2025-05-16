@@ -15,8 +15,22 @@ menu_submenu <- function(text, menu, icon = NULL, label = NULL, id = NULL) {
     ))
   }
 }
-menu_link <- function(text, href, target = NULL) {
-  purrr::compact(list(text = text, href = href, target = target))
+menu_link <- function(
+  text,
+  href,
+  target = NULL,
+  class = NULL,
+  id = NULL,
+  title = NULL
+) {
+  purrr::compact(list(
+    text = text,
+    href = href,
+    target = target,
+    class = class,
+    id = id,
+    title = title
+  ))
 }
 menu_links <- function(text, href) {
   purrr::map2(text, href, menu_link)
@@ -151,11 +165,14 @@ navbar_html_menu <- function(
 }
 
 navbar_html_link <- function(x, menu_depth = 0) {
+  base_class <- if (menu_depth == 0) "nav-link" else "dropdown-item"
   html_tag(
     "a",
-    class = if (menu_depth == 0) "nav-link" else "dropdown-item",
+    class = paste0(c(base_class, x$class), collapse = " "),
+    id = x$id,
     href = x$href,
     target = x$target,
+    title = x$title,
     "aria-label" = x$`aria-label`,
     navbar_html_text(x)
   )
