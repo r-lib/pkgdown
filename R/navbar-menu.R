@@ -15,13 +15,21 @@ menu_submenu <- function(text, menu, icon = NULL, label = NULL, id = NULL) {
     ))
   }
 }
-menu_link <- function(text, href, target = NULL, class = NULL, id = NULL) {
+menu_link <- function(
+  text,
+  href,
+  target = NULL,
+  class = NULL,
+  id = NULL,
+  title = NULL
+) {
   purrr::compact(list(
     text = text,
     href = href,
     target = target,
     class = class,
-    id = id
+    id = id,
+    title = title
   ))
 }
 menu_links <- function(text, href) {
@@ -164,6 +172,7 @@ navbar_html_link <- function(x, menu_depth = 0) {
     id = x$id,
     href = x$href,
     target = x$target,
+    title = x$title,
     "aria-label" = x$`aria-label`,
     navbar_html_text(x)
   )
