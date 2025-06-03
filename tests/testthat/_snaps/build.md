@@ -7,9 +7,9 @@
     Output
       ── Building pkgdown site for package kittens ───────────────────────────────────
       Reading from:
-      /Users/jayhesselberth/devel/r-lib/pkgdown/tests/testthat/assets/articles-images
+      <src_path>
       Writing to:
-      /private/var/folders/qx/41mvgp5538j5xcpj3qndhg6m0000gn/T/RtmpOsp2lA/pkgdown-dst478f6b47dba8
+      <dst_path>
       ── Sitrep ──────────────────────────────────────────────────────────────────────
       ✖ URLs not ok.
         In _pkgdown.yml, url is missing.
