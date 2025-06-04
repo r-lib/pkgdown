@@ -396,6 +396,7 @@ build_site_external <- function(
     preview = FALSE,
     new_process = FALSE,
     devel = devel,
+    quiet = quiet,
     cli_colors = cli::num_ansi_colors(),
     hyperlinks = cli::ansi_has_hyperlink_support()
   )

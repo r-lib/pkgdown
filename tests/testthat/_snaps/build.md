@@ -52,6 +52,7 @@
       Writing `authors.html`
       Reading README.md
       Writing `index.html`
+      Writing `index.html`
       Writing `404.html`
       ── Building function reference ─────────────────────────────────────────────────
       Writing `reference/index.html`
@@ -61,6 +62,35 @@
       ── Building articles ───────────────────────────────────────────────────────────
       Writing `articles/index.html`
       Reading vignettes/kitten.Rmd
+      
+      
+      processing file: kitten.Rmd
+      1/10                  
+      2/10 [unnamed-chunk-1]
+      3/10                  
+      4/10 [unnamed-chunk-2]
+      5/10                  
+      6/10 [unnamed-chunk-3]
+      7/10                  
+      8/10 [magick]         
+      9/10                  
+      10/10 [plot]           
+      output file: /private/var/folders/7m/55bk34v53x12cjztb1fwxgvw0000gn/T/Rtmp7sGn6Y/kitten.knit.md
+      
+      /opt/homebrew/bin/pandoc +RTS -K512m -RTS /private/var/folders/7m/55bk34v53x12cjztb1fwxgvw0000gn/T/Rtmp7sGn6Y/kitten.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output <dst_path>/articles/kitten.html --lua-filter /Users/jayhesselberth/Library/R/arm64/4.5/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Users/jayhesselberth/Library/R/arm64/4.5/library/rmarkdown/rmarkdown/lua/latex-div.lua --lua-filter /Users/jayhesselberth/Library/R/arm64/4.5/library/rmarkdown/rmarkdown/lua/table-classes.lua --standalone --section-divs --template /var/folders/7m/55bk34v53x12cjztb1fwxgvw0000gn/T//Rtmp7sGn6Y/pkgdown-rmd-template-11ef728bef6ba.html --highlight-style pygments --mathml --include-in-header /var/folders/7m/55bk34v53x12cjztb1fwxgvw0000gn/T//RtmpPvBjXL/rmarkdown-str11fc0c439f75.html 
+      
+      Output created: <dst_path>/articles/kitten.html
+      Warning messages:
+      1: 'mode(bg)' differs between new and previous
+      	 ==> NOT changing 'bg' 
+      2: 'mode(bg)' differs between new and previous
+      	 ==> NOT changing 'bg' 
+      3: 'mode(bg)' differs between new and previous
+      	 ==> NOT changing 'bg' 
+      4: 'mode(bg)' differs between new and previous
+      	 ==> NOT changing 'bg' 
+      5: 'mode(bg)' differs between new and previous
+      	 ==> NOT changing 'bg' 
       Writing `articles/kitten.html`
       ✖ Missing alt-text in 'vignettes/kitten.Rmd'
       • ../reference/figures/kitten.jpg
