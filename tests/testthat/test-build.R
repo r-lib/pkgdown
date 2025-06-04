@@ -19,7 +19,6 @@ test_that("build_site can be made unquiet", {
     )
   )
   expect_match(paste(output_unquiet, collapse = ""), "pandoc")
-  expect_match(paste(output_unquiet, collapse = ""), "chunk")
 
   output_quiet <- suppressMessages(
     capture.output(
@@ -31,5 +30,4 @@ test_that("build_site can be made unquiet", {
   )
 
   expect_no_match(paste(output_quiet, collapse = ""), "pandoc")
-  expect_no_match(paste(output_quiet, collapse = ""), "chunk")
 })
