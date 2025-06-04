@@ -3,25 +3,31 @@ test_that("both versions of build_site have same arguments", {
 })
 
 test_that("build_site can be made unquiet", {
-  pkg <- local_pkgdown_site(test_path("assets/articles-images"))
-  expect_snapshot(
-    build_site(pkg, quiet = FALSE),
-    transform = function(x) {
-      # First replace path without affecting newlines
-      x <- gsub(pkg$src_path, "<src_path>", x, fixed = TRUE)
-
-      # For the destination path, be careful to preserve structure
-      # Look for "Writing to:" followed by newline and any characters
-      x <- gsub(
-        "Writing to:\\n([^\\n]+)",
-        "Writing to:\\n<dst_path>",
-        x
+  # `quiet = FALSE` from build_site() should get passed to
+  # build_articles(), which we include some rmarkdown build out in the
+  # messages, including "pandoc", which won't be there normally
+  pkg <- local_pkgdown_site(test_path("assets/figure"))
+  output_unquiet <- suppressMessages(
+    capture.output(
+      build_site(
+        pkg,
+        quiet = FALSE,
+        preview = FALSE
       )
-
-      # Also handle any inline paths
-      x <- gsub(pkg$dst_path, "<dst_path>", x, fixed = TRUE)
-
-      return(x)
-    }
+    )
   )
+  expect_match(paste(output_unquiet, collapse = ""), "pandoc")
+  expect_match(paste(output_unquiet, collapse = ""), "chunk")
+
+  output_quiet <- suppressMessages(
+    capture.output(
+      build_site(
+        pkg,
+        preview = FALSE
+      )
+    )
+  )
+
+  expect_no_match(paste(output_quiet, collapse = ""), "pandoc")
+  expect_no_match(paste(output_quiet, collapse = ""), "chunk")
 })
