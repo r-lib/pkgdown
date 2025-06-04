@@ -7,6 +7,9 @@ test_that("build_site can be made unquiet", {
   expect_snapshot(
     build_site(pkg, quiet = FALSE),
     transform = function(x) {
+      # First handle the specific "Writing to:" pattern
+      x <- gsub("Writing to:\\n([^\\n]+)", "Writing to: \\1", x)
+
       # Replace absolute paths with placeholders
       x <- gsub(pkg$src_path, "<src_path>", x, fixed = TRUE)
       x <- gsub(pkg$dst_path, "<dst_path>", x, fixed = TRUE)
