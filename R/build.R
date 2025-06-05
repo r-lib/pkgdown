@@ -382,7 +382,7 @@ build_site_external <- function(
   override = list(),
   preview = NA,
   devel = TRUE,
-  quiet = FALSE
+  quiet = TRUE
 ) {
   pkg <- as_pkgdown(pkg, override = override)
   args <- list(
@@ -430,7 +430,7 @@ build_site_local <- function(
   override = list(),
   preview = NA,
   devel = TRUE,
-  quiet = FALSE
+  quiet = TRUE
 ) {
   pkg <- section_init(pkg, override = override)
 
