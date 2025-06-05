@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* `build_site()` gained a `quiet` argument, which is propagated to other functions
+  (e.g., `build_articles()`) and is useful for debugging build errors on GH actions.
+
 # pkgdown 2.1.3
 
 * Menu items can now set `class` and `id`.
