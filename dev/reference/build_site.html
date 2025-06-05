@@ -118,7 +118,8 @@ whole site.</p>
 <span>  preview <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  devel <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  new_process <span class="op">=</span> <span class="op">!</span><span class="va">devel</span>,</span>
-<span>  install <span class="op">=</span> <span class="op">!</span><span class="va">devel</span></span>
+<span>  install <span class="op">=</span> <span class="op">!</span><span class="va">devel</span>,</span>
+<span>  quiet <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -180,6 +181,11 @@ in the current process affects the build process.</p></dd>
 <dt id="arg-install">install<a class="anchor" aria-label="anchor" href="#arg-install"></a></dt>
 <dd><p>If <code>TRUE</code>, will install the package in a temporary library
 so it is available for vignettes.</p></dd>
+
+
+<dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>
+<dd><p>If <code>FALSE</code>, generate build messages for build functions that
+take <code>quiet</code> arguments.</p></dd>
 
 </dl></div>
     <div class="section level2">
