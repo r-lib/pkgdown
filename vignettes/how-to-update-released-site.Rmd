@@ -46,8 +46,14 @@ ver <- desc::desc_get_version()[1, 1:3]
 You will use this to create and checkout the branch that you'll work in:
 
 ```{r}
-gert::git_branch_create(paste0("pkgdown-v", ver), paste0("v", ver))
+gert::git_branch_create(
+  branch = paste0("pkgdown-v", ver),
+  ref = paste0("v", ver)
+)
 ```
+
+This assumes that the `ver` version of your package, e.g. version X.Y.Z, has been marked with the the git tag 'vX.Y.Z'.
+This happens automatically if you use `usethis::use_github_release()`.
 
 ### Backport changes
 
@@ -68,7 +74,7 @@ files <- c(
   "DESCRIPTION"
 )
 
-glue::glue("git checkout v{ver} -- {files}")
+glue::glue("git checkout main -- {files}")
 ```
 
 If you backport `DESCRIPTION`, you'll also need undo the change to the `Version`:
@@ -83,6 +89,8 @@ Now build the site locally and check that it looks as expected:
 pkgdown::build_site()
 ```
 
+Make sure to commit these changes.
+
 ### Publish
 
 Now you need to publish the site.
@@ -94,7 +102,7 @@ usethis:::git_push_first()
 
 Then trigger the pkgdown workflow:
 
-1.  Go to your package's GHA page, e.g. with `usethis::browse_github_actions())`.
+1.  Go to your package's GHA page, e.g. with `usethis::browse_github_actions()`.
 2.  Select the pkgdown workflow.
 3.  Click *Run workflow* and select the branch you just pushed.
 
@@ -102,7 +110,7 @@ If there's no dropdown menu for this, that means your pkgdown workflow config is
 
 ## Context
 
-Before we talk about **how** to update a released site, we first establish **why** you might need to do this.
+Now that we've sketched **how** to update a released site, we discuss **why** you might need to do this.
 What is a released site?
 What other kind of pkgdown site could you have?
 Why does updating a released site take special effort?

@@ -1,6 +1,6 @@
 Package: pkgdown
 Title: Make Static HTML Documentation for a Package
-Version: 2.1.1.9000
+Version: 2.1.3.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@posit.co", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-4757-117X")),
@@ -70,9 +70,9 @@ Config/Needs/website: usethis, servr
 Config/potools/style: explicit
 Config/testthat/edition: 3
 Config/testthat/parallel: true
-Config/testthat/start-first: build-article, build-quarto-article, build-reference
+Config/testthat/start-first: build-article, build-quarto-article, build-reference, build
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2.9000
 SystemRequirements: pandoc
 Remotes: quarto-dev/quarto-r@libpaths
+RoxygenNote: 7.3.2

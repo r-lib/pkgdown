@@ -301,6 +301,8 @@
 #'   in the current process affects the build process.
 #' @param install If `TRUE`, will install the package in a temporary library
 #'   so it is available for vignettes.
+#' @param quiet If `FALSE`, generate build messages for build functions that
+#'   take `quiet` arguments.
 #' @export
 #' @examples
 #' \dontrun{
@@ -318,7 +320,8 @@ build_site <- function(
   preview = NA,
   devel = FALSE,
   new_process = !devel,
-  install = !devel
+  install = !devel,
+  quiet = TRUE
 ) {
   pkg <- as_pkgdown(pkg, override = override)
   check_bool(devel)
@@ -352,7 +355,8 @@ build_site <- function(
       lazy = lazy,
       override = override,
       preview = preview,
-      devel = devel
+      devel = devel,
+      quiet = quiet
     )
   } else {
     build_site_local(
@@ -363,7 +367,8 @@ build_site <- function(
       lazy = lazy,
       override = override,
       preview = preview,
-      devel = devel
+      devel = devel,
+      quiet = quiet
     )
   }
 }
@@ -376,7 +381,8 @@ build_site_external <- function(
   lazy = FALSE,
   override = list(),
   preview = NA,
-  devel = TRUE
+  devel = TRUE,
+  quiet = TRUE
 ) {
   pkg <- as_pkgdown(pkg, override = override)
   args <- list(
@@ -390,6 +396,7 @@ build_site_external <- function(
     preview = FALSE,
     new_process = FALSE,
     devel = devel,
+    quiet = quiet,
     cli_colors = cli::num_ansi_colors(),
     hyperlinks = cli::ansi_has_hyperlink_support()
   )
@@ -422,7 +429,8 @@ build_site_local <- function(
   lazy = FALSE,
   override = list(),
   preview = NA,
-  devel = TRUE
+  devel = TRUE,
+  quiet = TRUE
 ) {
   pkg <- section_init(pkg, override = override)
 
@@ -438,7 +446,7 @@ build_site_local <- function(
     init_site(pkg, override)
   }
 
-  build_home(pkg, override = override, preview = FALSE)
+  build_home(pkg, override = override, quiet = quiet, preview = FALSE)
   build_reference(
     pkg,
     lazy = lazy,
@@ -449,7 +457,13 @@ build_site_local <- function(
     preview = FALSE,
     devel = devel
   )
-  build_articles(pkg, lazy = lazy, override = override, preview = FALSE)
+  build_articles(
+    pkg,
+    lazy = lazy,
+    override = override,
+    quiet = quiet,
+    preview = FALSE
+  )
   build_tutorials(pkg, override = override, preview = FALSE)
   build_news(pkg, override = override, preview = FALSE)
   build_sitemap(pkg)

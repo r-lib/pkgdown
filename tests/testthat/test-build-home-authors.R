@@ -53,15 +53,15 @@ test_that("ORCID can be identified & removed from all comment styles", {
       'Authors@R: c(',
       '    person("no comment"),',
       '    person("bare comment", comment = "comment"),',
-      '    person("orcid only",   comment = c(ORCID = "1")),',
-      '    person("both",         comment = c("comment", ORCID = "2"))',
+      '    person("orcid only",   comment = c(ORCID = "0000-0000-0000-0001")),',
+      '    person("both",         comment = c("comment", ORCID = "0000-0003-4757-117X"))',
       '  )'
     )
   )
   authors <- purrr::map(desc$get_authors(), author_list, list())
   expect_equal(
     purrr::map(authors, "orcid"),
-    list(NULL, NULL, orcid_link("1"), orcid_link("2"))
+    list(NULL, NULL, orcid_link("0000-0000-0000-0001"), orcid_link("0000-0003-4757-117X"))
   )
 
   expect_equal(
@@ -76,15 +76,15 @@ test_that("ROR can be identified & removed from all comment styles", {
       'Authors@R: c(',
       '    person("no comment"),',
       '    person("bare comment", comment = "comment"),',
-      '    person("ror only",   comment = c(ROR = "1")),',
-      '    person("both",         comment = c("comment", ROR = "2"))',
+      '    person("ror only",   comment = c(ROR = "123456789")),',
+      '    person("both",         comment = c("comment", ROR = "987653421"))',
       '  )'
     )
   )
   authors <- purrr::map(desc$get_authors(), author_list, list())
   expect_equal(
     purrr::map(authors, "ror"),
-    list(NULL, NULL, ror_link("1"), ror_link("2"))
+    list(NULL, NULL, ror_link("123456789"), ror_link("987653421"))
   )
 
   expect_equal(
