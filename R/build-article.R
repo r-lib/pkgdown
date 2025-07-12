@@ -2,7 +2,7 @@
 #' @export
 #' @rdname build_articles
 #' @param name Name of article to render. This should be either a path
-#'   relative to `vignettes/` without extension, or `index` or `README`.
+#'   relative to `vignettes/` *without extension*, or `index` or `README`.
 #' @param new_process Build the article in a clean R process? The default,
 #'   `TRUE`, ensures that every article is build in a fresh environment, but
 #'   you may want to set it to `FALSE` to make debugging easier.
