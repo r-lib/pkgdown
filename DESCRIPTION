@@ -74,4 +74,5 @@ Config/testthat/start-first: build-article, build-quarto-article, build-referenc
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 SystemRequirements: pandoc
+Remotes: quarto-dev/quarto-r@libpaths
 RoxygenNote: 7.3.2
