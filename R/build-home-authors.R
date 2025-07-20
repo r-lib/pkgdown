@@ -21,13 +21,22 @@ build_citation_authors <- function(pkg = ".") {
   render_page(pkg, "citation-authors", data, "authors.html")
 }
 
-data_authors <- function(pkg = ".", roles = default_roles(), call = caller_env()) {
+data_authors <- function(
+  pkg = ".",
+  roles = default_roles(),
+  call = caller_env()
+) {
   pkg <- as_pkgdown(pkg)
-  author_info <- config_pluck_list(pkg, "authors", default = list(), call = call)
+  author_info <- config_pluck_list(
+    pkg,
+    "authors",
+    default = list(),
+    call = call
+  )
 
   inst_path <- path(pkg$src_path, "inst", "AUTHORS")
   if (file_exists(inst_path)) {
-    inst <- read_lines(inst_path)
+    inst <- paste(read_lines(inst_path), collapse = "\n")
   } else {
     inst <- NULL
   }
@@ -46,8 +55,8 @@ data_authors <- function(pkg = ".", roles = default_roles(), call = caller_env()
     main = main,
     inst = inst,
     needs_page = more_authors || length(comments) > 0 || !is.null(inst),
-    before = config_pluck_markdown_block(pkg, "template.authors.before", call = call),
-    after = config_pluck_markdown_block(pkg, "template.authors.after", call = call)
+    before = config_pluck_markdown_block(pkg, "authors.before", call = call),
+    after = config_pluck_markdown_block(pkg, "authors.after", call = call)
   ))
 }
 
@@ -84,10 +93,18 @@ data_home_sidebar_authors <- function(pkg = ".", call = caller_env()) {
   )
   data <- data_authors(pkg, roles)
   authors <- purrr::map_chr(data$main, author_desc, comment = FALSE)
-  
-  before <- config_pluck_markdown_inline(pkg, "authors.sidebar.before", call = call)
-  after <- config_pluck_markdown_inline(pkg, "authors.sidebar.after", call = call)
-  
+
+  before <- config_pluck_markdown_inline(
+    pkg,
+    "authors.sidebar.before",
+    call = call
+  )
+  after <- config_pluck_markdown_inline(
+    pkg,
+    "authors.sidebar.after",
+    call = call
+  )
+
   bullets <- c(before, authors, after)
   if (data$needs_page) {
     bullets <- c(bullets, a(tr_("More about authors..."), "authors.html"))
@@ -136,20 +153,29 @@ author_list <- function(x, authors_info = NULL, comment = FALSE, pkg = ".") {
   orcid <- purrr::pluck(x$comment, "ORCID")
   x$comment <- remove_orcid(x$comment)
 
+  ror <- purrr::pluck(x$comment, "ROR")
+  x$comment <- remove_ror(x$comment)
+
   list(
     name = name,
     roles = roles,
     comment = linkify(x$comment),
-    orcid = orcid_link(orcid)
+    orcid = orcid_link(orcid),
+    ror = ror_link(ror)
   )
 }
 
 author_desc <- function(x, comment = TRUE) {
   paste(
     x$name,
-    "<br />\n<small class = 'roles'>", x$roles, "</small>",
+    "<br />\n<small class = 'roles'>",
+    x$roles,
+    "</small>",
     if (!is.null(x$orcid)) {
       x$orcid
+    },
+    if (!is.null(x$ror)) {
+      x$ror
     },
     if (comment && !is.null(x$comment) && length(x$comment) != 0) {
       paste0("<br/>\n<small>(", linkify(x$comment), ")</small>")
@@ -163,8 +189,23 @@ orcid_link <- function(orcid) {
   }
 
   paste0(
-    "<a href='https://orcid.org/", orcid, "' target='orcid.widget' aria-label='ORCID'>",
+    "<a href='https://orcid.org/",
+    orcid,
+    "' target='orcid.widget' aria-label='ORCID'>",
     "<span class='fab fa-orcid orcid' aria-hidden='true'></span></a>"
+  )
+}
+
+ror_link <- function(ror) {
+  if (is.null(ror)) {
+    return(NULL)
+  }
+
+  paste0(
+    "<a href='https://ror.org/",
+    ror,
+    "'>",
+    "<img src='https://raw.githubusercontent.com/ror-community/ror-logos/main/ror-icon-rgb.svg' class='ror' alt='ROR'></a>"
   )
 }
 
@@ -279,7 +320,7 @@ citation_auto <- function(pkg) {
   #   lib.loc = path_dir(pkg$src_path)
   # )
   # browser()
-# C
+  # C
   cit_info$`Date/Publication` <- cit_info$`Date/Publication` %||% Sys.time()
   if (!is.null(cit_info$Title)) cit_info$Title <- str_squish(cit_info$Title)
 
@@ -295,6 +336,13 @@ citation_auto <- function(pkg) {
 # Not strictly necessary, but produces a simpler data structure testing
 remove_orcid <- function(x) {
   out <- x[names2(x) != "ORCID"]
+  if (all(names(out) == "")) {
+    names(out) <- NULL
+  }
+  out
+}
+remove_ror <- function(x) {
+  out <- x[names2(x) != "ROR"]
   if (all(names(out) == "")) {
     names(out) <- NULL
   }

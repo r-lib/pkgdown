@@ -138,10 +138,11 @@ By default, pkgdown will display author information in three places:
 This documentation describes how to customise the overall author display.
 See \code{?build_home} and \code{?build_site} for details about changing the location
 of the authors information within the home sidebar and the site footer.
-\subsection{Authors ORCID and bio}{
+\subsection{Authors ORCID, ROR and bio}{
 
 Author ORCID identification numbers in the \code{DESCRIPTION} are linked using
-the ORCID logo:
+the ORCID logo,
+author ROR identification numbers are linked using the ROR logo:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"),
@@ -149,7 +150,9 @@ the ORCID logo:
     ),
     person("Jay", "Hesselberth", role = "aut",
       comment = c(ORCID = "0000-0002-6299-179X")
-    )
+    ),
+   person("Posit Software, PBC", role = c("cph", "fnd"),
+          comment = c(ROR = "03wc8by49"))
   )
 }\if{html}{\out{</div>}}
 
@@ -170,7 +173,7 @@ authors page.
 
 \subsection{Additional control via YAML}{
 
-You can control additinal aspects of the authors display via the \code{authors}
+You can control additional aspects of the authors display via the \code{authors}
 YAML field:
 \itemize{
 \item display of each author in the footer, sidebar and authors page,

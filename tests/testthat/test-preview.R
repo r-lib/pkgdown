@@ -20,5 +20,5 @@ test_that("local_path adds index.html if needed", {
   expect_equal(
     local_path(pkg, "reference"),
     path(pkg$dst_path, "reference", "index.html")
-  ) 
+  )
 })

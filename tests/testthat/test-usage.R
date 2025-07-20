@@ -1,4 +1,3 @@
-
 # Reference --------------------------------------------------------------------
 
 test_that("usage escapes special characters", {
@@ -184,6 +183,10 @@ test_that("can parse multistatement usages", {
 test_that("can parse dots", {
   usage <- parse_usage("f(\\dots)")[[1]]
   expect_equal(usage$name, "f")
+})
+
+test_that("usage2text can parse symbols (#2727)", {
+  expect_no_error(usage2text("viridisLite::viridis(21)"))
 })
 
 # short_name --------------------------------------------------------------

@@ -18,11 +18,10 @@ write_lines <- function(text, path) {
 # Other -------------------------------------------------------------------
 
 file_equal <- function(src, dst) {
-  if (!file_exists(dst))
-    return(FALSE)
+  if (!file_exists(dst)) return(FALSE)
 
-  src_hash <- digest::digest(file = src, algo = "xxhash64")
-  dst_hash <- digest::digest(file = dst, algo = "xxhash64")
+  src_hash <- rlang::hash_file(src)
+  dst_hash <- rlang::hash_file(dst)
 
   identical(src_hash, dst_hash)
 }

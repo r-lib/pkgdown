@@ -3,7 +3,6 @@ test_that("is_pkgdown checks its inputs", {
     as_pkgdown(1)
     as_pkgdown(override = 1)
   })
-
 })
 
 test_that("package_vignettes() doesn't trip over directories", {
@@ -11,7 +10,10 @@ test_that("package_vignettes() doesn't trip over directories", {
   dir_create(path(dir, "vignettes", "test.Rmd"))
   file_create(path(dir, "vignettes", "test2.Rmd"))
 
-  expect_equal(as.character(package_vignettes(dir)$file_in), "vignettes/test2.Rmd")
+  expect_equal(
+    as.character(package_vignettes(dir)$file_in),
+    "vignettes/test2.Rmd"
+  )
 })
 
 test_that("check_bootstrap_version() allows 3, 4 (with warning), and 5", {
@@ -66,9 +68,12 @@ test_that("override works correctly for as_pkgdown", {
 # titles ------------------------------------------------------------------
 
 test_that("multiline titles are collapsed", {
-  rd <- rd_text("\\title{
+  rd <- rd_text(
+    "\\title{
     x
-  }", fragment = FALSE)
+  }",
+    fragment = FALSE
+  )
 
   expect_equal(extract_title(rd), "x")
 })
@@ -85,10 +90,14 @@ test_that("titles don't get autolinked code", {
 
 test_that("read_meta() errors gracefully if _pkgdown.yml failed to parse", {
   pkg <- local_pkgdown_site()
-  pkg <- pkg_add_file(pkg, "_pkgdown.yml", c(
-    "url: https://pkgdown.r-lib.org",
-    "  title: Build websites for R packages"
-  ))
+  pkg <- pkg_add_file(
+    pkg,
+    "_pkgdown.yml",
+    c(
+      "url: https://pkgdown.r-lib.org",
+      "  title: Build websites for R packages"
+    )
+  )
   expect_snapshot(
     as_pkgdown(pkg$src_path),
     error = TRUE,
@@ -117,4 +126,36 @@ test_that("malformed figures fail gracefully", {
 
   expect_null(rd_lifecycle("{\\figure{deprecated.svg}}"))
   expect_null(rd_lifecycle("{\\figure{}}"))
+})
+
+# language ---------------------------------------------------------------------
+
+test_that("as_pkgdown sets language", {
+  # Default
+  pkg <- as_pkgdown(test_path("assets/reference"))
+  expect_equal(
+    pkg$lang,
+    "en"
+  )
+  # Single language specified in DESCRIPTION
+  pkg <- as_pkgdown(test_path("assets/reference-language/one"))
+  expect_equal(
+    pkg$lang,
+    "fr"
+  )
+  # Two languages specified in DESCRIPTION
+  pkg <- as_pkgdown(test_path("assets/reference-language/two"))
+  expect_equal(
+    pkg$lang,
+    "en-US"
+  )
+  # Language specified in _pkgdown.yml or override.
+  pkg <- as_pkgdown(
+    test_path("assets/reference-language/two"),
+    override = list(lang = "en-GB")
+  )
+  expect_equal(
+    pkg$lang,
+    "en-GB"
+  )
 })

@@ -119,10 +119,11 @@
 #' See `?build_home` and `?build_site` for details about changing the location
 #' of the authors information within the home sidebar and the site footer.
 #'
-#' ## Authors ORCID and bio
+#' ## Authors ORCID, ROR and bio
 #'
 #' Author ORCID identification numbers in the `DESCRIPTION` are linked using
-#' the ORCID logo:
+#' the ORCID logo,
+#' author ROR identification numbers are linked using the ROR logo:
 #'
 #' ```r
 #' Authors@R: c(
@@ -131,7 +132,9 @@
 #'     ),
 #'     person("Jay", "Hesselberth", role = "aut",
 #'       comment = c(ORCID = "0000-0002-6299-179X")
-#'     )
+#'     ),
+#'    person("Posit Software, PBC", role = c("cph", "fnd"),
+#'           comment = c(ROR = "03wc8by49"))
 #'   )
 #' ```
 #'
@@ -152,7 +155,7 @@
 #'
 #' ## Additional control via YAML
 #'
-#' You can control additinal aspects of the authors display via the `authors`
+#' You can control additional aspects of the authors display via the `authors`
 #' YAML field:
 #'
 #' * display of each author in the footer, sidebar and authors page,
@@ -286,11 +289,12 @@
 #' @family site components
 #' @export
 #' @order 1
-build_home <- function(pkg = ".",
-                       override = list(),
-                       preview = FALSE,
-                       quiet = TRUE) {
-
+build_home <- function(
+  pkg = ".",
+  override = list(),
+  preview = FALSE,
+  quiet = TRUE
+) {
   pkg <- section_init(pkg, override = override)
   check_bool(quiet)
 
@@ -305,7 +309,6 @@ build_home <- function(pkg = ".",
   if (!pkg$development$in_dev) {
     build_404(pkg)
   }
-
 
   preview_site(pkg, "/", preview = preview)
 }

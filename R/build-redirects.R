@@ -23,8 +23,7 @@
 #'
 #' @inheritParams as_pkgdown
 #' @export
-build_redirects <- function(pkg = ".",
-                            override = list()) {
+build_redirects <- function(pkg = ".", override = list()) {
   pkg <- section_init(pkg, override = override)
   has_url <- !is.null(config_pluck_string(pkg, "url"))
 
@@ -63,7 +62,7 @@ build_redirect <- function(entry, index, pkg) {
 }
 
 data_redirects <- function(pkg, has_url = FALSE, call = caller_env()) {
-   c(
+  c(
     if (has_url) reference_redirects(pkg),
     if (has_url) article_redirects(pkg),
     config_pluck_redirects(pkg, call = call)
@@ -88,7 +87,10 @@ reference_redirects <- function(pkg) {
   # Ensure we don't override an existing file
   redirects <- redirects[setdiff(names(redirects), pkg$topics$file_out)]
 
-  unname(purrr::imap(redirects, function(to, from) paste0("reference/", c(from, to))))
+  unname(purrr::imap(
+    redirects,
+    function(to, from) paste0("reference/", c(from, to))
+  ))
 }
 
 valid_filename <- function(x) {

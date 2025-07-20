@@ -9,10 +9,12 @@ skip_if_no_quarto <- function() {
 
 # Simulate a package --------------------------------------------------------
 
-local_pkgdown_site <- function(path = NULL,
-                               meta = list(),
-                               desc = list(),
-                               env = caller_env()) {
+local_pkgdown_site <- function(
+  path = NULL,
+  meta = list(),
+  desc = list(),
+  env = caller_env()
+) {
   check_string(path, allow_null = TRUE)
 
   dst_path <- path_real(
@@ -33,8 +35,7 @@ local_pkgdown_site <- function(path = NULL,
     description <- desc::desc("!new")
     description$set("Package", "testpackage")
     description$set("Title", "A test package")
-    if (length(desc) > 0)
-      inject(description$set(!!!desc))
+    if (length(desc) > 0) inject(description$set(!!!desc))
     description$write(file = path(path, "DESCRIPTION"))
 
     # Default to BS5 only if template not specified
@@ -93,7 +94,11 @@ r_code_block <- function(...) c("```{r}", ..., "```")
 
 # Simulate a template package ------------------------------------------------
 
-local_pkgdown_template_pkg <- function(path = NULL, meta = NULL, env = parent.frame()) {
+local_pkgdown_template_pkg <- function(
+  path = NULL,
+  meta = NULL,
+  env = parent.frame()
+) {
   if (is.null(path)) {
     path <- withr::local_tempdir(.local_envir = env)
     desc <- desc::desc("!new")
@@ -101,16 +106,20 @@ local_pkgdown_template_pkg <- function(path = NULL, meta = NULL, env = parent.fr
     desc$set("Title", "A test template package")
     desc$write(file = path(path, "DESCRIPTION"))
   }
-  
+
   if (!is.null(meta)) {
     path_pkgdown_yml <- path(path, "inst", "pkgdown", "_pkgdown.yml")
     dir_create(path_dir(path_pkgdown_yml))
     yaml::write_yaml(meta, path_pkgdown_yml)
   }
-  
+
   pkgload::load_all(path, quiet = TRUE)
   withr::defer(pkgload::unload("templatepackage"), envir = env)
-  
+
   path
 }
-  
+
+in_rcmd_check <- function() {
+  !is.na(Sys.getenv("_R_CHECK_PACKAGE_NAME_", NA)) ||
+    tolower(Sys.getenv("_R_CHECK_LICENSE_")) == "true"
+}

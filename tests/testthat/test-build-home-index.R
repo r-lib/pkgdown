@@ -8,10 +8,12 @@ test_that("messages about reading and writing", {
 })
 
 test_that("title and description come from DESCRIPTION by default", {
-  pkg <- local_pkgdown_site(desc = list(
-    Title = "A test title",
-    Description = "A test description."
-  ))
+  pkg <- local_pkgdown_site(
+    desc = list(
+      Title = "A test title",
+      Description = "A test description."
+    )
+  )
   expect_equal(data_home(pkg)$pagetitle, "A test title")
   expect_equal(data_home(pkg)$opengraph$description, "A test description.")
 
@@ -30,7 +32,7 @@ test_that("math is handled", {
   expect_equal(xpath_length(html, ".//math"), 1)
 })
 
-test_that("data_home() validates yaml metadata", {  
+test_that("data_home() validates yaml metadata", {
   data_home_ <- function(...) {
     pkg <- local_pkgdown_site(meta = list(...))
     data_home(pkg)
@@ -58,12 +60,14 @@ test_that("data_home_sidebar() works by default", {
   expect_snapshot(cat(data_home_sidebar(pkg)))
 
   # comments are not included
-  pkg <- local_pkgdown_site(desc = list(
-    `Authors@R` = 'c(
+  pkg <- local_pkgdown_site(
+    desc = list(
+      `Authors@R` = 'c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
     person("RStudio", role = c("cph", "fnd"), comment = c("Thank you!"))
     )'
-  ))
+    )
+  )
   html <- xml2::read_html(data_home_sidebar(pkg))
   expect_snapshot_output(xpath_xml(html, ".//div[@class='developers']"))
 })
@@ -90,27 +94,31 @@ test_that("data_home_sidebar() can be defined by a HTML file", {
 })
 
 test_that("data_home_sidebar() can get a custom markdown formatted component", {
-  pkg <- local_pkgdown_site(meta = list(
-    home = list(
-      sidebar = list(
-        structure = "fancy",
-        components = list(
-          fancy = list(
-            title = "Fancy section",
-            text = "How *cool* is pkgdown?!"
+  pkg <- local_pkgdown_site(
+    meta = list(
+      home = list(
+        sidebar = list(
+          structure = "fancy",
+          components = list(
+            fancy = list(
+              title = "Fancy section",
+              text = "How *cool* is pkgdown?!"
+            )
           )
         )
       )
     )
-  ))
+  )
   html <- xml2::read_html(data_home_sidebar(pkg))
   expect_snapshot_output(xpath_xml(html, ".//div[@class='fancy-section']"))
 })
 
 test_that("data_home_sidebar() can add a TOC", {
-  pkg <- local_pkgdown_site(meta = list(
-    home = list(sidebar = list(structure = "toc"))
-  ))
+  pkg <- local_pkgdown_site(
+    meta = list(
+      home = list(sidebar = list(structure = "toc"))
+    )
+  )
 
   html <- xml2::read_html(data_home_sidebar(pkg))
   expect_snapshot_output(xpath_xml(html, ".//div[@class='table-of-contents']"))
@@ -127,7 +135,10 @@ test_that("data_home_sidebar() outputs informative error messages", {
     data_home_sidebar_(structure = 1)
     data_home_sidebar_(structure = "fancy")
     data_home_sidebar_(structure = c("fancy", "cool"))
-    data_home_sidebar_(structure = "fancy", components = list(fancy = list(text = "bla")))
+    data_home_sidebar_(
+      structure = "fancy",
+      components = list(fancy = list(text = "bla"))
+    )
     data_home_sidebar_(structure = "fancy", components = list(fancy = list()))
   })
 })
@@ -142,7 +153,10 @@ test_that("package repo verification", {
   )
   expect_equal(
     cran_link("Biobase"),
-    list(repo = "Bioconductor", url = "https://www.bioconductor.org/packages/Biobase")
+    list(
+      repo = "Bioconductor",
+      url = "https://www.bioconductor.org/packages/Biobase"
+    )
   )
 })
 
@@ -152,4 +166,25 @@ test_that("cran_unquote works", {
     cran_unquote("'Quoting' is CRAN's thing."),
     "Quoting is CRAN's thing."
   )
+})
+
+test_that("allow email in BugReports", {
+  # currently desc throws a warning if BugReports is an email
+  pkg <- suppressWarnings(local_pkgdown_site(
+    desc = list(BugReports = "me@tidyverse.com")
+  ))
+  html <- xml2::read_html(data_home_sidebar(pkg))
+  expect_snapshot(xpath_xml(html, ".//li/a"))
+})
+
+test_that("ANSI are handled", {
+  withr::local_options(cli.num_colors = 256)
+  pkg <- local_pkgdown_site()
+
+  pkg <- pkg_add_file(pkg, "index.md", sprintf("prefer %s", cli::col_blue("a")))
+  suppressMessages(build_home_index(pkg))
+
+  html <- xml2::read_html(path(pkg$dst_path, "index.html"))
+  readme_p <- xml2::xml_find_first(html, ".//main[@id='main']/p")
+  expect_equal(xml2::xml_text(readme_p), "prefer \u2029[34ma\u2029[39m")
 })

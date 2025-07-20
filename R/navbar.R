@@ -2,7 +2,7 @@ data_navbar <- function(pkg = ".", depth = 0L, call = caller_env()) {
   pkg <- as_pkgdown(pkg)
 
   navbar <- config_pluck(pkg, "navbar")
-  
+
   if (uses_lightswitch(pkg)) {
     style <- NULL
   } else {
@@ -12,7 +12,7 @@ data_navbar <- function(pkg = ".", depth = 0L, call = caller_env()) {
       bs_version = pkg$bs_version
     )
   }
-  
+
   links <- navbar_links(pkg, depth = depth, call = call)
 
   c(style, links)
@@ -165,6 +165,7 @@ navbar_components <- function(pkg = ".") {
     repo_type(pkg),
     github = menu_icon("fab fa-github fa-lg", repo_home(pkg), "GitHub"),
     gitlab = menu_icon("fab fa-gitlab fa-lg", repo_home(pkg), "GitLab"),
+    codeberg = menu_icon("fas fa-code fa-lg", repo_home(pkg), "Codeberg"),
     NULL
   )
 
@@ -211,7 +212,8 @@ navbar_articles <- function(pkg = ".") {
         vig <- articles[idx, , drop = FALSE]
         vig <- vig[vig$name != pkg$package, , drop = FALSE]
         c(
-          if (!is.null(section$navbar)) list(menu_separator(), menu_heading(section$navbar)),
+          if (!is.null(section$navbar))
+            list(menu_separator(), menu_heading(section$navbar)),
           menu_links(vig$title, vig$href)
         )
       })
@@ -235,8 +237,11 @@ navbar_articles <- function(pkg = ".") {
 # Testing helpers ---------------------------------------------------------
 # Simulate minimal package structure so we can more easily test
 
-pkg_navbar <- function(meta = NULL, vignettes = pkg_navbar_vignettes(),
-                       github_url = NULL) {
+pkg_navbar <- function(
+  meta = NULL,
+  vignettes = pkg_navbar_vignettes(),
+  github_url = NULL
+) {
   structure(
     list(
       package = "test",
@@ -250,9 +255,11 @@ pkg_navbar <- function(meta = NULL, vignettes = pkg_navbar_vignettes(),
   )
 }
 
-pkg_navbar_vignettes <- function(name = character(),
-                                 title = NULL,
-                                 file_out = NULL) {
+pkg_navbar_vignettes <- function(
+  name = character(),
+  title = NULL,
+  file_out = NULL
+) {
   title <- title %||% paste0("Title ", name)
   file_out <- file_out %||% paste0(name, ".html")
 

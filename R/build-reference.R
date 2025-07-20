@@ -80,7 +80,7 @@
 #'    captured by `has_concepts()`.
 #' * Topics from other installed packages, e.g. `rlang::is_installed()` (function name)
 #'  or `sass::font_face` (topic name).
-#' * `has_lifecycle("deprecated")` will select all topics with lifecycle 
+#' * `has_lifecycle("deprecated")` will select all topics with lifecycle
 #'   deprecated.
 #'
 #' All functions (except for `has_keyword()`) automatically exclude internal
@@ -149,15 +149,17 @@
 #' @param topics Build only specified topics. If supplied, sets `lazy`
 #'   and `preview` to `FALSE`.
 #' @export
-build_reference <- function(pkg = ".",
-                            lazy = TRUE,
-                            examples = TRUE,
-                            run_dont_run = FALSE,
-                            seed = 1014L,
-                            override = list(),
-                            preview = FALSE,
-                            devel = TRUE,
-                            topics = NULL) {
+build_reference <- function(
+  pkg = ".",
+  lazy = TRUE,
+  examples = TRUE,
+  run_dont_run = FALSE,
+  seed = 1014L,
+  override = list(),
+  preview = FALSE,
+  devel = TRUE,
+  topics = NULL
+) {
   pkg <- section_init(pkg, "reference", override = override)
   check_bool(lazy)
   check_bool(examples)
@@ -207,12 +209,22 @@ copy_figures <- function(pkg) {
   )
 }
 
-examples_env <- function(pkg, seed = 1014L, devel = TRUE, envir = parent.frame()) {
+examples_env <- function(
+  pkg,
+  seed = 1014L,
+  devel = TRUE,
+  envir = parent.frame()
+) {
   # Re-loading pkgdown while it's running causes weird behaviour with
   # the context cache
   if (isTRUE(devel) && !(pkg$package %in% c("pkgdown", "rprojroot"))) {
     check_installed("pkgload", "to use `build_reference(devel = TRUE)`")
-    pkgload::load_all(pkg$src_path, export_all = FALSE, helpers = FALSE, quiet = TRUE)
+    pkgload::load_all(
+      pkg$src_path,
+      export_all = FALSE,
+      helpers = FALSE,
+      quiet = TRUE
+    )
   } else {
     library(pkg$package, character.only = TRUE)
   }
@@ -254,7 +266,8 @@ build_reference_index <- function(pkg = ".", override = list()) {
   )
 
   render_page(
-    pkg, "reference-index",
+    pkg,
+    "reference-index",
     data = data_reference_index(pkg),
     path = "reference/index.html"
   )
@@ -263,17 +276,17 @@ build_reference_index <- function(pkg = ".", override = list()) {
 }
 
 
-build_reference_topic <- function(topic,
-                                  pkg,
-                                  lazy = TRUE,
-                                  examples_env = globalenv(),
-                                  run_dont_run = FALSE) {
-
+build_reference_topic <- function(
+  topic,
+  pkg,
+  lazy = TRUE,
+  examples_env = globalenv(),
+  run_dont_run = FALSE
+) {
   in_path <- path(pkg$src_path, "man", topic$file_in)
   out_path <- path(pkg$dst_path, "reference", topic$file_out)
 
-  if (lazy && !out_of_date(in_path, out_path))
-    return(invisible())
+  if (lazy && !out_of_date(in_path, out_path)) return(invisible())
 
   cli::cli_inform("Reading {src_path(path('man', topic$file_in))}")
 
@@ -314,7 +327,8 @@ build_reference_topic <- function(topic,
   }
 
   render_page(
-    pkg, "reference-topic",
+    pkg,
+    "reference-topic",
     data = data,
     path = path("reference", topic$file_out)
   )
@@ -325,11 +339,12 @@ build_reference_topic <- function(topic,
 
 # Convert Rd to list ------------------------------------------------------
 
-data_reference_topic <- function(topic,
-                                 pkg,
-                                 examples_env = globalenv(),
-                                 run_dont_run = FALSE) {
-
+data_reference_topic <- function(
+  topic,
+  pkg,
+  examples_env = globalenv(),
+  run_dont_run = FALSE
+) {
   local_context_eval(pkg$figures, pkg$src_path)
   withr::local_options(list(downlit.rdname = get_rdname(topic)))
 
@@ -362,7 +377,6 @@ data_reference_topic <- function(topic,
     )
   }
 
-
   if (!is.null(tags$tag_examples)) {
     out$examples <- run_examples(
       tags$tag_examples[[1]],
@@ -378,10 +392,21 @@ data_reference_topic <- function(topic,
   }
 
   # Everything else stays in original order, and becomes a list of sections.
-  section_tags <- paste0("tag_", c(
-    "arguments", "value", "details", "references", "source", "format", "note",
-    "seealso", "section", "author"
-  ))
+  section_tags <- paste0(
+    "tag_",
+    c(
+      "arguments",
+      "value",
+      "details",
+      "references",
+      "source",
+      "format",
+      "note",
+      "seealso",
+      "section",
+      "author"
+    )
+  )
   sections <- topic$rd[tag_names %in% section_tags]
   out$sections <- purrr::map(sections, function(section) {
     data <- as_data(section)

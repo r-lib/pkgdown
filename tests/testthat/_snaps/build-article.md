@@ -27,55 +27,6 @@
 
     <span class="co">## <span style="color: #BB0000;">X</span></span>
 
-# build_article yields useful error if pandoc fails
-
-    Code
-      build_article("test", pkg, pandoc_args = "--fail-if-warnings")
-    Message
-      Reading vignettes/test.Rmd
-    Condition
-      Error in `build_article()`:
-      ! Failed to render 'vignettes/test.Rmd'.
-      x [WARNING] This document format requires a nonempty <title> element.
-      x  Defaulting to 'test.knit' as the title.
-      x  To specify a title, use 'title' in metadata or --metadata title="...".
-      x Failing because there were warnings.
-      Caused by error:
-      ! pandoc document conversion failed with error 3
-
-# build_article yields useful error if R fails
-
-    Code
-      build_article("test", pkg)
-    Message
-      Reading vignettes/test.Rmd
-    Condition
-      Error in `build_article()`:
-      ! Failed to render 'vignettes/test.Rmd'.
-      x Quitting from lines 5-9 [unnamed-chunk-1] (test.Rmd)
-      Caused by error:
-      ! Error!
-
----
-
-    Code
-      summary(expect_error(build_article("test", pkg)))
-    Message
-      Reading vignettes/test.Rmd
-    Output
-      <error/rlang_error>
-      Error in `build_article()`:
-      ! Failed to render 'vignettes/test.Rmd'.
-      x Quitting from lines 5-9 [unnamed-chunk-1] (test.Rmd)
-      Caused by error:
-      ! Error!
-      ---
-      Backtrace:
-          x
-       1. \-global f()
-       2.   \-global g()
-       3.     \-global h()
-
 # build_article copies image files in subdirectories
 
     Code

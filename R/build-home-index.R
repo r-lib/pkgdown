@@ -43,10 +43,7 @@ build_home_index <- function(pkg = ".", override = list(), quiet = TRUE) {
 path_index <- function(pkg) {
   path_first_existing(
     pkg$src_path,
-    c("pkgdown/index.md",
-      "index.md",
-      "README.md"
-    )
+    c("pkgdown/index.md", "index.md", "README.md")
   )
 }
 
@@ -108,7 +105,7 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
     "home.sidebar.structure",
     default = default_sidebar_structure(),
     call = call
-  ) 
+  )
 
   # compute all default sections
   default_components <- list(
@@ -117,12 +114,20 @@ data_home_sidebar <- function(pkg = ".", call = caller_env()) {
     community = data_home_sidebar_community(pkg),
     citation = data_home_sidebar_citation(pkg),
     authors = data_home_sidebar_authors(pkg),
-    dev = sidebar_section(tr_("Dev Status"), "placeholder", class = "dev-status"),
+    dev = sidebar_section(
+      tr_("Dev Status"),
+      "placeholder",
+      class = "dev-status"
+    ),
     toc = data_home_toc(pkg)
   )
 
   needs_components <- setdiff(structure, names(default_components))
-  custom_yaml <- config_pluck_sidebar_components(pkg, needs_components, call = call)  
+  custom_yaml <- config_pluck_sidebar_components(
+    pkg,
+    needs_components,
+    call = call
+  )
   custom_components <- purrr::map(custom_yaml, function(x) {
     sidebar_section(x$title, markdown_text_block(pkg, x$text))
   })
@@ -137,15 +142,29 @@ default_sidebar_structure <- function() {
   c("links", "license", "community", "citation", "authors", "dev")
 }
 
-config_pluck_sidebar_components <- function(pkg, new_components, call = caller_env()) {
+config_pluck_sidebar_components <- function(
+  pkg,
+  new_components,
+  call = caller_env()
+) {
   base_path <- "home.sidebar.components"
-  components <- config_pluck_list(pkg, base_path, has_names = new_components, call = call)
-  
+  components <- config_pluck_list(
+    pkg,
+    base_path,
+    has_names = new_components,
+    call = call
+  )
+
   for (name in names(components)) {
     component <- components[[name]]
     component_path <- paste0(base_path, ".", name)
-    
-    config_pluck_list(pkg, component_path, has_names = c("title", "text"), call = call)
+
+    config_pluck_list(
+      pkg,
+      component_path,
+      has_names = c("title", "text"),
+      call = call
+    )
     config_pluck_string(pkg, paste0(component_path, ".title"), call = call)
     config_pluck_string(pkg, paste0(component_path, ".text"), call = call)
   }
@@ -158,10 +177,19 @@ data_home_sidebar_links <- function(pkg = ".") {
   repo <- cran_link(pkg$package)
   links <- config_pluck(pkg, "home.links")
 
+  bug_reports <- pkg$desc$get_field("BugReports", default = NULL)
+  if (
+    !is.null(bug_reports) &&
+      grepl("@", bug_reports) &&
+      !startsWith(bug_reports, "http")
+  ) {
+    bug_reports <- paste0("mailto:", bug_reports)
+  }
+
   links <- c(
     link_url(sprintf(tr_("View on %s"), repo$repo), repo$url),
     link_url(tr_("Browse source code"), repo_home(pkg)),
-    link_url(tr_("Report a bug"), pkg$desc$get_field("BugReports", default = NULL)),
+    link_url(tr_("Report a bug"), bug_reports),
     purrr::map_chr(links, ~ link_url(.$text, .$href))
   )
 
@@ -176,12 +204,15 @@ data_home_toc <- function(pkg) {
 }
 
 sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
-  if (length(bullets) == 0)
-    return(character())
+  if (length(bullets) == 0) return(character())
 
   paste0(
-    "<div class='", class, "'>\n",
-    "<h2 data-toc-skip>", heading, "</h2>\n",
+    "<div class='",
+    class,
+    "'>\n",
+    "<h2 data-toc-skip>",
+    heading,
+    "</h2>\n",
     "<ul class='list-unstyled'>\n",
     paste0("<li>", bullets, "</li>\n", collapse = ""),
     "</ul>\n",
@@ -190,10 +221,6 @@ sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
 }
 
 cran_link <- function(pkg) {
-  if (!has_internet()) {
-    return(NULL)
-  }
-
   cran_url <- paste0("https://cloud.r-project.org/package=", pkg)
   req <- httr2::request(cran_url)
   req <- req_pkgdown_cache(req)
@@ -211,7 +238,10 @@ cran_link <- function(pkg) {
   req <- httr2::req_retry(req, max_tries = 3)
   resp <- httr2::req_perform(req)
 
-  if (!httr2::resp_is_error(resp) && !grepl("removed-packages", httr2::resp_url(resp))) {
+  if (
+    !httr2::resp_is_error(resp) &&
+      !grepl("removed-packages", httr2::resp_url(resp))
+  ) {
     return(list(repo = "Bioconductor", url = bioc_url))
   }
 

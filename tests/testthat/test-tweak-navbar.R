@@ -1,5 +1,6 @@
 test_that("navbar_links_haystack()", {
-  html <- xml2::read_html('
+  html <- xml2::read_html(
+    '
     <div class="navbar-collapse">
     <ul>
       <li class="nav-item"><a href="articles/pkgdown.html">Get started</a></li>
@@ -13,7 +14,8 @@ test_that("navbar_links_haystack()", {
       </li>
     </ul>
     </div>
-  ')
+  '
+  )
 
   best_match <- function(path) {
     navbar_links_haystack(html, pkg = list(), path)[1, c("links", "similar")]
@@ -44,7 +46,8 @@ test_that("navbar_links_haystack()", {
 })
 
 test_that("activation sets class of best match", {
-  html <- xml2::read_html('
+  html <- xml2::read_html(
+    '
     <div class="navbar-collapse">
     <ul>
       <li class="nav-item"><a href="articles/pkgdown.html">Get started</a></li>
@@ -58,7 +61,8 @@ test_that("activation sets class of best match", {
       </li>
     </ul>
     </div>
-  ')
+  '
+  )
 
   activate_navbar(html, "articles/linking.html")
   expect_equal(

@@ -1,16 +1,16 @@
 #' Open site in browser
 #'
 #' `preview_site()` opens your pkgdown site in your browser. pkgdown has been
-#' carefully designed to work even when served from the file system like 
-#' this; the only part that doesn't work is search. You can use `servr::httw("docs/")` 
+#' carefully designed to work even when served from the file system like
+#' this; the only part that doesn't work is search. You can use `servr::httw("docs/")`
 #'  to create a server to make search work locally.
-#' 
+#'
 #' @inheritParams build_article
 #' @param path Path relative to destination
 #' @export
 preview_site <- function(pkg = ".", path = ".", preview = TRUE) {
   path <- local_path(pkg, path)
-  
+
   check_bool(preview, allow_na = TRUE)
   if (is.na(preview)) {
     preview <- interactive() && !is_testing()

@@ -92,12 +92,12 @@
 #' in the articles index. You can suppress such warnings by listing the
 #' affected articles in a section with `title: internal` (case sensitive);
 #' this section will not be displayed on the index page.
-#' 
+#'
 #' ## External articles
 #'
-#' You can link to arbitrary additional articles by adding an 
+#' You can link to arbitrary additional articles by adding an
 #' `external-articles` entry to `_pkgdown.yml`. It should contain an array
-#' of objects with fields `name`, `title`, `href`, and `description`. 
+#' of objects with fields `name`, `title`, `href`, and `description`.
 #'
 #' ```yaml
 #' external-articles:
@@ -106,7 +106,7 @@
 #'   description: Improve model performance in imbalanced data sets through undersampling or oversampling.
 #'   href: https://www.tidymodels.org/learn/models/sub-sampling/
 #' ```
-#' 
+#'
 #' If you've defined a custom articles index, you'll need to include the name
 #' in one of the `contents` fields.
 #'
@@ -193,12 +193,14 @@
 #'   freshly generated section in browser.
 #' @export
 #' @order 1
-build_articles <- function(pkg = ".",
-                           quiet = TRUE,
-                           lazy = TRUE,
-                           seed = 1014L,
-                           override = list(),
-                           preview = FALSE) {
+build_articles <- function(
+  pkg = ".",
+  quiet = TRUE,
+  lazy = TRUE,
+  seed = 1014L,
+  override = list(),
+  preview = FALSE
+) {
   pkg <- section_init(pkg, "articles", override = override)
   check_bool(quiet)
   check_bool(lazy)
@@ -297,7 +299,11 @@ data_articles <- function(pkg = ".", is_index = FALSE, call = caller_env()) {
   external <- config_pluck_external_articles(pkg, call = call)
   articles <- rbind(internal, external)
 
-  articles$description <- lapply(articles$description, markdown_text_block, pkg = pkg)
+  articles$description <- lapply(
+    articles$description,
+    markdown_text_block,
+    pkg = pkg
+  )
 
   # Hack data structure so we can use select_topics()
   articles$alias <- as.list(articles$name)
@@ -359,7 +365,13 @@ config_pluck_external_articles <- function(pkg, call = caller_env()) {
   )
 }
 
-data_articles_index_section <- function(section, index, articles, pkg, call = caller_env()) {
+data_articles_index_section <- function(
+  section,
+  index,
+  articles,
+  pkg,
+  call = caller_env()
+) {
   config_check_list(
     section,
     error_path = paste0("articles[", index, "]"),

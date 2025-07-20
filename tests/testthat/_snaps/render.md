@@ -49,6 +49,7 @@
       right: <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> {version}.</p>
     lightswitch: no
     uses_katex: no
+    uses_mathjax: no
     
 
 # check_opengraph validates inputs

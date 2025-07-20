@@ -24,14 +24,10 @@ project:
   render: ['*.qmd']
 ```
 
-### GitHub actions
+### GitHub Actions
 
-Currently, you'll need to manually install Quarto in your GitHub actions. ([Hopefully this will change in the future](https://github.com/r-lib/actions/issues/866)). Add the following lines to install quarto:
+The `setup-r-dependencies` action will [automatically](https://github.com/r-lib/actions/tree/v2-branch/setup-r-dependencies#usage) install Quarto in your GitHub Actions if a .qmd file is present in your repository (see the `install-quarto` parameter for more details). 
 
-```yaml
-     - name: Set up Quarto
-       uses: quarto-dev/quarto-actions/setup@v2
-```
 
 ## Limitations
 
@@ -41,7 +37,7 @@ Currently, you'll need to manually install Quarto in your GitHub actions. ([Hope
 
 * You can't customise mermaid styles with quarto mermaid themes. If you want to change the colours, you'll need to provide your own custom CSS as shown in [the quarto docs](https://quarto.org/docs/authoring/diagrams.html#customizing-mermaid).
 
-* pkgdown will pass the `lang` setting on to quarto, but the set of available language is not perfectly matched. Learn more in <https://quarto.org/docs/authoring/language.html>, including how to supply your own translations.
+* pkgdown will pass the `lang` setting on to quarto, but the set of available languages is not perfectly matched. Learn more in <https://quarto.org/docs/authoring/language.html>, including how to supply your own translations.
 
 ## Supported features
 

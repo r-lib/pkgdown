@@ -64,7 +64,7 @@
       <h2 data-toc-skip>Developers</h2>
       <ul class='list-unstyled'>
       <li>Jo Doe <br />
-      <small class = 'roles'> Author, maintainer </small>  </li>
+      <small class = 'roles'> Author, maintainer </small>   </li>
       </ul>
       </div>
       
@@ -80,8 +80,8 @@
     <div class="developers">
     <h2 data-toc-skip>Developers</h2>
     <ul class="list-unstyled">
-    <li>Hadley Wickham <br><small class="roles"> Author, maintainer </small>  </li>
-    <li>RStudio <br><small class="roles"> Copyright holder, funder </small>  </li>
+    <li>Hadley Wickham <br><small class="roles"> Author, maintainer </small>   </li>
+    <li>RStudio <br><small class="roles"> Copyright holder, funder </small>   </li>
     <li><a href="authors.html">More about authors...</a></li>
     </ul>
     </div>
@@ -148,4 +148,12 @@
       Error in `data_home_sidebar_()`:
       ! In _pkgdown.yml, home.sidebar.components.fancy must have components "title" and "text".
       2 missing components: "title" and "text".
+
+# allow email in BugReports
+
+    Code
+      xpath_xml(html, ".//li/a")
+    Output
+      <a href="mailto:me@tidyverse.com">Report a bug</a>
+      <a href="authors.html#citation">Citing testpackage</a>
 

@@ -3,15 +3,21 @@
 .row > main {
   // Ensure contents never become unreadably wide
   max-width: 50rem;
-  
-  // And that we can break and hypenate very long words
-  overflow-wrap: break-word;
-  hyphens: auto;
 }
+
+// break and hypenate very long words on small screens
+@include media-breakpoint-down(md) {
+  .row > main {
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+}
+
 // Put extra space between content and navbar
 @include media-breakpoint-only(xl) {
   .container .row { justify-content: space-evenly; }
 }
+
 // Boost font size and give big (but not infinite) margin on sidebar
 @include media-breakpoint-up(xxl) {
   body { font-size: 18px }
@@ -20,8 +26,13 @@
 
 /* navbar =================================================================== */
 
-$pkgdown-navbar-bg: null !default;
-$pkgdown-navbar-bg-dark: null !default;
+// pkgdown will follow bslib navbar variables by default
+$navbar-bg: null !default;
+$navbar-light-bg: if($navbar-bg, $navbar-bg, null) !default;
+$navbar-dark-bg: if($navbar-bg, $navbar-bg, null) !default;
+
+$pkgdown-navbar-bg: if($navbar-light-bg, $navbar-light-bg, null) !default;
+$pkgdown-navbar-bg-dark: if($navbar-dark-bg, $navbar-dark-bg, null) !default;
 
 // BS navbars appears to be designed with the idea that you have a coloured
 // navbar that looks the same in both light and dark mode. We prefer a mildly
@@ -40,7 +51,7 @@ $pkgdown-navbar-bg-dark: null !default;
 }
 
 // make both the active nav and the hovered nav more clear by mixing the
-// background colour with the body and primary colours respectively 
+// background colour with the body and primary colours respectively
 .nav-item .nav-link {
   @include border-radius($border-radius);
 }
@@ -307,6 +318,11 @@ dt:target + dd {
   color: #A6CE39;
   margin-right: 4px;
 }
+// ror badge
+.ror {
+  height: 16px;
+  margin-right: 4px;
+}
 // activate font awesome
 .fab {
   font-family: "Font Awesome 5 Brands" !important;
@@ -367,7 +383,7 @@ a[href='#main'] {
 }
 .lifecycle-stable       { background-color: rgb(16, 128, 1);  color: var(--bs-white);}
 .lifecycle-superseded   { background-color: rgb(7, 64, 128);  color: var(--bs-white);}
-.lifecycle-experimental, 
+.lifecycle-experimental,
 .lifecycle-deprecated   { background-color: rgb(253, 128, 8); color: var(--bs-black);}
 
 /* Footnotes ---------------------------------------------------------------- */
@@ -447,7 +463,7 @@ pre, pre code {
 // Default dark mode styling does not look good for code
 [data-bs-theme="dark"] {
   pre, code {
-    background-color: RGBA(var(--bs-body-color-rgb), 0.1); 
+    background-color: RGBA(var(--bs-body-color-rgb), 0.1);
   }
   // don't double apply transparency
   pre code {
@@ -589,7 +605,7 @@ span.smallcaps {font-variant: small-caps;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
   vertical-align: middle;
 }
 

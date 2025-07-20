@@ -197,14 +197,15 @@
 #'       includes:
 #'         in_header: |
 #'            <!-- Global site tag (gtag.js) - Google Analytics -->
-#'            <script async src="https://www.googletagmanager.com/gtag/js?id={YOUR TRACKING ID}"#' ></script>
+#'            <script async src="https://www.googletagmanager.com/gtag/js?id={YOUR MEASUREMENT ID}" ></script>
 #'            <script>
 #'              window.dataLayer = window.dataLayer || [];
 #'              function gtag(){dataLayer.push(arguments);}
 #'              gtag('js', new Date());
 #'
-#'              gtag('config', '{YOUR TRACKING ID}');
+#'              gtag('config', '{YOUR MEASUREMENT ID}');
 #'            </script>
+#'            <!-- Google tag (gtag.js) -->
 #'     ```
 #' *   [GoatCounter](https://www.goatcounter.com):
 #'
@@ -221,8 +222,8 @@
 #' of your source repository. This is used in the navbar, on the homepage,
 #' in articles and reference topics, and in the changelog (to link to issue
 #' numbers and user names). pkgdown can automatically figure out the necessary
-#' URLs if you link to a GitHub or GitLab repo in your `BugReports` or `URL`
-#' field.
+#' URLs if you link to a GitHub, GitLab or Codeberg repo in your `BugReports`
+#' or `URL` field.
 #'
 #' Otherwise, you can supply your own in the `repo` field:
 #'
@@ -236,7 +237,7 @@
 #' ```
 #'
 #' * `home`: path to package home on source code repository.
-#' * `source`: path to source of individual file in default branch 
+#' * `source`: path to source of individual file in default branch
 #'   (more on that below).
 #' * `issue`: path to individual issue.
 #' * `user`: path to user.
@@ -244,16 +245,16 @@
 #' The varying components (e.g. path, issue number, user name) are pasted on
 #' the end of these URLs so they should have trailing `/`s.
 #'
-#' When creating the link to pacge source, we have to link to a specific
+#' When creating the link to a package source, we have to link to a specific
 #' branch. The default behaviour is to use current branch when in GitHub
-#' actions and `HEAD` otherwise. You can overide this default with 
+#' actions and `HEAD` otherwise. You can overide this default with
 #' `repo.branch`:
 #'
 #' ```yaml
 #' repo:
 #'   branch: devel
 #' ```
-#' 
+#'
 #' pkgdown can automatically link to Jira issues as well if specify both a
 #' custom `issue` URL as well Jira project names to auto-link in
 #' `jira_projects`. You can specify as many projects as you would like:
@@ -278,18 +279,6 @@
 #'    deploy:
 #'      install_metadata: true
 #'    ```
-#'
-#' # Options
-#' Users with limited internet connectivity can disable CRAN checks by setting
-#' `options(pkgdown.internet = FALSE)`. This will also disable some features
-#' from pkgdown that requires an internet connectivity. However, if it is used
-#' to build docs for a package that requires internet connectivity in examples
-#' or vignettes, this connection is required as this option won't apply on them.
-#'
-#' Users can set a timeout for `build_site(new_process = TRUE)` with
-#' `options(pkgdown.timeout = Inf)`, which is useful to prevent stalled builds from
-#' hanging in cron jobs.
-#'
 #' @inheritParams build_articles
 #' @inheritParams build_reference
 #' @param lazy If `TRUE`, will only rebuild articles and reference pages
@@ -312,6 +301,8 @@
 #'   in the current process affects the build process.
 #' @param install If `TRUE`, will install the package in a temporary library
 #'   so it is available for vignettes.
+#' @param quiet If `FALSE`, generate build messages for build functions that
+#'   take `quiet` arguments.
 #' @export
 #' @examples
 #' \dontrun{
@@ -319,16 +310,19 @@
 #'
 #' build_site(override = list(destination = tempdir()))
 #' }
-build_site <- function(pkg = ".",
-                       examples = TRUE,
-                       run_dont_run = FALSE,
-                       seed = 1014L,
-                       lazy = FALSE,
-                       override = list(),
-                       preview = NA,
-                       devel = FALSE,
-                       new_process = !devel,
-                       install = !devel) {
+build_site <- function(
+  pkg = ".",
+  examples = TRUE,
+  run_dont_run = FALSE,
+  seed = 1014L,
+  lazy = FALSE,
+  override = list(),
+  preview = NA,
+  devel = FALSE,
+  new_process = !devel,
+  install = !devel,
+  quiet = TRUE
+) {
   pkg <- as_pkgdown(pkg, override = override)
   check_bool(devel)
   check_bool(new_process)
@@ -336,12 +330,19 @@ build_site <- function(pkg = ".",
 
   if (install) {
     withr::local_temp_libpaths()
-    cli::cli_rule("Installing package {.pkg {pkg$package}} into temporary library")
+    cli::cli_rule(
+      "Installing package {.pkg {pkg$package}} into temporary library"
+    )
     # Keep source, so that e.g. pillar can show the source code
     # of its functions in its articles
     withr::with_options(
       list(keep.source.pkgs = TRUE, keep.parse.data.pkgs = TRUE),
-      utils::install.packages(pkg$src_path, repos = NULL, type = "source", quiet = TRUE)
+      utils::install.packages(
+        pkg$src_path,
+        repos = NULL,
+        type = "source",
+        quiet = TRUE
+      )
     )
   }
 
@@ -354,7 +355,8 @@ build_site <- function(pkg = ".",
       lazy = lazy,
       override = override,
       preview = preview,
-      devel = devel
+      devel = devel,
+      quiet = quiet
     )
   } else {
     build_site_local(
@@ -365,19 +367,23 @@ build_site <- function(pkg = ".",
       lazy = lazy,
       override = override,
       preview = preview,
-      devel = devel
+      devel = devel,
+      quiet = quiet
     )
   }
 }
 
-build_site_external <- function(pkg = ".",
-                                examples = TRUE,
-                                run_dont_run = FALSE,
-                                seed = 1014L,
-                                lazy = FALSE,
-                                override = list(),
-                                preview = NA,
-                                devel = TRUE) {
+build_site_external <- function(
+  pkg = ".",
+  examples = TRUE,
+  run_dont_run = FALSE,
+  seed = 1014L,
+  lazy = FALSE,
+  override = list(),
+  preview = NA,
+  devel = TRUE,
+  quiet = TRUE
+) {
   pkg <- as_pkgdown(pkg, override = override)
   args <- list(
     pkg = pkg,
@@ -390,40 +396,42 @@ build_site_external <- function(pkg = ".",
     preview = FALSE,
     new_process = FALSE,
     devel = devel,
+    quiet = quiet,
     cli_colors = cli::num_ansi_colors(),
-    hyperlinks = cli::ansi_has_hyperlink_support(),
-    pkgdown_internet = has_internet()
+    hyperlinks = cli::ansi_has_hyperlink_support()
   )
   callr::r(
-    function(..., cli_colors, hyperlinks, pkgdown_internet) {
+    function(..., cli_colors, hyperlinks) {
       options(
         cli.num_colors = cli_colors,
         cli.hyperlink = hyperlinks,
-        cli.hyperlink_run = hyperlinks,
-        pkgdown.internet = pkgdown_internet
+        cli.hyperlink_run = hyperlinks
       )
       pkgdown::build_site(...)
     },
     args = args,
-    show = TRUE,
-    timeout = getOption('pkgdown.timeout', Inf)
+    show = TRUE
   )
 
-  cli::cli_rule("Finished building pkgdown site for package {.pkg {pkg$package}}")
+  cli::cli_rule(
+    "Finished building pkgdown site for package {.pkg {pkg$package}}"
+  )
 
   preview_site(pkg, preview = preview)
   invisible()
 }
 
-build_site_local <- function(pkg = ".",
-                             examples = TRUE,
-                             run_dont_run = FALSE,
-                             seed = 1014L,
-                             lazy = FALSE,
-                             override = list(),
-                             preview = NA,
-                             devel = TRUE) {
-
+build_site_local <- function(
+  pkg = ".",
+  examples = TRUE,
+  run_dont_run = FALSE,
+  seed = 1014L,
+  lazy = FALSE,
+  override = list(),
+  preview = NA,
+  devel = TRUE,
+  quiet = TRUE
+) {
   pkg <- section_init(pkg, override = override)
 
   cli::cli_rule("Building pkgdown site for package {.pkg {pkg$package}}")
@@ -438,7 +446,7 @@ build_site_local <- function(pkg = ".",
     init_site(pkg, override)
   }
 
-  build_home(pkg, override = override, preview = FALSE)
+  build_home(pkg, override = override, quiet = quiet, preview = FALSE)
   build_reference(
     pkg,
     lazy = lazy,
@@ -449,7 +457,13 @@ build_site_local <- function(pkg = ".",
     preview = FALSE,
     devel = devel
   )
-  build_articles(pkg, lazy = lazy, override = override, preview = FALSE)
+  build_articles(
+    pkg,
+    lazy = lazy,
+    override = override,
+    quiet = quiet,
+    preview = FALSE
+  )
   build_tutorials(pkg, override = override, preview = FALSE)
   build_news(pkg, override = override, preview = FALSE)
   build_sitemap(pkg)
@@ -462,6 +476,8 @@ build_site_local <- function(pkg = ".",
 
   check_built_site(pkg)
 
-  cli::cli_rule("Finished building pkgdown site for package {.pkg {pkg$package}}")
+  cli::cli_rule(
+    "Finished building pkgdown site for package {.pkg {pkg$package}}"
+  )
   preview_site(pkg, preview = preview)
 }

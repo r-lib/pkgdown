@@ -1,5 +1,4 @@
 test_that("can handle logo in subdir", {
-
   src <- withr::local_tempdir()
   dst <- withr::local_tempdir()
 

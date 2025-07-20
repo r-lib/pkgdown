@@ -72,12 +72,9 @@
 #'
 #' @inheritParams build_articles
 #' @export
-build_news <- function(pkg = ".",
-                       override = list(),
-                       preview = FALSE) {
+build_news <- function(pkg = ".", override = list(), preview = FALSE) {
   pkg <- section_init(pkg, "news", override = override)
-  if (!has_news(pkg$src_path))
-    return(invisible())
+  if (!has_news(pkg$src_path)) return(invisible())
 
   cli::cli_rule("Building news")
 
@@ -144,7 +141,7 @@ build_news_multi <- function(pkg = ".") {
   )
 }
 
-data_news <- function(pkg, call = caller_env() ) {
+data_news <- function(pkg, call = caller_env()) {
   html <- markdown_body(pkg, path(pkg$src_path, "NEWS.md"))
   xml <- xml2::read_html(html)
 
@@ -186,13 +183,17 @@ data_news <- function(pkg, call = caller_env() ) {
 
   versions <- versions[!is.na(versions)]
 
-  show_dates <- config_pluck_bool(pkg, "news.cran_dates", default = !is_testing())
+  show_dates <- config_pluck_bool(
+    pkg,
+    "news.cran_dates",
+    default = !is_testing()
+  )
   if (show_dates) {
     timeline <- pkg_timeline(pkg$package)
   } else {
     timeline <- NULL
   }
-  
+
   purrr::walk2(
     sections,
     versions,
@@ -215,8 +216,11 @@ data_news <- function(pkg, call = caller_env() ) {
 }
 
 news_version <- function(x, pkgname) {
-  pattern <- paste0("(?x)
-    (?:", pkgname, "|version|changes\\ in)
+  pattern <- paste0(
+    "(?x)
+    (?:",
+    pkgname,
+    "|version|changes\\ in)
     \\s+   # whitespace
     v?     # optional v followed by
     (?<version>
@@ -224,7 +228,8 @@ news_version <- function(x, pkgname) {
       |                             # OR
       \\(development\\ version\\)   # literal used by usethis
     )
-  ")
+  "
+  )
   pieces <- re_match(x, pattern, ignore.case = TRUE)
   gsub("^[(]|[)]$", "", pieces$version)
 }
@@ -246,7 +251,8 @@ version_page <- function(x) {
 navbar_news <- function(pkg) {
   releases_meta <- config_pluck_list(pkg, "news.releases")
   if (!is.null(releases_meta)) {
-    menu_submenu(tr_("News"),
+    menu_submenu(
+      tr_("News"),
       list2(
         menu_heading(tr_("Releases")),
         !!!releases_meta,
@@ -264,10 +270,6 @@ has_news <- function(path = ".") {
 }
 
 pkg_timeline <- function(package) {
-  if (!has_internet()) {
-    return(NULL)
-  }
-
   url <- paste0("https://crandb.r-pkg.org/", package, "/all")
   req <- httr2::request(url)
   req <- httr2::req_retry(req, max_tries = 3)
@@ -284,7 +286,6 @@ pkg_timeline <- function(package) {
   data.frame(
     version = names(timeline),
     date = as.Date(timeline),
-    stringsAsFactors = FALSE,
     row.names = NULL
   )
 }
@@ -302,12 +303,18 @@ tweak_news_heading <- function(html, version, timeline, bs_version) {
     if (!is.na(date)) {
       if (bs_version == 3) {
         release_str <- paste0(" <small>", date, "</small>")
-        release_html <- xml2::xml_find_first(xml2::read_html(release_str), ".//small")
+        release_html <- xml2::xml_find_first(
+          xml2::read_html(release_str),
+          ".//small"
+        )
         xml2::xml_add_child(h2, release_html, .where = 1)
       } else {
         release_date <- sprintf(tr_("CRAN release: %s"), date)
         release_str <- paste0("<p class='text-muted'>", release_date, "</p>")
-        release_html <- xml2::xml_find_first(xml2::read_html(release_str), ".//p")
+        release_html <- xml2::xml_find_first(
+          xml2::read_html(release_str),
+          ".//p"
+        )
         xml2::xml_add_sibling(h2, release_html, .where = "after")
       }
     }
@@ -332,7 +339,10 @@ tweak_news_anchor <- function(html, version) {
 }
 
 tweak_section_levels <- function(html) {
-  sections <- xml2::xml_find_all(html, ".//div[contains(@class, 'section level')]|//main/section")
+  sections <- xml2::xml_find_all(
+    html,
+    ".//div[contains(@class, 'section level')]|//main/section"
+  )
 
   # Update headings
   xml2::xml_set_name(xml2::xml_find_all(sections, ".//h5"), "h6")
@@ -342,7 +352,10 @@ tweak_section_levels <- function(html) {
   xml2::xml_set_name(xml2::xml_find_all(sections, ".//h1"), "h2")
 
   # Update section
-  xml2::xml_attr(sections, "class") <- paste0("section level", get_section_level(sections) + 1)
+  xml2::xml_attr(sections, "class") <- paste0(
+    "section level",
+    get_section_level(sections) + 1
+  )
 
   invisible()
 }

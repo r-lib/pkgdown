@@ -48,7 +48,7 @@ test_that("dev_mode recognises basic version structure", {
 
 test_that("validates yaml", {
   data_development_ <- function(...) {
-    local_pkgdown_site(meta = list(...) )
+    local_pkgdown_site(meta = list(...))
   }
 
   expect_snapshot(error = TRUE, {

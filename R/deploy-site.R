@@ -40,18 +40,28 @@ deploy_site_github <- function(
   verbose = FALSE,
   host = "github.com",
   ...,
-  repo_slug = Sys.getenv("TRAVIS_REPO_SLUG", "")) {
+  repo_slug = Sys.getenv("TRAVIS_REPO_SLUG", "")
+) {
   rlang::check_installed("openssl")
   if (!nzchar(tarball)) {
-    cli::cli_abort("No built tarball detected, please provide the location of one with {.var tarball}", call = caller_env())
+    cli::cli_abort(
+      "No built tarball detected, please provide the location of one with {.var tarball}",
+      call = caller_env()
+    )
   }
 
   if (!nzchar(ssh_id)) {
-    cli::cli_abort("No deploy key found, please setup with {.fn travis::use_travis_deploy}", call = caller_env())
+    cli::cli_abort(
+      "No deploy key found, please setup with {.fn travis::use_travis_deploy}",
+      call = caller_env()
+    )
   }
 
   if (!nzchar(repo_slug)) {
-    cli::cli_abort("No repo detected, please supply one with {.var repo_slug}", call = caller_env())
+    cli::cli_abort(
+      "No repo detected, please supply one with {.var repo_slug}",
+      call = caller_env()
+    )
   }
 
   cli::cli_alert("Deploying site to GitHub")
@@ -102,14 +112,16 @@ deploy_site_github <- function(
 #' @inheritParams build_site
 #' @inheritParams deploy_site_github
 #' @export
-deploy_to_branch <- function(pkg = ".",
-                         commit_message = construct_commit_message(pkg),
-                         clean = TRUE,
-                         branch = "gh-pages",
-                         remote = "origin",
-                         github_pages = (branch == "gh-pages"),
-                         ...,
-                         subdir = NULL) {
+deploy_to_branch <- function(
+  pkg = ".",
+  commit_message = construct_commit_message(pkg),
+  clean = TRUE,
+  branch = "gh-pages",
+  remote = "origin",
+  github_pages = (branch == "gh-pages"),
+  ...,
+  subdir = NULL
+) {
   dest_dir <- dir_create(file_temp())
   on.exit(dir_delete(dest_dir))
 
@@ -119,7 +131,12 @@ deploy_to_branch <- function(pkg = ".",
     # If no remote branch, we need to create it
     git("checkout", "--orphan", branch)
     git("rm", "-rf", "--quiet", ".")
-    git("commit", "--allow-empty", "-m", sprintf("Initializing %s branch", branch))
+    git(
+      "commit",
+      "--allow-empty",
+      "-m",
+      sprintf("Initializing %s branch", branch)
+    )
     git("push", remote, paste0("HEAD:", branch))
 
     # checkout the previous branch
@@ -156,19 +173,38 @@ deploy_to_branch <- function(pkg = ".",
 }
 
 git_has_remote_branch <- function(remote, branch) {
-  has_remote_branch <- git("ls-remote", "--quiet", "--exit-code", remote, branch, echo = FALSE, echo_cmd = FALSE, error_on_status = FALSE)$status == 0
+  has_remote_branch <- git(
+    "ls-remote",
+    "--quiet",
+    "--exit-code",
+    remote,
+    branch,
+    echo = FALSE,
+    echo_cmd = FALSE,
+    error_on_status = FALSE
+  )$status ==
+    0
 }
 
 git_current_branch <- function() {
-  branch <- git("rev-parse", "--abbrev-ref", "HEAD", echo = FALSE, echo_cmd = FALSE)$stdout
+  branch <- git(
+    "rev-parse",
+    "--abbrev-ref",
+    "HEAD",
+    echo = FALSE,
+    echo_cmd = FALSE
+  )$stdout
   sub("\n$", "", branch)
 }
 
 github_worktree_add <- function(dir, remote, branch) {
   cli::cli_inform("Adding worktree")
-  git("worktree",
+  git(
+    "worktree",
     "add",
-    "--track", "-B", branch,
+    "--track",
+    "-B",
+    branch,
     dir,
     paste0(remote, "/", branch)
   )
@@ -196,12 +232,20 @@ github_push <- function(dir, commit_message, remote, branch) {
 }
 
 git <- function(..., echo_cmd = TRUE, echo = TRUE, error_on_status = TRUE) {
-  callr::run("git", c(...), echo_cmd = echo_cmd, echo = echo, error_on_status = error_on_status)
+  callr::run(
+    "git",
+    c(...),
+    echo_cmd = echo_cmd,
+    echo = echo,
+    error_on_status = error_on_status
+  )
 }
 
 construct_commit_message <- function(pkg = ".", commit = ci_commit_sha()) {
   pkg <- as_pkgdown(pkg)
-  cli::format_inline("Built site for {pkg$package}@{pkg$version}: {substr(commit, 1, 7)}")
+  cli::format_inline(
+    "Built site for {pkg$package}@{pkg$version}: {substr(commit, 1, 7)}"
+  )
 }
 
 ci_commit_sha <- function() {
@@ -214,8 +258,7 @@ ci_commit_sha <- function() {
 
   for (var in env_vars) {
     commit_sha <- Sys.getenv(var, "")
-    if (commit_sha != "")
-      return(commit_sha)
+    if (commit_sha != "") return(commit_sha)
   }
 
   ""

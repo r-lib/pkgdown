@@ -21,3 +21,8 @@
 ^tools$
 ^\.lintr.R$
 ^vignettes/\.quarto$
+^vignettes/articles/\.quarto$
+^vignettes/articles/*_files$
+^vignettes/articles$
+^\.vscode$
+^[\.]?air\.toml$

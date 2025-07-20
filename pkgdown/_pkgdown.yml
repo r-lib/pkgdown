@@ -17,6 +17,7 @@ authors:
 
 template:
   bootstrap: 5
+  math-rendering: mathjax
   light-switch: true
   bslib:
     primary: "#0054AD"
@@ -51,6 +52,7 @@ articles:
     easily be tested automatically.
   contents:
   - starts_with("test")
+  - starts_with("articles/test")
 
 reference:
 - title: Build

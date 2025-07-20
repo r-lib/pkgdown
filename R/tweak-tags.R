@@ -3,7 +3,8 @@ tweak_anchors <- function(html) {
   # Find all headings that are contained in a div with an id and
   # have class 'section'
 
-  is_ok <- xml2::xml_find_lgl(headings,
+  is_ok <- xml2::xml_find_lgl(
+    headings,
     "boolean(
       (parent::div[contains(@class, 'section') and @id]) or
       (parent::section[@id])
@@ -14,7 +15,10 @@ tweak_anchors <- function(html) {
     return(invisible())
   }
 
-  id <- xml2::xml_find_chr(headings, "string(parent::div/@id|parent::section/@id)")
+  id <- xml2::xml_find_chr(
+    headings,
+    "string(parent::div/@id|parent::section/@id)"
+  )
 
   # Update ids: dot in the anchor breaks scrollspy and rd translation
   # doesn't have enough information to generate unique ids
@@ -45,8 +49,7 @@ anchor_html <- function(id) {
 
 tweak_link_md <- function(html) {
   links <- xml2::xml_find_all(html, ".//a")
-  if (length(links) == 0)
-    return()
+  if (length(links) == 0) return()
 
   hrefs <- xml2::xml_attr(links, "href")
 
@@ -73,8 +76,7 @@ tweak_link_md <- function(html) {
 
 tweak_link_external <- function(html, pkg = list()) {
   links <- xml2::xml_find_all(html, ".//a")
-  if (length(links) == 0)
-    return()
+  if (length(links) == 0) return()
 
   links <- links[!has_class(links, "external-link")]
 
@@ -99,7 +101,10 @@ tweak_img_src <- function(html) {
   urls <- fix_path(xml2::xml_attr(imgs, "src"))
   purrr::map2(imgs, urls, ~ xml2::xml_set_attr(.x, "src", .y))
 
-  imgs <- xml2::xml_find_all(html, ".//source[not(starts-with(@srcset, 'http'))]")
+  imgs <- xml2::xml_find_all(
+    html,
+    ".//source[not(starts-with(@srcset, 'http'))]"
+  )
   urls <- fix_path(xml2::xml_attr(imgs, "srcset"))
   purrr::map2(imgs, urls, ~ xml2::xml_set_attr(.x, "srcset", .y))
 
@@ -116,11 +121,17 @@ tweak_link_absolute <- function(html, pkg = list()) {
 
   # <a> + <link> use href
   href <- xml2::xml_find_all(html, ".//a | .//link")
-  xml2::xml_attr(href, "href") <- xml2::url_absolute(xml2::xml_attr(href, "href"), url)
+  xml2::xml_attr(href, "href") <- xml2::url_absolute(
+    xml2::xml_attr(href, "href"),
+    url
+  )
 
   # <img> + <script> uses src
   src <- xml2::xml_find_all(html, ".//script | .//img")
-  xml2::xml_attr(src, "src") <- xml2::url_absolute(xml2::xml_attr(src, "src"), url)
+  xml2::xml_attr(src, "src") <- xml2::url_absolute(
+    xml2::xml_attr(src, "src"),
+    url
+  )
 
   invisible()
 }
@@ -138,7 +149,11 @@ tweak_link_R6 <- function(html, cur_package) {
   url <- paste0(topic, ".html")
   external <- pkg != cur_package
   if (any(external)) {
-    url[external] <- purrr::map2_chr(topic[external], pkg[external], downlit::href_topic)
+    url[external] <- purrr::map2_chr(
+      topic[external],
+      pkg[external],
+      downlit::href_topic
+    )
   }
   url <- paste0(url, ifelse(is.na(id), "", "#method-"), id)
 
@@ -160,7 +175,10 @@ tweak_tables <- function(html) {
 
 # from https://github.com/rstudio/bookdown/blob/ed31991df3bb826b453f9f50fb43c66508822a2d/R/bs4_book.R#L307
 tweak_footnotes <- function(html) {
-  container <- xml2::xml_find_all(html, ".//div[contains(@class, 'footnotes')]|.//section[contains(@class, 'footnotes')]")
+  container <- xml2::xml_find_all(
+    html,
+    ".//div[contains(@class, 'footnotes')]|.//section[contains(@class, 'footnotes')]"
+  )
   if (length(container) != 1) {
     return()
   }
@@ -169,7 +187,10 @@ tweak_footnotes <- function(html) {
   id <- xml2::xml_attr(footnotes, "id")
   xml2::xml_remove(xml2::xml_find_all(footnotes, "//a[@class='footnote-back']"))
   contents <- vapply(footnotes, FUN.VALUE = character(1), function(x) {
-    paste(as.character(xml2::xml_children(x), options = character()), collapse = "\n")
+    paste(
+      as.character(xml2::xml_children(x), options = character()),
+      collapse = "\n"
+    )
   })
   # Add popover attributes to links
   for (i in seq_along(id)) {
@@ -187,7 +208,9 @@ tweak_footnotes <- function(html) {
 tweak_strip <- function(html, in_dev = FALSE) {
   to_remove <- if (in_dev) "pkgdown-release" else "pkgdown-devel"
   xpath <- paste0(
-    ".//*[contains(@class, '", to_remove, "')]|",
+    ".//*[contains(@class, '",
+    to_remove,
+    "')]|",
     ".//*[contains(@class, 'pkgdown-hide')]"
   )
   nodes <- xml2::xml_find_all(html, xpath)

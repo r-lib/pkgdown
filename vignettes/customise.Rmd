@@ -21,7 +21,7 @@ We'll start by discussing two techniques that only require tweaks to your `_pkgd
 We'll then discuss how to add additional HTML and other files.
 Next, we'll discuss how to give multiple sites the same style using a package, then finish up with some workflow advice.
 
-In terms of your `_pkgdown.yml`, this vignette focusses on the most important fields nested under `template` and `navbar`. To learn more about customising other aspect of the site, see the documentation for the indiviudal functions like `build_reference()`, `build_articles()`,  `build_home()`, `build_redirects()`, and `init_site()`. To learn about less important fields nested under `template`, see `build_site()`.
+In terms of your `_pkgdown.yml`, this vignette focusses on the most important fields nested under `template` and `navbar`. To learn more about customising other aspects of the site, see the documentation for the indiviudal functions like `build_reference()`, `build_articles()`,  `build_home()`, `build_redirects()`, and `init_site()`. To learn about less important fields nested under `template`, see `build_site()`.
 
 ```{r setup}
 library(pkgdown)
@@ -45,18 +45,18 @@ Upgrading to Bootstrap 5 has a low chance of breaking your site unless you were 
 There are two ways to change the visual style of your site from `_pkgdown.yml`: using a pre-packaged bootswatch theme or customising theme variables with [bslib](https://rstudio.github.io/bslib/).
 The following sections show you how.
 
-Please note that pkgdown's default theme has been carefully optimised to be accessible, so if you make changes, make sure that to also read `vignette("accessibility")` to learn about potential accessibility pitfalls.
+Please note that pkgdown's default theme has been carefully optimised to be accessible, so if you make changes, make sure to also read `vignette("accessibility")` to learn about potential accessibility pitfalls.
 
 ### Light switch {#light-switch}
 
-You can provide a "light switch" to allow your uses to switch between dark and light themes by setting the `light-switch` template option to true:
+You can provide a "light switch" to allow your users to switch between dark and light themes by setting the `light-switch` template option to true:
 
 ```yaml
 template:
   light-switch: true
 ```
 
-This will add a `lightswitch` component to the navbar, which defaults to appearing at the far right. This allows the user to select light mode, dark mode, or auto mode (which follows the system setting). The modes are applied using Bootstrap 5.3's [colours modes](https://getbootstrap.com/docs/5.3/customize/color-modes/) so are not separate themes, but a thin layer of colour customisation applied via CSS.
+This will add a `lightswitch` component to the navbar, which by default appears at the far right. This allows the user to select light mode, dark mode, or auto mode (which follows the system setting). The modes are applied using Bootstrap 5.3's [colours modes](https://getbootstrap.com/docs/5.3/customize/color-modes/) so are not separate themes, but a thin layer of colour customisation applied via CSS.
 
 ### Bootswatch themes
 
@@ -109,7 +109,7 @@ template:
 
 You can customise other components by setting more specific bslib variables, taking advantage of inheritance where possible.
 For example, `table-border-color` defaults to `border-color` which defaults to `gray-300`.
-If you want to change the colour of all borders, you can set `border-color`; if you just want to change the colour of table borders, you can set `table-border-color`.
+If you want to change the colour of all borders, you can set `border-color` and if you just want to change the colour of table borders, you can set `table-border-color`.
 You can find a full list of variables in the [bslib docs](https://rstudio.github.io/bslib/articles/bs5-variables/index.html).
 
 If you're using the light switch, [many colours](https://getbootstrap.com/docs/5.3/customize/color-modes/#sass-variables) are available for customisation specifically for the dark theme.
@@ -178,9 +178,9 @@ template:
     base_font: proxima-nova
 ```
 
-Depending on where the font is from (and if you paid money for it), you may need to take additional steps to ensure that it can only be used from your site, and/or make sure that it can still be used when you're previewing locally. If you're having problems getting a custom font to work, looking for errors in the [browser developer console](https://developer.mozilla.org/en-US/docs/Glossary/Developer_Tools) is a good place to start.
+Depending on where the font is from (and if you purchased it), you may need to take additional steps to ensure that it can only be used from your site, and/or make sure that it can still be used when you're previewing locally. If you're having problems getting a custom font to work, looking for errors in the [browser developer console](https://developer.mozilla.org/en-US/docs/Glossary/Developer_Tools) is a good place to start.
 
-When iterating on fonts, you'll need to run `build_home_index(); init_site()` then refresh you browser to see the update.
+When iterating on fonts, you'll need to run `build_home_index(); init_site()` then refresh your browser to see the update.
 
 
 ### Syntax highlighting
@@ -226,7 +226,7 @@ template:
 
 ### Math rendering
 
-By default, pkgdown will render math using mathml. mathml is the official standard for rendering math on the web, and requires no additional javascript or css dependencies. However, browser support for complex math is not always that good, so if you are including complex equations in your documentation, you may want to switch to either [`katex`](https://katex.org) or [`mathjax`](https://www.mathjax.org) by using the `template.math-rendering` field:
+By default, pkgdown will render math using [mathml](https://w3c.github.io/mathml/). mathml is the official standard for rendering math on the web, and requires no additional javascript or css dependencies. However, browser support for complex math is not always that good, so if you are including complex equations in your documentation, you may want to switch to either [`katex`](https://katex.org), which we recommend for display of complex math expressions, or [`mathjax`](https://www.mathjax.org) by using the `template.math-rendering` field:
 
 ```yaml
 template:
@@ -235,7 +235,7 @@ template:
 
 ### Navbar style
 
-The primary navbar colours are determined by HTML classes, not CSS, and can be customized using the `navbar` fields `bg` and `type` which control the background and foreground colours respectively.
+When [light-switch](#light-switch) is disabled, the primary navbar colours are determined by HTML classes, not CSS, and can be customized using the `navbar` fields `bg` and `type` which control the background and foreground colours respectively.
 Typically `bg` will be one of `light`, `dark`, or `primary`:
 
 ``` yaml
@@ -243,10 +243,21 @@ navbar:
   bg: primary
 ```
 
-You generally don't need to set `bg` if you use a bootswatch theme, as pkgdown will pick the `bg` used on the [Bootstwatch preview](https://bootswatch.com/).
+You generally don't need to set `bg` if you use a bootswatch theme, as pkgdown will pick the `bg` used on the [Bootswatch preview](https://bootswatch.com/).
 Similarly, you don't usually need to set `type` because bootstrap will guess it for you.
-If it guesses wrong, override with `type: light` or `type: dark` depending on whether the background colour is light (so you need dark text) or `type: dark` if the background is dark (so you need light text).
+If the guess is wrong, you can override with `type: light` or `type: dark` depending on whether the background colour is light (so you need dark text) or `type: dark` if the background is dark (so you need light text).
 Unfortunately, these are defined relative to the page background, so if you have a dark site you'll need to flip `light` and `dark` (a little experimentation should quickly determine what looks best).
+
+When [light-switch](#light-switch) is enabled, navbar background colours can be customized via Sass variables provided to `template.bslib`.
+Use `$navbar-bg` to set a constant navbar colour in both light and dark mode, or `$navbar-light-bg` and `$navbar-dark-bg` to choose separate colours.
+
+```yaml
+template:
+  bslib:
+    # navbar-bg: "#306CC9"
+    navbar-light-bg: "#9CBAE7"
+    navbar-dark-bg: "#183663"
+```
 
 Because the navbar is styled with HTML, you'll need to `build_home_index(); init_site()` to see the effect of changing this parameter.
 
@@ -274,13 +285,13 @@ navbar:
 It makes use of the the following built-in components:
 
 -   `intro`: "Get Started", which links to a vignette or article with the same name as the package[^dots].
--   `reference`, if there are any `.Rd` files.
--   `articles`, if there are any vignettes or articles.
--   `tutorials`, if there any tutorials.
--   `news`, if `NEWS.md` exists.
--   `search`, the search box (see `?build_search` for more details).
--   `github`, a link to the source repository (with an icon), if it can be automatically determined from the `DESCRIPTION`.
--   `lightswitch`, a ["light switch"](#light-switch) to select light mode, dark mode, or auto mode.
+-   `reference`: if there are any `.Rd` files.
+-   `articles`: if there are any vignettes or articles.
+-   `tutorials`: if there any tutorials.
+-   `news`: if `NEWS.md` exists.
+-   `search`: the search box (see `?build_search` for more details).
+-   `github`: a link to the source repository (with an icon), if it can be automatically determined from the `DESCRIPTION`.
+-   `lightswitch`; a ["light switch"](#light-switch) to select light mode, dark mode, or auto mode.
 
 Note that customising `navbar` like this comes with a downside: if pkgdown later changes the defaults, you'll have to update your `_pkgdown.yml`.
 
@@ -319,7 +330,7 @@ navbar:
 Components uses the same syntax as [RMarkdown menus](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
 The elements of `menu` can be:
 
--   Linked text (`text`, `href`, and an optional `target`). 
+-   Linked text (`text`, `href`, and optional `target`, `class`, and `id`.). 
 
 -   A linked icon (`icon`, `aria-label`, `href`, and an optional `target`). 
     You can find a list of available icons at [fontawesome](https://fontawesome.com/icons?d=gallery). Provide a text description of the icon in the `aria-label` field
@@ -353,7 +364,7 @@ template:
     after_navbar: <!-- inserted after the navbar links -->
 ```
 
-These includes will appear on all screen sizes, and will not be collapsed into the the navbar drop down.
+These inclusions will appear on all screen sizes, and will not be collapsed into the the navbar drop down.
 
 You can also customise the colour scheme of the navbar by using the `type` and `bg` parameters. See above for details.
 
@@ -374,12 +385,12 @@ footer:
 
 Which uses two of the three built-in components:
 
--   `developed_by`, a sentence describing the main authors of the package. (See `?build_home` if you want to tweak *which* authors appear in the footer.)
--   `built_with`, a sentence advertising pkgdown.
--   `package`, the name of the package.
+-   `developed_by`: a sentence describing the main authors of the package. (See `?build_home` if you want to tweak *which* authors appear in the footer.)
+-   `built_with`: a sentence advertising pkgdown.
+-   `package`: the name of the package.
 
 You can override these defaults with the `footer` field.
-The example below puts the authors' information on the right along with a legal disclaimer, and puts the pkgdown link on the left.
+The example below puts the author's information on the right along with a legal disclaimer, and puts the pkgdown link on the left.
 
 ``` yaml
 footer:
@@ -409,7 +420,7 @@ template:
 
 You can include additional files by putting them in the right place:
 
--   `pkgdown/extra.css` and `pkgdown/extra.js` will be copied in to rendered site and linked from `<head>` (after the pkgdown defaults).
+-   `pkgdown/extra.css` and `pkgdown/extra.js` will be copied to the rendered site and linked from `<head>` (after the pkgdown defaults).
 
 -   `pkgdown/extra.scss` will be added to the scss ruleset used to generate the site CSS.
 
@@ -440,7 +451,7 @@ template:
   package: theverybest
 ```
 
-You then also need to make sure it's available when your site is build. Typically, you won't want to publish this package to CRAN, but you will want to publish to GitHub. Once you've done that, and assuming you're using the [usethis workflow](https://usethis.r-lib.org/reference/use_pkgdown.html), add the following line to your `DESCRIPTION`:
+You then also need to make sure it's available when your site is built. Typically, you won't want to publish this package to CRAN, but you will want to publish to GitHub. Once you've done that, and assuming you're using the [usethis workflow](https://usethis.r-lib.org/reference/use_pkgdown.html), add the following line to your `DESCRIPTION`:
 
 ```yaml
 Config/Needs/website: myorg/theverybest
@@ -461,7 +472,7 @@ But please note that these templates aren't suitable for use with your own packa
 If you are updating a template package that works with pkgdown 1.0.0, create directories `inst/pkgdown/BS5/templates` and `inst/pkgdown/BS5/assets` (if you don't have any templates/assets make sure to a add dummy file to ensure that git tracks them).
 The `templates` and `assets` directories directly under `inst/pkgdown` will be used by pkgdown 1.0.0 and by pkgdown 2.0.0 if `boostrap: 3`.
 The directories under `inst/pkgdown/BS5/` will be used for pkgdown 2.0.0 with `boostrap: 5`.
-This lets your package support both versions of bootstrap and pkgdown.
+This lets your package support both versions of Bootstrap and pkgdown.
 
 ## PR previews
 

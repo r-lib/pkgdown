@@ -5,16 +5,34 @@
 
 {{#has_favicons}}
 <!-- favicons -->
-<link rel="icon" type="image/png" sizes="16x16" href="{{#site}}{{root}}{{/site}}favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="{{#site}}{{root}}{{/site}}favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{{#site}}{{root}}{{/site}}apple-touch-icon.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="{{#site}}{{root}}{{/site}}apple-touch-icon-120x120.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="{{#site}}{{root}}{{/site}}apple-touch-icon-76x76.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="{{#site}}{{root}}{{/site}}apple-touch-icon-60x60.png" />
+<link rel="icon" type="image/png" sizes="96x96" href="{{#site}}{{root}}{{/site}}favicon-96x96.png">
+<link rel="icon" type=”image/svg+xml” href="{{#site}}{{root}}{{/site}}favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="{{#site}}{{root}}{{/site}}apple-touch-icon.png">
+<link rel="icon" sizes="any" href="{{#site}}{{root}}{{/site}}favicon.ico" >
+<link rel="manifest" href="{{#site}}{{root}}{{/site}}site.webmanifest">
 {{/has_favicons}}
 
+{{#uses_katex}}
+<!-- katex math -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script src="{{#site}}{{root}}{{/site}}katex-auto.js"></script>
+{{/uses_katex}}
+
+{{#uses_mathjax}}
+<!-- mathjax math -->
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
+<script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script>
+{{/uses_mathjax}}
+
 {{#lightswitch}}<script src="{{#site}}{{root}}{{/site}}lightswitch.js"></script>{{/lightswitch}}
-{{#uses_katex}}<script src="{{#site}}{{root}}{{/site}}katex-auto.js"></script>{{/uses_katex}}
 
 {{{headdeps}}}
 {{#includes}}{{{head}}}{{/includes}}

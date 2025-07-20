@@ -57,7 +57,7 @@
     Condition
       Error:
       ! In _pkgdown.yml, 3 topics missing from index: "c", "e", and "?".
-      i Either use `@keywords internal` to drop from index, or
+      i Either add to the reference index, or use `@keywords internal` to drop from the index.
 
 # gives informative errors
 
@@ -142,7 +142,7 @@
           - is_installed()
           - check_installed()
           icon: ~
-        - path: https://rdrr.io/pkg/bslib/man/bs_bundle.html
+        - path: https://rstudio.github.io/bslib/reference/bs_bundle.html
           title: Add low-level theming customizations (from bslib)
           lifecycle: ~
           aliases:

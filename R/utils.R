@@ -10,8 +10,7 @@ dir_depth <- function(x) {
 invert_index <- function(x) {
   stopifnot(is.list(x))
 
-  if (length(x) == 0)
-    return(list())
+  if (length(x) == 0) return(list())
 
   key <- rep(names(x), purrr::map_int(x, length))
   val <- unlist(x, use.names = FALSE)
@@ -66,21 +65,21 @@ devtools_meta <- function(x) {
 # CLI ---------------------------------------------------------------------
 
 dst_path <- cli::combine_ansi_styles(
-  cli::style_bold, cli::col_cyan
+  cli::style_bold,
+  cli::col_cyan
 )
 
 src_path <- cli::combine_ansi_styles(
-  cli::style_bold, cli::col_green
+  cli::style_bold,
+  cli::col_green
 )
 
 writing_file <- function(path, show) {
   path <- as.character(path)
   text <- dst_path(as.character(show))
-  cli::cli_inform("Writing {.run [{text}](pkgdown::preview_site(path='{path}'))}")
-}
-
-has_internet <- function() {
-  getOption("pkgdown.internet", default = TRUE)
+  cli::cli_inform(
+    "Writing {.run [{text}](pkgdown::preview_site(path='{path}'))}"
+  )
 }
 
 modify_list <- function(x, y) {
@@ -95,36 +94,33 @@ modify_list <- function(x, y) {
 
 # from https://github.com/r-lib/rematch2/blob/8098bd06f251bfe0f20c0598d90fc20b741d13f8/R/package.R#L47
 re_match <- function(text, pattern, perl = TRUE, ...) {
-
   stopifnot(is.character(pattern), length(pattern) == 1, !is.na(pattern))
   text <- as.character(text)
 
   match <- regexpr(pattern, text, perl = perl, ...)
 
-  start  <- as.vector(match)
+  start <- as.vector(match)
   length <- attr(match, "match.length")
-  end    <- start + length - 1L
+  end <- start + length - 1L
 
   matchstr <- substring(text, start, end)
-  matchstr[ start == -1 ] <- NA_character_
+  matchstr[start == -1] <- NA_character_
 
   res <- data.frame(
-    stringsAsFactors = FALSE,
     .text = text,
     .match = matchstr
   )
 
   if (!is.null(attr(match, "capture.start"))) {
-
-    gstart  <- attr(match, "capture.start")
+    gstart <- attr(match, "capture.start")
     glength <- attr(match, "capture.length")
-    gend    <- gstart + glength - 1L
+    gend <- gstart + glength - 1L
 
     groupstr <- substring(text, gstart, gend)
-    groupstr[ gstart == -1 ] <- NA_character_
+    groupstr[gstart == -1] <- NA_character_
     dim(groupstr) <- dim(gstart)
 
-    res <- cbind(groupstr, res, stringsAsFactors = FALSE)
+    res <- cbind(groupstr, res)
   }
 
   names(res) <- c(attr(match, "capture.names"), ".text", ".match")
@@ -147,7 +143,7 @@ ruler <- function(width = getOption("width")) {
   x <- seq_len(width)
   y <- rep("-", length(x))
   y[x %% 5 == 0] <- "+"
-  y[x %% 10 == 0] <- (x[x%%10 == 0] %/% 10) %% 10
+  y[x %% 10 == 0] <- (x[x %% 10 == 0] %/% 10) %% 10
   cat(y, "\n", sep = "")
   cat(x %% 10, "\n", sep = "")
 }
@@ -155,7 +151,7 @@ ruler <- function(width = getOption("width")) {
 get_section_level <- function(section) {
   class <- xml2::xml_attr(section, "class")
 
-level <- as.numeric(re_match(class, "level(\\d+)")[[1]])
+  level <- as.numeric(re_match(class, "level(\\d+)")[[1]])
   level[is.na(level)] <- 0
   level
 }
@@ -211,7 +207,12 @@ xml2str <- function(x) {
 }
 
 xpath_attr <- function(x, xpath, attr) {
-  gsub("\r", "", xml2::xml_attr(xml2::xml_find_all(x, xpath), attr), fixed = TRUE)
+  gsub(
+    "\r",
+    "",
+    xml2::xml_attr(xml2::xml_find_all(x, xpath), attr),
+    fixed = TRUE
+  )
 }
 xpath_text <- function(x, xpath, trim = FALSE) {
   xml2::xml_text(xml2::xml_find_all(x, xpath), trim = trim)

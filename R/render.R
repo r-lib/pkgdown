@@ -19,7 +19,14 @@
 #' @param depth Depth of path relative to base directory.
 #' @param quiet If `quiet`, will suppress output messages
 #' @export
-render_page <- function(pkg = ".", name, data, path, depth = NULL, quiet = FALSE) {
+render_page <- function(
+  pkg = ".",
+  name,
+  data,
+  path,
+  depth = NULL,
+  quiet = FALSE
+) {
   pkg <- as_pkgdown(pkg)
 
   if (is.null(depth)) {
@@ -128,6 +135,7 @@ data_template <- function(pkg = ".", depth = 0L) {
   out$footer <- data_footer(pkg)
   out$lightswitch <- uses_lightswitch(pkg)
   out$uses_katex <- config_math_rendering(pkg) == "katex"
+  out$uses_mathjax <- config_math_rendering(pkg) == "mathjax"
 
   print_yaml(out)
 }
@@ -163,7 +171,7 @@ check_open_graph <- function(pkg, og, file_path = NULL, call = caller_env()) {
   if (is.null(og)) {
     return()
   }
-  
+
   is_yaml <- is.null(file_path)
   base_path <- if (is_yaml) "template.opengraph" else "opengraph"
 
@@ -188,7 +196,11 @@ check_open_graph <- function(pkg, og, file_path = NULL, call = caller_env()) {
     error_path = paste0(base_path, ".twitter"),
     error_call = call
   )
-  if (!is.null(og$twitter) && is.null(og$twitter$creator) && is.null(og$twitter$site)) {
+  if (
+    !is.null(og$twitter) &&
+      is.null(og$twitter$creator) &&
+      is.null(og$twitter$site)
+  ) {
     msg <- "{.field opengraph.twitter} must include either {.field creator} or {.field site}."
     config_abort(pkg, msg, path = file_path, call = call)
   }
@@ -204,30 +216,37 @@ check_open_graph <- function(pkg, og, file_path = NULL, call = caller_env()) {
 
 render_template <- function(path, data) {
   template <- read_file(path)
-  if (length(template) == 0)
-    return("")
+  if (length(template) == 0) return("")
 
   whisker::whisker.render(template, data)
 }
 
-check_open_graph_list <- function(pkg,
-                                  x,
-                                  file_path,
-                                  error_path,
-                                  error_call = caller_env()) {
+check_open_graph_list <- function(
+  pkg,
+  x,
+  file_path,
+  error_path,
+  error_call = caller_env()
+) {
   if (is.list(x) || is.null(x)) {
     return()
   }
   not <- obj_type_friendly(x)
   config_abort(
-    pkg, 
+    pkg,
     "{.field {error_path}} must be a list, not {not}.",
     path = file_path,
     call = error_call
   )
 }
 
-write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE) {
+write_if_different <- function(
+  pkg,
+  contents,
+  path,
+  quiet = FALSE,
+  check = TRUE
+) {
   # Almost all uses are relative to destination, except for rmarkdown templates
   full_path <- path_abs(path, start = pkg$dst_path)
 
@@ -252,20 +271,19 @@ write_if_different <- function(pkg, contents, path, quiet = FALSE, check = TRUE)
 }
 
 same_contents <- function(path, contents) {
-  if (!file_exists(path))
-    return(FALSE)
+  if (!file_exists(path)) return(FALSE)
 
-  new_hash <- digest::digest(contents, serialize = FALSE)
+  new_hash <- rlang::hash(contents)
 
   cur_contents <- paste0(read_lines(path), collapse = "\n")
-  cur_hash <- digest::digest(cur_contents, serialize = FALSE)
-  
+  cur_hash <- rlang::hash(cur_contents)
+
   identical(new_hash, cur_hash)
 }
 
 file_digest <- function(path) {
   if (file_exists(path)) {
-    digest::digest(file = path, algo = "xxhash64")
+    rlang::hash_file(path)
   } else {
     "MISSING"
   }

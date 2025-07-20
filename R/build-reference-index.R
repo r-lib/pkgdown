@@ -6,7 +6,12 @@ data_reference_index <- function(pkg = ".", error_call = caller_env()) {
     return(list())
   }
 
-  rows <- unwrap_purrr_error(purrr::imap(meta, data_reference_index_rows, pkg = pkg, call = error_call))
+  rows <- unwrap_purrr_error(purrr::imap(
+    meta,
+    data_reference_index_rows,
+    pkg = pkg,
+    call = error_call
+  ))
   rows <- purrr::list_c(rows)
 
   has_icons <- purrr::some(rows, ~ .x$row_has_icons %||% FALSE)
@@ -22,7 +27,11 @@ data_reference_index <- function(pkg = ".", error_call = caller_env()) {
 }
 
 config_pluck_reference <- function(pkg, call = caller_env()) {
-  ref <- config_pluck_list(pkg, "reference", default = default_reference_index(pkg))
+  ref <- config_pluck_list(
+    pkg,
+    "reference",
+    default = default_reference_index(pkg)
+  )
 
   for (i in seq_along(ref)) {
     section <- ref[[i]]
@@ -45,7 +54,13 @@ config_pluck_reference <- function(pkg, call = caller_env()) {
       error_call = call
     )
     if (has_name(section, "contents")) {
-      check_contents(section$contents, i, pkg, prefix = "reference", call = call)
+      check_contents(
+        section$contents,
+        i,
+        pkg,
+        prefix = "reference",
+        call = call
+      )
     }
   }
 
@@ -54,13 +69,21 @@ config_pluck_reference <- function(pkg, call = caller_env()) {
 
 check_contents <- function(contents, index, pkg, prefix, call = caller_env()) {
   if (length(contents) == 0) {
-    config_abort(pkg, "{.field {prefix}[{index}].contents} is empty.", call = call)
+    config_abort(
+      pkg,
+      "{.field {prefix}[{index}].contents} is empty.",
+      call = call
+    )
   }
 
   is_null <- purrr::map_lgl(contents, is.null)
   if (any(is_null)) {
     j <- which(is_null)[1]
-    config_abort(pkg, "{.field {prefix}[{index}].contents[{j}]} is empty.", call = call)
+    config_abort(
+      pkg,
+      "{.field {prefix}[{index}].contents[{j}]} is empty.",
+      call = call
+    )
   }
 
   is_char <- purrr::map_lgl(contents, is.character)
@@ -78,7 +101,12 @@ check_contents <- function(contents, index, pkg, prefix, call = caller_env()) {
 }
 
 
-data_reference_index_rows <- function(section, index, pkg, call = caller_env()) {
+data_reference_index_rows <- function(
+  section,
+  index,
+  pkg,
+  call = caller_env()
+) {
   is_internal <- identical(section$title, "internal")
 
   rows <- list()
@@ -111,7 +139,8 @@ data_reference_index_rows <- function(section, index, pkg, call = caller_env()) 
   }
 
   if (has_name(section, "contents")) {
-    topics <- section_topics(pkg,
+    topics <- section_topics(
+      pkg,
       section$contents,
       error_path = paste0("reference[", index, "].contents"),
       error_call = call
@@ -173,7 +202,10 @@ check_missing_topics <- function(rows, pkg, error_call = caller_env()) {
       pkg,
       c(
         "{sum(missing)} topic{?s} missing from index: {.val {pkg$topics$name[missing]}}.",
-        i = "Either use {.code @keywords internal} to drop from index, or"
+        i = paste(
+          "Either add to the reference index,",
+          "or use {.code @keywords internal} to drop from the index."
+        )
       ),
       call = error_call
     )

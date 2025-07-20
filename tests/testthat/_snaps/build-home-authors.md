@@ -6,15 +6,15 @@
       Error in `data_authors_()`:
       ! In _pkgdown.yml, authors must be a list, not the number 1.
     Code
-      data_authors_(template = list(authors = list(before = 1)))
+      data_authors_(authors = list(before = 1))
     Condition
       Error in `data_authors_()`:
-      ! In _pkgdown.yml, template.authors.before must be a string, not the number 1.
+      ! In _pkgdown.yml, authors.before must be a string, not the number 1.
     Code
-      data_authors_(template = list(authors = list(after = 1)))
+      data_authors_(authors = list(after = 1))
     Condition
       Error in `data_authors_()`:
-      ! In _pkgdown.yml, template.authors.after must be a string, not the number 1.
+      ! In _pkgdown.yml, authors.after must be a string, not the number 1.
 
 # data_home_sidebar_authors validates yaml inputs
 
@@ -44,7 +44,7 @@
       <ul class='list-unstyled'>
       <li>BEFORE</li>
       <li>Jo Doe <br />
-      <small class = 'roles'> Author, maintainer </small>  </li>
+      <small class = 'roles'> Author, maintainer </small>   </li>
       <li>AFTER</li>
       </ul>
       </div>

@@ -20,9 +20,9 @@ Package authors can customize the metadata used by Twitter and the [Open Graph p
 
 You can preview and validate the appearance of the social media cards with online tools:
 
-* [Google Rich Results Test][ogp-validator];
-* Drafting a tweet to yourself;
-* Sending yourself a Slack message.
+* [Google Rich Results Test][ogp-validator]
+* Drafting a tweet to yourself
+* Sending yourself a Slack message
 
 ## Necessary configuration
 
@@ -40,7 +40,7 @@ Metadata for the entire pkgdown website can be specified in the site's `_pkgdown
 home:
   title: An R package for pool-noodle discovery
   description: Discover and add pool-noodles to your growing collection.
-  
+
 template:
   opengraph:
     image:
@@ -56,33 +56,33 @@ The `home: title` and `home: description` fields override the `Title` and `Descr
 
 The `template: opengraph` section allows you to further customize the social media card.
 
-*   `image`: By default, pkgdown uses the package's logo for the card image 
-    (if one exists). Use `image` to specify an alternative image for the social 
+*   `image`: By default, pkgdown uses the package's logo for the card image
+    (if one exists). Use `image` to specify an alternative image for the social
     media cards of pages in your pkgdown site.
 
-    * `src`: A fully qualified URL to a media card image e.g. `src: https://avatars.githubusercontent.com/u/22618716?v=4`; 
+    * `src`: A fully qualified URL to a media card image e.g. `src: https://avatars.githubusercontent.com/u/22618716?v=4`;
       or a relative path to an image in the rendered website e.g. `src: articles/test/image.jpg`;
       or a relative path to an image stored in `man/figures` in the package e.g. `src: man/figures/cards.png`.
       The `src` field is required if `image` is specified.
-    
-    * `alt`: Alternative text describing the image for screen readers and 
+
+    * `alt`: Alternative text describing the image for screen readers and
       other situations where your social media card image cannot be displayed.
 
 *  `twitter`: You can specify the Twitter accounts associated with your package
-    and the [style of social media card][twitter-card] that Twitter will 
+    and the [style of social media card][twitter-card] that Twitter will
     display.
-    
-    * `creator`: Typically, the Twitter handle of the author of the package or 
+
+    * `creator`: Typically, the Twitter handle of the author of the package or
       article.
-    
+
     * `site`: The Twitter handle of the organization affiliated with the
-      package author or sponsoring the package development. 
-      
-    * If only one of `creator` or `site` is included, the provided value will 
+      package author or sponsoring the package development.
+
+    * If only one of either `creator` or `site` is included, the provided value will
       be used for both fields.
-    
-    * `card`: The [style of social media card][twitter-card] that Twitter will 
-      display. For pkgdown sites, the most relevant options are 
+
+    * `card`: The [style of social media card][twitter-card] that Twitter will
+      display. For pkgdown sites, the most relevant options are
       `summary_large_image`, featuring a large image over the page title and
       description, or `summary`, featuring a small square image inline and to
       the left of the page title and description.
@@ -96,7 +96,7 @@ title: "Introduction to poolnoodlr"
 description: "A brief introduction to pool noodles in R."
 author: "Mara Averick"
 opengraph:
-  image: 
+  image:
     src: "https://example.com/pkg/batpig.png"
   twitter:
     card: summary
@@ -113,8 +113,8 @@ Use the `title`, `description`, and `author` fields to specify the title, descri
 * The `title` field is used as the title of your article in your pkgdown site
   and should always be included.
 
-* Both `title` and `description` are used by pkgdown for the page's social 
-  media card. If `description` is not included in the article's YAML front 
+* Both `title` and `description` are used by pkgdown for the page's social
+  media card. If `description` is not included in the article's YAML front
   matter, then the name of the package is used instead. The `description`
   is also displayed on the articles index.
 
@@ -125,4 +125,4 @@ In articles, the `opengraph` section works in the same way as the site-wide `tem
 
 [ogp]: https://ogp.me/
 [ogp-validator]: https://search.google.com/test/rich-results
-[twitter-card]: https://developer.x.com/en/docs/twitter-for-websites/cards/overview/abouts-cards
+[twitter-card]: https://developer.x.com/en/docs/x-for-websites/cards/overview/abouts-cards
