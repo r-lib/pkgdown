@@ -49,7 +49,9 @@ anchor_html <- function(id) {
 
 tweak_link_md <- function(html) {
   links <- xml2::xml_find_all(html, ".//a")
-  if (length(links) == 0) return()
+  if (length(links) == 0) {
+    return()
+  }
 
   hrefs <- xml2::xml_attr(links, "href")
 
@@ -76,7 +78,9 @@ tweak_link_md <- function(html) {
 
 tweak_link_external <- function(html, pkg = list()) {
   links <- xml2::xml_find_all(html, ".//a")
-  if (length(links) == 0) return()
+  if (length(links) == 0) {
+    return()
+  }
 
   links <- links[!has_class(links, "external-link")]
 

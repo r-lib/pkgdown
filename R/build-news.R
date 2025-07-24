@@ -74,7 +74,9 @@
 #' @export
 build_news <- function(pkg = ".", override = list(), preview = FALSE) {
   pkg <- section_init(pkg, "news", override = override)
-  if (!has_news(pkg$src_path)) return(invisible())
+  if (!has_news(pkg$src_path)) {
+    return(invisible())
+  }
 
   cli::cli_rule("Building news")
 

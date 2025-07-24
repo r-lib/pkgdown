@@ -1,9 +1,7 @@
 #' matches
 #' @export
-matches <- function() {
-}
+matches <- function() {}
 
 #' A
 #' @export
-A <- function() {
-}
+A <- function() {}

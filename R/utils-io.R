@@ -18,7 +18,9 @@ write_lines <- function(text, path) {
 # Other -------------------------------------------------------------------
 
 file_equal <- function(src, dst) {
-  if (!file_exists(dst)) return(FALSE)
+  if (!file_exists(dst)) {
+    return(FALSE)
+  }
 
   src_hash <- rlang::hash_file(src)
   dst_hash <- rlang::hash_file(dst)

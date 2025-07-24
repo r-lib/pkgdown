@@ -61,7 +61,12 @@ test_that("ORCID can be identified & removed from all comment styles", {
   authors <- purrr::map(desc$get_authors(), author_list, list())
   expect_equal(
     purrr::map(authors, "orcid"),
-    list(NULL, NULL, orcid_link("0000-0000-0000-0001"), orcid_link("0000-0003-4757-117X"))
+    list(
+      NULL,
+      NULL,
+      orcid_link("0000-0000-0000-0001"),
+      orcid_link("0000-0003-4757-117X")
+    )
   )
 
   expect_equal(

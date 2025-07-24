@@ -204,7 +204,9 @@ data_home_toc <- function(pkg) {
 }
 
 sidebar_section <- function(heading, bullets, class = make_slug(heading)) {
-  if (length(bullets) == 0) return(character())
+  if (length(bullets) == 0) {
+    return(character())
+  }
 
   paste0(
     "<div class='",

@@ -35,7 +35,9 @@ local_pkgdown_site <- function(
     description <- desc::desc("!new")
     description$set("Package", "testpackage")
     description$set("Title", "A test package")
-    if (length(desc) > 0) inject(description$set(!!!desc))
+    if (length(desc) > 0) {
+      inject(description$set(!!!desc))
+    }
     description$write(file = path(path, "DESCRIPTION"))
 
     # Default to BS5 only if template not specified

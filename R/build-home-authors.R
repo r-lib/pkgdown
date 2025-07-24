@@ -262,7 +262,9 @@ create_citation_meta <- function(path) {
     desc$Encoding <- "UTF-8"
   }
 
-  if (!is.null(desc$Title)) desc$Title <- str_squish(desc$Title)
+  if (!is.null(desc$Title)) {
+    desc$Title <- str_squish(desc$Title)
+  }
 
   desc
 }
@@ -322,7 +324,9 @@ citation_auto <- function(pkg) {
   # browser()
   # C
   cit_info$`Date/Publication` <- cit_info$`Date/Publication` %||% Sys.time()
-  if (!is.null(cit_info$Title)) cit_info$Title <- str_squish(cit_info$Title)
+  if (!is.null(cit_info$Title)) {
+    cit_info$Title <- str_squish(cit_info$Title)
+  }
 
   cit <- utils::citation(auto = cit_info)
   list(
