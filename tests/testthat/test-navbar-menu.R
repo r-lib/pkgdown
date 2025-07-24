@@ -1,4 +1,3 @@
-
 test_that("can construct menu with children", {
   menu <- menu_submenu(
     "Title",

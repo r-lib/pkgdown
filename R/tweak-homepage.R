@@ -10,7 +10,9 @@ tweak_homepage_html <- function(
 
   # Always remove dummy page header
   header <- xml2::xml_find_all(html, ".//div[contains(@class, 'page-header')]")
-  if (length(header) > 0) xml2::xml_remove(header, free = TRUE)
+  if (length(header) > 0) {
+    xml2::xml_remove(header, free = TRUE)
+  }
 
   header <- xml2::xml_find_first(html, ".//h1")
   if (strip_header) {

@@ -61,10 +61,14 @@ build_github_pages <- function(pkg = ".") {
 }
 
 cname_url <- function(url) {
-  if (is.null(url)) return(NULL)
+  if (is.null(url)) {
+    return(NULL)
+  }
 
   pieces <- xml2::url_parse(url)
-  if (!pieces$path %in% c("", "/")) return(NULL)
+  if (!pieces$path %in% c("", "/")) {
+    return(NULL)
+  }
 
   pieces$server
 }

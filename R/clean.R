@@ -16,7 +16,9 @@ clean_site <- function(pkg = ".", quiet = FALSE, force = FALSE) {
     )
   }
 
-  if (!dir_exists(pkg$dst_path)) return(invisible())
+  if (!dir_exists(pkg$dst_path)) {
+    return(invisible())
+  }
 
   top_level <- dest_files(pkg)
   if (length(top_level) > 0 && !force) {

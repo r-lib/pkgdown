@@ -286,7 +286,9 @@ build_reference_topic <- function(
   in_path <- path(pkg$src_path, "man", topic$file_in)
   out_path <- path(pkg$dst_path, "reference", topic$file_out)
 
-  if (lazy && !out_of_date(in_path, out_path)) return(invisible())
+  if (lazy && !out_of_date(in_path, out_path)) {
+    return(invisible())
+  }
 
   cli::cli_inform("Reading {src_path(path('man', topic$file_in))}")
 

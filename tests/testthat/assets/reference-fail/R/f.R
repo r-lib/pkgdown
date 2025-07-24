@@ -2,5 +2,4 @@
 #'
 #' \url{}
 #' @export
-f <- function() {
-}
+f <- function() {}
