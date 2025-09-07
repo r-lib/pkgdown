@@ -149,7 +149,6 @@ function createAutobrandMatrix(bgColor, fgColor) {
 }
 
 function injectAutobrandFilters() {
-  console.log('Injecting autobrand filters...');
 
   // Remove existing filter if it exists
   document.querySelector('.autobrand-filters')?.remove();
@@ -158,9 +157,6 @@ function injectAutobrandFilters() {
   const style = getComputedStyle(document.documentElement);
   const bgColorProp = style.getPropertyValue('--autobrand-bg');
   const fgColorProp = style.getPropertyValue('--autobrand-fg');
-
-  console.log('Background color prop:', bgColorProp);
-  console.log('Foreground color prop:', fgColorProp);
 
   const bgColor = bgColorProp.split(',').map(c => parseInt(c.trim()));
   const fgColor = fgColorProp.split(',').map(c => parseInt(c.trim()));
@@ -171,7 +167,6 @@ function injectAutobrandFilters() {
   svg.setAttribute('style', 'position: absolute; width: 0; height: 0;');
 
   const matrixValues = createAutobrandMatrix(bgColor, fgColor);
-  console.log('Matrix values:', matrixValues);
 
   svg.innerHTML = `
     <defs>
@@ -183,7 +178,6 @@ function injectAutobrandFilters() {
 
   // Add to document body
   document.body.appendChild(svg);
-  console.log('SVG filter added to body');
 }
 
 // Initialize on DOM ready with a small delay
