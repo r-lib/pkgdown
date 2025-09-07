@@ -687,18 +687,6 @@ pre .r-plt {
   }
 }
 
-// low-tech plot softening in dark mode
-[data-bs-theme="dark"] pre img {
-  opacity: 0.66;
-  transition: opacity 250ms ease-in-out;
-
-  &:hover,
-  &:focus,
-  &:active {
-    opacity: 1;
-  }
-}
-
 /* don't display links in code chunks when printing */
 /* source: https://stackoverflow.com/a/10781533 */
 @media print {
@@ -957,14 +945,14 @@ figure>figcaption.quarto-float-caption-top {
 
 /* Target only R-generated plot outputs */
 /* In examples sections (reference pages) */
-.examples img,
+.r-plt img,
 /* In vignettes/articles - target images in figure-html directories */
 img[src*="figure-html/"] {
   transition: filter 0.3s ease;
 }
 
 /* Dark mode - apply the autobrand filter */
-[data-bs-theme="dark"] .examples img,
+[data-bs-theme="dark"] .r-plt img,
 [data-bs-theme="dark"] img[src*="figure-html/"] {
   filter: url(#autobrand-dark);
 }
