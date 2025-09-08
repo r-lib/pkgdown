@@ -75,3 +75,4 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 SystemRequirements: pandoc
 RoxygenNote: 7.3.2
+Config/usethis/last-upkeep: 2025-09-07
