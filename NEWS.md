@@ -2,6 +2,8 @@
 
 * `build_site()` gained a `quiet` argument, which is propagated to other functions
   (e.g., `build_articles()`) and is useful for debugging build errors on GH actions.
+* Added documentation explaining how to solve incorrect rendering of plotmath expressions under ragg devices on Linux. (@remlapmot, #2908)
+* Improved the LaTeX syntax in one of the math rendering test cases (@remlapmot)
 
 # pkgdown 2.1.3
 
