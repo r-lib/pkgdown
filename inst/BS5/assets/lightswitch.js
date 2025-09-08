@@ -183,17 +183,17 @@ function injectAutobrandFilters() {
 // Initialize on DOM ready with a small delay
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(injectAutobrandFilters, 100);
+    injectAutobrandFilters();
   });
 } else {
-  setTimeout(injectAutobrandFilters, 100);
+  injectAutobrandFilters();
 }
 
 // Re-inject on theme change
 const themeObserver = new MutationObserver(function (mutations) {
   mutations.forEach(function (mutation) {
     if (mutation.type === 'attributes' && mutation.attributeName === 'data-bs-theme') {
-      setTimeout(injectAutobrandFilters, 100);
+      injectAutobrandFilters();
     }
   });
 });
