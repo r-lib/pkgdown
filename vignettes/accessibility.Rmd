@@ -7,7 +7,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -16,7 +17,8 @@ knitr::opts_chunk$set(
 
 pkgdown automates as many accessibility details as possible, so that your package website is readable by as many people as possible. This vignette describes the additional details that can't be automated away and you need to be aware of.
 
-```{r setup}
+```{r}
+#| label: setup
 library(pkgdown)
 ```
 

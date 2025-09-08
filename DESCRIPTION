@@ -22,7 +22,7 @@ License: MIT + file LICENSE
 URL: https://pkgdown.r-lib.org/, https://github.com/r-lib/pkgdown
 BugReports: https://github.com/r-lib/pkgdown/issues
 Depends:
-    R (>= 4.0.0)
+    R (>= 4.1)
 Imports:
     bslib (>= 0.5.1),
     callr (>= 3.7.3),
@@ -33,6 +33,7 @@ Imports:
     fs (>= 1.4.0),
     httr2 (>= 1.0.2),
     jsonlite,
+    lifecycle,
     openssl,
     purrr (>= 1.0.0),
     ragg (>= 1.4.0),
@@ -52,7 +53,6 @@ Suggests:
     htmltools,
     htmlwidgets,
     knitr (>= 1.50),
-    lifecycle,
     magick,
     methods,
     pkgload (>= 1.0.2),
@@ -70,9 +70,10 @@ Config/Needs/website: usethis, servr
 Config/potools/style: explicit
 Config/testthat/edition: 3
 Config/testthat/parallel: true
-Config/testthat/start-first: build-article, build-quarto-article, build-reference, build
+Config/testthat/start-first: build-article, build-quarto-article,
+    build-reference, build
+Config/usethis/last-upkeep: 2025-09-07
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-SystemRequirements: pandoc
 RoxygenNote: 7.3.2
-Config/usethis/last-upkeep: 2025-09-07
+SystemRequirements: pandoc
