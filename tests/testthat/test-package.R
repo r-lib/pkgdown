@@ -45,7 +45,7 @@ test_that("package_vignettes() detects conflicts in final article paths", {
   file_create(path(dir, "vignettes", "test.Rmd"))
   file_create(path(dir, "vignettes", "articles", "test.Rmd"))
 
-  expect_error(package_vignettes(dir))
+  expect_snapshot(package_vignettes(dir), error = TRUE)
 })
 
 test_that("package_vignettes() sorts articles alphabetically by file name", {

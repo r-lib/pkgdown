@@ -5,6 +5,7 @@
 #' @importFrom utils installed.packages
 #' @import rlang
 #' @import fs
+#' @importFrom lifecycle deprecated
 ## usethis namespace: end
 NULL
 

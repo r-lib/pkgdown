@@ -28,6 +28,15 @@
       Error in `check_bootstrap_version()`:
       ! In _pkgdown.yml, template.bootstrap must be 3 or 5, not 1.
 
+# package_vignettes() detects conflicts in final article paths
+
+    Code
+      package_vignettes(dir)
+    Condition
+      Error in `package_vignettes()`:
+      ! Rendered articles must have unique names. Rename or relocate:
+      x vignettes/articles/test.Rmd and vignettes/test.Rmd
+
 # read_meta() errors gracefully if _pkgdown.yml failed to parse
 
     Code
