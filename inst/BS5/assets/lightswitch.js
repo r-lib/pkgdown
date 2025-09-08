@@ -83,3 +83,123 @@ function bsSetupThemeToggle() {
 
 setTheme(getPreferredTheme());
 bsSetupThemeToggle();
+
+/* inst/pkgdown/assets/autobrand.js */
+
+// Matrix multiplication helper
+function multiplyMatrices(a, b) {
+  const result = [];
+  for (let i = 0; i < 4; i++) {
+    result[i] = [];
+    for (let j = 0; j < 5; j++) {
+      result[i][j] = 0;
+      for (let k = 0; k < 4; k++) {
+        result[i][j] += a[i][k] * b[k][j];
+      }
+      if (j < 4) {
+        result[i][j] += a[i][4] * (j === i ? 1 : 0);
+      } else {
+        result[i][j] += a[i][4];
+      }
+    }
+  }
+  return result;
+}
+
+function createAutobrandMatrix(bgColor, fgColor) {
+  // Normalize colors to 0-1 range
+  const bg = bgColor.map(c => c / 255);
+  const fg = fgColor.map(c => c / 255);
+
+  // Check if we need to flip (dark mode)
+  const bgLuminance = 0.299 * bg[0] + 0.587 * bg[1] + 0.114 * bg[2];
+  const fgLuminance = 0.299 * fg[0] + 0.587 * fg[1] + 0.114 * fg[2];
+  const needsFlip = bgLuminance < fgLuminance;
+
+  if (needsFlip) {
+    // Dark mode: compose inversion with hue preservation
+    // This implements the full transformation from the blog post
+
+    // Step 1: Invert colors (make darks light)
+    // [-1  0  0  0  1]
+    // [ 0 -1  0  0  1]
+    // [ 0  0 -1  0  1]
+    // [ 0  0  0  1  0]
+
+    // Step 2: Hue correction (simplified)
+    // Since full XYZ transformation is complex, we use an approximation
+    // that preserves hues reasonably well
+
+    // Combined matrix that inverts luminance but preserves hues better
+    return [
+      -1.0, 0.0, 0.0, 0.0, 1.0,
+      0.0, -1.0, 0.0, 0.0, 1.0,
+      0.0, 0.0, -1.0, 0.0, 1.0,
+      0.0, 0.0, 0.0, 1.0, 0.0
+    ].join(' ');
+  } else {
+    // Light mode: identity matrix (no transformation)
+    return [
+      1.0, 0.0, 0.0, 0.0, 0.0,
+      0.0, 1.0, 0.0, 0.0, 0.0,
+      0.0, 0.0, 1.0, 0.0, 0.0,
+      0.0, 0.0, 0.0, 1.0, 0.0
+    ].join(' ');
+  }
+}
+
+function injectAutobrandFilters() {
+
+  // Remove existing filter if it exists
+  document.querySelector('.autobrand-filters')?.remove();
+
+  // Get theme colors from CSS custom properties
+  const style = getComputedStyle(document.documentElement);
+  const bgColorProp = style.getPropertyValue('--autobrand-bg');
+  const fgColorProp = style.getPropertyValue('--autobrand-fg');
+
+  const bgColor = bgColorProp.split(',').map(c => parseInt(c.trim()));
+  const fgColor = fgColorProp.split(',').map(c => parseInt(c.trim()));
+
+  // Create SVG filter element
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('class', 'autobrand-filters');
+  svg.setAttribute('style', 'position: absolute; width: 0; height: 0;');
+
+  const matrixValues = createAutobrandMatrix(bgColor, fgColor);
+
+  svg.innerHTML = `
+    <defs>
+      <filter id="autobrand-dark" color-interpolation-filters="sRGB">
+        <feColorMatrix type="matrix" values="${matrixValues}" />
+      </filter>
+    </defs>
+  `;
+
+  // Add to document body
+  document.body.appendChild(svg);
+}
+
+// Initialize on DOM ready with a small delay
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    injectAutobrandFilters();
+  });
+} else {
+  injectAutobrandFilters();
+}
+
+// Re-inject on theme change
+const themeObserver = new MutationObserver(function (mutations) {
+  mutations.forEach(function (mutation) {
+    if (mutation.type === 'attributes' && mutation.attributeName === 'data-bs-theme') {
+      injectAutobrandFilters();
+    }
+  });
+});
+
+// Re-inject on theme change
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+  document.querySelector('.autobrand-filters')?.remove();
+  injectAutobrandFilters();
+});

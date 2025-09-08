@@ -687,18 +687,6 @@ pre .r-plt {
   }
 }
 
-// low-tech plot softening in dark mode
-[data-bs-theme="dark"] pre img {
-  opacity: 0.66;
-  transition: opacity 250ms ease-in-out;
-
-  &:hover,
-  &:focus,
-  &:active {
-    opacity: 1;
-  }
-}
-
 /* don't display links in code chunks when printing */
 /* source: https://stackoverflow.com/a/10781533 */
 @media print {
@@ -929,4 +917,42 @@ figure>figcaption.quarto-float-caption-top {
   --mermaid-label-fg-color: var(--bs-body-color);
   --mermaid-node-bg-color: RGBA(var(--bs-primary-rgb), 0.1);
   --mermaid-node-fg-color: var(--bs-primary);
+}
+
+// autobrand.css ---------------------------------------------------------
+
+/* Define CSS custom properties for theme colors */
+:root {
+  --autobrand-bg: 255, 255, 255;
+  /* white background */
+  --autobrand-fg: 0, 0, 0;
+  /* black foreground */
+}
+
+/* Bootstrap 5 dark mode support */
+[data-bs-theme="dark"] {
+  --autobrand-bg: 34, 34, 34;
+  --autobrand-fg: 238, 238, 238;
+}
+
+/* SVG filter definitions */
+.autobrand-filters {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* Target only R-generated plot outputs */
+/* In examples sections (reference pages) */
+.r-plt img,
+/* In vignettes/articles - target images in figure-html directories */
+img[src*="figure-html/"] {
+  transition: filter 0.3s ease;
+}
+
+/* Dark mode - apply the autobrand filter */
+[data-bs-theme="dark"] .r-plt img,
+[data-bs-theme="dark"] img[src*="figure-html/"] {
+  filter: url(#autobrand-dark);
 }

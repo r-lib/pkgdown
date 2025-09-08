@@ -1,5 +1,8 @@
 # pkgdown (development version)
 
+* Plots in dark mode are now transformed with a CSS filter to improve their
+  visibility (using an approach suggested by @cscheid, #2729).
+
 * `build_site()` gained a `quiet` argument, which is propagated to other functions
   (e.g., `build_articles()`) and is useful for debugging build errors on GH actions.
 * Added documentation explaining how to solve incorrect rendering of plotmath expressions under ragg devices on Linux. (@remlapmot, #2908)
