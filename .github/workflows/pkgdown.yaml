@@ -4,7 +4,6 @@ on:
   push:
     branches: [main, master]
   pull_request:
-    branches: [main, master]
   release:
     types: [published]
   workflow_dispatch:
@@ -36,7 +35,7 @@ jobs:
         with:
           extra-packages: any::pkgdown, local::.
           needs: website
-      
+
       - uses: r-lib/actions/setup-tinytex@v2
 
       - name: Build site

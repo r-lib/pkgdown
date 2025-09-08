@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# pkgdown <img src="man/figures/logo.png" align="right" alt="" width="120" />
+# pkgdown <a href="https://pkgdown.r-lib.org"><img src="man/figures/logo.png" align="right" height="138" alt="pkgdown website" /></a>
 
 <!-- badges: start -->
 
@@ -13,7 +13,7 @@ href="https://github.com/r-lib/pkgdown/actions/workflows/R-CMD-check.yaml"
 class="pkgdown-devel"><img
 src="https://github.com/r-lib/pkgdown/actions/workflows/R-CMD-check.yaml/badge.svg"
 alt="R-CMD-check" /></a> [![Codecov test
-coverage](https://codecov.io/gh/r-lib/pkgdown/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/pkgdown?branch=main)
+coverage](https://codecov.io/gh/r-lib/pkgdown/graph/badge.svg)](https://app.codecov.io/gh/r-lib/pkgdown)
 <!-- badges: end -->
 
 pkgdown is designed to make it quick and easy to build a website for
