@@ -71,16 +71,16 @@ build_md <- function(path, pkg) {
   pandoc::pandoc_convert(
     text = main_html,
     from = "html",
-    to = "markdown_strict+definition_lists",
+    to = "markdown_strict+definition_lists+footnotes",
     output = sprintf("%s.md", path)
   )
 
-  readme <- brio::read_lines(path(pkg[["dst_path"]], "index.html.md")) |>
+  readme <- read_lines(path(pkg[["dst_path"]], "index.html.md")) |>
     paste(collapse = "\n")
 
   reference_path <- path(pkg[["dst_path"]], "reference", "index.html.md")
   if (file_exists(reference_path)) {
-    reference <- brio::read_lines(reference_path) |>
+    reference <- read_lines(reference_path) |>
       paste(collapse = "\n")
   } else {
     reference <- ""
@@ -88,7 +88,7 @@ build_md <- function(path, pkg) {
 
   article_path <- path(pkg[["dst_path"]], "articles", "index.html.md")
   if (file_exists(article_path)) {
-    articles <- brio::read_lines(article_path) |>
+    articles <- read_lines(article_path) |>
       paste(collapse = "\n")
   } else {
     articles <- ""
@@ -103,7 +103,7 @@ build_md <- function(path, pkg) {
     )
   )
 
-  brio::write_lines(llms_lines, path(pkg[["dst_path"]], "llms.txt"))
+  write_lines(llms_lines, path(pkg[["dst_path"]], "llms.txt"))
 }
 
 add_website_url <- function(node, pkg, root) {
