@@ -75,8 +75,13 @@ build_md <- function(path, pkg) {
     output = sprintf("%s.md", path)
   )
 
-  readme <- read_lines(path(pkg[["dst_path"]], "index.html.md")) |>
-    paste(collapse = "\n")
+  readme_path <- path(pkg[["dst_path"]], "index.html.md")
+  if (file_exists(readme_path)) {
+    readme <- read_lines(readme_path) |>
+      paste(collapse = "\n")
+  } else {
+    readme <- ""
+  }
 
   reference_path <- path(pkg[["dst_path"]], "reference", "index.html.md")
   if (file_exists(reference_path)) {
