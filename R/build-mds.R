@@ -54,7 +54,13 @@ build_md <- function(path, pkg) {
     main_html,
     ".//a[not(@class='external-link')]"
   )
-  purrr::walk(internal_links, add_website_url, pkg = pkg)
+
+  purrr::walk(
+    internal_links,
+    add_website_url,
+    pkg = pkg,
+    root = fs::path_rel(fs::path_dir(path), start = pkg$dst_path)
+  )
 
   xml2::xml_set_attr(
     xml2::xml_find_all(main_html, ".//a[@class='external-link']"),
@@ -100,11 +106,14 @@ build_md <- function(path, pkg) {
   brio::write_lines(llms_lines, path(pkg[["dst_path"]], "llms.txt"))
 }
 
-add_website_url <- function(node, pkg) {
-  url <- paste0(config_pluck_string(pkg, "url"), "/")
-
+add_website_url <- function(node, pkg, root) {
+  url <- sprintf("%s/", config_pluck_string(pkg, "url"))
   if (pkg$development$in_dev && pkg$bs_version > 3) {
     url <- paste0(url, pkg$prefix)
+  }
+
+  if (root != ".") {
+    url <- sprintf("%s%s/", url, root)
   }
 
   xml2::xml_set_attr(
