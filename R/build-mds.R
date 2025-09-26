@@ -65,7 +65,7 @@ build_md <- function(path, pkg) {
   pandoc::pandoc_convert(
     text = main_html,
     from = "html",
-    to = "markdown_strict",
+    to = "markdown_strict+definition_lists",
     output = sprintf("%s.md", path)
   )
 
