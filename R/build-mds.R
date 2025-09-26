@@ -33,6 +33,10 @@ build_md <- function(path, pkg) {
   main_html <- xml2::read_html(path) |>
     xml2::xml_find_first(".//main")
 
+  if (length(main_html) == 0) {
+    return()
+  }
+
   # uninformative image (logo) + source link
   title <- xml2::xml_find_first(main_html, ".//h1")
   xml2::xml_remove(
