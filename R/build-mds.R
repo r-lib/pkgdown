@@ -28,7 +28,7 @@ refuses_mds <- function(pkg) {
 
 build_md <- function(path, pkg) {
   rlang::check_installed("pandoc")
-  path <- file.path(pkg[["dst_path"]], path)
+  path <- path(pkg[["dst_path"]], path)
 
   main_html <- xml2::read_html(path) |>
     xml2::xml_find_first(".//main")
@@ -69,19 +69,19 @@ build_md <- function(path, pkg) {
     output = sprintf("%s.md", path)
   )
 
-  readme <- brio::read_lines(file.path(pkg[["dst_path"]], "index.html.md")) |>
+  readme <- brio::read_lines(path(pkg[["dst_path"]], "index.html.md")) |>
     paste(collapse = "\n")
 
-  reference_path <- file.path(pkg[["dst_path"]], "reference", "index.html.md")
-  if (file.exists(reference_path)) {
+  reference_path <- path(pkg[["dst_path"]], "reference", "index.html.md")
+  if (file_exists(reference_path)) {
     reference <- brio::read_lines(reference_path) |>
       paste(collapse = "\n")
   } else {
     reference <- ""
   }
 
-  article_path <- file.path(pkg[["dst_path"]], "articles", "index.html.md")
-  if (file.exists(article_path)) {
+  article_path <- path(pkg[["dst_path"]], "articles", "index.html.md")
+  if (file_exists(article_path)) {
     articles <- brio::read_lines(article_path) |>
       paste(collapse = "\n")
   } else {
@@ -97,7 +97,7 @@ build_md <- function(path, pkg) {
     )
   )
 
-  brio::write_lines(llms_lines, file.path(pkg[["dst_path"]], "llms.txt"))
+  brio::write_lines(llms_lines, path(pkg[["dst_path"]], "llms.txt"))
 }
 
 add_website_url <- function(node, pkg) {
