@@ -467,7 +467,9 @@ build_site_local <- function(
   build_tutorials(pkg, override = override, preview = FALSE)
   build_news(pkg, override = override, preview = FALSE)
   build_sitemap(pkg)
-  build_mds(pkg)
+  if (pkg$bs_version > 3) {
+    build_mds(pkg)
+  }
   build_redirects(pkg, override = override)
   if (pkg$bs_version == 3) {
     build_docsearch_json(pkg)

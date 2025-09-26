@@ -68,6 +68,36 @@ build_md <- function(path, pkg) {
     to = "markdown_strict",
     output = sprintf("%s.md", path)
   )
+
+  readme <- brio::read_lines(file.path(pkg[["dst_path"]], "index.html.md")) |>
+    paste(collapse = "\n")
+
+  reference_path <- file.path(pkg[["dst_path"]], "reference", "index.html.md")
+  if (file.exists(reference_path)) {
+    reference <- brio::read_lines(reference_path) |>
+      paste(collapse = "\n")
+  } else {
+    reference <- ""
+  }
+
+  article_path <- file.path(pkg[["dst_path"]], "articles", "index.html.md")
+  if (file.exists(article_path)) {
+    articles <- brio::read_lines(article_path) |>
+      paste(collapse = "\n")
+  } else {
+    articles <- ""
+  }
+
+  llms_lines <- whisker::whisker.render(
+    read_file(find_template("content", "llms", ext = ".txt", pkg = pkg)),
+    data = list(
+      readme = readme,
+      reference = reference,
+      articles = articles
+    )
+  )
+
+  brio::write_lines(llms_lines, file.path(pkg[["dst_path"]], "llms.txt"))
 }
 
 add_website_url <- function(node, pkg) {
