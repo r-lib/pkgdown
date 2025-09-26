@@ -55,6 +55,7 @@ Suggests:
     knitr (>= 1.50),
     magick,
     methods,
+    pandoc,
     pkgload (>= 1.0.2),
     quarto,
     rsconnect,
