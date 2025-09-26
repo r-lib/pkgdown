@@ -89,7 +89,7 @@ build_md <- function(path, pkg) {
   }
 
   llms_lines <- whisker::whisker.render(
-    read_file(find_template("content", "llms", ext = ".txt", pkg = pkg)),
+    read_file(find_template("summary", "llms", ext = ".txt", pkg = pkg)),
     data = list(
       readme = readme,
       reference = reference,
