@@ -1,0 +1,340 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: pkgdown 2.0.6.9000\n"
+"POT-Creation-Date: 2024-05-24 09:36-0500\n"
+"PO-Revision-Date: 2025-10-04\n"
+"Last-Translator: Positron Assistant\n"
+"Language: ru\n"
+"Language-Team: Russian <>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: build-404.R:11
+msgid "Page not found (404)"
+msgstr "Страница не найдена (404)"
+
+#: build-404.R:12
+msgid "Content not found. Please use links in the navbar."
+msgstr "Содержимое не найдено. Пожалуйста, используйте ссылки на панели навигации."
+
+#: build-articles.R:432 navbar.R:186 navbar.R:196 navbar.R:217
+msgid "Articles"
+msgstr "Статьи"
+
+#: build-articles.R:570
+msgid "All vignettes"
+msgstr "Все виньетки"
+
+#: build-footer.R:34
+msgid "Developed by"
+msgstr "Разработано"
+
+#: build-footer.R:41
+msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
+msgstr "Сайт создан с помощью <a href=\"%s\">pkgdown</a> %s."
+
+#: build-home-authors.R:12
+msgid "Authors and Citation"
+msgstr "Авторы и цитирование"
+
+#: build-home-authors.R:101
+msgid "More about authors..."
+msgstr "Подробнее об авторах..."
+
+#: build-home-authors.R:104
+msgid "Developers"
+msgstr "Разработчики"
+
+#: build-home-authors.R:190
+msgid "author"
+msgstr "автор"
+
+#: build-home-authors.R:191
+msgid "compiler"
+msgstr "компилятор"
+
+#: build-home-authors.R:192
+msgid "contractor"
+msgstr "подрядчик"
+
+#: build-home-authors.R:193
+msgid "contributor"
+msgstr "участник"
+
+#: build-home-authors.R:194
+msgid "copyright holder"
+msgstr "правообладатель"
+
+#: build-home-authors.R:195
+msgid "maintainer"
+msgstr "сопровождающий"
+
+#: build-home-authors.R:196
+msgid "data contributor"
+msgstr "участник по данным"
+
+#: build-home-authors.R:197
+msgid "funder"
+msgstr "спонсор"
+
+#: build-home-authors.R:198
+msgid "reviewer"
+msgstr "рецензент"
+
+#: build-home-authors.R:199
+msgid "thesis advisor"
+msgstr "научный руководитель"
+
+#: build-home-authors.R:200
+msgid "translator"
+msgstr "переводчик"
+
+#: build-home-authors.R:254 render.R:103
+msgid "Citation"
+msgstr "Цитирование"
+
+#: build-home-authors.R:255
+msgid "Citing %s"
+msgstr "Цитирование %s"
+
+#: build-home-community.R:23
+msgid "Contributing guide"
+msgstr "Руководство по участию"
+
+#: build-home-community.R:27
+msgid "Code of conduct"
+msgstr "Кодекс поведения"
+
+#: build-home-community.R:31
+msgid "Getting help"
+msgstr "Получение помощи"
+
+#: build-home-community.R:38
+msgid "Community"
+msgstr "Сообщество"
+
+#: build-home-index.R:120
+msgid "Dev Status"
+msgstr "Статус разработки"
+
+#: build-home-index.R:162
+msgid "View on %s"
+msgstr "Просмотреть на %s"
+
+#: build-home-index.R:163
+msgid "Browse source code"
+msgstr "Просмотреть исходный код"
+
+#: build-home-index.R:164
+msgid "Report a bug"
+msgstr "Сообщить об ошибке"
+
+#: build-home-index.R:168
+msgid "Links"
+msgstr "Ссылки"
+
+#: build-home-index.R:173 render.R:105
+msgid "Table of contents"
+msgstr "Оглавление"
+
+#: build-home-license.R:12 build-home-license.R:34
+msgid "License"
+msgstr "Лицензия"
+
+#: build-home-license.R:29
+msgid "Full license"
+msgstr "Полная лицензия"
+
+#: build-news.R:102 build-news.R:259 build-news.R:263
+msgid "Changelog"
+msgstr "Журнал изменений"
+
+#: build-news.R:129
+msgid "Version %s"
+msgstr "Версия %s"
+
+#: build-news.R:141 build-news.R:254
+msgid "News"
+msgstr "Новости"
+
+#: build-news.R:256
+msgid "Releases"
+msgstr "Релизы"
+
+#: build-news.R:310
+msgid "CRAN release: %s"
+msgstr "Релиз CRAN: %s"
+
+#: build-reference-index.R:22
+msgid "Package index"
+msgstr "Индекс пакета"
+
+#: build-reference-index.R:158
+msgid "All functions"
+msgstr "Все функции"
+
+#: build-reference.R:371
+msgid "Usage"
+msgstr "Использование"
+
+#: build-tutorials.R:47 navbar.R:152
+msgid "Tutorials"
+msgstr "Учебные материалы"
+
+#: development.R:72
+msgid "Released version"
+msgstr "Выпущенная версия"
+
+#: development.R:73
+msgid "In-development version"
+msgstr "Версия в разработке"
+
+#: development.R:74
+msgid "Unreleased version"
+msgstr "Невыпущенная версия"
+
+#: navbar-menu.R:173
+msgid "Search site"
+msgstr "Поиск по сайту"
+
+#: navbar-menu.R:174
+msgid "Search for"
+msgstr "Поиск"
+
+#: navbar.R:129
+msgid "Reference"
+msgstr "Справочник"
+
+#: navbar.R:140
+msgid "Light switch"
+msgstr "Переключатель темы"
+
+#: navbar.R:143
+msgid "Light"
+msgstr "Светлая"
+
+#: navbar.R:144
+msgid "Dark"
+msgstr "Темная"
+
+#: navbar.R:145
+msgid "Auto"
+msgstr "Авто"
+
+#: navbar.R:180
+msgid "Get started"
+msgstr "Начало работы"
+
+#: navbar.R:213
+msgid "More articles..."
+msgstr "Больше статей..."
+
+#: package.R:300
+msgid "deprecated"
+msgstr "устаревшая"
+
+#: package.R:301
+msgid "superseded"
+msgstr "замененная"
+
+#: package.R:302
+msgid "experimental"
+msgstr "экспериментальная"
+
+#: package.R:303
+msgid "stable"
+msgstr "стабильная"
+
+#: rd-data.R:23
+msgid "Details"
+msgstr "Подробности"
+
+#: rd-data.R:27
+msgid "Description"
+msgstr "Описание"
+
+#: rd-data.R:31
+msgid "References"
+msgstr "Ссылки"
+
+#: rd-data.R:35 render.R:98
+msgid "Source"
+msgstr "Источник"
+
+#: rd-data.R:39
+msgid "Format"
+msgstr "Формат"
+
+#: rd-data.R:43
+msgid "Note"
+msgstr "Примечание"
+
+#: rd-data.R:47
+msgid "Author"
+msgstr "Автор"
+
+#: rd-data.R:51
+msgid "See also"
+msgstr "См. также"
+
+#: rd-data.R:67
+msgid "Arguments"
+msgstr "Аргументы"
+
+#: rd-data.R:75
+msgid "Value"
+msgstr "Значение"
+
+#: render.R:95
+msgid "Skip to contents"
+msgstr "Перейти к содержанию"
+
+#: render.R:96
+msgid "Toggle navigation"
+msgstr "Переключить навигацию"
+
+#: render.R:97
+msgid "On this page"
+msgstr "На этой странице"
+
+#: render.R:99
+msgid "Abstract"
+msgstr "Аннотация"
+
+#: render.R:100
+msgid "Authors"
+msgstr "Авторы"
+
+#: render.R:101
+msgid "Version"
+msgstr "Версия"
+
+#: render.R:102
+msgid "Examples"
+msgstr "Примеры"
+
+#: render.R:104
+msgid "Additional details"
+msgstr "Дополнительные сведения"
+
+#: render.R:106
+msgid "Site navigation"
+msgstr "Навигация по сайту"
+
+#: repo.R:35
+msgid "Source:"
+msgstr "Источник:"
+
+#: tweak-homepage.R:61
+msgid "Dev status"
+msgstr "Статус разработки"
+
+#: usage.R:23
+msgid "# Default %s method"
+msgstr "# Метод %s по умолчанию"
+
+#: usage.R:25
+msgid "# %s method for class '%s'"
+msgstr "# Метод %s для класса '%s'"
