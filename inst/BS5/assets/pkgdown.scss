@@ -947,12 +947,12 @@ figure>figcaption.quarto-float-caption-top {
 /* In examples sections (reference pages) */
 .r-plt img,
 /* In vignettes/articles - target images in figure-html directories */
-img[src*="figure-html/"] {
+.template-article img {
   transition: filter 0.3s ease;
 }
 
 /* Dark mode - apply the autobrand filter */
 [data-bs-theme="dark"] .r-plt img,
-[data-bs-theme="dark"] img[src*="figure-html/"] {
+[data-bs-theme="dark"] .template-article img {
   filter: url(#autobrand-dark);
 }
