@@ -117,7 +117,7 @@
 written in a language other than English, declare it by setting setting
 <code>lang</code> to the <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" class="external-link">language
 code</a> for your language:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> fr</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> es</span></span></code></pre></div>
 <p>This will be used to set the language of the web page and to
 translate the English words that pkgdown generates on your site. Current
 available translations are:</p>
@@ -154,18 +154,15 @@ the locale and set the <code>env</code> during
 <code>lang: es</code>, you would use <code>es_ES.UTF-8</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Set locale to Spanish</span></span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>          sudo apt-get update</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>          sudo apt-get install -y locales</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>          sudo locale-gen es_ES.UTF-8</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>          sudo update-locale LANG=es_ES.UTF-8</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> bash</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build site</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="at">        </span><span class="fu">env</span><span class="kw">:</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="at">          </span><span class="fu">LANG</span><span class="kw">:</span><span class="at"> es_ES.UTF-8</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="at">          </span><span class="fu">LC_ALL</span><span class="kw">:</span><span class="at"> es_ES.UTF-8</span></span></code></pre></div>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>          sudo locale-gen es_ES.UTF-8</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>          sudo update-locale LANG=es_ES.UTF-8</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> bash</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build site</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="at">        </span><span class="fu">env</span><span class="kw">:</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="at">          </span><span class="fu">LANG</span><span class="kw">:</span><span class="at"> es_ES.UTF-8</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="translations">Translations<a class="anchor" aria-label="anchor" href="#translations"></a>
 </h2>
