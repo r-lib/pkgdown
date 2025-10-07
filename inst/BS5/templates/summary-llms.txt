@@ -1,5 +1,0 @@
-{{{readme}}}
-
-{{{reference}}}
-
-{{{articles}}}
