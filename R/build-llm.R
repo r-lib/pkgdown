@@ -1,13 +1,5 @@
 build_llm_docs <- function(pkg = ".") {
   pkg <- as_pkgdown(pkg)
-  if (refuses_mds(pkg)) {
-    return()
-  }
-
-  url <- paste0(config_pluck_string(pkg, "url"), "/")
-  if (is.null(url)) {
-    return()
-  }
 
   cli::cli_rule("Building llm documentation")
   if (pkg$development$in_dev && pkg$bs_version > 3) {
@@ -25,10 +17,6 @@ build_llm_docs <- function(pkg = ".") {
   writeLines(index, path(pkg$dst_path, "llms.txt"))
 
   invisible()
-}
-
-refuses_mds <- function(pkg) {
-  !config_pluck_bool(pkg, "template.build-md", default = TRUE)
 }
 
 read_file_if_exists <- function(path) {
