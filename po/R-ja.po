@@ -1,0 +1,340 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: pkgdown 2.0.6.9000\n"
+"POT-Creation-Date: 2024-05-24 09:36-0500\n"
+"PO-Revision-Date: 2025-10-04\n"
+"Last-Translator: AI Assistant\n"
+"Language-Team: Japanese <>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: build-404.R:11
+msgid "Page not found (404)"
+msgstr "ページが見つかりません (404)"
+
+#: build-404.R:12
+msgid "Content not found. Please use links in the navbar."
+msgstr "コンテンツが見つかりません。ナビゲーションバーのリンクをご利用ください。"
+
+#: build-articles.R:432 navbar.R:186 navbar.R:196 navbar.R:217
+msgid "Articles"
+msgstr "記事"
+
+#: build-articles.R:570
+msgid "All vignettes"
+msgstr "すべてのビネット"
+
+#: build-footer.R:34
+msgid "Developed by"
+msgstr "開発者"
+
+#: build-footer.R:41
+msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
+msgstr "<a href=\"%s\">pkgdown</a> %sで構築されたサイト。"
+
+#: build-home-authors.R:12
+msgid "Authors and Citation"
+msgstr "著者と引用"
+
+#: build-home-authors.R:101
+msgid "More about authors..."
+msgstr "著者について..."
+
+#: build-home-authors.R:104
+msgid "Developers"
+msgstr "開発者"
+
+#: build-home-authors.R:190
+msgid "author"
+msgstr "著者"
+
+#: build-home-authors.R:191
+msgid "compiler"
+msgstr "コンパイラ"
+
+#: build-home-authors.R:192
+msgid "contractor"
+msgstr "契約者"
+
+#: build-home-authors.R:193
+msgid "contributor"
+msgstr "貢献者"
+
+#: build-home-authors.R:194
+msgid "copyright holder"
+msgstr "著作権者"
+
+#: build-home-authors.R:195
+msgid "maintainer"
+msgstr "メンテナー"
+
+#: build-home-authors.R:196
+msgid "data contributor"
+msgstr "データ貢献者"
+
+#: build-home-authors.R:197
+msgid "funder"
+msgstr "資金提供者"
+
+#: build-home-authors.R:198
+msgid "reviewer"
+msgstr "レビュアー"
+
+#: build-home-authors.R:199
+msgid "thesis advisor"
+msgstr "論文指導教員"
+
+#: build-home-authors.R:200
+msgid "translator"
+msgstr "翻訳者"
+
+#: build-home-authors.R:254 render.R:103
+msgid "Citation"
+msgstr "引用"
+
+#: build-home-authors.R:255
+msgid "Citing %s"
+msgstr "%sの引用"
+
+#: build-home-community.R:23
+msgid "Contributing guide"
+msgstr "貢献ガイド"
+
+#: build-home-community.R:27
+msgid "Code of conduct"
+msgstr "行動規範"
+
+#: build-home-community.R:31
+msgid "Getting help"
+msgstr "ヘルプ"
+
+#: build-home-community.R:38
+msgid "Community"
+msgstr "コミュニティ"
+
+#: build-home-index.R:120
+msgid "Dev Status"
+msgstr "開発ステータス"
+
+#: build-home-index.R:162
+msgid "View on %s"
+msgstr "%sで表示"
+
+#: build-home-index.R:163
+msgid "Browse source code"
+msgstr "ソースコードを閲覧"
+
+#: build-home-index.R:164
+msgid "Report a bug"
+msgstr "バグを報告"
+
+#: build-home-index.R:168
+msgid "Links"
+msgstr "リンク"
+
+#: build-home-index.R:173 render.R:105
+msgid "Table of contents"
+msgstr "目次"
+
+#: build-home-license.R:12 build-home-license.R:34
+msgid "License"
+msgstr "ライセンス"
+
+#: build-home-license.R:29
+msgid "Full license"
+msgstr "完全なライセンス"
+
+#: build-news.R:102 build-news.R:259 build-news.R:263
+msgid "Changelog"
+msgstr "変更履歴"
+
+#: build-news.R:129
+msgid "Version %s"
+msgstr "バージョン %s"
+
+#: build-news.R:141 build-news.R:254
+msgid "News"
+msgstr "ニュース"
+
+#: build-news.R:256
+msgid "Releases"
+msgstr "リリース"
+
+#: build-news.R:310
+msgid "CRAN release: %s"
+msgstr "CRANリリース: %s"
+
+#: build-reference-index.R:22
+msgid "Package index"
+msgstr "パッケージ索引"
+
+#: build-reference-index.R:158
+msgid "All functions"
+msgstr "すべての関数"
+
+#: build-reference.R:371
+msgid "Usage"
+msgstr "使用法"
+
+#: build-tutorials.R:47 navbar.R:152
+msgid "Tutorials"
+msgstr "チュートリアル"
+
+#: development.R:72
+msgid "Released version"
+msgstr "リリース版"
+
+#: development.R:73
+msgid "In-development version"
+msgstr "開発版"
+
+#: development.R:74
+msgid "Unreleased version"
+msgstr "未リリース版"
+
+#: navbar-menu.R:173
+msgid "Search site"
+msgstr "サイトを検索"
+
+#: navbar-menu.R:174
+msgid "Search for"
+msgstr "検索"
+
+#: navbar.R:129
+msgid "Reference"
+msgstr "リファレンス"
+
+#: navbar.R:140
+msgid "Light switch"
+msgstr "ライトスイッチ"
+
+#: navbar.R:143
+msgid "Light"
+msgstr "ライト"
+
+#: navbar.R:144
+msgid "Dark"
+msgstr "ダーク"
+
+#: navbar.R:145
+msgid "Auto"
+msgstr "自動"
+
+#: navbar.R:180
+msgid "Get started"
+msgstr "はじめに"
+
+#: navbar.R:213
+msgid "More articles..."
+msgstr "その他の記事..."
+
+#: package.R:300
+msgid "deprecated"
+msgstr "非推奨"
+
+#: package.R:301
+msgid "superseded"
+msgstr "置き換え済み"
+
+#: package.R:302
+msgid "experimental"
+msgstr "実験的"
+
+#: package.R:303
+msgid "stable"
+msgstr "安定版"
+
+#: rd-data.R:23
+msgid "Details"
+msgstr "詳細"
+
+#: rd-data.R:27
+msgid "Description"
+msgstr "説明"
+
+#: rd-data.R:31
+msgid "References"
+msgstr "参考文献"
+
+#: rd-data.R:35 render.R:98
+msgid "Source"
+msgstr "ソース"
+
+#: rd-data.R:39
+msgid "Format"
+msgstr "フォーマット"
+
+#: rd-data.R:43
+msgid "Note"
+msgstr "注記"
+
+#: rd-data.R:47
+msgid "Author"
+msgstr "著者"
+
+#: rd-data.R:51
+msgid "See also"
+msgstr "関連項目"
+
+#: rd-data.R:67
+msgid "Arguments"
+msgstr "引数"
+
+#: rd-data.R:75
+msgid "Value"
+msgstr "戻り値"
+
+#: render.R:95
+msgid "Skip to contents"
+msgstr "コンテンツにスキップ"
+
+#: render.R:96
+msgid "Toggle navigation"
+msgstr "ナビゲーションを切り替え"
+
+#: render.R:97
+msgid "On this page"
+msgstr "このページ"
+
+#: render.R:99
+msgid "Abstract"
+msgstr "概要"
+
+#: render.R:100
+msgid "Authors"
+msgstr "著者"
+
+#: render.R:101
+msgid "Version"
+msgstr "バージョン"
+
+#: render.R:102
+msgid "Examples"
+msgstr "例"
+
+#: render.R:104
+msgid "Additional details"
+msgstr "追加詳細"
+
+#: render.R:106
+msgid "Site navigation"
+msgstr "サイトナビゲーション"
+
+#: repo.R:35
+msgid "Source:"
+msgstr "ソース:"
+
+#: tweak-homepage.R:61
+msgid "Dev status"
+msgstr "開発ステータス"
+
+#: usage.R:23
+msgid "# Default %s method"
+msgstr "# デフォルトの%sメソッド"
+
+#: usage.R:25
+msgid "# %s method for class '%s'"
+msgstr "# クラス'%s'の%sメソッド"
