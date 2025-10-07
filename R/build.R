@@ -468,7 +468,7 @@ build_site_local <- function(
   build_news(pkg, override = override, preview = FALSE)
   build_sitemap(pkg)
   if (pkg$bs_version > 3) {
-    build_mds(pkg)
+    build_llm_docs(pkg)
   }
   build_redirects(pkg, override = override)
   if (pkg$bs_version == 3) {
