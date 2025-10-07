@@ -43,7 +43,7 @@ As you can see, most language codes are two letters, but if a language has multi
 
 If you deploy your site on Github Actions, you will need to update the locale and set the `env` during `pkgdown::build_site()` to the same language code you set in `_pkgdown.yml`, including the country code. For example, for `lang: es`, you would use `es_ES.UTF-8`:
 
-```yaml
+``` yaml
       - name: Set locale to Spanish
         run: |
           sudo locale-gen es_ES.UTF-8
