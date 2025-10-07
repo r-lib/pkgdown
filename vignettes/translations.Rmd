@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 If your documentation (`.Rd` and `.Rmd`) is written in a language other than English, declare it by setting setting `lang` to the [language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for your language:
 
 ``` yaml
-lang: fr
+lang: es
 ```
 
 This will be used to set the language of the web page and to translate the English words that pkgdown generates on your site.
@@ -43,11 +43,9 @@ As you can see, most language codes are two letters, but if a language has multi
 
 If you deploy your site on Github Actions, you will need to update the locale and set the `env` during `pkgdown::build_site()` to the same language code you set in `_pkgdown.yml`, including the country code. For example, for `lang: es`, you would use `es_ES.UTF-8`:
 
-```yaml
+``` yaml
       - name: Set locale to Spanish
         run: |
-          sudo apt-get update
-          sudo apt-get install -y locales
           sudo locale-gen es_ES.UTF-8
           sudo update-locale LANG=es_ES.UTF-8
         shell: bash
@@ -57,7 +55,6 @@ If you deploy your site on Github Actions, you will need to update the locale an
         shell: Rscript {0}
         env:
           LANG: es_ES.UTF-8
-          LC_ALL: es_ES.UTF-8
 ```
 ## Translations
 
