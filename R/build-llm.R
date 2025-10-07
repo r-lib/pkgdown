@@ -2,7 +2,7 @@ build_llm_docs <- function(pkg = ".") {
   rlang::check_installed("pandoc")
   pkg <- as_pkgdown(pkg)
 
-  cli::cli_rule("Building llm documentation")
+  cli::cli_rule("Building docs for llms")
   paths <- get_site_paths(pkg)
   purrr::walk(paths, convert_md, pkg = pkg)
 
