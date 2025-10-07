@@ -32,22 +32,20 @@ convert_md <- function(path, pkg) {
   )
   xml2::xml_add_child(main_html, title, .where = 0)
 
-  # drop anchors
+  # drop internal anchors
   xml2::xml_remove(xml2::xml_find_all(main_html, ".//a[@class='anchor']"))
 
-  # replace all internal links with absolute link to .md
-  internal <- xml2::xml_find_all(main_html, ".//a[not(@class='external-link')]")
-  purrr::walk(
-    internal,
-    add_website_url,
-    pkg = pkg,
-    root = fs::path_rel(fs::path_dir(path), start = pkg$dst_path)
-  )
-  xml2::xml_set_attr(
-    xml2::xml_find_all(main_html, ".//a[@class='external-link']"),
-    attr = "class",
-    value = NULL
-  )
+  # replace all links with absolute link to .md
+  if (!is.null(pkg$meta$url)) {
+    url <- paste0(pkg$meta$url, "/")
+    if (pkg$development$in_dev && pkg$bs_version > 3) {
+      url <- paste0(url, pkg$prefix)
+    }
+    a <- xml2::xml_find_all(main_html, ".//a")
+    href_absolute <- xml2::url_absolute(xml2::xml_attr(a, "href"), url)
+    xml2::xml_attr(a, "href") <- href_absolute
+    xml2::xml_attr(a, "class") <- NULL
+  }
 
   pandoc::pandoc_convert(
     text = main_html,
@@ -58,24 +56,6 @@ convert_md <- function(path, pkg) {
 }
 
 # Helpers ---------------------------------------------------------------------
-
-add_website_url <- function(node, pkg, root) {
-  url <- sprintf("%s/", config_pluck_string(pkg, "url"))
-  if (pkg$development$in_dev && pkg$bs_version > 3) {
-    url <- paste0(url, pkg$prefix)
-  }
-
-  if (root != ".") {
-    url <- sprintf("%s%s/", url, root)
-  }
-
-  xml2::xml_set_attr(
-    node,
-    attr = "href",
-    value = sprintf("%s%s.md", url, xml2::xml_attr(node, "href"))
-  )
-}
-
 
 read_file_if_exists <- function(path) {
   if (file_exists(path)) {
