@@ -7,9 +7,9 @@ build_llm_docs <- function(pkg = ".") {
   purrr::walk(paths, convert_md, pkg = pkg)
 
   index <- c(
-    read_file_if_exists(path(pkg$dst_path, "index.html.md")),
-    read_file_if_exists(path(pkg$dst_path, "reference", "index.html.md")),
-    read_file_if_exists(path(pkg$dst_path, "articles", "index.html.md"))
+    read_file_if_exists(path(pkg$dst_path, "index.md")),
+    read_file_if_exists(path(pkg$dst_path, "reference", "index.md")),
+    read_file_if_exists(path(pkg$dst_path, "articles", "index.md"))
   )
   writeLines(index, path(pkg$dst_path, "llms.txt"))
 
@@ -36,22 +36,24 @@ convert_md <- function(path, pkg) {
   xml2::xml_remove(xml2::xml_find_all(main_html, ".//a[@class='anchor']"))
 
   # replace all links with absolute link to .md
+  a <- xml2::xml_find_all(main_html, ".//a")
   if (!is.null(pkg$meta$url)) {
     url <- paste0(pkg$meta$url, "/")
     if (pkg$development$in_dev && pkg$bs_version > 3) {
       url <- paste0(url, pkg$prefix)
     }
-    a <- xml2::xml_find_all(main_html, ".//a")
-    href_absolute <- xml2::url_absolute(xml2::xml_attr(a, "href"), url)
-    xml2::xml_attr(a, "href") <- href_absolute
-    xml2::xml_attr(a, "class") <- NULL
+    a_external <- a[!grepl("external-link", xml2::xml_attr(a, "class"))]
+
+    href_absolute <- xml2::url_absolute(xml2::xml_attr(a_external, "href"), url)
+    href_absolute <- path_ext_set(href_absolute, "md")
   }
+  xml2::xml_attr(a, "class") <- NULL
 
   pandoc::pandoc_convert(
     text = main_html,
     from = "html",
     to = "markdown_strict+definition_lists+footnotes+backtick_code_blocks",
-    output = sprintf("%s.md", path)
+    output = path_ext_set(path, "md")
   )
 }
 
