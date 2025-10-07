@@ -13,6 +13,8 @@ plot(x, sin(x))
 plot(1:10)
 lines(1:10)
 text(2, 5, "Hello", srt = 30, cex = 2)
+
+plot(1:3, col = c("red", "green", "blue"), pch = 16, cex = 10)
 }
 \seealso{
 Other tests: 
