@@ -39,7 +39,7 @@ jobs:
       - uses: r-lib/actions/setup-tinytex@v2
 
       - name: Build site
-        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE, override = list(url = ""))
         shell: Rscript {0}
 
       - name: Deploy to GitHub pages 🚀
