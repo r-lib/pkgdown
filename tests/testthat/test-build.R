@@ -14,8 +14,7 @@ test_that("build_site can be made unquiet", {
       build_site(
         pkg,
         quiet = FALSE,
-        preview = FALSE,
-        override = list(template = list(`build-md` = FALSE))
+        preview = FALSE
       )
     )
   )
@@ -25,8 +24,7 @@ test_that("build_site can be made unquiet", {
     capture.output(
       build_site(
         pkg,
-        preview = FALSE,
-        override = list(template = list(`build-md` = FALSE))
+        preview = FALSE
       )
     )
   )
