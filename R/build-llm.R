@@ -36,18 +36,7 @@ convert_md <- function(path, pkg) {
   xml2::xml_remove(xml2::xml_find_all(main_html, ".//a[@class='anchor']"))
 
   # replace all links with absolute link to .md
-  a <- xml2::xml_find_all(main_html, ".//a")
-  if (!is.null(pkg$meta$url)) {
-    url <- paste0(pkg$meta$url, "/")
-    if (pkg$development$in_dev && pkg$bs_version > 3) {
-      url <- paste0(url, pkg$prefix)
-    }
-    a_external <- a[!grepl("external-link", xml2::xml_attr(a, "class"))]
-
-    href_absolute <- xml2::url_absolute(xml2::xml_attr(a_external, "href"), url)
-    href_absolute <- path_ext_set(href_absolute, "md")
-  }
-  xml2::xml_attr(a, "class") <- NULL
+  create_absolute_links(main_html, pkg)
 
   pandoc::pandoc_convert(
     text = main_html,
@@ -63,4 +52,19 @@ read_file_if_exists <- function(path) {
   if (file_exists(path)) {
     read_lines(path)
   }
+}
+
+create_absolute_links <- function(main_html, pkg) {
+  a <- xml2::xml_find_all(main_html, ".//a")
+  if (!is.null(pkg$meta$url)) {
+    url <- paste0(pkg$meta$url, "/")
+    if (pkg$development$in_dev && pkg$bs_version > 3) {
+      url <- paste0(url, pkg$prefix)
+    }
+    a_external <- a[!grepl("external-link", xml2::xml_attr(a, "class"))]
+
+    href_absolute <- xml2::url_absolute(xml2::xml_attr(a_external, "href"), url)
+    href_absolute <- path_ext_set(href_absolute, "md")
+  }
+  xml2::xml_attr(a, "class") <- NULL
 }
