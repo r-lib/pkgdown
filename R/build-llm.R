@@ -7,7 +7,7 @@ build_llm_docs <- function(pkg = ".") {
   purrr::walk(paths, convert_md, pkg = pkg)
 
   index <- c(
-    read_file_if_exists(path(pkg$dst_path, "index.md")),
+    read_lines(path(pkg$dst_path, "index.md")),
     read_file_if_exists(path(pkg$dst_path, "reference", "index.md")),
     read_file_if_exists(path(pkg$dst_path, "articles", "index.md"))
   )
