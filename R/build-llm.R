@@ -4,6 +4,7 @@ build_llm_docs <- function(pkg = ".") {
 
   cli::cli_rule("Building docs for llms")
   paths <- get_site_paths(pkg)
+
   purrr::walk(paths, convert_md, pkg = pkg)
 
   index <- c(
@@ -27,10 +28,13 @@ convert_md <- function(path, pkg) {
 
   # simplify page header (which includes logo + source link)
   title <- xml2::xml_find_first(main_html, ".//h1")
-  xml2::xml_remove(
-    xml2::xml_find_first(main_html, ".//div[@class='page-header']")
-  )
-  xml2::xml_add_child(main_html, title, .where = 0)
+  # website for a package without README/index.md
+  if (length(title) > 0) {
+    xml2::xml_remove(
+      xml2::xml_find_first(main_html, ".//div[@class='page-header']")
+    )
+    xml2::xml_add_child(main_html, title, .where = 0)
+  }
 
   # drop internal anchors
   xml2::xml_remove(xml2::xml_find_all(main_html, ".//a[@class='anchor']"))
