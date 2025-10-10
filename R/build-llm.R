@@ -42,10 +42,12 @@ convert_md <- function(path, pkg) {
   # replace all links with absolute link to .md
   create_absolute_links(main_html, pkg)
 
+  lua_filter <- system.file("pandoc", "badge.lua", package = "pkgdown")
   pandoc::pandoc_convert(
     text = main_html,
     from = "html",
     to = "markdown_strict+definition_lists+footnotes+backtick_code_blocks",
+    args = c(sprintf("--lua-filter=%s", lua_filter)),
     output = path_ext_set(path, "md")
   )
 }
