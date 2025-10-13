@@ -23,6 +23,18 @@ tweak_reference_highlighting <- function(html) {
   # Add div.sourceCode for copy button
   xml2::xml_add_parent(pre[!handled], "div", class = "sourceCode")
 
+  # Fix seealso links
+  seealso_links <- xml2::xml_find_all(
+    html,
+    "//code[a and normalize-space(text()) = '()']"
+  )
+  seealso_kids <- xml2::xml_children(seealso_links)
+  xml2::xml_text(seealso_kids) <- paste0(xml2::xml_text(seealso_kids), "()")
+  purrr::walk(seealso_links, \(x) {
+    text_nodes <- xml2::xml_find_all(x, "./text()[normalize-space(.) = '()']")
+    xml2::xml_remove(text_nodes)
+  })
+
   invisible()
 }
 
