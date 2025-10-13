@@ -141,6 +141,19 @@ test_that("can highlight 'rmd'", {
   expect_equal(xpath_attr(html, "//code//span[not(span)]", "class")[[1]], "an")
 })
 
+test_that("fix seealso links", {
+  skip_if_no_pandoc("2.16")
+  html <- xml2::read_html(
+    '<code><a>build_site</a>()</code>'
+  )
+  tweak_reference_highlighting(html)
+
+  expect_equal(
+    as.character(xml2::xml_child(html)),
+    "<body><code><a>build_site()</a></code></body>"
+  )
+})
+
 test_that("fails cleanly", {
   html <- xml2::read_xml('<div><pre><code></code></pre></div>')
   tweak_highlight_other(html)
