@@ -29,15 +29,110 @@ lang: es
 This will be used to set the language of the web page and to translate the English words that pkgdown generates on your site.
 Current available translations are:
 
--   `ca`: Catalan
--   `de`: German
--   `dk`: Danish
--   `es`: Spanish
--   `fr`: French
--   `ko`: Korean
--   `pt`: Portuguese
--   `tr`: Turkish
--   `zh_CN`: Chinese (simplified)
+```{r}
+#| label: tbl-lagnuages
+#| echo: false
+langs <- data.frame(
+  language = c(
+    "Arabic",
+    "Catalan",
+    "Chinese",
+    "Danish",
+    "Dutch",
+    "English",
+    "French",
+    "German",
+    "Hindi",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Norwegian",
+    "Polish",
+    "Portuguese",
+    "Russian",
+    "Spanish",
+    "Swedish",
+    "Turkish"
+  ),
+  lang_code = c(
+    "ar",
+    "ca",
+    "zh_CN",
+    "da",
+    "nl",
+    "en",
+    "fr",
+    "de",
+    "hi",
+    "it",
+    "ja",
+    "ko",
+    "no",
+    "pl",
+    "pt",
+    "ru",
+    "es",
+    "sv",
+    "tr"
+  ),
+  country_code = c(
+    "SA",
+    "ES",
+    "CN",
+    "DK",
+    "NL",
+    "US",
+    "FR",
+    "DE",
+    "IN",
+    "IT",
+    "JP",
+    "KR",
+    "NO",
+    "PL",
+    "PT",
+    "RU",
+    "ES",
+    "SE",
+    "TR"
+  ),
+  locale = c(
+    "ar_SA",
+    "ca_ES",
+    "zh_CN",
+    "da_DK",
+    "nl_NL",
+    "en_US",
+    "fr_FR",
+    "de_DE",
+    "hi_IN",
+    "it_IT",
+    "ja_JP",
+    "ko_KR",
+    "no_NO",
+    "pl_PL",
+    "pt_PT",
+    "ru_RU",
+    "es_ES",
+    "sv_SE",
+    "tr_TR"
+  )
+)
+
+# Format for table display
+langs_formatted <- langs
+langs_formatted$lang_code <- paste0("`", langs_formatted$lang_code, "`")
+langs_formatted$locale <- paste0("`", langs_formatted$locale, ".UTF-8`")
+
+# Select and rename columns for final table
+final_table <- data.frame(
+  Language = langs_formatted$language,
+  "Language.Code" = langs_formatted$lang_code,
+  Locale = langs_formatted$locale
+)
+
+knitr::kable(final_table, col.names = c("Language", "Language Code", "Locale"))
+```
 
 As you can see, most language codes are two letters, but if a language has multiple variants, it gets a longer form which can be used to disambiguate the options. For example, Chinese can use one of two forms: simplified (used in China and Singapore) or traditional (used in Taiwan and Hong Kong). Another example would be providing specific French Canadian translations by using code `fr_CN`.
 

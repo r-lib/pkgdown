@@ -69,7 +69,7 @@ msgstr "правообладатель"
 
 #: build-home-authors.R:195
 msgid "maintainer"
-msgstr "сопровождающий"
+msgstr "сопровождающее лицо"
 
 #: build-home-authors.R:196
 msgid "data contributor"

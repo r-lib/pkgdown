@@ -212,7 +212,6 @@ msgstr "Referência"
 
 #: navbar.R:140
 msgid "Light switch"
-# Appearance
 msgstr "Interruptor de luz"
 
 #: navbar.R:143

@@ -49,19 +49,19 @@ msgstr "Sviluppatori"
 
 #: build-home-authors.R:190
 msgid "author"
-msgstr "autore"
+msgstr "autoria"
 
 #: build-home-authors.R:191
 msgid "compiler"
-msgstr "compilatore"
+msgstr "compilazione"
 
 #: build-home-authors.R:192
 msgid "contractor"
-msgstr "appaltatore"
+msgstr "contrattazione"
 
 #: build-home-authors.R:193
 msgid "contributor"
-msgstr "collaboratore"
+msgstr "contribuzione"
 
 #: build-home-authors.R:194
 msgid "copyright holder"
@@ -69,27 +69,27 @@ msgstr "titolare dei diritti d'autore"
 
 #: build-home-authors.R:195
 msgid "maintainer"
-msgstr "manutentore"
+msgstr "manutenzione"
 
 #: build-home-authors.R:196
 msgid "data contributor"
-msgstr "collaboratore dati"
+msgstr "contribuzione dati"
 
 #: build-home-authors.R:197
 msgid "funder"
-msgstr "finanziatore"
+msgstr "finanziamento"
 
 #: build-home-authors.R:198
 msgid "reviewer"
-msgstr "revisore"
+msgstr "revisione"
 
 #: build-home-authors.R:199
 msgid "thesis advisor"
-msgstr "relatore di tesi"
+msgstr "supervisione tesi"
 
 #: build-home-authors.R:200
 msgid "translator"
-msgstr "traduttore"
+msgstr "traduzione"
 
 #: build-home-authors.R:254 render.R:103
 msgid "Citation"
@@ -305,7 +305,7 @@ msgstr "Sommario"
 
 #: render.R:100
 msgid "Authors"
-msgstr "Autori"
+msgstr "Autoria"
 
 #: render.R:101
 msgid "Version"
