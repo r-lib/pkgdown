@@ -930,3 +930,21 @@ figure>figcaption.quarto-float-caption-top {
   --mermaid-node-bg-color: RGBA(var(--bs-primary-rgb), 0.1);
   --mermaid-node-fg-color: var(--bs-primary);
 }
+
+// aut-dark mode for images ---------------------------------------
+
+@mixin invert-filter {
+
+  img:not(.logo),
+  .html-widget {
+    filter: invert(100%) hue-rotate(180deg);
+  }
+}
+
+[data-bs-theme="dark"] {
+  @include invert-filter;
+
+  .no-invert-dark-mode {
+    @include invert-filter;
+  }
+}
