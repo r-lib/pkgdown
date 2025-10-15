@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* New translations are available. See `vignette("translations")` for details.
 * Plots in dark mode are now transformed with a CSS filter to improve their
   visibility (thanks to @gadenbuie).
 * Updated the translations vignette with instructions for building non-English sites through Github Actions.
