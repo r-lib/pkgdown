@@ -1,0 +1,339 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: pkgdown 2.0.9.9000\n"
+"POT-Creation-Date: 2024-05-24 09:36-0500\n"
+"PO-Revision-Date: 2025-10-16 23:28+1\n"
+"Last-Translator: Pepijn de Vries <pepijn.devries@outlook.com>\n"
+"Language-Team: @pepijn-devries\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: build-404.R:11
+msgid "Page not found (404)"
+msgstr "Pagina niet gevonden (404)"
+
+#: build-404.R:12
+msgid "Content not found. Please use links in the navbar."
+msgstr "Inhoud niet gevonden. Gebruik aub de links in de navigatiebalk"
+
+#: build-articles.R:432 navbar.R:186 navbar.R:196 navbar.R:217
+msgid "Articles"
+msgstr "Artikelen"
+
+#: build-articles.R:570
+msgid "All vignettes"
+msgstr "Alle artikelen"
+
+#: build-footer.R:34
+msgid "Developed by"
+msgstr "Ontwikkeld door"
+
+#: build-footer.R:41
+msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
+msgstr "Website gebouwd met <a href=\"%s\">pkgdown</a> %s."
+
+#: build-home-authors.R:12
+msgid "Authors and Citation"
+msgstr "Auteurs en citaat"
+
+#: build-home-authors.R:101
+msgid "More about authors..."
+msgstr "Meer over de auteurs..."
+
+#: build-home-authors.R:104
+msgid "Developers"
+msgstr "Ontwikkelaars"
+
+#: build-home-authors.R:190
+msgid "author"
+msgstr "auteur"
+
+#: build-home-authors.R:191
+msgid "compiler"
+msgstr "samensteller"
+
+#: build-home-authors.R:192
+msgid "contractor"
+msgstr "aannemer"
+
+#: build-home-authors.R:193
+msgid "contributor"
+msgstr "bijdrager"
+
+#: build-home-authors.R:194
+msgid "copyright holder"
+msgstr "auteursrechthebbende"
+
+#: build-home-authors.R:195
+msgid "maintainer"
+msgstr "beheerder"
+
+#: build-home-authors.R:196
+msgid "data contributor"
+msgstr "Databijdrager"
+
+#: build-home-authors.R:197
+msgid "funder"
+msgstr "financier"
+
+#: build-home-authors.R:198
+msgid "reviewer"
+msgstr "recensent"
+
+#: build-home-authors.R:199
+msgid "thesis advisor"
+msgstr "scriptiebegeleider"
+
+#: build-home-authors.R:200
+msgid "translator"
+msgstr "vertaler"
+
+#: build-home-authors.R:254 render.R:103
+msgid "Citation"
+msgstr "Citaat"
+
+#: build-home-authors.R:255
+msgid "Citing %s"
+msgstr "%s citeren"
+
+#: build-home-community.R:23
+msgid "Contributing guide"
+msgstr "Gids om bij te dragen"
+
+#: build-home-community.R:27
+msgid "Code of conduct"
+msgstr "Gedragscode"
+
+#: build-home-community.R:31
+msgid "Getting help"
+msgstr "Hulp krijgen"
+
+#: build-home-community.R:38
+msgid "Community"
+msgstr "Gemeenschap"
+
+#: build-home-index.R:120
+msgid "Dev Status"
+msgstr "Ontwikkelingsstatus"
+
+#: build-home-index.R:162
+msgid "View on %s"
+msgstr "Op %s bekijken"
+
+#: build-home-index.R:163
+msgid "Browse source code"
+msgstr "Broncode bekijken"
+
+#: build-home-index.R:164
+msgid "Report a bug"
+msgstr "Bug melden"
+
+#: build-home-index.R:168
+msgid "Links"
+msgstr "Links"
+
+#: build-home-index.R:173 render.R:105
+msgid "Table of contents"
+msgstr "Inhoudsopgave"
+
+#: build-home-license.R:12 build-home-license.R:34
+msgid "License"
+msgstr "Licentie"
+
+#: build-home-license.R:29
+msgid "Full license"
+msgstr "Volledige licentie"
+
+#: build-news.R:102 build-news.R:259 build-news.R:263
+msgid "Changelog"
+msgstr "Wijzigingslogboek"
+
+#: build-news.R:129
+msgid "Version %s"
+msgstr "Versie %s"
+
+#: build-news.R:141 build-news.R:254
+msgid "News"
+msgstr "Nieuws"
+
+#: build-news.R:256
+msgid "Releases"
+msgstr "Uitgaven"
+
+#: build-news.R:310
+msgid "CRAN release: %s"
+msgstr "CRAN uitgave: %s"
+
+#: build-reference-index.R:22
+msgid "Package index"
+msgstr "Pakketindex"
+
+#: build-reference-index.R:158
+msgid "All functions"
+msgstr "Alle functies"
+
+#: build-reference.R:371
+msgid "Usage"
+msgstr "Gebruik"
+
+#: build-tutorials.R:47 navbar.R:152
+msgid "Tutorials"
+msgstr "Handleidingen"
+
+#: development.R:72
+msgid "Released version"
+msgstr "Uitgebrachte versie"
+
+#: development.R:73
+msgid "In-development version"
+msgstr "Versie in ontwikkeling"
+
+#: development.R:74
+msgid "Unreleased version"
+msgstr "Onuitgebrachte versie"
+
+#: navbar-menu.R:173
+msgid "Search site"
+msgstr "Zoeken op site"
+
+#: navbar-menu.R:174
+msgid "Search for"
+msgstr "Zoeken naar"
+
+#: navbar.R:129
+msgid "Reference"
+msgstr "Referentie"
+
+#: navbar.R:140
+msgid "Light switch"
+msgstr "Lichtknop"
+
+#: navbar.R:143
+msgid "Light"
+msgstr "Licht"
+
+#: navbar.R:144
+msgid "Dark"
+msgstr "Donker"
+
+#: navbar.R:145
+msgid "Auto"
+msgstr "Automatisch"
+
+#: navbar.R:180
+msgid "Get started"
+msgstr "Beginnen"
+
+#: navbar.R:213
+msgid "More articles..."
+msgstr "Meer artikelen..."
+
+#: package.R:300
+msgid "deprecated"
+msgstr "verouderd"
+
+#: package.R:301
+msgid "superseded"
+msgstr "vervangen"
+
+#: package.R:302
+msgid "experimental"
+msgstr "experimenteel"
+
+#: package.R:303
+msgid "stable"
+msgstr "stabiel"
+
+#: rd-data.R:23
+msgid "Details"
+msgstr "Details"
+
+#: rd-data.R:27
+msgid "Description"
+msgstr "Omschrijving"
+
+#: rd-data.R:31
+msgid "References"
+msgstr "Referenties"
+
+#: rd-data.R:35 render.R:98
+msgid "Source"
+msgstr "Bron"
+
+#: rd-data.R:39
+msgid "Format"
+msgstr "Formaat"
+
+#: rd-data.R:43
+msgid "Note"
+msgstr "Aantekening"
+
+#: rd-data.R:47
+msgid "Author"
+msgstr "Auteur"
+
+#: rd-data.R:51
+msgid "See also"
+msgstr "Zie ook"
+
+#: rd-data.R:67
+msgid "Arguments"
+msgstr "Argumenten"
+
+#: rd-data.R:75
+msgid "Value"
+msgstr "Waarde"
+
+#: render.R:95
+msgid "Skip to contents"
+msgstr "Ga naar inhoud"
+
+#: render.R:96
+msgid "Toggle navigation"
+msgstr "Schakel navigatie in"
+
+#: render.R:97
+msgid "On this page"
+msgstr "Op deze pagina"
+
+#: render.R:99
+msgid "Abstract"
+msgstr "Samenvatting"
+
+#: render.R:100
+msgid "Authors"
+msgstr "Auteurs"
+
+#: render.R:101
+msgid "Version"
+msgstr "Versie"
+
+#: render.R:102
+msgid "Examples"
+msgstr "Voorbeelden"
+
+#: render.R:104
+msgid "Additional details"
+msgstr "Aanvullende details"
+
+#: render.R:106
+msgid "Site navigation"
+msgstr "Website navigatie"
+
+#: repo.R:35
+msgid "Source:"
+msgstr "Bron:"
+
+#: tweak-homepage.R:61
+msgid "Dev status"
+msgstr "Ontwikkelingsstatus"
+
+#: usage.R:23
+msgid "# Default %s method"
+msgstr "# Standaard %s methode"
+
+#: usage.R:25
+msgid "# %s method for class '%s'"
+msgstr "# %s methode voor klasse '%s'"
