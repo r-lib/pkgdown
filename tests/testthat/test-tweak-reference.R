@@ -143,9 +143,7 @@ test_that("can highlight 'rmd'", {
 
 test_that("fix seealso links", {
   skip_if_no_pandoc("2.16")
-  html <- xml2::read_html(
-    '<code><a>build_site</a>()</code>'
-  )
+  html <- xml2::read_html('<code><a>build_site</a>()</code>')
   tweak_reference_highlighting(html)
 
   expect_equal(
