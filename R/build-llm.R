@@ -44,13 +44,11 @@ convert_md <- function(path, pkg) {
 
   # replace all links with absolute link to .md
   create_absolute_links(main_html, pkg)
-
-  lua_filter <- system.file("pandoc", "badge.lua", package = "pkgdown")
+  xml2::write_html(main_html, path_ext_set(path, "hhtml"))
   pandoc::pandoc_convert(
     text = main_html,
     from = "html",
-    to = "markdown_strict+definition_lists+footnotes+backtick_code_blocks",
-    args = c(sprintf("--lua-filter=%s", lua_filter)),
+    to = "gfm+definition_lists-raw_html",
     output = path_ext_set(path, "md")
   )
 }
@@ -79,23 +77,20 @@ create_absolute_links <- function(main_html, pkg) {
 }
 
 convert_popovers_to_footnotes <- function(main_html) {
-  # Find all popover footnote references
   popover_refs <- xml2::xml_find_all(
     main_html,
-    ".//a[@class='footnote-ref'][@data-bs-content]"
+    ".//a[@class='footnote-ref']"
   )
-
   if (length(popover_refs) == 0) {
-    return(main_html)
+    return()
   }
 
-  # Create footnotes section if it doesn't exist
+  # Create footnotes section
   footnotes_section <- xml2::xml_find_first(
     main_html,
     ".//section[@class='footnotes']"
   )
   if (length(footnotes_section) == 0) {
-    # Add footnotes section at the end of main
     footnotes_section <- xml2::xml_add_child(
       main_html,
       "section",
@@ -109,46 +104,22 @@ convert_popovers_to_footnotes <- function(main_html) {
     footnotes_ol <- xml2::xml_find_first(footnotes_section, ".//ol")
   }
 
-  # Process each popover reference using purrr
   purrr::iwalk(popover_refs, function(ref, i) {
-    # Extract footnote content from data-bs-content
-    content <- xml2::xml_attr(ref, "data-bs-content")
-
-    # Decode HTML entities in the content
-    content <- xml2::xml_text(xml2::read_html(paste0(
-      "<div>",
-      content,
-      "</div>"
-    )))
-
-    # Create footnote ID
+    text_content <- xml2::xml_attr(ref, "data-bs-content")
     fn_id <- paste0("fn", i)
     fnref_id <- paste0("fnref", i)
-
-    # Update the reference link
-    xml2::xml_attr(ref, "href") <- paste0("#", fn_id)
-    xml2::xml_attr(ref, "class") <- "footnote-ref"
-    xml2::xml_attr(ref, "id") <- fnref_id
-    xml2::xml_attr(ref, "role") <- "doc-noteref"
-    xml2::xml_set_attr(ref, "tabindex", NULL)
-    xml2::xml_set_attr(ref, "data-bs-toggle", NULL)
-    xml2::xml_set_attr(ref, "data-bs-content", NULL)
-
-    # Create footnote list item
-    fn_li <- xml2::xml_add_child(footnotes_ol, "li", id = fn_id)
-    fn_p <- xml2::xml_add_child(fn_li, "p")
-    xml2::xml_text(fn_p) <- content
-
-    # Add back reference
-    back_ref <- xml2::xml_add_child(
-      fn_p,
-      "a",
-      "↩︎",
-      href = paste0("#", fnref_id),
-      class = "footnote-back",
-      role = "doc-backlink"
+    xml2::xml_attrs(ref) <- list(
+      href = paste0("#", fn_id),
+      id = fnref_id,
+      role = "doc-noteref",
+      class = "footnote-ref"
     )
-  })
+    print(as.character(ref))
 
-  return(main_html)
+    fn_li <- xml2::xml_add_child(footnotes_ol, "li", id = fn_id)
+    parsed_content <- xml2::read_html(text_content) |>
+      xml2::xml_find_first(".//body") |>
+      xml2::xml_children()
+    purrr::walk(parsed_content, \(x) xml2::xml_add_child(fn_li, x))
+  })
 }
