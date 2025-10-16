@@ -39,12 +39,15 @@ convert_md <- function(path, pkg) {
   # fix footnotes
   convert_popovers_to_footnotes(main_html)
 
+  # fix badges
+  convert_lifecycle_badges(main_html)
+
   # drop internal anchors
   xml2::xml_remove(xml2::xml_find_all(main_html, ".//a[@class='anchor']"))
 
   # replace all links with absolute link to .md
   create_absolute_links(main_html, pkg)
-  xml2::write_html(main_html, path_ext_set(path, "hhtml"))
+
   pandoc::pandoc_convert(
     text = main_html,
     from = "html",
@@ -114,12 +117,32 @@ convert_popovers_to_footnotes <- function(main_html) {
       role = "doc-noteref",
       class = "footnote-ref"
     )
-    print(as.character(ref))
 
     fn_li <- xml2::xml_add_child(footnotes_ol, "li", id = fn_id)
     parsed_content <- xml2::read_html(text_content) |>
       xml2::xml_find_first(".//body") |>
       xml2::xml_children()
     purrr::walk(parsed_content, \(x) xml2::xml_add_child(fn_li, x))
+  })
+}
+
+convert_lifecycle_badges <- function(html) {
+  badges <- xml2::xml_find_all(html, ".//a[contains(@href, 'lifecycle.r')]")
+
+  if (length(badges) == 0) {
+    return(invisible())
+  }
+
+  purrr::walk(badges, \(x) {
+    stage <- sub(
+      "https://lifecycle.r-lib.org/articles/stages.html#",
+      "",
+      xml2::xml_attr(x, "href")
+    )
+    xml2::xml_replace(
+      x,
+      "strong",
+      stage
+    )
   })
 }
