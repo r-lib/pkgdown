@@ -197,8 +197,6 @@ msgid "Unreleased version"
 msgstr "Unveröffentlichte Version"
 
 #: navbar-menu.R:173
-#, fuzzy
-#| msgid "Search for"
 msgid "Search site"
 msgstr "Suchen nach"
 
@@ -212,7 +210,6 @@ msgstr "Verzeichnis"
 
 #: navbar.R:140
 msgid "Light switch"
-# Appearance
 msgstr "Erscheinungsbild"
 
 #: navbar.R:143
@@ -321,13 +318,11 @@ msgstr "Beispiele"
 
 #: render.R:104
 msgid "Additional details"
-msgstr ""
+msgstr "Zusätzliche Details"
 
 #: render.R:106
-#, fuzzy
-#| msgid "Toggle navigation"
 msgid "Site navigation"
-msgstr "Navigation ein-/ausschalten"
+msgstr "Seitennavigation"
 
 #: repo.R:35
 msgid "Source:"
@@ -341,11 +336,9 @@ msgstr "Entwicklungsstatus"
 msgid "# Default %s method"
 msgstr "# Standard-%s-Methode"
 
-#: usage.R:49
-#, fuzzy
-#| msgid "# %s method for %s"
+#: usage.R:25
 msgid "# %s method for class '%s'"
-msgstr "# %s-Methode für %s"
+msgstr "# %s-Methode für '%s'"
 
 #~ msgid "Function reference"
 #~ msgstr "Funktionsverzeichnis"

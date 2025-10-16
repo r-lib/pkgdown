@@ -275,7 +275,7 @@ msgstr "Note"
 
 #: rd-data.R:47
 msgid "Author"
-msgstr "Auteur"
+msgstr "Auteur·rice"
 
 #: rd-data.R:51
 msgid "See also"
