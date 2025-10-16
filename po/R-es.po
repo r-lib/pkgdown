@@ -202,8 +202,6 @@ msgid "Unreleased version"
 msgstr "Versión no publicada"
 
 #: navbar-menu.R:173
-#, fuzzy
-#| msgid "Search for"
 msgid "Search site"
 msgstr "Buscar en el sitio"
 
@@ -330,8 +328,6 @@ msgid "Additional details"
 msgstr "Detalles adicionales"
 
 #: render.R:106
-#, fuzzy
-#| msgid "Toggle navigation"
 msgid "Site navigation"
 msgstr "Navegación del sitio"
 
@@ -348,10 +344,8 @@ msgid "# Default %s method"
 msgstr "# Método %s por defecto"
 
 #: usage.R:25
-#, fuzzy
-#| msgid "# %s method for %s"
 msgid "# %s method for class '%s'"
-msgstr "# Método %s para la clase %s"
+msgstr "# Método %s para la clase '%s'"
 
 #~ msgid "Function reference"
 #~ msgstr "Índice de funciones"

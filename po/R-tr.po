@@ -214,11 +214,11 @@ msgstr "Koyu/açık"
 
 #: navbar.R:143
 msgid "Light"
-msgstr "Koyu"
+msgstr "Açık"
 
 #: navbar.R:144
 msgid "Dark"
-msgstr "Açık"
+msgstr "Koyu"
 
 #: navbar.R:145
 msgid "Auto"

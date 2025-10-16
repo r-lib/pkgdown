@@ -195,10 +195,8 @@ msgid "Unreleased version"
 msgstr "Ikke-udgivet version"
 
 #: navbar-menu.R:173
-#, fuzzy
-#| msgid "Search for"
 msgid "Search site"
-msgstr "Søg"
+msgstr "Søg på siden"
 
 #: navbar-menu.R:174
 msgid "Search for"
@@ -321,10 +319,8 @@ msgid "Additional details"
 msgstr "Yderligere detaljer"
 
 #: render.R:106
-#, fuzzy
-#| msgid "Toggle navigation"
 msgid "Site navigation"
-msgstr "Slå navigation til og fra"
+msgstr "Navigation på siden"
 
 #: repo.R:35
 msgid "Source:"
@@ -339,10 +335,8 @@ msgid "# Default %s method"
 msgstr "# Standard %s metode"
 
 #: usage.R:25
-#, fuzzy
-#| msgid "# %s method for %s"
 msgid "# %s method for class '%s'"
-msgstr "# %s metode for %s"
+msgstr "# %s metode for '%s'"
 
 #~ msgid "Function reference"
 #~ msgstr "Funktionsoversigt"
