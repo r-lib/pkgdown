@@ -30,10 +30,8 @@ tweak_reference_highlighting <- function(html) {
   )
   seealso_kids <- xml2::xml_children(seealso_links)
   xml2::xml_text(seealso_kids) <- paste0(xml2::xml_text(seealso_kids), "()")
-  purrr::walk(seealso_links, \(x) {
-    text_nodes <- xml2::xml_find_all(x, "./text()[normalize-space(.) = '()']")
-    xml2::xml_remove(text_nodes)
-  })
+  text_nodes <- xml2::xml_find_all(seealso_links, "./text()[normalize-space(.) = '()']")
+  xml2::xml_remove(text_nodes)
 
   invisible()
 }
