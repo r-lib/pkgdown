@@ -39,6 +39,9 @@ convert_md <- function(path, pkg) {
   # fix footnotes
   convert_popovers_to_footnotes(main_html)
 
+  # fix code
+  convert_code_chunks(main_html)
+
   # fix badges
   convert_lifecycle_badges(main_html)
 
@@ -145,4 +148,20 @@ convert_lifecycle_badges <- function(html) {
       stage
     )
   })
+}
+
+convert_code_chunks <- function(html) {
+  code <- xml2::xml_find_all(html, ".//pre[contains(@class, 'sourceCode')]")
+
+  purrr::walk(
+    code,
+    \(x) {
+      lang <- trimws(sub(
+        "sourceCode",
+        "",
+        sub("downlit", "", xml2::xml_attr(x, "class"))
+      ))
+      xml2::xml_attr(x, "class") <- lang
+    }
+  )
 }
