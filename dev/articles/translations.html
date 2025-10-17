@@ -187,8 +187,16 @@ translations for Zulu, which has code <code>zu</code>.</p>
 <p>Then create the translation file by running
 <code>potools::po_create("zu")</code>, open <code>po/R-zu.po</code>, and
 starting filling in the translations.</p>
-<p>If you have access to chatGPT or similar, you can try prepopulating
-the translations, with a prompt something like thii:</p>
+<p>If you have access to Claude or similar, you can try prepopulating
+the translations, with a prompt like this:</p>
+<pre><code>You are an experienced translator. Create new a new translation for Hindi in po/R-hi.po. These are GNU gettext translations for pkgdown, a tool used to generate websites for R packages.
+
+Translation advice:
+
+- For languages that use genedered nouns, do your best to generate inclusive translations, e.g. "Beitragende:r" or "auteur·rice".
+- If you need to change the order of substititions (e.g. %s) from English version, use %1$s to identify the first substituion %2$s, etc. Only use this form when the translated word order is different.
+- You should choose to be succinct and contextually-correct even when there is not a precise translation.
+- Use the "Last-Translator" field to document the tool (e.g. "Positron Assistant") and language model used for the translation (e.g. "Claude Sonnet 4.5")</code></pre>
 <blockquote>
 <p>You are an R developer who is fluent in English and Zulu. You love to
 do careful, high quality translations in your spare time. Complete the
@@ -200,17 +208,17 @@ forms where possible.</p>
 file .</p>
 <p>You can check your work by adding <code>lang: zu</code> to your
 <code>_pkgdown.yml</code> then running:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">potools</span><span class="fu">::</span><span class="fu">po_compile</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">load_all</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/build_site.html">build_site</a></span><span class="op">(</span><span class="st">"~/path/to/your/site"</span><span class="op">)</span></span></code></pre></div>
 <p>Once you’re happy with your work, make sure to compile the
 changes:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">potools</span><span class="fu">::</span><span class="fu">po_compile</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Then commit your changes to Git and submit your pull request for
 review:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/pull-requests.html" class="external-link">pr_push</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main>
