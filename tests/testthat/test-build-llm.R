@@ -3,7 +3,7 @@ test_that("integration test for convert_md()", {
 
   path <- withr::local_tempfile(pattern = "pkgdown-llm")
   convert_md(test_path("assets", "llm.html"), path)
-  expect_snapshot(readLines(path))
+  expect_snapshot(read_lines(path))
 })
 
 test_that("simplifies page header", {
