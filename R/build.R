@@ -10,6 +10,7 @@
 #' * [build_tutorials()]
 #' * [build_news()]
 #' * [build_redirects()]
+#' * [build_llm_docs()]
 #'
 #' See the documentation for the each function to learn how to control
 #' that aspect of the site. This page documents options that affect the

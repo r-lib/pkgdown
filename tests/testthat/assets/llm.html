@@ -1,44 +1,22 @@
 <!DOCTYPE html>
-<main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Automatically link references and articles in an HTML page</h1>
-      <small class="dont-index">Source: <a href="https://github.com/r-lib/pkgdown/blob/main/R/autolink_html.R" class="external-link"><code>R/autolink_html.R</code></a></small>
-      <div class="d-none name"><code>autolink_html.Rd</code></div>
-    </div>
+<html>
+  <body>
+    <main id="main" class="col-md-9">
+      <div class="page-header">
+        <img src="../logo.png" class="logo" alt="" />
+        <h1>Page title</h1>
+        <small class="dont-index">Source:
+          <a
+            href="https://github.com/r-lib/pkgdown/blob/main/R/autolink_html.R"
+            class="external-link"
+            ><code>R/autolink_html.R</code></a
+          ></small>
+        <div class="d-none name"><code>autolink_html.Rd</code></div>
+      </div>
 
-<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a></p>
+      <h2>Heading</h2>
 
-
-<code>intro</code>: “Get Started”, which links to a vignette or
-article with the same name as the package<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Note that dots (&lt;code&gt;.&lt;/code&gt;) in the package name need
-to be replaced by hyphens (&lt;code&gt;-&lt;/code&gt;) in the vignette filename to
-be recognized as the intro. That means for a package
-&lt;code&gt;foo.bar&lt;/code&gt; the intro needs to be named
-&lt;code&gt;foo-bar.Rmd&lt;/code&gt;.&lt;/p&gt;"><sup>1</sup></a>.
-
-<div class="sourceCode" id="cb23"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="at">  </span><span class="fu">includes</span><span class="kw">:</span></span>
-<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a><span class="fu">    before_title</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the package title in the header -</span><span class="ch">&gt;</span></span>
-<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a><span class="fu">    before_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted before the navbar links --</span><span class="ch">&gt;</span></span>
-<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a><span class="fu">    after_navbar</span><span class="kw">: </span><span class="at">&lt;!-- inserted after the navbar links --</span><span class="ch">&gt;</span></span></code></pre></div>
-<p>These inclusions will appear on all screen sizes, and will not be
-collapsed into the the navbar drop down.</p>
-<p>You can also customise the colour scheme of the navbar by using the
-<code>type</code> and <code>bg</code> parameters. See above for
-details.</p>
-
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/create_package.html" class="external-link">create_package</a></span><span class="op">(</span><span class="st">"~/desktop/testpackage"</span><span class="op">)</span></span>
-<span><span class="co"># ... edit files ...</span></span>
-<span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu"><a href="reference/build_site.html">build_site</a></span><span class="op">(</span><span class="va">tmp</span>, new_process <span class="op">=</span> <span class="cn">FALSE</span>, preview <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p>Once you have built a minimal package that recreates the error, create a GitHub repository from the package (e.g. with <code><a href="https://usethis.r-lib.org/reference/use_git.html" class="external-link">usethis::use_git()</a></code> + <code><a href="https://usethis.r-lib.org/reference/use_github.html" class="external-link">usethis::use_github()</a></code>), and file an issue with a link to the repository.</p>
-</div>
-<div class
-
-<p>pkgdown is designed to make it quick and easy to build a website for your package. 
-  You can see pkgdown in action at <a href="https://pkgdown.r-lib.org" class="uri">https://pkgdown.r-lib.org</a>: 
-  this is the output of pkgdown applied to the latest version of pkgdown. 
-  Learn more in <code><a href="articles/pkgdown.html">vignette("pkgdown")</a></code> 
-  or <code><a href="reference/build_site.html">?build_site</a></code>.</p>
-
-
-</main>
+      <p>Some text</p>
+    </main>
+  </body>
+</html>

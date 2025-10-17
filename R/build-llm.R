@@ -1,11 +1,45 @@
+#' Build docs for LLMs
+#'
+#' @description
+#' `build_llm_docs()` creates an `LLMs.txt` at the root of your site
+#' that contains the contents of your `README.md`, your reference index,
+#' and your articles index. It also creates a `.md` file for every existing
+#' `.html` file in your site. Together, this gives an LLM an overview of your
+#' package and the ability to find out more by following links.
+#'
+#' If you don't want these files generated for your site, you can opt-out by
+#' adding the following to your `pkgdown.yml`:
+#'
+#' ```yaml
+#' llm-docs: false
+#' ```
+#'
+#' @family site components
+#' @inheritParams build_site
+#' @export
 build_llm_docs <- function(pkg = ".") {
-  rlang::check_installed("pandoc")
   pkg <- as_pkgdown(pkg)
+  if (isFALSE(pkg$meta$`llm-docs`)) {
+    return(invisible())
+  }
 
   cli::cli_rule("Building docs for llms")
-  paths <- get_site_paths(pkg)
 
-  purrr::walk(paths, convert_md, pkg = pkg)
+  if (!is.null(pkg$meta$url)) {
+    url <- paste0(pkg$meta$url, "/")
+    if (pkg$development$in_dev) {
+      url <- paste0(url, pkg$prefix)
+    }
+  } else {
+    url <- NULL
+  }
+
+  paths <- get_site_paths(pkg)
+  purrr::walk(paths, \(path) {
+    src_path <- path(pkg[["dst_path"]], path)
+    dst_path <- path_ext_set(src_path, "md")
+    convert_md(src_path, dst_path, url)
+  })
 
   index <- c(
     read_lines(path(pkg$dst_path, "index.md")),
@@ -17,81 +51,66 @@ build_llm_docs <- function(pkg = ".") {
   invisible()
 }
 
-convert_md <- function(path, pkg) {
-  path <- path(pkg[["dst_path"]], path)
-
-  html <- xml2::read_html(path)
+convert_md <- function(src_path, dst_path, url = NULL) {
+  html <- xml2::read_html(src_path)
   main_html <- xml2::xml_find_first(html, ".//main")
   if (length(main_html) == 0) {
     return()
   }
 
-  # simplify page header (which includes logo + source link)
-  title <- xml2::xml_find_first(main_html, ".//h1")
-  # website for a package without README/index.md
-  if (length(title) > 0) {
-    xml2::xml_remove(
-      xml2::xml_find_first(main_html, ".//div[@class='page-header']")
-    )
-    xml2::xml_add_child(main_html, title, .where = 0)
-  }
+  simplify_page_header(main_html)
+  simplify_anchors(main_html)
+  simplify_code(main_html)
+  simplify_popovers_to_footnotes(main_html)
+  simplify_lifecycle_badges(main_html)
+  create_absolute_links(main_html, url)
 
-  # fix footnotes
-  convert_popovers_to_footnotes(main_html)
+  path <- file_temp()
+  xml2::write_html(html, path, format = FALSE)
+  on.exit(unlink(path), add = TRUE)
 
-  # fix code
-  convert_code_chunks(main_html)
-
-  # fix badges
-  convert_lifecycle_badges(main_html)
-
-  # drop internal anchors
-  xml2::xml_remove(xml2::xml_find_all(main_html, ".//a[@class='anchor']"))
-
-  # replace all links with absolute link to .md
-  create_absolute_links(main_html, pkg)
-
-  pandoc::pandoc_convert(
-    text = main_html,
+  rmarkdown::pandoc_convert(
+    input = path,
+    output = dst_path,
     from = "html",
     to = "gfm+definition_lists-raw_html",
-    output = path_ext_set(path, "md")
   )
 }
 
 # Helpers ---------------------------------------------------------------------
 
-read_file_if_exists <- function(path) {
-  if (file_exists(path)) {
-    read_lines(path)
+# simplify page header (which includes logo + source link)
+simplify_page_header <- function(html) {
+  title <- xml2::xml_find_first(html, ".//h1")
+  # website for a package without README/index.md
+  if (length(title) > 0) {
+    xml2::xml_remove(xml2::xml_find_first(html, ".//div[@class='page-header']"))
+    xml2::xml_add_child(html, title, .where = 0)
   }
+  invisible()
 }
 
-create_absolute_links <- function(main_html, pkg) {
-  a <- xml2::xml_find_all(main_html, ".//a")
-  if (!is.null(pkg$meta$url)) {
-    url <- paste0(pkg$meta$url, "/")
-    if (pkg$development$in_dev && pkg$bs_version > 3) {
-      url <- paste0(url, pkg$prefix)
-    }
-    a_internal <- a[
-      !startsWith(xml2::xml_attr(a, "href"), "https") &
-        !startsWith(xml2::xml_attr(a, "href"), "#")
-    ]
-
-    href_absolute <- xml2::url_absolute(xml2::xml_attr(a_internal, "href"), url)
-    href_absolute <- sub("html$", "md", href_absolute)
-    xml2::xml_attr(a_internal, "href") <- href_absolute
-  }
-
-  xml2::xml_attr(a, "class") <- NULL
+# drop internal anchors
+simplify_anchors <- function(html) {
+  xml2::xml_remove(xml2::xml_find_all(html, ".//a[@class='anchor']"))
+  invisible()
 }
 
-convert_popovers_to_footnotes <- function(main_html) {
-  popover_refs <- xml2::xml_find_all(
-    main_html,
-    ".//a[@class='footnote-ref']"
-  )
+# strip extraneoous classes
+simplify_code <- function(html) {
+  extract_lang <- function(class) {
+    trimws(gsub("sourceCode|downlit", "", class))
+  }
+  code <- xml2::xml_find_all(html, ".//pre[contains(@class, 'sourceCode')]")
+
+  purrr::walk(code, \(x) {
+    xml2::xml_attr(x, "class") <- extract_lang(xml2::xml_attr(x, "class"))
+  })
+  invisible()
+}
+
+simplify_popovers_to_footnotes <- function(main_html) {
+  popover_refs <- xml2::xml_find_all(main_html, ".//a[@class='footnote-ref']")
   if (length(popover_refs) == 0) {
     return()
   }
@@ -134,39 +153,32 @@ convert_popovers_to_footnotes <- function(main_html) {
   })
 }
 
-convert_lifecycle_badges <- function(html) {
-  badges <- xml2::xml_find_all(html, ".//a[contains(@href, 'lifecycle.r')]")
-
-  if (length(badges) == 0) {
-    return(invisible())
-  }
-
-  purrr::walk(badges, \(x) {
-    stage <- sub(
-      "https://lifecycle.r-lib.org/articles/stages.html#",
-      "",
-      xml2::xml_attr(x, "href")
-    )
-    xml2::xml_replace(
-      x,
-      "strong",
-      stage
-    )
-  })
+simplify_lifecycle_badges <- function(html) {
+  badges <- xml2::xml_find_all(html, "//span[contains(@class, 'lifecycle')]")
+  xml2::xml_replace(badges, "strong", xml2::xml_text(badges))
+  invisible()
 }
 
-convert_code_chunks <- function(html) {
-  code <- xml2::xml_find_all(html, ".//pre[contains(@class, 'sourceCode')]")
+create_absolute_links <- function(main_html, url) {
+  if (is.null(url)) {
+    return()
+  }
 
-  purrr::walk(
-    code,
-    \(x) {
-      lang <- trimws(sub(
-        "sourceCode",
-        "",
-        sub("downlit", "", xml2::xml_attr(x, "class"))
-      ))
-      xml2::xml_attr(x, "class") <- lang
-    }
-  )
+  a <- xml2::xml_find_all(main_html, ".//a")
+  href <- xml2::xml_attr(a, "href")
+
+  a_internal <- a[!startsWith(href, "https") & !startsWith(href, "#")]
+  href_absolute <- xml2::url_absolute(xml2::xml_attr(a_internal, "href"), url)
+  href_absolute <- sub("html$", "md", href_absolute)
+
+  xml2::xml_attr(a_internal, "href") <- href_absolute
+  xml2::xml_attr(a, "class") <- NULL
+
+  invisible()
+}
+
+read_file_if_exists <- function(path) {
+  if (file_exists(path)) {
+    read_lines(path)
+  }
 }
