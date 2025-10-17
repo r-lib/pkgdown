@@ -38,7 +38,8 @@ build_llm_docs <- function(pkg = ".") {
   purrr::walk(paths, \(path) {
     src_path <- path(pkg[["dst_path"]], path)
     dst_path <- path_ext_set(src_path, "md")
-    convert_md(src_path, dst_path, url)
+    base_url <- xml2::url_absolute(paste0(path_dir(path), "/"), url)
+    convert_md(src_path, dst_path, base_url)
   })
 
   index <- c(
@@ -167,6 +168,8 @@ create_absolute_links <- function(main_html, url) {
   }
 
   a <- xml2::xml_find_all(main_html, ".//a")
+  xml2::xml_attr(a, "class") <- NULL
+
   href <- xml2::xml_attr(a, "href")
 
   a_internal <- a[!startsWith(href, "https") & !startsWith(href, "#")]
@@ -174,7 +177,6 @@ create_absolute_links <- function(main_html, url) {
   href_absolute <- sub("html$", "md", href_absolute)
 
   xml2::xml_attr(a_internal, "href") <- href_absolute
-  xml2::xml_attr(a, "class") <- NULL
 
   invisible()
 }
