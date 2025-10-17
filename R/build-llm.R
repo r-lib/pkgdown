@@ -68,7 +68,7 @@ convert_md <- function(src_path, dst_path, url = NULL) {
   create_absolute_links(main_html, url)
 
   path <- file_temp()
-  xml2::write_html(html, path, format = FALSE)
+  xml2::write_html(main_html, path, format = FALSE)
   on.exit(file_delete(path), add = TRUE)
 
   rmarkdown::pandoc_convert(

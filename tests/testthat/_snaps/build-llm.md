@@ -1,7 +1,11 @@
 # integration test for convert_md()
 
     Code
-      read_lines(path)
+      write_lines(read_lines(path), stdout())
     Output
-      [1] "# Page title" ""             "## Heading"   ""             "Some text"   
+      # Page title
+      
+      ## Heading
+      
+      Some text
 
