@@ -11,6 +11,8 @@ NULL
 
 release_bullets <- function() {
   c(
-    "Check that [test/widget.html](https://pkgdown.r-lib.org/dev/articles/) responds to mouse clicks on 5/10/50"
+    "Check that [test/widget.html](https://pkgdown.r-lib.org/dev/articles/) responds to mouse clicks on 5/10/50",
+    "Compile language files with `potools::po_compile()`",
+    "Update `vignette/translations.Rmd` with new languages"
   )
 }
