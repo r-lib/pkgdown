@@ -1,4 +1,6 @@
 on:
+    pull_request:
+        branches: [main, master]
     workflow_dispatch:
 
 name: pkgdown-i18n-netlify
