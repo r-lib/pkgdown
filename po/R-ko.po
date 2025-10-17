@@ -109,7 +109,7 @@ msgstr "행동강령"
 
 #: build-home-community.R:31
 msgid "Getting help"
-msgstr ""
+msgstr "도움말"
 
 #: build-home-community.R:38
 msgid "Community"
@@ -169,11 +169,11 @@ msgstr "CRAN 배포: %s"
 
 #: build-reference-index.R:22
 msgid "Package index"
-msgstr ""
+msgstr "패키지 색인"
 
 #: build-reference-index.R:158
 msgid "All functions"
-msgstr ""
+msgstr "모든 함수"
 
 #: build-reference.R:371
 msgid "Usage"
@@ -196,10 +196,8 @@ msgid "Unreleased version"
 msgstr "배포전 버전"
 
 #: navbar-menu.R:173
-#, fuzzy
-#| msgid "Search for"
 msgid "Search site"
-msgstr "검색"
+msgstr "사이트 검색"
 
 #: navbar-menu.R:174
 msgid "Search for"
@@ -211,19 +209,19 @@ msgstr "참조"
 
 #: navbar.R:140
 msgid "Light switch"
-msgstr ""
+msgstr "테마 전환"
 
 #: navbar.R:143
 msgid "Light"
-msgstr ""
+msgstr "밝음"
 
 #: navbar.R:144
 msgid "Dark"
-msgstr ""
+msgstr "어두움"
 
 #: navbar.R:145
 msgid "Auto"
-msgstr ""
+msgstr "자동"
 
 #: navbar.R:180
 msgid "Get started"
@@ -235,19 +233,19 @@ msgstr "더 보기..."
 
 #: package.R:300
 msgid "deprecated"
-msgstr ""
+msgstr "더 이상 사용되지 않음"
 
 #: package.R:301
 msgid "superseded"
-msgstr ""
+msgstr "대체됨"
 
 #: package.R:302
 msgid "experimental"
-msgstr ""
+msgstr "실험적"
 
 #: package.R:303
 msgid "stable"
-msgstr ""
+msgstr "안정"
 
 #: rd-data.R:23
 msgid "Details"
@@ -319,13 +317,11 @@ msgstr "예시 코드"
 
 #: render.R:104
 msgid "Additional details"
-msgstr ""
+msgstr "추가 정보"
 
 #: render.R:106
-#, fuzzy
-#| msgid "Toggle navigation"
 msgid "Site navigation"
-msgstr "네비게이션바 열기"
+msgstr "사이트 탐색"
 
 #: repo.R:35
 msgid "Source:"
@@ -337,13 +333,11 @@ msgstr "개발 상태"
 
 #: usage.R:23
 msgid "# Default %s method"
-msgstr ""
+msgstr "# 기본 %s 메서드"
 
 #: usage.R:25
-#, fuzzy
-#| msgid "# %s method for %s"
 msgid "# %s method for class '%s'"
-msgstr "# %s 타입인 %s의 메서드"
+msgstr "# '%s' 클래스의 %s 메서드"
 
 #~ msgid "Function reference"
 #~ msgstr "함수 레퍼런스"
