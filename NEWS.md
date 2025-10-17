@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* Links generated with `\code{\link{foo}()}` now have the `()` moved into the `<a>` in the generated output (@maelle).
 * Plots in dark mode are now transformed with a CSS filter to improve their
   visibility (thanks to @gadenbuie).
 * Updated the translations vignette with instructions for building non-English sites through Github Actions.

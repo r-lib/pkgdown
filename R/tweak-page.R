@@ -17,6 +17,7 @@ tweak_page <- function(html, name, pkg = list(bs_version = 3)) {
 
   tweak_anchors(html)
   tweak_link_md(html)
+  tweak_link_seealso(html)
   tweak_link_external(html, pkg = pkg)
   tweak_img_src(html)
   tweak_strip(html, !identical(pkg$development$mode, "release"))

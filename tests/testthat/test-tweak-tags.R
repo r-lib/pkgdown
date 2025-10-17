@@ -262,6 +262,14 @@ test_that("tweak_img_src() doesn't modify absolute links", {
   )
 })
 
+test_that("trailing () moved inside links", {
+  skip_if_no_pandoc("2.16")
+  html <- xml2::read_html('<code><a>build_site</a>()</code>')
+  tweak_link_seealso(html)
+
+  expect_equal(xpath_contents(html, ".//code"), "<a>build_site()</a>")
+})
+
 # stripped divs etc -------------------------------------------------------
 
 test_that("selectively remove hide- divs", {
