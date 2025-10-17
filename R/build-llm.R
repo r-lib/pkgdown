@@ -12,7 +12,7 @@ build_llm_docs <- function(pkg = ".") {
     read_file_if_exists(path(pkg$dst_path, "reference", "index.md")),
     read_file_if_exists(path(pkg$dst_path, "articles", "index.md"))
   )
-  writeLines(index, path(pkg$dst_path, "llms.txt"))
+  write_lines(index, path(pkg$dst_path, "llms.txt"))
 
   invisible()
 }
