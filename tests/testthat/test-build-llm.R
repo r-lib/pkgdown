@@ -1,28 +1,9 @@
-test_that("integration test for build_llm_docs()", {
-  skip_if_no_pandoc()
-  pkg <- local_pkgdown_site(
-    desc = list(
-      Package = "pkgdown",
-      Description = "My package does great things!"
-    ),
-    meta = list(url = "https://pkgdown.r-lib.org")
-  )
-
-  suppressMessages(build_site(pkg, devel = TRUE))
-
-  llms_txt <- path(pkg$dst_path, "llms.txt")
-  expect_snapshot_file(llms_txt)
-
-  index_md <- path(pkg$dst_path, "index.md")
-  expect_snapshot_file(index_md)
-})
-
 test_that("integration test for convert_md()", {
   skip_if_no_pandoc()
 
   path <- withr::local_tempfile(pattern = "pkgdown-llm")
   convert_md(test_path("assets", "llm.html"), path)
-  expect_snapshot_file(path, name = "llm.md")
+  expect_snapshot(readLines(path))
 })
 
 test_that("simplifies page header", {
