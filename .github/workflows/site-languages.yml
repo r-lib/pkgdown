@@ -16,20 +16,20 @@ jobs:
                       locale: ca_ES.UTF-8
                     - lang: de
                       locale: de_DE.UTF-8
-                    - lang: dk
-                      locale: da_DK.UTF-8
-                    - lang: es
-                      locale: es_ES.UTF-8
-                    - lang: fr
-                      locale: fr_FR.UTF-8
-                    - lang: ko
-                      locale: ko_KR.UTF-8
-                    - lang: pt
-                      locale: pt_PT.UTF-8
-                    - lang: tr
-                      locale: tr_TR.UTF-8
-                    - lang: zh_CN
-                      locale: zh_CN.UTF-8
+        #                    - lang: dk
+        #                      locale: da_DK.UTF-8
+        #                    - lang: es
+        #                      locale: es_ES.UTF-8
+        #                    - lang: fr
+        #                      locale: fr_FR.UTF-8
+        #                    - lang: ko
+        #                      locale: ko_KR.UTF-8
+        #                    - lang: pt
+        #                      locale: pt_PT.UTF-8
+        #                    - lang: tr
+        #                      locale: tr_TR.UTF-8
+        #                    - lang: zh_CN
+        #                      locale: zh_CN.UTF-8
         env:
             GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         steps:
@@ -59,10 +59,10 @@ jobs:
 
             - name: Set lang in _pkgdown.yml
               run: |
-                  if [ "${{ matrix.lang }}" != "en" ]; then
-                    echo "lang: ${{ matrix.lang }}" >> _pkgdown.yml
-                  fi
-              shell: bash
+                  config <- yaml::read_yaml("_pkgdown.yml")
+                  config$lang <- "${{ matrix.lang }}"
+                  yaml::write_yaml(config, "_pkgdown.yml")
+              shell: Rscript {0}
 
             - name: Build site for ${{ matrix.lang }}
               run: pkgdown::build_site()
