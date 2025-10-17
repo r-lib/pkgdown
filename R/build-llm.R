@@ -157,8 +157,18 @@ simplify_popovers_to_footnotes <- function(main_html) {
 }
 
 simplify_lifecycle_badges <- function(html) {
+  # on reference index
   badges <- xml2::xml_find_all(html, "//span[contains(@class, 'lifecycle')]")
-  xml2::xml_replace(badges, "strong", xml2::xml_text(badges))
+  xml2::xml_replace(badges, "strong", paste0("[", xml2::xml_text(badges), "]"))
+
+  # on individual pages
+  badges <- xml2::xml_find_all(
+    html,
+    "//a[.//img[starts-with(@src, 'figures/lifecycle-')]]"
+  )
+  imgs <- xml2::xml_find_first(badges, ".//img")
+  xml2::xml_replace(badges, "strong", tolower(xml2::xml_attr(imgs, "alt")))
+
   invisible()
 }
 

@@ -19,10 +19,16 @@ test_that("simplifies page header", {
 
 test_that("replaces lifecycle badges with strong text", {
   html <- xml2::read_html(
-    r"(<span class="badge lifecycle lifecycle-deprecated">deprecated</span>)"
+    r"(
+      <span class="badge lifecycle lifecycle-deprecated">deprecated</span>
+      <a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="figures/lifecycle-experimental.svg" alt="[Experimental]"></a>  
+      )"
   )
   simplify_lifecycle_badges(html)
-  expect_equal(xpath_contents(html, ".//body"), "<strong>deprecated</strong>")
+  expect_equal(
+    xpath_text(html, ".//strong"),
+    c("[deprecated]", "[experimental]")
+  )
 })
 
 test_that("converts internal urls to absolute with .md ending", {
