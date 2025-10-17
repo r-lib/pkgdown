@@ -35,8 +35,8 @@ pkgdown is designed to make it quick and easy to build a website for
 your package. You can see pkgdown in action at
 <https://pkgdown.r-lib.org>: this is the output of pkgdown applied to
 the latest version of pkgdown. Learn more in
-[`vignette("pkgdown")`](https:/pkgdown.r-lib.org/articles/pkgdown.md) or
-[`?build_site`](https:/pkgdown.r-lib.org/reference/build_site.md).
+[`vignette("pkgdown")`](https://pkgdown.r-lib.org/articles/pkgdown.md)
+or [`?build_site`](https://pkgdown.r-lib.org/reference/build_site.md).
 
 ------------------------------------------------------------------------
 

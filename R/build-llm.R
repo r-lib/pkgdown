@@ -80,9 +80,10 @@ create_absolute_links <- function(main_html, pkg) {
     ]
 
     href_absolute <- xml2::url_absolute(xml2::xml_attr(a_internal, "href"), url)
-    href_absolute <- path_ext_set(href_absolute, "md")
+    href_absolute <- sub("html$", "md", href_absolute)
     xml2::xml_attr(a_internal, "href") <- href_absolute
   }
+
   xml2::xml_attr(a, "class") <- NULL
 }
 
