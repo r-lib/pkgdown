@@ -19,6 +19,7 @@ test_that("build_llm_docs() works", {
 test_that("convert_md() works", {
   skip_if_no_pandoc()
   pkg <- local_pkgdown_site()
+  pkg$meta$url <- "https://pkgdown.r-lib.org"
 
   dir <- withr::local_tempdir()
   pkg$dst_path <- dir

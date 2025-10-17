@@ -74,10 +74,14 @@ create_absolute_links <- function(main_html, pkg) {
     if (pkg$development$in_dev && pkg$bs_version > 3) {
       url <- paste0(url, pkg$prefix)
     }
-    a_external <- a[!grepl("external-link", xml2::xml_attr(a, "class"))]
+    a_internal <- a[
+      !startsWith(xml2::xml_attr(a, "href"), "https") &
+        !startsWith(xml2::xml_attr(a, "href"), "#")
+    ]
 
-    href_absolute <- xml2::url_absolute(xml2::xml_attr(a_external, "href"), url)
+    href_absolute <- xml2::url_absolute(xml2::xml_attr(a_internal, "href"), url)
     href_absolute <- path_ext_set(href_absolute, "md")
+    xml2::xml_attr(a_internal, "href") <- href_absolute
   }
   xml2::xml_attr(a, "class") <- NULL
 }

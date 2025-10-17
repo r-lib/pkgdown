@@ -31,6 +31,13 @@ GitHub repository from the package (e.g. with
 [`usethis::use_github()`](https://usethis.r-lib.org/reference/use_github.html)),
 and file an issue with a link to the repository.
 
+pkgdown is designed to make it quick and easy to build a website for
+your package. You can see pkgdown in action at
+<https://pkgdown.r-lib.org>: this is the output of pkgdown applied to
+the latest version of pkgdown. Learn more in
+[`vignette("pkgdown")`](https:/pkgdown.r-lib.org/articles/pkgdown.md) or
+[`?build_site`](https:/pkgdown.r-lib.org/reference/build_site.md).
+
 ------------------------------------------------------------------------
 
 1.  Note that dots (`.`) in the package name need to be replaced by
