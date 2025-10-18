@@ -931,11 +931,11 @@ figure>figcaption.quarto-float-caption-top {
   --mermaid-node-fg-color: var(--bs-primary);
 }
 
-// aut-dark mode for images ---------------------------------------
+// auto-dark mode for rendered images ------------------------------
 
 @mixin invert-filter {
 
-  img:not(.logo),
+  .pkgdown-figure>img,
   .html-widget {
     filter: invert(100%) hue-rotate(180deg);
   }
