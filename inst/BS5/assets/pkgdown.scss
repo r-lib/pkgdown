@@ -935,9 +935,9 @@ figure>figcaption.quarto-float-caption-top {
 
 @mixin invert-filter {
 
-  // vignette images
-  img.pkgdown-figure,
-  // example images
+  // vignette figures
+  img.r-plt,
+  // example figures
   pre .r-plt.img img,
   // quarto figures
   .cell-output-display img,
