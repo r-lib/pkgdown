@@ -123,6 +123,9 @@ fig_opts_chunk <- function(figures, default) {
   figures$dev.args <- figures$dev.args %||% list()
   figures$dev.args$bg <- figures$bg %||% NA
 
+  # Default figure class for rendered images
+  figures$fig.class <- figures$fig.class %||% "pkgdown-figure"
+
   modify_list(default, figures)
 }
 
