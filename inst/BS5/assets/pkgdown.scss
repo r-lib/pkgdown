@@ -935,7 +935,7 @@ figure>figcaption.quarto-float-caption-top {
 
 @mixin invert-filter {
 
-  .pkgdown-figure>img,
+  img.pkgdown-figure,
   .html-widget {
     filter: invert(100%) hue-rotate(180deg);
   }
