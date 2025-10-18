@@ -249,92 +249,92 @@ msgstr "स्थिर"
 
 #: rd-data.R:23
 msgid "Details"
-msgstr ""
+msgstr "विवरण"
 
 #: rd-data.R:27
 msgid "Description"
-msgstr ""
+msgstr "वर्णन"
 
 #: rd-data.R:31
 msgid "References"
-msgstr ""
+msgstr "संदर्भ"
 
 #: rd-data.R:35 render.R:98
 msgid "Source"
-msgstr ""
+msgstr "स्रोत"
 
 #: rd-data.R:39
 msgid "Format"
-msgstr ""
+msgstr "प्रारूप"
 
 #: rd-data.R:43
 msgid "Note"
-msgstr ""
+msgstr "टिप्पणी"
 
 #: rd-data.R:47
 msgid "Author"
-msgstr ""
+msgstr "लेखक"
 
 #: rd-data.R:51
 msgid "See also"
-msgstr ""
+msgstr "यह भी देखें"
 
 #: rd-data.R:67
 msgid "Arguments"
-msgstr ""
+msgstr "आर्गुमेंट"
 
 #: rd-data.R:75
 msgid "Value"
-msgstr ""
+msgstr "मान"
 
 #: render.R:95
 msgid "Skip to contents"
-msgstr ""
+msgstr "सामग्री पर जाएं"
 
 #: render.R:96
 msgid "Toggle navigation"
-msgstr ""
+msgstr "नेविगेशन टॉगल करें"
 
 #: render.R:97
 msgid "On this page"
-msgstr ""
+msgstr "इस पृष्ठ पर"
 
 #: render.R:99
 msgid "Abstract"
-msgstr ""
+msgstr "सारांश"
 
 #: render.R:100
 msgid "Authors"
-msgstr ""
+msgstr "लेखक"
 
 #: render.R:101
 msgid "Version"
-msgstr ""
+msgstr "संस्करण"
 
 #: render.R:102
 msgid "Examples"
-msgstr ""
+msgstr "उदाहरण"
 
 #: render.R:104
 msgid "Additional details"
-msgstr ""
+msgstr "अतिरिक्त विवरण"
 
 #: render.R:106
 msgid "Site navigation"
-msgstr ""
+msgstr "साइट नेविगेशन"
 
 #: repo.R:35
 msgid "Source:"
-msgstr ""
+msgstr "स्रोत:"
 
 #: tweak-homepage.R:61
 msgid "Dev status"
-msgstr ""
+msgstr "विकास स्थिति"
 
 #: usage.R:23
 msgid "# Default %s method"
-msgstr ""
+msgstr "# डिफ़ॉल्ट %s मेथड"
 
 #: usage.R:25
 msgid "# %s method for class '%s'"
-msgstr ""
+msgstr "# '%s' क्लास के लिए %s मेथड"
