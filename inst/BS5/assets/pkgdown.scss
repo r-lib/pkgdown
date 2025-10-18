@@ -939,6 +939,8 @@ figure>figcaption.quarto-float-caption-top {
   img.pkgdown-figure,
   // example images
   pre .r-plt.img img,
+  // quarto figures
+  .cell-output-display img,
   .html-widget {
     filter: invert(100%) hue-rotate(180deg);
   }
