@@ -71,6 +71,7 @@ take \code{quiet} arguments.}
 \item \code{\link[=build_tutorials]{build_tutorials()}}
 \item \code{\link[=build_news]{build_news()}}
 \item \code{\link[=build_redirects]{build_redirects()}}
+\item \code{\link[=build_llm_docs]{build_llm_docs()}}
 }
 
 See the documentation for the each function to learn how to control

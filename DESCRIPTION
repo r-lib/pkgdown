@@ -55,6 +55,7 @@ Suggests:
     knitr (>= 1.50),
     magick,
     methods,
+    pandoc,
     pkgload (>= 1.0.2),
     quarto,
     rsconnect,
@@ -75,5 +76,5 @@ Config/testthat/start-first: build-article, build-quarto-article,
 Config/usethis/last-upkeep: 2025-09-07
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 SystemRequirements: pandoc

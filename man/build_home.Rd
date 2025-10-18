@@ -298,6 +298,7 @@ Or completely remove it:
 \seealso{
 Other site components: 
 \code{\link{build_articles}()},
+\code{\link{build_llm_docs}()},
 \code{\link{build_news}()},
 \code{\link{build_reference}()},
 \code{\link{build_tutorials}()}
