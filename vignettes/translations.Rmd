@@ -83,7 +83,18 @@ usethis::pr_init("translation-zu")
 
 Then create the translation file by running `potools::po_create("zu")`, open `po/R-zu.po`, and starting filling in the translations.
 
-If you have access to chatGPT or similar, you can try prepopulating the translations, with a prompt something like thii:
+If you have access to Claude or similar, you can try prepopulating the translations, with a prompt like this:
+
+```
+You are an experienced translator. Create new a new translation for Hindi in po/R-hi.po. These are GNU gettext translations for pkgdown, a tool used to generate websites for R packages.
+
+Translation advice:
+
+- For languages that use genedered nouns, do your best to generate inclusive translations, e.g. "Beitragende:r" or "auteur·rice".
+- If you need to change the order of substititions (e.g. %s) from English version, use %1$s to identify the first substituion %2$s, etc. Only use this form when the translated word order is different.
+- You should choose to be succinct and contextually-correct even when there is not a precise translation.
+- Use the "Last-Translator" field to document the tool (e.g. "Positron Assistant") and language model used for the translation (e.g. "Claude Sonnet 4.5")
+```
 
 > You are an R developer who is fluent in English and Zulu. You love to do careful, high quality translations in your spare time. Complete the following po file for the R pkgdown package (which creates websites for R packages) by supplying translations for Zulu. Use inclusive gender forms where possible.
 
