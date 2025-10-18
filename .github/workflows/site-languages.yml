@@ -1,0 +1,87 @@
+on:
+  workflow_dispatch:
+
+name: pkgdown-i18n-netlify
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - lang: ca
+            locale: ca_ES.UTF-8
+          - lang: de
+            locale: de_DE.UTF-8
+          - lang: dk
+            locale: da_DK.UTF-8
+          - lang: es
+            locale: es_ES.UTF-8
+          - lang: fr
+            locale: fr_FR.UTF-8
+          - lang: ko
+            locale: ko_KR.UTF-8
+          - lang: pt
+            locale: pt_PT.UTF-8
+          - lang: tr
+            locale: tr_TR.UTF-8
+          - lang: zh_CN
+            locale: zh_CN.UTF-8
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-tinytex@v2
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::pkgdown, local::.
+          needs: website
+
+      - name: Generate locale ${{ matrix.locale }}
+        run: |
+          sudo locale-gen ${{ matrix.locale }}
+          sudo update-locale LANG=${{ matrix.locale }}
+        shell: bash
+
+      - name: Install package
+        run: R CMD INSTALL .
+
+      - name: Set lang in _pkgdown.yml
+        run: |
+          config <- yaml::read_yaml("pkgdown/_pkgdown.yml")
+          config$lang <- "${{ matrix.lang }}"
+          yaml::write_yaml(config, "pkgdown/_pkgdown.yml")
+        shell: Rscript {0}
+
+      - name: Build site for ${{ matrix.lang }}
+        run: pkgdown::build_site()
+        shell: Rscript {0}
+        env:
+          LANG: ${{ matrix.locale }}
+
+      - name: Create index file
+        run: |
+          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;URL=/dev/index.html" />  <script language="javascript"> window.location.replace("/dev/index.html")</script></head></html>' > ./docs/index.html
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: "./docs"
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy ${{ matrix.lang }}: ${{ github.event.pull_request.title || github.event.head_commit.message }} (${{ github.sha }})"
+          alias: ${{ matrix.lang }}
+          enable-commit-comment: false
+          enable-github-deployment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

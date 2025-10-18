@@ -167,6 +167,21 @@ tweak_link_R6 <- function(html, cur_package) {
   invisible()
 }
 
+# Fix seealso links
+tweak_link_seealso <- function(html) {
+  seealso_links <- xml2::xml_find_all(html, "//code[a and text() = '()']")
+
+  # add () inside link
+  seealso_text <- xml2::xml_children(seealso_links)
+  xml2::xml_text(seealso_text) <- paste0(xml2::xml_text(seealso_text), "()")
+
+  # remove () outside the link
+  text_nodes <- xml2::xml_find_all(seealso_links, "./text()[. = '()']")
+  xml2::xml_remove(text_nodes)
+
+  invisible()
+}
+
 tweak_tables <- function(html) {
   # Ensure all tables have class="table" apart from arguments
   table <- xml2::xml_find_all(html, ".//table")
