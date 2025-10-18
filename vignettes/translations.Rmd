@@ -34,6 +34,7 @@ Current available translations are:
 -   `dk`: Danish
 -   `es`: Spanish
 -   `fr`: French
+-   `hi`: Hindi
 -   `ko`: Korean
 -   `pt`: Portuguese
 -   `tr`: Turkish
