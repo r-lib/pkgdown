@@ -36,7 +36,7 @@ msgstr "Website gebouwd met <a href=\"%s\">pkgdown</a> %s."
 
 #: build-home-authors.R:12
 msgid "Authors and Citation"
-msgstr "Auteurs en citaat"
+msgstr "Auteurs en citatie"
 
 #: build-home-authors.R:101
 msgid "More about authors..."
