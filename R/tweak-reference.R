@@ -84,17 +84,12 @@ tweak_highlight_other <- function(div) {
 
 xml_replace_contents <- function(node, new) {
   xml2::xml_remove(xml2::xml_contents(node))
-  xml_insert(node, new)
+  contents <- xml2::xml_contents(new)
+  xml_insert(node, contents)
 }
 
 xml_insert <- function(node, new) {
-  if (is.list(new)) {
-    contents <- new
-  } else {
-    contents <- xml2::xml_contents(new)
-  }
-
-  for (child in contents) {
+  for (child in new) {
     xml2::xml_add_child(node, child)
   }
 }
