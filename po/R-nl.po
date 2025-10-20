@@ -72,7 +72,7 @@ msgstr "beheerder"
 
 #: build-home-authors.R:196
 msgid "data contributor"
-msgstr "Databijdrager"
+msgstr "databijdrager"
 
 #: build-home-authors.R:197
 msgid "funder"
