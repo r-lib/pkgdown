@@ -56,13 +56,12 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, quarto=quarto-dev/quarto-r@libpaths
+          extra-packages: any::rcmdcheck, quarto=quarto-dev/quarto-r, local::.
           needs: check
-          quarto-version: 1.8.15
 
       - uses: r-lib/actions/check-r-package@v2
         env:
-          QUARTO_R_QUIET: FALSE
+          R_QUARTO_QUIET: FALSE
         with:
           upload-snapshots: true
           build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
