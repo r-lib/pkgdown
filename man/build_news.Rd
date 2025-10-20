@@ -85,6 +85,7 @@ Suppress the default addition of CRAN release dates with:
 Other site components: 
 \code{\link{build_articles}()},
 \code{\link{build_home}()},
+\code{\link{build_llm_docs}()},
 \code{\link{build_reference}()},
 \code{\link{build_tutorials}()}
 }
