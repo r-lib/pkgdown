@@ -10,7 +10,9 @@ dir_depth <- function(x) {
 invert_index <- function(x) {
   stopifnot(is.list(x))
 
-  if (length(x) == 0) return(list())
+  if (length(x) == 0) {
+    return(list())
+  }
 
   key <- rep(names(x), purrr::map_int(x, length))
   val <- unlist(x, use.names = FALSE)

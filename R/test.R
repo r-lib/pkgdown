@@ -80,6 +80,8 @@ NULL
 #' plot(1:10)
 #' lines(1:10)
 #' text(2, 5, "Hello", srt = 30, cex = 2)
+#'
+#' plot(1:3, col = c("red", "green", "blue"), pch = 16, cex = 10)
 NULL
 
 #' Test case: tables
@@ -287,8 +289,8 @@ NULL
 #'
 #' Multi-line equation (correctly rendered by katex only):
 #'
-#' \deqn{\mathit{Minimize} \space l \\
-#' \mathit{subject \space to} \\
+#' \deqn{\text{Minimize } l \\
+#' \text{ subject to } \\
 #' \sum_{i = 1}^{I} x_i r_{ij} + y_j \geq t_j \forall j \in J \\
 #' l \geq \frac{y_j}{t_j} \forall j \in J \\
 #' \sum_{i = 1}^{I} x_i c_i \leq B}{

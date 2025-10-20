@@ -47,7 +47,7 @@ values in \verb{_pkgdown.yml}}
 freshly generated section in browser.}
 
 \item{name}{Name of article to render. This should be either a path
-relative to \verb{vignettes/} without extension, or \code{index} or \code{README}.}
+relative to \verb{vignettes/} \emph{without extension}, or \code{index} or \code{README}.}
 
 \item{new_process}{Build the article in a clean R process? The default,
 \code{TRUE}, ensures that every article is build in a fresh environment, but
@@ -261,6 +261,7 @@ as HTML widgets.
 \seealso{
 Other site components: 
 \code{\link{build_home}()},
+\code{\link{build_llm_docs}()},
 \code{\link{build_news}()},
 \code{\link{build_reference}()},
 \code{\link{build_tutorials}()}

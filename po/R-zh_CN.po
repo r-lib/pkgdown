@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-24 09:36-0500\n"
+"POT-Creation-Date: 2025-10-17 18:07-0600\n"
 "PO-Revision-Date: 2021-10-28 08:02-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -11,243 +11,241 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: build-404.R:11
+#: build-404.R:12
 msgid "Page not found (404)"
 msgstr "页面未找到（404）"
 
-#: build-404.R:12
+#: build-404.R:13
 msgid "Content not found. Please use links in the navbar."
 msgstr "请求的页面未找到。请使用导航栏内的链接。"
 
-#: build-articles.R:432 navbar.R:186 navbar.R:196 navbar.R:217
+#: build-articles.R:281 navbar.R:193 navbar.R:203 navbar.R:232
 msgid "Articles"
 msgstr "文章"
 
-#: build-articles.R:570
+#: build-articles.R:436
 msgid "All vignettes"
-msgstr ""
+msgstr "所有文章"
 
-#: build-footer.R:34
+#: build-footer.R:42
 msgid "Developed by"
 msgstr "开发者："
 
-#: build-footer.R:41
+#: build-footer.R:49
 msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
 msgstr "该网站由 <a href=\"%s\">pkgdown</a> %s 构建。"
 
 #: build-home-authors.R:12
 msgid "Authors and Citation"
-msgstr ""
+msgstr "作者与引用"
 
-#: build-home-authors.R:101
+#: build-home-authors.R:110
 msgid "More about authors..."
 msgstr "关于作者…"
 
-#: build-home-authors.R:104
+#: build-home-authors.R:113
 msgid "Developers"
 msgstr "开发者"
 
-#: build-home-authors.R:190
+#: build-home-authors.R:220
 msgid "author"
 msgstr "作者"
 
-#: build-home-authors.R:191
+#: build-home-authors.R:221
 msgid "compiler"
 msgstr "编译者"
 
-#: build-home-authors.R:192
+#: build-home-authors.R:222
 msgid "contractor"
 msgstr "合同员工"
 
-#: build-home-authors.R:193
+#: build-home-authors.R:223
 msgid "contributor"
 msgstr "合作者"
 
-#: build-home-authors.R:194
+#: build-home-authors.R:224
 msgid "copyright holder"
 msgstr "版权所有者"
 
-#: build-home-authors.R:195
+#: build-home-authors.R:225
 msgid "maintainer"
 msgstr "维护者"
 
-#: build-home-authors.R:196
+#: build-home-authors.R:226
 msgid "data contributor"
 msgstr "数据提供者"
 
-#: build-home-authors.R:197
+#: build-home-authors.R:227
 msgid "funder"
 msgstr "赞助者"
 
-#: build-home-authors.R:198
+#: build-home-authors.R:228
 msgid "reviewer"
 msgstr "审核者"
 
-#: build-home-authors.R:199
+#: build-home-authors.R:229
 msgid "thesis advisor"
 msgstr "论文导师"
 
-#: build-home-authors.R:200
+#: build-home-authors.R:230
 msgid "translator"
 msgstr "翻译者"
 
-#: build-home-authors.R:254 render.R:103
+#: build-home-authors.R:286 render.R:108
 msgid "Citation"
-msgstr ""
+msgstr "引用"
 
-#: build-home-authors.R:255
+#: build-home-authors.R:287
 msgid "Citing %s"
 msgstr "引用 %s"
 
-#: build-home-community.R:23
+#: build-home-community.R:22
 msgid "Contributing guide"
 msgstr "开发指南"
 
-#: build-home-community.R:27
+#: build-home-community.R:26
 msgid "Code of conduct"
 msgstr "行为准则"
 
-#: build-home-community.R:31
+#: build-home-community.R:30
 msgid "Getting help"
-msgstr ""
+msgstr "获取帮助"
 
-#: build-home-community.R:38
+#: build-home-community.R:37
 msgid "Community"
 msgstr "社区"
 
-#: build-home-index.R:120
+#: build-home-index.R:118
 msgid "Dev Status"
 msgstr "开发状态"
 
-#: build-home-index.R:162
+#: build-home-index.R:190
 msgid "View on %s"
 msgstr "访问%s"
 
-#: build-home-index.R:163
+#: build-home-index.R:191
 msgid "Browse source code"
 msgstr "浏览源代码"
 
-#: build-home-index.R:164
+#: build-home-index.R:192
 msgid "Report a bug"
 msgstr "缺陷报告"
 
-#: build-home-index.R:168
+#: build-home-index.R:196
 msgid "Links"
 msgstr "链接"
 
-#: build-home-index.R:173 render.R:105
+#: build-home-index.R:201 render.R:110
 msgid "Table of contents"
 msgstr "目录"
 
-#: build-home-license.R:12 build-home-license.R:34
+#: build-home-license.R:14 build-home-license.R:36
 msgid "License"
 msgstr "许可"
 
-#: build-home-license.R:29
+#: build-home-license.R:31
 msgid "Full license"
 msgstr "许可全部条款"
 
-#: build-news.R:102 build-news.R:259 build-news.R:263
+#: build-news.R:101 build-news.R:262 build-news.R:266
 msgid "Changelog"
 msgstr "更改日志"
 
-#: build-news.R:129
+#: build-news.R:128
 msgid "Version %s"
 msgstr "%s 版"
 
-#: build-news.R:141 build-news.R:254
+#: build-news.R:140 build-news.R:257
 msgid "News"
 msgstr "新闻"
 
-#: build-news.R:256
+#: build-news.R:259
 msgid "Releases"
 msgstr "发布版本"
 
-#: build-news.R:310
+#: build-news.R:314
 msgid "CRAN release: %s"
 msgstr "CRAN发布版本：%s"
 
-#: build-reference-index.R:22
+#: build-reference-index.R:23
 msgid "Package index"
-msgstr ""
+msgstr "包索引"
 
-#: build-reference-index.R:158
+#: build-reference-index.R:187
 msgid "All functions"
-msgstr ""
+msgstr "所有函数"
 
-#: build-reference.R:371
+#: build-reference.R:377
 msgid "Usage"
-msgstr ""
+msgstr "用法"
 
-#: build-tutorials.R:47 navbar.R:152
+#: build-tutorials.R:49 navbar.R:158
 msgid "Tutorials"
 msgstr "教程"
 
-#: development.R:72
+#: development.R:82
 msgid "Released version"
 msgstr "已发布的版本"
 
-#: development.R:73
+#: development.R:83
 msgid "In-development version"
 msgstr "开发中的版本"
 
-#: development.R:74
+#: development.R:84
 msgid "Unreleased version"
 msgstr "未发布的版本"
 
-#: navbar-menu.R:173
-#, fuzzy
-#| msgid "Search for"
+#: navbar-menu.R:212
 msgid "Search site"
-msgstr "搜索"
+msgstr "搜索网站"
 
-#: navbar-menu.R:174
+#: navbar-menu.R:213
 msgid "Search for"
 msgstr "搜索"
 
-#: navbar.R:129
+#: navbar.R:135
 msgid "Reference"
 msgstr "参考"
 
-#: navbar.R:140
+#: navbar.R:146
 msgid "Light switch"
-msgstr ""
+msgstr "主题切换"
 
-#: navbar.R:143
+#: navbar.R:149
 msgid "Light"
-msgstr ""
+msgstr "浅色"
 
-#: navbar.R:144
+#: navbar.R:150
 msgid "Dark"
-msgstr ""
+msgstr "深色"
 
-#: navbar.R:145
+#: navbar.R:151
 msgid "Auto"
-msgstr ""
+msgstr "自动"
 
-#: navbar.R:180
+#: navbar.R:187
 msgid "Get started"
 msgstr "入门简介"
 
-#: navbar.R:213
+#: navbar.R:228
 msgid "More articles..."
 msgstr "更多文章…"
 
-#: package.R:300
+#: package.R:317
 msgid "deprecated"
-msgstr ""
+msgstr "已弃用"
 
-#: package.R:301
+#: package.R:318
 msgid "superseded"
-msgstr ""
+msgstr "已取代"
 
-#: package.R:302
+#: package.R:319
 msgid "experimental"
-msgstr ""
+msgstr "实验性"
 
-#: package.R:303
+#: package.R:320
 msgid "stable"
-msgstr ""
+msgstr "稳定"
 
 #: rd-data.R:23
 msgid "Details"
@@ -261,7 +259,7 @@ msgstr "概述"
 msgid "References"
 msgstr "参考文献"
 
-#: rd-data.R:35 render.R:98
+#: rd-data.R:35 render.R:103
 msgid "Source"
 msgstr "参考文献出处"
 
@@ -289,61 +287,57 @@ msgstr "参数"
 msgid "Value"
 msgstr "值"
 
-#: render.R:95
+#: render.R:100
 msgid "Skip to contents"
 msgstr "跳到正文"
 
-#: render.R:96
+#: render.R:101
 msgid "Toggle navigation"
 msgstr "切换导航栏"
 
-#: render.R:97
+#: render.R:102
 msgid "On this page"
 msgstr "该页面"
 
-#: render.R:99
+#: render.R:104
 msgid "Abstract"
 msgstr "摘要"
 
-#: render.R:100
+#: render.R:105
 msgid "Authors"
 msgstr "作者"
 
-#: render.R:101
+#: render.R:106
 msgid "Version"
 msgstr "版本"
 
-#: render.R:102
+#: render.R:107
 msgid "Examples"
 msgstr "范例"
 
-#: render.R:104
+#: render.R:109
 msgid "Additional details"
-msgstr ""
+msgstr "附加信息"
 
-#: render.R:106
-#, fuzzy
-#| msgid "Toggle navigation"
+#: render.R:111
 msgid "Site navigation"
-msgstr "切换导航栏"
+msgstr "网站导航"
 
-#: repo.R:35
+#: repo.R:37
 msgid "Source:"
 msgstr "来源："
 
-#: tweak-homepage.R:61
+#: tweak-homepage.R:68
 msgid "Dev status"
 msgstr "开发状态"
 
-#: usage.R:23
+#: usage.R:52
 msgid "# Default %s method"
-msgstr ""
+msgstr "# 默认 %s 方法"
 
-#: usage.R:25
-#, fuzzy
-#| msgid "# %s method for %s"
+#: usage.R:54
 msgid "# %s method for class '%s'"
-msgstr "# %2$s类的%1$s函数"
+msgstr "# %2$s 类的 %1$s 方法"
 
 #~ msgid "Function reference"
 #~ msgstr "函数参考"

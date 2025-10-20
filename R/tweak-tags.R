@@ -49,7 +49,9 @@ anchor_html <- function(id) {
 
 tweak_link_md <- function(html) {
   links <- xml2::xml_find_all(html, ".//a")
-  if (length(links) == 0) return()
+  if (length(links) == 0) {
+    return()
+  }
 
   hrefs <- xml2::xml_attr(links, "href")
 
@@ -76,7 +78,9 @@ tweak_link_md <- function(html) {
 
 tweak_link_external <- function(html, pkg = list()) {
   links <- xml2::xml_find_all(html, ".//a")
-  if (length(links) == 0) return()
+  if (length(links) == 0) {
+    return()
+  }
 
   links <- links[!has_class(links, "external-link")]
 
@@ -159,6 +163,21 @@ tweak_link_R6 <- function(html, cur_package) {
 
   r6_a <- xml2::xml_find_first(r6_span, "./a")
   xml2::xml_attr(r6_a, "href") <- url
+
+  invisible()
+}
+
+# Fix seealso links
+tweak_link_seealso <- function(html) {
+  seealso_links <- xml2::xml_find_all(html, "//code[a and text() = '()']")
+
+  # add () inside link
+  seealso_text <- xml2::xml_children(seealso_links)
+  xml2::xml_text(seealso_text) <- paste0(xml2::xml_text(seealso_text), "()")
+
+  # remove () outside the link
+  text_nodes <- xml2::xml_find_all(seealso_links, "./text()[. = '()']")
+  xml2::xml_remove(text_nodes)
 
   invisible()
 }

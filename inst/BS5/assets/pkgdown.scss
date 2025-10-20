@@ -1,13 +1,13 @@
 /* control page width ====================================================== */
 
-.row > main {
+.row>main {
   // Ensure contents never become unreadably wide
   max-width: 50rem;
 }
 
 // break and hypenate very long words on small screens
 @include media-breakpoint-down(md) {
-  .row > main {
+  .row>main {
     overflow-wrap: break-word;
     hyphens: auto;
   }
@@ -15,13 +15,20 @@
 
 // Put extra space between content and navbar
 @include media-breakpoint-only(xl) {
-  .container .row { justify-content: space-evenly; }
+  .container .row {
+    justify-content: space-evenly;
+  }
 }
 
 // Boost font size and give big (but not infinite) margin on sidebar
 @include media-breakpoint-up(xxl) {
-  body { font-size: 18px }
-  .col-md-3 { margin-left: 5rem; }
+  body {
+    font-size: 18px
+  }
+
+  .col-md-3 {
+    margin-left: 5rem;
+  }
 }
 
 /* navbar =================================================================== */
@@ -46,6 +53,7 @@ $pkgdown-navbar-bg-dark: if($navbar-dark-bg, $navbar-dark-bg, null) !default;
   // Harmonize alignment of navbar elements (search field vs. rest)
   line-height: initial;
 }
+
 [data-bs-theme="dark"] .navbar {
   background: $pkgdown-navbar-bg-dark;
 }
@@ -55,11 +63,17 @@ $pkgdown-navbar-bg-dark: if($navbar-dark-bg, $navbar-dark-bg, null) !default;
 .nav-item .nav-link {
   @include border-radius($border-radius);
 }
-.nav-item.active .nav-link       { background: RGBA(var(--bs-body-color-rgb), 0.1); }
-.nav-item        .nav-link:hover { background: RGBA(var(--bs-primary-rgb), 0.1); }
+
+.nav-item.active .nav-link {
+  background: RGBA(var(--bs-body-color-rgb), 0.1);
+}
+
+.nav-item .nav-link:hover {
+  background: RGBA(var(--bs-primary-rgb), 0.1);
+}
 
 // Align baselines of package name, version, and nav items
-.navbar > .container {
+.navbar>.container {
   align-items: baseline;
   -webkit-align-items: baseline;
 }
@@ -75,18 +89,29 @@ input[type="search"] {
 
 // When navbar is a dropdown:
 @include media-breakpoint-down(lg) {
+
   // Make search and sub-menus span full width
-  .algolia-autocomplete, input[type="search"], #navbar .dropdown-menu {
+  .algolia-autocomplete,
+  input[type="search"],
+  #navbar .dropdown-menu {
     width: 100%;
   }
+
   // Allow text to wrap
   #navbar .dropdown-item {
     white-space: normal;
   }
+
   // Add a little margin
   input[type="search"] {
     margin: 0.25rem 0;
   }
+}
+
+// make long dropdown menus scrollable
+.dropdown-menu {
+  max-height: 280px;
+  overflow-y: auto;
 }
 
 /* headroom.js -------------------------------------------------------------- */
@@ -95,17 +120,26 @@ input[type="search"] {
   will-change: transform;
   transition: transform 400ms ease;
 }
-.headroom--pinned   { transform: translateY(0%); }
-.headroom--unpinned { transform: translateY(-100%); }
+
+.headroom--pinned {
+  transform: translateY(0%);
+}
+
+.headroom--unpinned {
+  transform: translateY(-100%);
+}
 
 // Need to adjust body components down by height of navbar so it
 // doesn't overlap them when visible
 $pkgdown-nav-height: 56px !default;
 
-.row > main, .row > aside {
+.row>main,
+.row>aside {
   margin-top: $pkgdown-nav-height;
 }
-html, body {
+
+html,
+body {
   scroll-padding: $pkgdown-nav-height
 }
 
@@ -126,18 +160,25 @@ aside {
     margin-top: 1.5rem;
     font-size: $font-size-lg;
   }
+
   .roles {
     color: RGBA(var(--bs-body-color-rgb), 0.8);
   }
 
-  .list-unstyled li { margin-bottom: 0.5rem; }
-  .dev-status .list-unstyled li { margin-bottom: 0.1rem; }
+  .list-unstyled li {
+    margin-bottom: 0.5rem;
+  }
+
+  .dev-status .list-unstyled li {
+    margin-bottom: 0.1rem;
+  }
 }
 
 // Add some visual distinction between content and "sidebar" on mobile
 @include media-breakpoint-down(md) {
+
   // Additional specificity needed to override bootstrap width on .row > *
-  .row > aside {
+  .row>aside {
     margin: 0.5rem;
     width: calc(100vw - 1rem);
     background-color: RGBA(var(--bs-body-color-rgb), 0.1);
@@ -153,9 +194,11 @@ aside {
 /* table of contents -------------------------------------------------------- */
 
 // needed for scrollspy
-body {position: relative;}
+body {
+  position: relative;
+}
 
-#toc > .nav {
+#toc>.nav {
   margin-bottom: 1rem;
 
   a.nav-link {
@@ -164,21 +207,30 @@ body {position: relative;}
     margin-bottom: 2px;
     @include border-radius($border-radius);
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       background-color: RGBA(var(--bs-primary-rgb), 0.1);
     }
+
     &.active {
       background-color: RGBA(var(--bs-body-color-rgb), 0.1);
     }
   }
 
   // Nested headings are indented
-  .nav a.nav-link { margin-left: 0.5rem; }
+  .nav a.nav-link {
+    margin-left: 0.5rem;
+  }
 
   // Only show second level if active.
   // Requires !important because that's how BS5 sets display: flex
-  .nav { display: none !important; }
-  a.active + .nav { display: flex !important; }
+  .nav {
+    display: none !important;
+  }
+
+  a.active+.nav {
+    display: flex !important;
+  }
 }
 
 /* footer  ================================================================== */
@@ -200,10 +252,15 @@ footer {
 }
 
 @include media-breakpoint-down(sm) {
-  footer {flex-direction: column;}
+  footer {
+    flex-direction: column;
+  }
 }
+
 @include media-breakpoint-up(sm) {
-  footer .pkgdown-footer-right { text-align: right;}
+  footer .pkgdown-footer-right {
+    text-align: right;
+  }
 }
 
 footer div {
@@ -217,15 +274,18 @@ footer div {
 // Details: https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/components/site.css
 
 // Need .container and __all parents__ have height set to 100%
-html, body {
+html,
+body {
   height: 100%;
 }
-body > .container {
+
+body>.container {
   min-height: 100%;
   display: flex;
   flex-direction: column;
 }
-body > .container .row {
+
+body>.container .row {
   flex: 1 0 auto;
 }
 
@@ -236,6 +296,7 @@ main img {
   max-width: 100%;
   height: auto;
 }
+
 main table {
   display: block;
   overflow: auto;
@@ -257,18 +318,45 @@ body {
 // spacing tweaks
 
 // Use an indent for defintions rather than horitzonal space
-dl {margin-bottom: 0;}
-dd {padding-left: 1.5rem; margin-bottom: 0.25rem}
+dl {
+  margin-bottom: 0;
+}
+
+dd {
+  padding-left: 1.5rem;
+  margin-bottom: 0.25rem
+}
 
 // Use margins rather than size to distinguish headings
-h2, .h2 { font-size: 1.75rem; margin-top: 1.5rem;}
-h3, .h3 { font-size: 1.25rem; margin-top: 1rem; font-weight: bold;}
-h4, .h4 { font-size: 1.1rem; font-weight: bold;}
-h5, .h5 { font-size: 1rem; font-weight: bold;}
+h2,
+.h2 {
+  font-size: 1.75rem;
+  margin-top: 1.5rem;
+}
+
+h3,
+.h3 {
+  font-size: 1.25rem;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+h4,
+.h4 {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+h5,
+.h5 {
+  font-size: 1rem;
+  font-weight: bold;
+}
 
 summary {
   margin-bottom: 0.5rem;
 }
+
 details {
   margin-bottom: 1rem;
 }
@@ -291,19 +379,32 @@ a.anchor {
   background-size: Min(0.9em, 20px) Min(0.9em, 20px);
   background-position: center center;
 }
-h2, h3, h4, h5, h6, dt {
-  &:hover .anchor, &:target .anchor {display: inline-block;}
+
+h2,
+h3,
+h4,
+h5,
+h6,
+dt {
+
+  &:hover .anchor,
+  &:target .anchor {
+    display: inline-block;
+  }
 }
 
 // Give targetted arguments some visual distinction
-dt:target, dt:target + dd {
+dt:target,
+dt:target+dd {
   border-left: 0.25rem solid var(--bs-primary);
   margin-left: -0.75rem;
 }
+
 dt:target {
   padding-left: 0.5rem;
 }
-dt:target + dd {
+
+dt:target+dd {
   padding-left: 2rem;
 }
 
@@ -312,11 +413,13 @@ dt:target + dd {
   color: #A6CE39;
   margin-right: 4px;
 }
+
 // ror badge
 .ror {
   height: 16px;
   margin-right: 4px;
 }
+
 // activate font awesome
 .fab {
   font-family: "Font Awesome 5 Brands" !important;
@@ -328,18 +431,27 @@ img.logo {
   width: 100px;
   margin-left: 30px;
 }
+
 .template-home img.logo {
   width: 120px;
 }
 
 @include media-breakpoint-down(sm) {
-  img.logo {width: 80px;}
+  img.logo {
+    width: 80px;
+  }
 }
+
 // line up h1 border-bottom with corner of hexagon
 // values determined empirically
 @include media-breakpoint-up(sm) {
-  .page-header {min-height: 88px}
-  .template-home .page-header {min-height: 104px}
+  .page-header {
+    min-height: 88px
+  }
+
+  .template-home .page-header {
+    min-height: 104px
+  }
 }
 
 // line-block produced by pandoc needs margin-bottom since it doesn't
@@ -351,13 +463,22 @@ img.logo {
 // Override bootstrap defaults that make sense in page bodies, but not on
 // the reference index
 .template-reference-index {
-  dt {font-weight: normal;}
+  dt {
+    font-weight: normal;
+  }
+
   // Don't allow breaking within a function name
-  code {word-wrap: normal;}
+  code {
+    word-wrap: normal;
+  }
 }
+
 .icon {
   float: right;
-  img {width: 40px;}
+
+  img {
+    width: 40px;
+  }
 }
 
 // Ensure skip link is visible if focussed
@@ -372,13 +493,25 @@ a[href='#main'] {
 
 .lifecycle {
   color: var(--bs-secondary-color);
-  background-color: var(--bs-secondary-bg);  // backup just in case we don't know the name
+  background-color: var(--bs-secondary-bg); // backup just in case we don't know the name
   border-radius: 5px;
 }
-.lifecycle-stable       { background-color: rgb(16, 128, 1);  color: var(--bs-white);}
-.lifecycle-superseded   { background-color: rgb(7, 64, 128);  color: var(--bs-white);}
+
+.lifecycle-stable {
+  background-color: rgb(16, 128, 1);
+  color: var(--bs-white);
+}
+
+.lifecycle-superseded {
+  background-color: rgb(7, 64, 128);
+  color: var(--bs-white);
+}
+
 .lifecycle-experimental,
-.lifecycle-deprecated   { background-color: rgb(253, 128, 8); color: var(--bs-black);}
+.lifecycle-deprecated {
+  background-color: rgb(253, 128, 8);
+  color: var(--bs-black);
+}
 
 /* Footnotes ---------------------------------------------------------------- */
 
@@ -392,9 +525,11 @@ a.footnote-ref {
   font-size: 0.9rem;
   box-shadow: 4px 4px 8px RGBA(var(--bs-body-color-rgb), 0.3);
 }
+
 .popover-body {
   padding: 0.75rem;
 }
+
 .popover-body p:last-child {
   margin-bottom: 0;
 }
@@ -404,6 +539,7 @@ a.footnote-ref {
 .tab-content {
   padding: 1rem;
 }
+
 .tabset-pills .tab-content {
   border: solid 1px #e5e5e5;
 }
@@ -413,42 +549,51 @@ a.footnote-ref {
 .tab-content {
   display: flex;
 }
-.tab-content > .tab-pane {
-  display: block; /* undo "display: none;" */
+
+.tab-content>.tab-pane {
+  display: block;
+  /* undo "display: none;" */
   visibility: hidden;
   margin-right: -100%;
   width: 100%;
 }
-.tab-content > .active {
+
+.tab-content>.active {
   visibility: visible;
 }
 
 /* bibliography styling ----------------------------------------------------- */
 // Added in pandoc 2.11: https://github.com/jgm/pandoc-templates/commit/9904bf71
 
-div.csl-bib-body { }
+div.csl-bib-body {}
+
 div.csl-entry {
   clear: both;
 }
+
 .hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+  margin-left: 2em;
+  text-indent: -2em;
 }
+
 div.csl-left-margin {
-  min-width:2em;
-  float:left;
+  min-width: 2em;
+  float: left;
 }
+
 div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
+  margin-left: 2em;
+  padding-left: 1em;
 }
+
 div.csl-indent {
   margin-left: 2em;
 }
 
 /* code ===================================================================== */
 
-pre, pre code {
+pre,
+pre code {
   // override bootstrap deafult that causes problems in old safari + IE
   // https://github.com/rstudio/shiny/issues/2233
   word-wrap: normal;
@@ -456,9 +601,12 @@ pre, pre code {
 
 // Default dark mode styling does not look good for code
 [data-bs-theme="dark"] {
-  pre, code {
+
+  pre,
+  code {
     background-color: RGBA(var(--bs-body-color-rgb), 0.1);
   }
+
   // don't double apply transparency
   pre code {
     background: transparent;
@@ -475,15 +623,18 @@ code {
 .hasCopyButton {
   position: relative;
 }
+
 .btn-copy-ex {
   position: absolute;
   right: 5px;
   top: 5px;
   visibility: hidden;
 }
+
 .hasCopyButton:hover button.btn-copy-ex {
   visibility: visible;
 }
+
 // Ensure there's enough space for the copy button
 pre {
   padding: 0.75rem;
@@ -497,15 +648,17 @@ pre div.gt-table {
 
 // "Pop" code out of page margins on small screens to give a little more room
 @include media-breakpoint-down(sm) {
+
   // div.section div.sourceCode pre
   // prevents matching <pre> inside (e.g.) a <li>
-  div > div > pre {
+  div>div>pre {
     margin-left: calc(var(--bs-gutter-x) * -.5);
     margin-right: calc(var(--bs-gutter-x) * -.5);
     border-radius: 0;
     padding-left: 1rem;
     padding-right: 1rem;
   }
+
   .btn-copy-ex {
     right: calc(var(--bs-gutter-x) * -.5 + 5px);
   }
@@ -520,27 +673,38 @@ pre code {
   padding: 0;
   background: transparent;
 
-  .error, .warning {font-weight: bolder;}
+  .error,
+  .warning {
+    font-weight: bolder;
+  }
 }
 
-pre .img, pre .r-plt {
+pre .img,
+pre .r-plt {
   img {
     margin: 5px 0;
     background-color: #fff;
   }
 }
+
 // low-tech plot softening in dark mode
 [data-bs-theme="dark"] pre img {
   opacity: 0.66;
   transition: opacity 250ms ease-in-out;
 
-  &:hover, &:focus, &:active {opacity: 1;}
+  &:hover,
+  &:focus,
+  &:active {
+    opacity: 1;
+  }
 }
 
 /* don't display links in code chunks when printing */
 /* source: https://stackoverflow.com/a/10781533 */
 @media print {
-  code a:link:after, code a:visited:after {
+
+  code a:link:after,
+  code a:visited:after {
     content: "";
   }
 }
@@ -553,10 +717,9 @@ a.sourceLine:hover {
 
 mark {
   background: linear-gradient(-100deg,
-    RGBA(var(--bs-info-rgb), 0.2),
-    RGBA(var(--bs-info-rgb), 0.7) 95%,
-    RGBA(var(--bs-info-rgb), 0.1)
-  )
+      RGBA(var(--bs-info-rgb), 0.2),
+      RGBA(var(--bs-info-rgb), 0.7) 95%,
+      RGBA(var(--bs-info-rgb), 0.1))
 }
 
 // Mimic the style of the navbar dropdowns
@@ -592,14 +755,20 @@ mark {
 /* Quarto specific =========================================================== */
 // Selectively copied from https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/formats/html/_quarto-rules.scss#L110
 
-span.smallcaps {font-variant: small-caps;}
+span.smallcaps {
+  font-variant: small-caps;
+}
 
 // task-list --------------------------------------------------------------
 
-ul.task-list{list-style: none;}
+ul.task-list {
+  list-style: none;
+}
+
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
+  margin: 0 0.8em 0.2em -1em;
+  /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
   vertical-align: middle;
 }
 
@@ -613,15 +782,16 @@ figure.figure {
   margin-bottom: 1em;
 }
 
-.quarto-layout-panel > figure {
+.quarto-layout-panel>figure {
   width: 100%;
 }
-.quarto-layout-panel > figure > figcaption,
-.quarto-layout-panel > .panel-caption {
+
+.quarto-layout-panel>figure>figcaption,
+.quarto-layout-panel>.panel-caption {
   margin-top: 10pt;
 }
 
-.quarto-layout-panel > .table-caption {
+.quarto-layout-panel>.table-caption {
   margin-top: 0px;
 }
 
@@ -634,87 +804,115 @@ figure.figure {
   flex-direction: row;
   align-items: flex-start;
 }
+
 .quarto-layout-valign-top {
   align-items: flex-start;
 }
+
 .quarto-layout-valign-bottom {
   align-items: flex-end;
 }
+
 .quarto-layout-valign-center {
   align-items: center;
 }
+
 .quarto-layout-cell {
   position: relative;
   margin-right: 20px;
 }
+
 .quarto-layout-cell:last-child {
   margin-right: 0;
 }
+
 .quarto-layout-cell figure,
-.quarto-layout-cell > p {
+.quarto-layout-cell>p {
   margin: 0.2em;
 }
+
 .quarto-layout-cell img {
   max-width: 100%;
 }
+
 .quarto-layout-cell .html-widget {
   width: 100% !important;
 }
+
 .quarto-layout-cell div figure p {
   margin: 0;
 }
+
 .quarto-layout-cell figure {
   display: block;
   margin-inline-start: 0;
   margin-inline-end: 0;
 }
+
 .quarto-layout-cell table {
   display: inline-table;
 }
+
 .quarto-layout-cell-subref figcaption,
 figure .quarto-layout-row figure figcaption {
   text-align: center;
   font-style: italic;
 }
+
 .quarto-figure {
   position: relative;
   margin-bottom: 1em;
 }
 
-.quarto-figure > figure {
+.quarto-figure>figure {
   width: 100%;
   margin-bottom: 0;
 }
-.quarto-figure-left > figure > p,
-.quarto-figure-left > figure > div /* for mermaid and dot diagrams */ {
+
+.quarto-figure-left>figure>p,
+.quarto-figure-left>figure>div
+
+/* for mermaid and dot diagrams */
+  {
   text-align: left;
 }
-.quarto-figure-center > figure > p,
-.quarto-figure-center > figure > div /* for mermaid and dot diagrams */ {
+
+.quarto-figure-center>figure>p,
+.quarto-figure-center>figure>div
+
+/* for mermaid and dot diagrams */
+  {
   text-align: center;
 }
-.quarto-figure-right > figure > p,
-.quarto-figure-right > figure > div /* for mermaid and dot diagrams */ {
+
+.quarto-figure-right>figure>p,
+.quarto-figure-right>figure>div
+
+/* for mermaid and dot diagrams */
+  {
   text-align: right;
 }
 
-.quarto-figure > figure > div.cell-annotation,
-.quarto-figure > figure > div code {
-  text-align: left; /* override align center for code blocks */
+.quarto-figure>figure>div.cell-annotation,
+.quarto-figure>figure>div code {
+  text-align: left;
+  /* override align center for code blocks */
 }
 
-figure > p:empty {
+figure>p:empty {
   display: none;
 }
-figure > p:first-child {
+
+figure>p:first-child {
   margin-top: 0;
   margin-bottom: 0;
 }
 
-figure > figcaption.quarto-float-caption-bottom {
+figure>figcaption.quarto-float-caption-bottom {
   margin-bottom: 0.5em;
 }
-figure > figcaption.quarto-float-caption-top {
+
+figure>figcaption.quarto-float-caption-top {
   margin-top: 0.5em;
 }
 
@@ -731,4 +929,27 @@ figure > figcaption.quarto-float-caption-top {
   --mermaid-label-fg-color: var(--bs-body-color);
   --mermaid-node-bg-color: RGBA(var(--bs-primary-rgb), 0.1);
   --mermaid-node-fg-color: var(--bs-primary);
+}
+
+// auto-dark mode for rendered images ------------------------------
+
+@mixin invert-filter {
+
+  // vignette figures
+  img.r-plt,
+  // example figures
+  pre .r-plt.img img,
+  // quarto figures
+  .cell-output-display img,
+  .html-widget {
+    filter: invert(100%) hue-rotate(180deg);
+  }
+}
+
+[data-bs-theme="dark"] {
+  @include invert-filter;
+
+  .no-invert-dark-mode {
+    @include invert-filter;
+  }
 }

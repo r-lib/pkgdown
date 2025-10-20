@@ -39,6 +39,14 @@
       </div>
       </div>
 
+# Sexprs in file share environment
+
+    Code
+      rd2html("\\Sexpr{x}")
+    Condition
+      Error:
+      ! object 'x' not found
+
 # bad specs throw errors
 
     Code

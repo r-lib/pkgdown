@@ -58,7 +58,9 @@ set_class <- function(x) {
 
 tag <- function(x) {
   tag <- attr(x, "Rd_tag")
-  if (is.null(tag)) return()
+  if (is.null(tag)) {
+    return()
+  }
 
   gsub("\\", "tag_", tag, fixed = TRUE)
 }

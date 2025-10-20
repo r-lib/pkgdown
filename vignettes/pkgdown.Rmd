@@ -12,14 +12,16 @@ vignette: >
 The goal of pkgdown is to make it easy to make an elegant and useful package website with a minimum of work.
 You can get a basic website up and running in just a couple of minutes. If you're using GitHub, we recommend setting up pkgdown and GitHub actions to automatically build and publish your site:
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 # Run this once to publish your site regularly
 usethis::use_pkgdown_github_pages()
 ```
 
 If you are not using GitHub, you will have to run `pkgdown::build_site()` manually everytime you want to update the site.
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 # Run once
 # Remove docs/ from gitignore to ensure it is checked into git.
 usethis::use_pkgdown()

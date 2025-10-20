@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pkgdown 1.9000.9000.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-24 09:36-0500\n"
+"POT-Creation-Date: 2025-10-17 18:07-0600\n"
 "PO-Revision-Date: 2021-10-28 08:02-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -12,27 +12,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: build-404.R:11
+#: build-404.R:12
 msgid "Page not found (404)"
 msgstr "Seite nicht gefunden (404)"
 
-#: build-404.R:12
+#: build-404.R:13
 msgid "Content not found. Please use links in the navbar."
 msgstr "Inhalt nicht gefunden. Bitte die Navigationleiste benutzen."
 
-#: build-articles.R:432 navbar.R:186 navbar.R:196 navbar.R:217
+#: build-articles.R:281 navbar.R:193 navbar.R:203 navbar.R:232
 msgid "Articles"
 msgstr "Artikel"
 
-#: build-articles.R:570
+#: build-articles.R:436
 msgid "All vignettes"
 msgstr "Alle Artikel"
 
-#: build-footer.R:34
+#: build-footer.R:42
 msgid "Developed by"
 msgstr "Entwickelt von"
 
-#: build-footer.R:41
+#: build-footer.R:49
 msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
 msgstr "Seite erstellt mit <a href=\"%s\">pkgdown</a> %s."
 
@@ -40,214 +40,211 @@ msgstr "Seite erstellt mit <a href=\"%s\">pkgdown</a> %s."
 msgid "Authors and Citation"
 msgstr "Autor:innen und Zitation"
 
-#: build-home-authors.R:101
+#: build-home-authors.R:110
 msgid "More about authors..."
 msgstr "Mehr zu den Autor:innen"
 
-#: build-home-authors.R:104
+#: build-home-authors.R:113
 msgid "Developers"
 msgstr "Entwicker:innen"
 
-#: build-home-authors.R:190
+#: build-home-authors.R:220
 msgid "author"
 msgstr "Autor:in"
 
-#: build-home-authors.R:191
+#: build-home-authors.R:221
 msgid "compiler"
 msgstr "Zusammensteller:in"
 
-#: build-home-authors.R:192
+#: build-home-authors.R:222
 msgid "contractor"
 msgstr "Auftragnehmer:in"
 
-#: build-home-authors.R:193
+#: build-home-authors.R:223
 msgid "contributor"
 msgstr "Beitragende:r"
 
-#: build-home-authors.R:194
+#: build-home-authors.R:224
 msgid "copyright holder"
 msgstr "Urheberrechtsinhaber:in"
 
-#: build-home-authors.R:195
+#: build-home-authors.R:225
 msgid "maintainer"
 msgstr "Maintainer:in"
 
-#: build-home-authors.R:196
+#: build-home-authors.R:226
 msgid "data contributor"
 msgstr "Datenbeitragende:r"
 
-#: build-home-authors.R:197
+#: build-home-authors.R:227
 msgid "funder"
 msgstr "Sponsor:in"
 
-#: build-home-authors.R:198
+#: build-home-authors.R:228
 msgid "reviewer"
 msgstr "Gutachter:in"
 
-#: build-home-authors.R:199
+#: build-home-authors.R:229
 msgid "thesis advisor"
 msgstr "Betreuer:in der Abschlussarbeit"
 
-#: build-home-authors.R:200
+#: build-home-authors.R:230
 msgid "translator"
 msgstr "Übersetzer:in"
 
-#: build-home-authors.R:254 render.R:103
+#: build-home-authors.R:286 render.R:108
 msgid "Citation"
 msgstr "Zitationsvorschlag"
 
-#: build-home-authors.R:255
+#: build-home-authors.R:287
 msgid "Citing %s"
 msgstr "%s zitieren"
 
-#: build-home-community.R:23
+#: build-home-community.R:22
 msgid "Contributing guide"
 msgstr "Leitfaden zum Mitwirken"
 
-#: build-home-community.R:27
+#: build-home-community.R:26
 msgid "Code of conduct"
 msgstr "Verhaltensregeln"
 
-#: build-home-community.R:31
+#: build-home-community.R:30
 msgid "Getting help"
 msgstr "Hilfe erhalten"
 
-#: build-home-community.R:38
+#: build-home-community.R:37
 msgid "Community"
 msgstr "Community"
 
-#: build-home-index.R:120
+#: build-home-index.R:118
 msgid "Dev Status"
 msgstr "Entwicklungsstatus"
 
-#: build-home-index.R:162
+#: build-home-index.R:190
 msgid "View on %s"
 msgstr "Auf %s ansehen"
 
-#: build-home-index.R:163
+#: build-home-index.R:191
 msgid "Browse source code"
 msgstr "Quellcode ansehen"
 
-#: build-home-index.R:164
+#: build-home-index.R:192
 msgid "Report a bug"
 msgstr "Bug melden"
 
-#: build-home-index.R:168
+#: build-home-index.R:196
 msgid "Links"
 msgstr "Links"
 
-#: build-home-index.R:173 render.R:105
+#: build-home-index.R:201 render.R:110
 msgid "Table of contents"
 msgstr "Inhaltsverzeichnis"
 
-#: build-home-license.R:12 build-home-license.R:34
+#: build-home-license.R:14 build-home-license.R:36
 msgid "License"
 msgstr "Lizenz"
 
-#: build-home-license.R:29
+#: build-home-license.R:31
 msgid "Full license"
 msgstr "Vollständige Lizenz"
 
-#: build-news.R:102 build-news.R:259 build-news.R:263
+#: build-news.R:101 build-news.R:262 build-news.R:266
 msgid "Changelog"
 msgstr "Änderungsprotokoll"
 
-#: build-news.R:129
+#: build-news.R:128
 msgid "Version %s"
 msgstr "Version %s"
 
-#: build-news.R:141 build-news.R:254
+#: build-news.R:140 build-news.R:257
 msgid "News"
 msgstr "Neuigkeiten"
 
-#: build-news.R:256
+#: build-news.R:259
 msgid "Releases"
 msgstr "Veröffentlichungen"
 
-#: build-news.R:310
+#: build-news.R:314
 msgid "CRAN release: %s"
 msgstr "CRAN-Veröffentlichung: %s"
 
-#: build-reference-index.R:22
+#: build-reference-index.R:23
 msgid "Package index"
 msgstr "Paketindex"
 
-#: build-reference-index.R:158
+#: build-reference-index.R:187
 msgid "All functions"
 msgstr "Alle Funktionen"
 
-#: build-reference.R:371
+#: build-reference.R:377
 msgid "Usage"
 msgstr "Verwendung"
 
-#: build-tutorials.R:47 navbar.R:152
+#: build-tutorials.R:49 navbar.R:158
 msgid "Tutorials"
 msgstr "Tutorien"
 
-#: development.R:72
+#: development.R:82
 msgid "Released version"
 msgstr "Veröffentlichte Version"
 
-#: development.R:73
+#: development.R:83
 msgid "In-development version"
 msgstr "Version in Entwicklung"
 
-#: development.R:74
+#: development.R:84
 msgid "Unreleased version"
 msgstr "Unveröffentlichte Version"
 
-#: navbar-menu.R:173
-#, fuzzy
-#| msgid "Search for"
+#: navbar-menu.R:212
 msgid "Search site"
 msgstr "Suchen nach"
 
-#: navbar-menu.R:174
+#: navbar-menu.R:213
 msgid "Search for"
 msgstr "Suchen nach"
 
-#: navbar.R:129
+#: navbar.R:135
 msgid "Reference"
 msgstr "Verzeichnis"
 
-#: navbar.R:140
+#: navbar.R:146
 msgid "Light switch"
-# Appearance
 msgstr "Erscheinungsbild"
 
-#: navbar.R:143
+#: navbar.R:149
 msgid "Light"
 msgstr "Hell"
 
-#: navbar.R:144
+#: navbar.R:150
 msgid "Dark"
 msgstr "Dunkel"
 
-#: navbar.R:145
+#: navbar.R:151
 msgid "Auto"
 msgstr "Automatisch"
 
-#: navbar.R:180
+#: navbar.R:187
 msgid "Get started"
 msgstr "Erste Schritte"
 
-#: navbar.R:213
+#: navbar.R:228
 msgid "More articles..."
 msgstr "Mehr Artikel ..."
 
-#: package.R:300
+#: package.R:317
 msgid "deprecated"
 msgstr "veraltet"
 
-#: package.R:301
+#: package.R:318
 msgid "superseded"
 msgstr "überholt"
 
-#: package.R:302
+#: package.R:319
 msgid "experimental"
 msgstr "experimentell"
 
-#: package.R:303
+#: package.R:320
 msgid "stable"
 msgstr "stabil"
 
@@ -263,7 +260,7 @@ msgstr "Beschreibung"
 msgid "References"
 msgstr "Literaturverzeichnis"
 
-#: rd-data.R:35 render.R:98
+#: rd-data.R:35 render.R:103
 msgid "Source"
 msgstr "Quelle"
 
@@ -291,61 +288,57 @@ msgstr "Argumente"
 msgid "Value"
 msgstr "Rückgabewert"
 
-#: render.R:95
+#: render.R:100
 msgid "Skip to contents"
 msgstr "Direkt zum Inhalt springen"
 
-#: render.R:96
+#: render.R:101
 msgid "Toggle navigation"
 msgstr "Navigation ein-/ausschalten"
 
-#: render.R:97
+#: render.R:102
 msgid "On this page"
 msgstr "Auf dieser Seite"
 
-#: render.R:99
+#: render.R:104
 msgid "Abstract"
 msgstr "Kurzzusammenfassung"
 
-#: render.R:100
+#: render.R:105
 msgid "Authors"
 msgstr "Autor:innen"
 
-#: render.R:101
+#: render.R:106
 msgid "Version"
 msgstr "Version"
 
-#: render.R:102
+#: render.R:107
 msgid "Examples"
 msgstr "Beispiele"
 
-#: render.R:104
+#: render.R:109
 msgid "Additional details"
-msgstr ""
+msgstr "Zusätzliche Details"
 
-#: render.R:106
-#, fuzzy
-#| msgid "Toggle navigation"
+#: render.R:111
 msgid "Site navigation"
-msgstr "Navigation ein-/ausschalten"
+msgstr "Seitennavigation"
 
-#: repo.R:35
+#: repo.R:37
 msgid "Source:"
 msgstr "Quelle:"
 
-#: tweak-homepage.R:61
+#: tweak-homepage.R:68
 msgid "Dev status"
 msgstr "Entwicklungsstatus"
 
-#: usage.R:47
+#: usage.R:52
 msgid "# Default %s method"
 msgstr "# Standard-%s-Methode"
 
-#: usage.R:49
-#, fuzzy
-#| msgid "# %s method for %s"
+#: usage.R:54
 msgid "# %s method for class '%s'"
-msgstr "# %s-Methode für %s"
+msgstr "# %s-Methode für '%s'"
 
 #~ msgid "Function reference"
 #~ msgstr "Funktionsverzeichnis"

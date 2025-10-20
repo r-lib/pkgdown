@@ -1,7 +1,14 @@
 # pkgdown (development version)
 
+* New `build_llm_docs()` generates a `LLMs.txt` at the root directory of your site, and provides a `.md` version of every page. You can disable by adding `llm-docs: false` to your `_pkgdown.yaml` (#2914, @maelle)
+* Links generated with `\code{\link{foo}()}` now have the `()` moved into the `<a>` in the generated output (@maelle).
+* Plots in dark mode are now transformed with a CSS filter to improve their
+  visibility (thanks to @gadenbuie).
+* Updated the translations vignette with instructions for building non-English sites through Github Actions.
 * `build_site()` gained a `quiet` argument, which is propagated to other functions
   (e.g., `build_articles()`) and is useful for debugging build errors on GH actions.
+* Added documentation explaining how to solve incorrect rendering of plotmath expressions under ragg devices on Linux. (@remlapmot, #2908)
+* Improved the LaTeX syntax in one of the math rendering test cases (@remlapmot)
 
 # pkgdown 2.1.3
 

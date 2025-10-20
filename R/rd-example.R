@@ -48,7 +48,9 @@ process_conditional_examples <- function(rd) {
         is.character(x[[1]]) &&
         grepl("# examplesIf$", x[[1]])
     }))
-    if (length(which_exif) == 0) return(rd)
+    if (length(which_exif) == 0) {
+      return(rd)
+    }
     if (length(which_exif) %% 2 != 0) {
       cli::cli_abort("@examplesIf error, not closed?", call = caller_env())
     }
@@ -93,7 +95,9 @@ process_conditional_examples <- function(rd) {
       }
       modes <- rev(modes)
     }
-    if (length(remove)) rd <- rd[-remove]
+    if (length(remove)) {
+      rd <- rd[-remove]
+    }
     rd
   } else {
     rd
