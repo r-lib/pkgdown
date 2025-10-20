@@ -92,7 +92,7 @@ msgstr "vertaler"
 
 #: build-home-authors.R:254 render.R:103
 msgid "Citation"
-msgstr "Citaat"
+msgstr "Citatie"
 
 #: build-home-authors.R:255
 msgid "Citing %s"
