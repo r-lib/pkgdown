@@ -75,7 +75,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
-<ul><li>Links generated with <code>\code{\link{foo}()}</code> now have the <code>()</code> moved into the <code>&lt;a&gt;</code> in the generated output (<a href="https://github.com/maelle" class="external-link">@maelle</a>).</li>
+<ul><li>New <code><a href="../reference/build_llm_docs.html">build_llm_docs()</a></code> generates a <code>LLMs.txt</code> at the root directory of your site, and provides a <code>.md</code> version of every page. You can disable by adding <code>llm-docs: false</code> to your <code>_pkgdown.yaml</code> (<a href="https://github.com/r-lib/pkgdown/issues/2914" class="external-link">#2914</a>, <a href="https://github.com/maelle" class="external-link">@maelle</a>)</li>
+<li>Links generated with <code>\code{\link{foo}()}</code> now have the <code>()</code> moved into the <code>&lt;a&gt;</code> in the generated output (<a href="https://github.com/maelle" class="external-link">@maelle</a>).</li>
 <li>Plots in dark mode are now transformed with a CSS filter to improve their visibility (thanks to <a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>).</li>
 <li>Updated the translations vignette with instructions for building non-English sites through Github Actions.</li>
 <li>

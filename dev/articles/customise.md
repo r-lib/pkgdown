@@ -1,0 +1,687 @@
+# Customise your site
+
+This vignette teaches you how to customise the style/design of your
+pkgdown site. We’ll start by discussing two techniques that only require
+tweaks to your `_pkgdown.yml`: theming (colours and fonts) and layout
+(content of the navbar, sidebar, footer, …). We’ll then discuss how to
+add additional HTML and other files. Next, we’ll discuss how to give
+multiple sites the same style using a package, then finish up with some
+workflow advice.
+
+In terms of your `_pkgdown.yml`, this vignette focusses on the most
+important fields nested under `template` and `navbar`. To learn more
+about customising other aspects of the site, see the documentation for
+the indiviudal functions like
+[`build_reference()`](https://pkgdown.r-lib.org/dev/reference/build_reference.md),
+[`build_articles()`](https://pkgdown.r-lib.org/dev/reference/build_articles.md),
+[`build_home()`](https://pkgdown.r-lib.org/dev/reference/build_home.md),
+[`build_redirects()`](https://pkgdown.r-lib.org/dev/reference/build_redirects.md),
+and
+[`init_site()`](https://pkgdown.r-lib.org/dev/reference/init_site.md).
+To learn about less important fields nested under `template`, see
+[`build_site()`](https://pkgdown.r-lib.org/dev/reference/build_site.md).
+
+``` r
+library(pkgdown)
+```
+
+## Getting started
+
+Most theming features work only with Bootstrap 5, so first update your
+site by adding the following lines to your `_pkgdown.yml`:
+
+``` yaml
+template:
+  bootstrap: 5
+```
+
+Overall, the site should look pretty similar, but you will notice a
+number of small improvements. Most importantly, the default font is much
+bigger, making it considerably easier to read. Upgrading to Bootstrap 5
+has a low chance of breaking your site unless you were using your [own
+pkgdown templates](#template-packages) or custom CSS.
+
+## Theming
+
+There are two ways to change the visual style of your site from
+`_pkgdown.yml`: using a pre-packaged bootswatch theme or customising
+theme variables with [bslib](https://rstudio.github.io/bslib/). The
+following sections show you how.
+
+Please note that pkgdown’s default theme has been carefully optimised to
+be accessible, so if you make changes, make sure to also read
+[`vignette("accessibility")`](https://pkgdown.r-lib.org/dev/articles/accessibility.md)
+to learn about potential accessibility pitfalls.
+
+### Light switch
+
+You can provide a “light switch” to allow your users to switch between
+dark and light themes by setting the `light-switch` template option to
+true:
+
+``` yaml
+template:
+  light-switch: true
+```
+
+This will add a `lightswitch` component to the navbar, which by default
+appears at the far right. This allows the user to select light mode,
+dark mode, or auto mode (which follows the system setting). The modes
+are applied using Bootstrap 5.3’s [colours
+modes](https://getbootstrap.com/docs/5.3/customize/color-modes/) so are
+not separate themes, but a thin layer of colour customisation applied
+via CSS.
+
+### Bootswatch themes
+
+The easiest way to change the entire appearance of your website is to
+use a [Bootswatch theme](https://bootswatch.com):
+
+``` yaml
+template:
+  bootstrap: 5
+  bootswatch: materia
+```
+
+(Themes are unlikely to work with the light switch, but you can try it
+and see.)
+
+Changing the bootswatch theme affects both the HTML (via the navbar,
+more on that below) and the CSS, so you’ll need to re-build your
+complete site with
+[`build_site()`](https://pkgdown.r-lib.org/dev/reference/build_site.md)
+to fully appreciate the changes. While you’re experimenting, you can
+speed things up by just rebuilding the home page and the CSS by running
+[`build_home_index()`](https://pkgdown.r-lib.org/dev/reference/build_home.md);
+[`init_site()`](https://pkgdown.r-lib.org/dev/reference/init_site.md)
+(and then refreshing the browser).
+
+Bootswatch templates with tall navbars (e.g. lux, pulse) also require
+that you set the `pkgdown-nav-height` bslib variable. Because Bootswatch
+themes are provided by the [bslib](https://rstudio.github.io/bslib/) R
+package, you can also nest the `bootswatch` field under the `bslib`
+field.
+
+``` yaml
+template:
+  bootstrap: 5
+  bslib:
+    bootswatch: lux
+    pkgdown-nav-height: 100px
+```
+
+You can find the correct height by running `$(".navbar").outerHeight()`
+in the [javascript
+console](https://firefox-source-docs.mozilla.org/devtools-user/web_console/index.html).
+
+### bslib variables
+
+Instead of picking a complete theme, you can tweak fonts and colours
+individually using bslib variables.
+[bslib](https://rstudio.github.io/bslib/) is an R package that wraps
+sass, the tool that Boostrap uses to produce CSS from a special language
+called [scss](https://sass-lang.com). The primary advantage of scss over
+CSS is that it’s more programmable, so you can have a few key bslib
+variables that affect appearance of many HTML elements.
+
+There are three key variables that affect the colour:
+
+- `bg` (background) determines the page background.
+- `fg` (foreground) determines the text colour. `bg` and `fg` are mixed
+  to yield `gray-100`, `gray-200`, …, `grey-900`, which are used to
+  style other elements to match the overall colour scheme.
+- `primary` sets the link colour and the (translucent) hover colour in
+  the navbar and sidebar.
+
+``` yaml
+template:
+  bootstrap: 5
+  bslib:
+    bg: "#202123"
+    fg: "#B8BCC2"
+    primary: "#306cc9"
+```
+
+You can customise other components by setting more specific bslib
+variables, taking advantage of inheritance where possible. For example,
+`table-border-color` defaults to `border-color` which defaults to
+`gray-300`. If you want to change the colour of all borders, you can set
+`border-color` and if you just want to change the colour of table
+borders, you can set `table-border-color`. You can find a full list of
+variables in the [bslib
+docs](https://rstudio.github.io/bslib/articles/bs5-variables/index.html).
+
+If you’re using the light switch, [many
+colours](https://getbootstrap.com/docs/5.3/customize/color-modes/#sass-variables)
+are available for customisation specifically for the dark theme.
+
+Theming with bslib is powered by
+[`bslib::bs_theme()`](https://rstudio.github.io/bslib/reference/bs_theme.html)
+and the `bslib` field is a direct translation of the arguments to that
+function. As a result, you can fully specify a bslib theme using the
+`template.bslib` field, making it easy to share YAML with the
+`output.html_document.theme` field [of an R Markdown
+document](https://rstudio.github.io/bslib/articles/theming/index.html).
+
+``` yaml
+template:
+  bslib:
+    version: 5
+    bg: "#202123"
+    fg: "#B8BCC2"
+    primary: "#306cc9"
+```
+
+While iterating on colours and other variables you only need to rerun
+[`init_site()`](https://pkgdown.r-lib.org/dev/reference/init_site.md)
+and refresh your browser to see the changes.
+
+### Fonts
+
+You can also override the default fonts used for the majority of the
+text (`base_font`), for headings (`heading_font`) and for code
+(`code_font`). The easiest way is to supply the name of a [Google
+font](https://fonts.google.com) with the following syntax:
+
+``` yaml
+template:
+  bootstrap: 5
+  bslib:
+    base_font: {google: "Roboto"}
+    heading_font: {google: "Roboto Slab"}
+    code_font: {google: "JetBrains Mono"}
+```
+
+If you want to use a non-Google font, you’ll need to do a bit more work.
+There are two steps: you need to first configure the font with CSS and
+then use it in your `_pkgdown.yml`. There are two ways you might get the
+CSS:
+
+- As a block of CSS which you should put in `pkgdown/extra.scss` or
+  `pkgdown/extra.css`. The CSS will look something like this:
+
+  ``` css
+  @font-face {
+    font-family: "proxima-nova";
+    src: 
+      local("Proxima Nova Regular"), 
+      local("ProximaNova-Regular"),
+      url("https://example.com/ProximaNova-Regular.eot?#iefix") format("embedded-opentype"),
+      url("https://example.com/fonts/proxima/ProximaNova-Regular.woff2") format("woff2"),
+      url("https://example.com/fonts/proxima/ProximaNova-Regular.woff") format("woff"),
+      url("https://example.com/fonts/proxima/ProximaNova-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: fallback;
+  }
+  ```
+
+- As a link to a style file, which you’ll need to add to the `<head>`
+  using this syntax:
+
+  ``` yaml
+  template:
+  includes:
+    in_header: <link rel="stylesheet" type="text/css" href="https://..." />
+  ```
+
+Then in `_pkgdown.yml` you can use the name of the font you just
+specified:
+
+``` yaml
+template:
+  bslib:
+    base_font: proxima-nova
+```
+
+Depending on where the font is from (and if you purchased it), you may
+need to take additional steps to ensure that it can only be used from
+your site, and/or make sure that it can still be used when you’re
+previewing locally. If you’re having problems getting a custom font to
+work, looking for errors in the [browser developer
+console](https://developer.mozilla.org/en-US/docs/Glossary/Developer_Tools)
+is a good place to start.
+
+When iterating on fonts, you’ll need to run
+[`build_home_index(); init_site()`](https://pkgdown.r-lib.org/dev/reference/build_home.md)
+then refresh your browser to see the update.
+
+### Syntax highlighting
+
+The colours used for syntax highlighting in code blocks are controlled
+by the `theme` setting:
+
+``` yaml
+template:
+  bootstrap: 5
+  theme: breeze-light
+```
+
+You can choose from any of the following options: a11y-dark, a11y-light,
+arrow-dark, arrow-light, atom-one-dark, atom-one-light, ayu-dark,
+ayu-light, ayu-mirage, breeze-dark, breeze-light, breezedark, dracula,
+espresso, github-dark, github-light, gruvbox-dark, gruvbox-light,
+haddock, kate, monochrome-dark, monochrome-light, monochrome, monokai,
+nord, oblivion, printing, pygments, radical, solarized-dark,
+solarized-light, solarized, tango, vim-dark, zenburn.
+
+Bootswatch themes with a dark background (e.g. cyborg, darkly, solar)
+will need a dark syntax highlighting `theme`, e.g. `arrow-dark`:
+
+``` yaml
+template:
+  bootstrap: 5
+  bootswatch: cyborg
+  theme: arrow-dark
+```
+
+If you’re using the light switch, you will want to provide a `theme` and
+a `theme-dark`:
+
+``` yaml
+template:
+  light-switch: true
+  theme: gruvbox-light
+  theme-dark: gruvbox-dark
+```
+
+The foreground and background colours used for inline code are
+controlled by `code-color` and `code-bg` bslib variables. If you want
+inline code to match code blocks, you’ll need to override the variables
+yourself, e.g.:
+
+``` yaml
+template: 
+  bootstrap: 5
+  theme: arrow-dark  
+  bslib:
+    code-bg: "#2b2b2b"
+```
+
+### Math rendering
+
+By default, pkgdown will render math using
+[mathml](https://w3c.github.io/mathml/). mathml is the official standard
+for rendering math on the web, and requires no additional javascript or
+css dependencies. However, browser support for complex math is not
+always that good, so if you are including complex equations in your
+documentation, you may want to switch to either
+[`katex`](https://katex.org), which we recommend for display of complex
+math expressions, or [`mathjax`](https://www.mathjax.org) by using the
+`template.math-rendering` field:
+
+``` yaml
+template:
+  math-rendering: katex
+```
+
+On Linux the default symbol font is *Standard Symbols PS*.
+Unfortunately, this font does not render plotmath expressions correctly
+under pkgdown’s default graphics device `ragg::png`. There are several
+simple solutions to this:
+
+- Before building your site, use the systemfonts package to change the
+  symbol font to one which does render plotmath expressions correctly
+  under ragg such as *Liberation Sans*, e.g.:
+
+  ``` r
+  systemfonts::register_variant("symbol", "Liberation Sans")
+  ```
+
+- Configure pkgdown to use R’s
+  [`grDevices::png`](https://rdrr.io/r/grDevices/png.html) device by
+  specifying the following in `_pkgdown.yml`:
+
+  ``` yaml
+  figures:
+    dev: grDevices::png
+  ```
+
+### Navbar style
+
+When [light-switch](#light-switch) is disabled, the primary navbar
+colours are determined by HTML classes, not CSS, and can be customized
+using the `navbar` fields `bg` and `type` which control the background
+and foreground colours respectively. Typically `bg` will be one of
+`light`, `dark`, or `primary`:
+
+``` yaml
+navbar:
+  bg: primary
+```
+
+You generally don’t need to set `bg` if you use a bootswatch theme, as
+pkgdown will pick the `bg` used on the [Bootswatch
+preview](https://bootswatch.com/). Similarly, you don’t usually need to
+set `type` because bootstrap will guess it for you. If the guess is
+wrong, you can override with `type: light` or `type: dark` depending on
+whether the background colour is light (so you need dark text) or
+`type: dark` if the background is dark (so you need light text).
+Unfortunately, these are defined relative to the page background, so if
+you have a dark site you’ll need to flip `light` and `dark` (a little
+experimentation should quickly determine what looks best).
+
+When [light-switch](#light-switch) is enabled, navbar background colours
+can be customized via Sass variables provided to `template.bslib`. Use
+`$navbar-bg` to set a constant navbar colour in both light and dark
+mode, or `$navbar-light-bg` and `$navbar-dark-bg` to choose separate
+colours.
+
+``` yaml
+template:
+  bslib:
+    # navbar-bg: "#306CC9"
+    navbar-light-bg: "#9CBAE7"
+    navbar-dark-bg: "#183663"
+```
+
+Because the navbar is styled with HTML, you’ll need to
+[`build_home_index(); init_site()`](https://pkgdown.r-lib.org/dev/reference/build_home.md)
+to see the effect of changing this parameter.
+
+## Layout
+
+You can customise the contents of the navbar, footer, using the `navbar`
+and `footer` fields. See
+[`?build_home`](https://pkgdown.r-lib.org/dev/reference/build_home.md)
+for how to customise the sidebar on the homepage. They all use a similar
+structure that separately defines the overall `structure` and the
+individual `components`.
+
+### Navbar
+
+You can customise the navigation bar that appears at the top of the page
+with the `navbar` field. It’s made up of two pieces: `structure`, which
+defines the overall layout, and `components`, which defines what each
+piece looks like. This organisation makes it easy to mix and match
+pkgdown defaults with your own customisations.
+
+This is the default structure:
+
+``` yaml
+navbar:
+  structure:
+    left:  [intro, reference, articles, tutorials, news]
+    right: [search, github, lightswitch]
+```
+
+It makes use of the the following built-in components:
+
+- `intro`: “Get Started”, which links to a vignette or article with the
+  same name as the package[¹](#fn1).
+- `reference`: if there are any `.Rd` files.
+- `articles`: if there are any vignettes or articles.
+- `tutorials`: if there any tutorials.
+- `news`: if `NEWS.md` exists.
+- `search`: the search box (see
+  [`?build_search`](https://pkgdown.r-lib.org/dev/reference/build_search.md)
+  for more details).
+- `github`: a link to the source repository (with an icon), if it can be
+  automatically determined from the `DESCRIPTION`.
+- `lightswitch`; a [“light switch”](#light-switch) to select light mode,
+  dark mode, or auto mode.
+
+Note that customising `navbar` like this comes with a downside: if
+pkgdown later changes the defaults, you’ll have to update your
+`_pkgdown.yml`.
+
+You can use the `structure` field to reorganise the navbar without
+changing the default contents:
+
+``` yaml
+navbar:
+  structure:
+    left:  [search]
+    right: [reference, articles]
+```
+
+You can use `components` to override the default content. For example,
+this yaml provides a custom articles menu:
+
+``` yaml
+navbar:
+ components:
+   articles:
+    text: Articles
+    menu:
+    - text: Category A
+    - text: Title A1
+      href: articles/a1.html
+    - text: Title A2
+      href: articles/a2.html
+    - text: -------
+    - text: "Category B"
+    - text: Article B1
+      href: articles/b1.html
+```
+
+Components uses the same syntax as [RMarkdown
+menus](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
+The elements of `menu` can be:
+
+- Linked text (`text`, `href`, and optional `target`, `class`, and
+  `id`.).
+
+- A linked icon (`icon`, `aria-label`, `href`, and an optional
+  `target`). You can find a list of available icons at
+  [fontawesome](https://fontawesome.com/icons?d=gallery). Provide a text
+  description of the icon in the `aria-label` field for screenreader
+  users.
+
+- A heading (just `text`).
+
+- A separator (`text: ——–`).
+
+To add a new component to the navbar, you need to modify both
+`structure` and `components`. For example, the following yaml adds a new
+“twitter” component that appears to the left of the github icon.
+
+``` yaml
+navbar:
+  structure:
+    right: [search, twitter, github, lightswitch]
+  components:
+    twitter:
+      icon: fa-twitter
+      href: http://twitter.com/hadleywickham
+      aria-label: Twitter
+```
+
+Finally, you can add arbitrary HTML to three locations in the navbar:
+
+``` yaml
+template:
+  includes:
+    before_title: <!-- inserted before the package title in the header ->
+    before_navbar: <!-- inserted before the navbar links -->
+    after_navbar: <!-- inserted after the navbar links -->
+```
+
+These inclusions will appear on all screen sizes, and will not be
+collapsed into the the navbar drop down.
+
+You can also customise the colour scheme of the navbar by using the
+`type` and `bg` parameters. See above for details.
+
+### Footer
+
+You can customise the footer with the `footer` field. It’s made up of
+two pieces: `structure`, which defines the overall layout, and
+`components`, which defines what each piece looks like. This
+organisation makes it easy to mix and match the pkgdown defaults with
+your own customisations.
+
+This is the default structure:
+
+``` yaml
+footer:
+  structure: 
+    left: developed_by
+    right: built_with
+```
+
+Which uses two of the three built-in components:
+
+- `developed_by`: a sentence describing the main authors of the package.
+  (See
+  [`?build_home`](https://pkgdown.r-lib.org/dev/reference/build_home.md)
+  if you want to tweak *which* authors appear in the footer.)
+- `built_with`: a sentence advertising pkgdown.
+- `package`: the name of the package.
+
+You can override these defaults with the `footer` field. The example
+below puts the author’s information on the right along with a legal
+disclaimer, and puts the pkgdown link on the left.
+
+``` yaml
+footer:
+  structure: 
+    left: pkgdown
+    right: [developed_by, legal]
+  components:
+    legal: Provided without **any warranty**.
+```
+
+Each side is pasted into a single string (separated by `" "`) and then
+converted from markdown to HTML.
+
+## Additional HTML and files
+
+If you need to include additional HTML, you can add it in the following
+locations:
+
+``` yaml
+template:
+  includes:
+    in_header: <!-- inserted at the end of the head -->
+    before_body: <!-- inserted at the beginning of the body -->
+    after_body: <!-- inserted at the end of the body -->
+    before_title: <!-- inserted before the package title in the header ->
+    before_navbar: <!-- inserted before the navbar links -->
+    after_navbar: <!-- inserted after the navbar links -->
+```
+
+You can include additional files by putting them in the right place:
+
+- `pkgdown/extra.css` and `pkgdown/extra.js` will be copied to the
+  rendered site and linked from `<head>` (after the pkgdown defaults).
+
+- `pkgdown/extra.scss` will be added to the scss ruleset used to
+  generate the site CSS.
+
+- Any files in `pkgdown/assets` will be copied to the website root
+  directory.
+
+- For expert users: template files in `pkgdown/templates` will override
+  layout templates provided by pkgdown or [template
+  packages](#template-packages).
+
+Use
+[`init_site()`](https://pkgdown.r-lib.org/dev/reference/init_site.md) to
+update your rendered website after making changes to these files.
+
+## Template packages
+
+To share a pkgdown style across several packages, the best workflow is
+to create… a package! It can contain any of the following:
+
+- A configuration file in `inst/pkgdown/_pkgdown.yml`. This can be used
+  to set (e.g.) author definitions, Bootstrap version and variables, the
+  sidebar, footer, navbar, etc.
+- Templates in `inst/pkgdown/templates/` will override the default
+  templates.
+- Assets in `inst/pkgdown/assets/` will be copied in to the destination
+  directory. (Note these files are only copied; you’ll need to reference
+  them in your stylesheet or elsewhere in order for them to be actually
+  used.)
+- `inst/pkgdown/extra.scss` will be added to the bslib ruleset. (Note
+  that `extra.css` is not supported in templates.)
+
+The pkgdown defaults will be overriden by these template files, which
+are in turn overridden by package specific settings.
+
+Once you have created your template package `theverybest`, you need to
+set it as your site’s theme:
+
+``` yaml
+template:
+  package: theverybest
+```
+
+You then also need to make sure it’s available when your site is built.
+Typically, you won’t want to publish this package to CRAN, but you will
+want to publish to GitHub. Once you’ve done that, and assuming you’re
+using the [usethis
+workflow](https://usethis.r-lib.org/reference/use_pkgdown.html), add the
+following line to your `DESCRIPTION`:
+
+``` yaml
+Config/Needs/website: myorg/theverybest
+```
+
+This will ensure that the GitHub action will automatically install it
+from GitHub when building your pkgdown site.
+
+To get some sense of how a theming package works, you can look at:
+
+- [tidytemplate](https://tidytemplate.tidyverse.org/) used for tidyverse
+  and tidymodels packages;
+- [quillt](https://pkgs.rstudio.com/quillt) used for R Markdown
+  packages;
+- [rotemplate](https://github.com/ropensci-org/rotemplate) used for
+  rOpenSci packages.
+
+But please note that these templates aren’t suitable for use with your
+own package as they’re all designed to give a common visual identity to
+a specific family of packages.
+
+### Porting a template package
+
+If you are updating a template package that works with pkgdown 1.0.0,
+create directories `inst/pkgdown/BS5/templates` and
+`inst/pkgdown/BS5/assets` (if you don’t have any templates/assets make
+sure to a add dummy file to ensure that git tracks them). The
+`templates` and `assets` directories directly under `inst/pkgdown` will
+be used by pkgdown 1.0.0 and by pkgdown 2.0.0 if `boostrap: 3`. The
+directories under `inst/pkgdown/BS5/` will be used for pkgdown 2.0.0
+with `boostrap: 5`. This lets your package support both versions of
+Bootstrap and pkgdown.
+
+## PR previews
+
+Lastly, it might be useful for you to get a preview of the website in
+internal pull requests. For that, you could use Netlify and GitHub
+Actions (or apply a similar logic to your toolset):
+
+- Create a new Netlify website (either from scratch by dragging and
+  dropping a simple index.html, or by creating a site from a GitHub
+  repository and then unlinking that repository); from the site settings
+  get its ID to be saved as `NETLIFY_SITE_ID` in your repo secrets; from
+  your account developer settings get a token to be saved as
+  `NETLIFY_AUTH_TOKEN` in your repo secrets.
+- Starting from the standard pkgdown workflow
+  `usethis::use_github_action("pkgdown")`, add some logic to build the
+  site and deploy it to Netlify for pull requests from inside the
+  repository, not pull requests from forks. [Example
+  workflow](https://github.com/r-lib/pkgdown/blob/master/.github/workflows/pkgdown.yaml).
+
+## Conclusion
+
+In this vignette we explained how to change the theming and layout of
+pkgdown websites. Further work to improve user experience will involve:
+
+- Working on the article
+  ([`?build_articles`](https://pkgdown.r-lib.org/dev/reference/build_articles.md))
+  and reference indexes
+  ([`?build_reference`](https://pkgdown.r-lib.org/dev/reference/build_reference.md)).
+- Writing a compelling README that explains why your package is so
+  cool/useful/fun.
+- Improving the contents of the individual articles and reference topics
+  😉.
+
+------------------------------------------------------------------------
+
+1.  Note that dots (`.`) in the package name need to be replaced by
+    hyphens (`-`) in the vignette filename to be recognized as the
+    intro. That means for a package `foo.bar` the intro needs to be
+    named `foo-bar.Rmd`.
