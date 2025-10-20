@@ -10,14 +10,14 @@
       {{#subtitle}}<h3>{{{.}}}</h3>{{/subtitle}}
       {{#desc}}<div class="section-desc">{{{desc}}}</div>{{/desc}}
 
-      {{#topics}}<dl>
+      <dl>{{#topics}}
         <dt>
           {{#has_icons}}{{#icon}}<a class="icon" href="{{path}}"><img src="icons/{{{.}}}" alt=""/></a>{{/icon}}{{/has_icons}}
           {{#aliases}}<code><a href="{{path}}">{{{.}}}</a></code> {{/aliases}}
           {{#lifecycle}}<span class="badge lifecycle lifecycle-{{.}}">{{.}}</span>{{/lifecycle}}
         </dt>
         <dd>{{{title}}}</dd>
-      </dl>{{/topics}}
+      {{/topics}}</dl>
     </div>{{/rows}}
   </main>
 

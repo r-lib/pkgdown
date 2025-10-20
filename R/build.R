@@ -10,6 +10,7 @@
 #' * [build_tutorials()]
 #' * [build_news()]
 #' * [build_redirects()]
+#' * [build_llm_docs()]
 #'
 #' See the documentation for the each function to learn how to control
 #' that aspect of the site. This page documents options that affect the
@@ -467,6 +468,9 @@ build_site_local <- function(
   build_tutorials(pkg, override = override, preview = FALSE)
   build_news(pkg, override = override, preview = FALSE)
   build_sitemap(pkg)
+  if (pkg$bs_version > 3) {
+    build_llm_docs(pkg)
+  }
   build_redirects(pkg, override = override)
   if (pkg$bs_version == 3) {
     build_docsearch_json(pkg)

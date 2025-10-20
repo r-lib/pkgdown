@@ -84,13 +84,15 @@ tweak_highlight_other <- function(div) {
 
 xml_replace_contents <- function(node, new) {
   xml2::xml_remove(xml2::xml_contents(node))
-
   contents <- xml2::xml_contents(new)
-  for (child in contents) {
+  xml_insert(node, contents)
+}
+
+xml_insert <- function(node, new) {
+  for (child in new) {
     xml2::xml_add_child(node, child)
   }
 }
-
 
 tweak_extra_logo <- function(html) {
   img <- xml2::xml_find_all(
