@@ -50,6 +50,12 @@ test_that("converts internal urls to absolute with .md ending", {
   )
 })
 
+test_that("adjusts extension even without url", {
+  html <- xml2::read_html(r"(<a href="llm.html">link</a>)")
+  create_absolute_links(html)
+  expect_equal(xpath_attr(html, ".//a", "href"), "llm.md")
+})
+
 test_that("strip extra classes from pre", {
   html <- xml2::read_html(r"(<pre class="downlit sourceCode r">1+1</pre>)")
   simplify_code(html)

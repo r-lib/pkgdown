@@ -173,21 +173,18 @@ simplify_lifecycle_badges <- function(html) {
   invisible()
 }
 
-create_absolute_links <- function(main_html, url) {
-  if (is.null(url)) {
-    return()
-  }
-
+create_absolute_links <- function(main_html, url = NULL) {
   a <- xml2::xml_find_all(main_html, ".//a")
   xml2::xml_attr(a, "class") <- NULL
 
   href <- xml2::xml_attr(a, "href")
+  is_internal <- !startsWith(href, "https") & !startsWith(href, "#")
+  if (!is.null(url)) {
+    href[is_internal] <- xml2::url_absolute(href[is_internal], url)
+  }
+  href[is_internal] <- sub("html$", "md", href[is_internal])
 
-  a_internal <- a[!startsWith(href, "https") & !startsWith(href, "#")]
-  href_absolute <- xml2::url_absolute(xml2::xml_attr(a_internal, "href"), url)
-  href_absolute <- sub("html$", "md", href_absolute)
-
-  xml2::xml_attr(a_internal, "href") <- href_absolute
+  xml2::xml_attr(a[is_internal], "href") <- href[is_internal]
 
   invisible()
 }
