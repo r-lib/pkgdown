@@ -24,7 +24,7 @@ msgstr "Artikelen"
 
 #: build-articles.R:570
 msgid "All vignettes"
-msgstr "Alle artikelen"
+msgstr "Alle vignetten"
 
 #: build-footer.R:34
 msgid "Developed by"
