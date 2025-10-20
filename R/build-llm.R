@@ -25,21 +25,11 @@ build_llm_docs <- function(pkg = ".") {
 
   cli::cli_rule("Building docs for llms")
 
-  if (!is.null(pkg$meta$url)) {
-    url <- paste0(pkg$meta$url, "/")
-    if (pkg$development$in_dev) {
-      url <- paste0(url, pkg$prefix)
-    }
-  } else {
-    url <- NULL
-  }
-
   paths <- get_site_paths(pkg)
   purrr::walk(paths, \(path) {
     src_path <- path(pkg[["dst_path"]], path)
     dst_path <- path_ext_set(src_path, "md")
-    base_url <- xml2::url_absolute(paste0(path_dir(path), "/"), url)
-    convert_md(src_path, dst_path, base_url)
+    convert_md(src_path, dst_path, full_url(pkg, path))
   })
 
   index <- c(
@@ -52,6 +42,19 @@ build_llm_docs <- function(pkg = ".") {
   write_lines(index, path(pkg$dst_path, "llms.txt"))
 
   invisible()
+}
+
+full_url <- function(pkg, path) {
+  if (is.null(pkg$meta$url)) {
+    return()
+  }
+
+  url <- paste0(pkg$meta$url, "/")
+  if (pkg$development$in_dev) {
+    url <- paste0(url, pkg$prefix)
+  }
+
+  xml2::url_absolute(paste0(path_dir(path), "/"), url)
 }
 
 convert_md <- function(src_path, dst_path, url = NULL) {
