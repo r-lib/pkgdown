@@ -66,6 +66,7 @@ convert_md <- function(src_path, dst_path, url = NULL) {
   simplify_code(main_html)
   simplify_popovers_to_footnotes(main_html)
   simplify_lifecycle_badges(main_html)
+  simplify_dls(main_html)
   create_absolute_links(main_html, url)
 
   path <- file_temp()
