@@ -16,7 +16,7 @@ msgstr "Pagina niet gevonden (404)"
 
 #: build-404.R:12
 msgid "Content not found. Please use links in the navbar."
-msgstr "Inhoud niet gevonden. Gebruik aub de links in de navigatiebalk"
+msgstr "Inhoud niet gevonden. Gebruik alstublieft de links in de navigatiebalk."
 
 #: build-articles.R:432 navbar.R:186 navbar.R:196 navbar.R:217
 msgid "Articles"
