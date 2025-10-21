@@ -2,6 +2,9 @@
 
 ## pkgdown (development version)
 
+- New translations were add for Dutch (`nl`) and Japanese (`ja`), thanks
+  to [@pepijn-devires](https://github.com/pepijn-devires) and
+  [@shikokuchuo](https://github.com/shikokuchuo) respectively.
 - New
   [`build_llm_docs()`](https://pkgdown.r-lib.org/dev/reference/build_llm_docs.md)
   generates a `LLMs.txt` at the root directory of your site, and
