@@ -305,7 +305,7 @@ msgstr "概要"
 
 #: render.R:100
 msgid "Authors"
-msgstr "著者"
+msgstr "作者"
 
 #: render.R:101
 msgid "Version"
