@@ -1,2 +1,2 @@
 [format]
-skip = ["tribble"]
+table = ["tribble"]
