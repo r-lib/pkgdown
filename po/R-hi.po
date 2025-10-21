@@ -1,0 +1,340 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: pkgdown 2.0.9.9000\n"
+"POT-Creation-Date: 2024-05-24 09:36-0500\n"
+"PO-Revision-Date: 2024-05-24 09:36-0500\n"
+"Last-Translator: Positron Assistant (Claude Sonnet 4)\n"
+"Language-Team: none\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: build-404.R:11
+msgid "Page not found (404)"
+msgstr "पृष्ठ नहीं मिला (404)"
+
+#: build-404.R:12
+msgid "Content not found. Please use links in the navbar."
+msgstr "सामग्री नहीं मिली। कृपया नेविगेशन बार में लिंक का उपयोग करें।"
+
+#: build-articles.R:432 navbar.R:186 navbar.R:196 navbar.R:217
+msgid "Articles"
+msgstr "लेख"
+
+#: build-articles.R:570
+msgid "All vignettes"
+msgstr "सभी विगनेट"
+
+#: build-footer.R:34
+msgid "Developed by"
+msgstr "विकासकर्ता"
+
+#: build-footer.R:41
+msgid "Site built with <a href=\"%s\">pkgdown</a> %s."
+msgstr "साइट <a href=\"%s\">pkgdown</a> %s से बनाई गई।"
+
+#: build-home-authors.R:12
+msgid "Authors and Citation"
+msgstr "लेखक और उद्धरण"
+
+#: build-home-authors.R:101
+msgid "More about authors..."
+msgstr "लेखकों के बारे में अधिक..."
+
+#: build-home-authors.R:104
+msgid "Developers"
+msgstr "विकासकर्ता"
+
+#: build-home-authors.R:190
+msgid "author"
+msgstr "लेखक"
+
+#: build-home-authors.R:191
+msgid "compiler"
+msgstr "संकलक"
+
+#: build-home-authors.R:192
+msgid "contractor"
+msgstr "ठेकेदार"
+
+#: build-home-authors.R:193
+msgid "contributor"
+msgstr "योगदानकर्ता"
+
+#: build-home-authors.R:194
+msgid "copyright holder"
+msgstr "कॉपीराइट धारक"
+
+#: build-home-authors.R:195
+msgid "maintainer"
+msgstr "रखरखावकर्ता"
+
+#: build-home-authors.R:196
+msgid "data contributor"
+msgstr "डेटा योगदानकर्ता"
+
+#: build-home-authors.R:197
+msgid "funder"
+msgstr "धनदाता"
+
+#: build-home-authors.R:198
+msgid "reviewer"
+msgstr "समीक्षक"
+
+#: build-home-authors.R:199
+msgid "thesis advisor"
+msgstr "शोध निर्देशक"
+
+#: build-home-authors.R:200
+msgid "translator"
+msgstr "अनुवादक"
+
+#: build-home-authors.R:254 render.R:103
+msgid "Citation"
+msgstr "उद्धरण"
+
+#: build-home-authors.R:255
+msgid "Citing %s"
+msgstr "%s का उद्धरण"
+
+#: build-home-community.R:23
+msgid "Contributing guide"
+msgstr "योगदान गाइड"
+
+#: build-home-community.R:27
+msgid "Code of conduct"
+msgstr "आचार संहिता"
+
+#: build-home-community.R:31
+msgid "Getting help"
+msgstr "सहायता प्राप्त करें"
+
+#: build-home-community.R:38
+msgid "Community"
+msgstr "समुदाय"
+
+#: build-home-index.R:120
+msgid "Dev Status"
+msgstr "विकास स्थिति"
+
+#: build-home-index.R:162
+msgid "View on %s"
+msgstr "%s पर देखें"
+
+#: build-home-index.R:163
+msgid "Browse source code"
+msgstr "स्रोत कोड देखें"
+
+#: build-home-index.R:164
+msgid "Report a bug"
+msgstr "बग रिपोर्ट करें"
+
+#: build-home-index.R:168
+msgid "Links"
+msgstr "लिंक"
+
+#: build-home-index.R:173 render.R:105
+msgid "Table of contents"
+msgstr "विषय-सूची"
+
+#: build-home-license.R:12 build-home-license.R:34
+msgid "License"
+msgstr "लाइसेंस"
+
+#: build-home-license.R:29
+msgid "Full license"
+msgstr "पूर्ण लाइसेंस"
+
+#: build-news.R:102 build-news.R:259 build-news.R:263
+msgid "Changelog"
+msgstr "परिवर्तन लॉग"
+
+#: build-news.R:129
+msgid "Version %s"
+msgstr "संस्करण %s"
+
+#: build-news.R:141 build-news.R:254
+msgid "News"
+msgstr "समाचार"
+
+#: build-news.R:256
+msgid "Releases"
+msgstr "रिलीज़"
+
+#: build-news.R:310
+msgid "CRAN release: %s"
+msgstr "CRAN रिलीज़: %s"
+
+#: build-reference-index.R:22
+msgid "Package index"
+msgstr "पैकेज सूचकांक"
+
+#: build-reference-index.R:158
+msgid "All functions"
+msgstr "सभी फंक्शन"
+
+#: build-reference.R:371
+msgid "Usage"
+msgstr "उपयोग"
+
+#: build-tutorials.R:47 navbar.R:152
+msgid "Tutorials"
+msgstr "ट्यूटोरियल"
+
+#: development.R:72
+msgid "Released version"
+msgstr "जारी संस्करण"
+
+#: development.R:73
+msgid "In-development version"
+msgstr "विकास में संस्करण"
+
+#: development.R:74
+msgid "Unreleased version"
+msgstr "अप्रकाशित संस्करण"
+
+#: navbar-menu.R:173
+msgid "Search site"
+msgstr "साइट खोजें"
+
+#: navbar-menu.R:174
+msgid "Search for"
+msgstr "खोजें"
+
+#: navbar.R:129
+msgid "Reference"
+msgstr "संदर्भ"
+
+#: navbar.R:140
+msgid "Light switch"
+msgstr "थीम स्विच"
+
+#: navbar.R:143
+msgid "Light"
+msgstr "हल्का"
+
+#: navbar.R:144
+msgid "Dark"
+msgstr "गहरा"
+
+#: navbar.R:145
+msgid "Auto"
+msgstr "स्वचालित"
+
+#: navbar.R:180
+msgid "Get started"
+msgstr "शुरू करें"
+
+#: navbar.R:213
+msgid "More articles..."
+msgstr "अधिक लेख..."
+
+#: package.R:300
+msgid "deprecated"
+msgstr "अप्रचलित"
+
+#: package.R:301
+msgid "superseded"
+msgstr "प्रतिस्थापित"
+
+#: package.R:302
+msgid "experimental"
+msgstr "प्रायोगिक"
+
+#: package.R:303
+msgid "stable"
+msgstr "स्थिर"
+
+#: rd-data.R:23
+msgid "Details"
+msgstr "विवरण"
+
+#: rd-data.R:27
+msgid "Description"
+msgstr "वर्णन"
+
+#: rd-data.R:31
+msgid "References"
+msgstr "संदर्भ"
+
+#: rd-data.R:35 render.R:98
+msgid "Source"
+msgstr "स्रोत"
+
+#: rd-data.R:39
+msgid "Format"
+msgstr "प्रारूप"
+
+#: rd-data.R:43
+msgid "Note"
+msgstr "टिप्पणी"
+
+#: rd-data.R:47
+msgid "Author"
+msgstr "लेखक"
+
+#: rd-data.R:51
+msgid "See also"
+msgstr "यह भी देखें"
+
+#: rd-data.R:67
+msgid "Arguments"
+msgstr "आर्गुमेंट"
+
+#: rd-data.R:75
+msgid "Value"
+msgstr "मान"
+
+#: render.R:95
+msgid "Skip to contents"
+msgstr "सामग्री पर जाएं"
+
+#: render.R:96
+msgid "Toggle navigation"
+msgstr "नेविगेशन टॉगल करें"
+
+#: render.R:97
+msgid "On this page"
+msgstr "इस पृष्ठ पर"
+
+#: render.R:99
+msgid "Abstract"
+msgstr "सारांश"
+
+#: render.R:100
+msgid "Authors"
+msgstr "लेखक"
+
+#: render.R:101
+msgid "Version"
+msgstr "संस्करण"
+
+#: render.R:102
+msgid "Examples"
+msgstr "उदाहरण"
+
+#: render.R:104
+msgid "Additional details"
+msgstr "अतिरिक्त विवरण"
+
+#: render.R:106
+msgid "Site navigation"
+msgstr "साइट नेविगेशन"
+
+#: repo.R:35
+msgid "Source:"
+msgstr "स्रोत:"
+
+#: tweak-homepage.R:61
+msgid "Dev status"
+msgstr "विकास स्थिति"
+
+#: usage.R:23
+msgid "# Default %s method"
+msgstr "# डिफ़ॉल्ट %s मेथड"
+
+#: usage.R:25
+msgid "# %s method for class '%s'"
+msgstr "# '%s' क्लास के लिए %s मेथड"
