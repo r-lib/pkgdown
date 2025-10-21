@@ -123,6 +123,10 @@ fig_opts_chunk <- function(figures, default) {
   figures$dev.args <- figures$dev.args %||% list()
   figures$dev.args$bg <- figures$bg %||% NA
 
+  # Default figure class for rendered images
+  # Same class as added by downlit
+  figures$fig.class <- figures$fig.class %||% "r-plt"
+
   modify_list(default, figures)
 }
 

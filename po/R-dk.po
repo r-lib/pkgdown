@@ -196,7 +196,7 @@ msgstr "Ikke-udgivet version"
 
 #: navbar-menu.R:212
 msgid "Search site"
-msgstr "Søg på siden"
+msgstr "Søg"
 
 #: navbar-menu.R:213
 msgid "Search for"

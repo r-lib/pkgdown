@@ -56,10 +56,10 @@ x # should be 4
 
 x <- 1
 
-\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (FALSE) withAutoprint(\{ # examplesIf}
 x <- 2
 \dontshow{\}) # examplesIf}
-\dontshow{if (TRUE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (TRUE) withAutoprint(\{ # examplesIf}
 x <- 3
 \dontshow{\}) # examplesIf}
 x # should be 3
