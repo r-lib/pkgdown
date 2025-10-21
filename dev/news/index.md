@@ -7,7 +7,7 @@
   [@shikokuchuo](https://github.com/shikokuchuo) respectively.
 - New
   [`build_llm_docs()`](https://pkgdown.r-lib.org/dev/reference/build_llm_docs.md)
-  generates a `LLMs.txt` at the root directory of your site, and
+  generates a `llms.txt` at the root directory of your site, and
   provides a `.md` version of every page. You can disable by adding
   `llm-docs: false` to your `_pkgdown.yaml`
   ([\#2914](https://github.com/r-lib/pkgdown/issues/2914),
