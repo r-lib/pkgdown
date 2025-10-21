@@ -18,6 +18,7 @@ translations are:
 - `dk`: Danish
 - `es`: Spanish
 - `fr`: French
+- `ja`: Japanese
 - `ko`: Korean
 - `pt`: Portuguese
 - `tr`: Turkish
