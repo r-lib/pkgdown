@@ -17,7 +17,7 @@ msgstr "ページが見つかりません (404)"
 
 #: build-404.R:12
 msgid "Content not found. Please use links in the navbar."
-msgstr "コンテンツが見つかりません。ナビゲーションバーのリンクをご利用ください。"
+msgstr "コンテンツが見つかりません。ナビゲーションからお探しください。"
 
 #: build-articles.R:432 navbar.R:186 navbar.R:196 navbar.R:217
 msgid "Articles"
@@ -25,7 +25,7 @@ msgstr "記事"
 
 #: build-articles.R:570
 msgid "All vignettes"
-msgstr "すべてのビネット"
+msgstr "すべての解説記事"
 
 #: build-footer.R:34
 msgid "Developed by"
@@ -37,11 +37,11 @@ msgstr "<a href=\"%s\">pkgdown</a> %s で構築されたサイト。"
 
 #: build-home-authors.R:12
 msgid "Authors and Citation"
-msgstr "著者と引用"
+msgstr "作者と引用"
 
 #: build-home-authors.R:101
 msgid "More about authors..."
-msgstr "著者の詳細..."
+msgstr "作者情報..."
 
 #: build-home-authors.R:104
 msgid "Developers"
@@ -49,7 +49,7 @@ msgstr "開発者"
 
 #: build-home-authors.R:190
 msgid "author"
-msgstr "著者"
+msgstr "作者"
 
 #: build-home-authors.R:191
 msgid "compiler"
@@ -209,7 +209,7 @@ msgstr "リファレンス"
 
 #: navbar.R:140
 msgid "Light switch"
-msgstr "表示切替"
+msgstr "テーマ切替"
 
 #: navbar.R:143
 msgid "Light"
@@ -237,7 +237,7 @@ msgstr "非推奨"
 
 #: package.R:301
 msgid "superseded"
-msgstr "置換済"
+msgstr "後継があります"
 
 #: package.R:302
 msgid "experimental"
@@ -273,7 +273,7 @@ msgstr "注記"
 
 #: rd-data.R:47
 msgid "Author"
-msgstr "著者"
+msgstr "作者"
 
 #: rd-data.R:51
 msgid "See also"
