@@ -181,7 +181,9 @@ create_absolute_links <- function(main_html, url = NULL) {
   xml2::xml_attr(a, "class") <- NULL
 
   href <- xml2::xml_attr(a, "href")
-  is_internal <- !startsWith(href, "https") & !startsWith(href, "#")
+  is_internal <- !is.na(href) &
+    !startsWith(href, "https") &
+    !startsWith(href, "#")
   if (!is.null(url)) {
     href[is_internal] <- xml2::url_absolute(href[is_internal], url)
   }
