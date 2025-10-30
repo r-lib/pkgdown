@@ -1,5 +1,6 @@
 # pkgdown (development version)
 
+* `autolink_html()` deprecated in 1.6.0 and `preview_page()` have been removed.
 * New translations were add for Dutch (`nl`) and Japanese (`ja`), thanks to
   @pepijn-devires and @shikokuchuo respectively.
 * New `build_llm_docs()` generates a `llms.txt` at the root directory of your site, and provides a `.md` version of every page. You can disable by adding `llm-docs: false` to your `_pkgdown.yaml` (#2914, @maelle)
