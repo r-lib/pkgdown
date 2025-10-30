@@ -39,18 +39,6 @@ local_path <- function(pkg, path, call = caller_env()) {
   abs_path
 }
 
-#' Preview a local pkgdown page in the browser
-#'
-#' @description
-#' `r lifecycle::badge("deprecated")` Use [preview_site()] instead.
-#'
-#' @export
-#' @keywords internal
-preview_page <- function(path, pkg = ".") {
-  lifecycle::deprecate_warn("2.1.0", "preview_page()", "preview_site()")
-  preview_site(pkg, path, preview = TRUE)
-}
-
 is_testing <- function() {
   identical(Sys.getenv("TESTTHAT"), "true")
 }
