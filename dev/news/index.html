@@ -75,18 +75,27 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
+<div class="section level3">
+<h3 id="lifecycle-changes-development-version">Lifecycle changes<a class="anchor" aria-label="anchor" href="#lifecycle-changes-development-version"></a></h3>
 <ul><li>
 <code>autolink_html()</code> deprecated in 1.6.0 and <code>preview_page()</code> have been removed.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<ul><li>New <code><a href="../reference/build_llm_docs.html">build_llm_docs()</a></code> generates a <code>llms.txt</code> at the root directory of your site, and provides a <code>.md</code> version of every page. You can disable by adding <code>llm-docs: false</code> to your <code>_pkgdown.yaml</code> (<a href="https://github.com/r-lib/pkgdown/issues/2914" class="external-link">#2914</a>, <a href="https://github.com/maelle" class="external-link">@maelle</a>)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="minor-improvements-and-bug-fixes-development-version">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-development-version"></a></h3>
+<ul><li>
+<code><a href="../reference/build_site.html">build_site()</a></code> gained a <code>quiet</code> argument, which is propagated to other functions (e.g., <code><a href="../reference/build_articles.html">build_articles()</a></code>) and is useful for debugging build errors on GH actions.</li>
 <li>New translations were add for Dutch (<code>nl</code>) and Japanese (<code>ja</code>), thanks to <a href="https://github.com/pepijn-devires" class="external-link">@pepijn-devires</a> and <a href="https://github.com/shikokuchuo" class="external-link">@shikokuchuo</a> respectively.</li>
-<li>New <code><a href="../reference/build_llm_docs.html">build_llm_docs()</a></code> generates a <code>llms.txt</code> at the root directory of your site, and provides a <code>.md</code> version of every page. You can disable by adding <code>llm-docs: false</code> to your <code>_pkgdown.yaml</code> (<a href="https://github.com/r-lib/pkgdown/issues/2914" class="external-link">#2914</a>, <a href="https://github.com/maelle" class="external-link">@maelle</a>)</li>
 <li>Links generated with <code>\code{\link{foo}()}</code> now have the <code>()</code> moved into the <code>&lt;a&gt;</code> in the generated output (<a href="https://github.com/maelle" class="external-link">@maelle</a>).</li>
 <li>Plots in dark mode are now transformed with a CSS filter to improve their visibility (thanks to <a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>).</li>
 <li>Updated the translations vignette with instructions for building non-English sites through Github Actions.</li>
-<li>
-<code><a href="../reference/build_site.html">build_site()</a></code> gained a <code>quiet</code> argument, which is propagated to other functions (e.g., <code><a href="../reference/build_articles.html">build_articles()</a></code>) and is useful for debugging build errors on GH actions.</li>
 <li>Added documentation explaining how to solve incorrect rendering of plotmath expressions under ragg devices on Linux. (<a href="https://github.com/remlapmot" class="external-link">@remlapmot</a>, <a href="https://github.com/r-lib/pkgdown/issues/2908" class="external-link">#2908</a>)</li>
 <li>Improved the LaTeX syntax in one of the math rendering test cases (<a href="https://github.com/remlapmot" class="external-link">@remlapmot</a>)</li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.1.3" id="pkgdown-213">pkgdown 2.1.3<a class="anchor" aria-label="anchor" href="#pkgdown-213"></a></h2><p class="text-muted">CRAN release: 2025-05-24</p>
 <ul><li>Menu items can now set <code>class</code> and <code>id</code>.</li>
@@ -694,7 +703,7 @@
 <div class="section level4">
 <h4 id="front-end-1-4-0">Front end<a class="anchor" aria-label="anchor" href="#front-end-1-4-0"></a></h4>
 <ul><li><p>Links to online documentation for functions in code chunks are no longer displayed when printing (<a href="https://github.com/r-lib/pkgdown/issues/1135" class="external-link">#1135</a>, <a href="https://github.com/bisaloo" class="external-link">@bisaloo</a>).</p></li>
-<li><p>Updated fontawesome to v5.7.1. fontawesome 5 <a href="https://fontawesome.com/how-to-use/on-the-web/setup/upgrading-from-version-4#changes" class="external-link">deprecated the <code>fa</code> prefix</a>. If you have used custom icons in your navbar, you’ll should update them from (e.g.) <code>fa fa-home</code> to <code>fas fa-home</code>. Brands now have a separate prefix so <code>fa fa-github</code> becomes <code>fab fa-github</code> (<a href="https://github.com/r-lib/pkgdown/issues/953" class="external-link">#953</a>).</p></li>
+<li><p>Updated fontawesome to v5.7.1. fontawesome 5 deprecated the <code>fa</code> prefix. If you have used custom icons in your navbar, you’ll should update them from (e.g.) <code>fa fa-home</code> to <code>fas fa-home</code>. Brands now have a separate prefix so <code>fa fa-github</code> becomes <code>fab fa-github</code> (<a href="https://github.com/r-lib/pkgdown/issues/953" class="external-link">#953</a>).</p></li>
 <li><p>The navbar is now automatically hidden with <a href="https://wicky.nillia.ms/headroom.js/" class="external-link">headroom.js</a>.</p></li>
 <li><p>The sticky behaviour of the navbar is now implemented in pure CSS instead of relying a the 3rd party javascript library (<a href="https://github.com/r-lib/pkgdown/issues/1016" class="external-link">#1016</a>, <a href="https://github.com/bisaloo" class="external-link">@bisaloo</a>)</p></li>
 <li><p>Favicons are now automatically built from a package logo (<a href="https://github.com/r-lib/pkgdown/issues/949" class="external-link">#949</a>).</p></li>

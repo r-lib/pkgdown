@@ -2,11 +2,13 @@
 
 ## pkgdown (development version)
 
+### Lifecycle changes
+
 - `autolink_html()` deprecated in 1.6.0 and `preview_page()` have been
   removed.
-- New translations were add for Dutch (`nl`) and Japanese (`ja`), thanks
-  to [@pepijn-devires](https://github.com/pepijn-devires) and
-  [@shikokuchuo](https://github.com/shikokuchuo) respectively.
+
+### New features
+
 - New
   [`build_llm_docs()`](https://pkgdown.r-lib.org/dev/reference/build_llm_docs.md)
   generates a `llms.txt` at the root directory of your site, and
@@ -14,6 +16,17 @@
   `llm-docs: false` to your `_pkgdown.yaml`
   ([\#2914](https://github.com/r-lib/pkgdown/issues/2914),
   [@maelle](https://github.com/maelle))
+
+### Minor improvements and bug fixes
+
+- [`build_site()`](https://pkgdown.r-lib.org/dev/reference/build_site.md)
+  gained a `quiet` argument, which is propagated to other functions
+  (e.g.,
+  [`build_articles()`](https://pkgdown.r-lib.org/dev/reference/build_articles.md))
+  and is useful for debugging build errors on GH actions.
+- New translations were add for Dutch (`nl`) and Japanese (`ja`), thanks
+  to [@pepijn-devires](https://github.com/pepijn-devires) and
+  [@shikokuchuo](https://github.com/shikokuchuo) respectively.
 - Links generated with `\code{\link{foo}()}` now have the `()` moved
   into the `<a>` in the generated output
   ([@maelle](https://github.com/maelle)).
@@ -22,11 +35,6 @@
   [@gadenbuie](https://github.com/gadenbuie)).
 - Updated the translations vignette with instructions for building
   non-English sites through Github Actions.
-- [`build_site()`](https://pkgdown.r-lib.org/dev/reference/build_site.md)
-  gained a `quiet` argument, which is propagated to other functions
-  (e.g.,
-  [`build_articles()`](https://pkgdown.r-lib.org/dev/reference/build_articles.md))
-  and is useful for debugging build errors on GH actions.
 - Added documentation explaining how to solve incorrect rendering of
   plotmath expressions under ragg devices on Linux.
   ([@remlapmot](https://github.com/remlapmot),
@@ -1798,11 +1806,10 @@ CRAN release: 2019-09-03
   ([\#1135](https://github.com/r-lib/pkgdown/issues/1135),
   [@bisaloo](https://github.com/bisaloo)).
 
-- Updated fontawesome to v5.7.1. fontawesome 5 [deprecated the `fa`
-  prefix](https://fontawesome.com/how-to-use/on-the-web/setup/upgrading-from-version-4#changes).
-  If you have used custom icons in your navbar, you’ll should update
-  them from (e.g.) `fa fa-home` to `fas fa-home`. Brands now have a
-  separate prefix so `fa fa-github` becomes `fab fa-github`
+- Updated fontawesome to v5.7.1. fontawesome 5 deprecated the `fa`
+  prefix. If you have used custom icons in your navbar, you’ll should
+  update them from (e.g.) `fa fa-home` to `fas fa-home`. Brands now have
+  a separate prefix so `fa fa-github` becomes `fab fa-github`
   ([\#953](https://github.com/r-lib/pkgdown/issues/953)).
 
 - The navbar is now automatically hidden with
