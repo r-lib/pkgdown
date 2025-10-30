@@ -227,3 +227,9 @@ print.pkgdown_xml <- function(x, ...) {
   cat(as.character(x, options = c("format", "no_declaration")), sep = "\n")
   invisible(x)
 }
+
+cli_escape <- function(x) {
+  x <- gsub("{", "{{", x, fixed = TRUE)
+  x <- gsub("}", "}}", x, fixed = TRUE)
+  x
+}

@@ -290,7 +290,7 @@ wrap_rmarkdown_error <- function(cnd, input, call = caller_env()) {
   cli::cli_abort(
     c(
       "!" = "Failed to render {.path {input}}.",
-      set_names(lines, "x")
+      set_names(cli_escape(lines), "x")
     ),
     parent = cnd$parent %||% cnd,
     trace = cnd$parent$trace,
