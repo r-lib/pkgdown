@@ -109,9 +109,3 @@ specific part of your site.
   : Test case: preformatted blocks & syntax highlighting
 
 ## Deprecated functions
-
-- [`autolink_html()`](https://pkgdown.r-lib.org/dev/reference/autolink_html.md)
-  **\[deprecated\]** : Automatically link references and articles in an
-  HTML page
-- [`preview_page()`](https://pkgdown.r-lib.org/dev/reference/preview_page.md)
-  **\[deprecated\]** : Preview a local pkgdown page in the browser

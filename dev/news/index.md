@@ -2,6 +2,8 @@
 
 ## pkgdown (development version)
 
+- `autolink_html()` deprecated in 1.6.0 and `preview_page()` have been
+  removed.
 - New translations were add for Dutch (`nl`) and Japanese (`ja`), thanks
   to [@pepijn-devires](https://github.com/pepijn-devires) and
   [@shikokuchuo](https://github.com/shikokuchuo) respectively.
@@ -155,15 +157,14 @@ CRAN release: 2024-07-06
 
 ### Lifecycle changes
 
-- [`autolink_html()`](https://pkgdown.r-lib.org/dev/reference/autolink_html.md)
-  was deprecated in pkgdown 1.6.0 and now warns every time you use it.
+- `autolink_html()` was deprecated in pkgdown 1.6.0 and now warns every
+  time you use it.
   [`downlit::downlit_html_path()`](https://downlit.r-lib.org/reference/downlit_html_path.html)
   should be used instead.
 - `build_site(document)` and `build_reference(document)` has been
   removed after being deprecated in pkgdown 1.4.0. `devel` should be
   used instead.
-- [`preview_page()`](https://pkgdown.r-lib.org/dev/reference/preview_page.md)
-  has been deprecated
+- `preview_page()` has been deprecated
   ([\#2650](https://github.com/r-lib/pkgdown/issues/2650)).
 - Bootstrap 3 has been deprecated. It was superseded in December 2021,
   and now we’re starting to more directly encourage folks to move away
@@ -1424,8 +1425,7 @@ CRAN release: 2020-09-07
     branch: main
   ```
 
-- [`autolink_html()`](https://pkgdown.r-lib.org/dev/reference/autolink_html.md)
-  is (soft) deprecated. Please use
+- `autolink_html()` is (soft) deprecated. Please use
   [`downlit::downlit_html_path()`](https://downlit.r-lib.org/reference/downlit_html_path.html)
   instead.
 

@@ -75,7 +75,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgdown-development-version">pkgdown (development version)<a class="anchor" aria-label="anchor" href="#pkgdown-development-version"></a></h2>
-<ul><li>New translations were add for Dutch (<code>nl</code>) and Japanese (<code>ja</code>), thanks to <a href="https://github.com/pepijn-devires" class="external-link">@pepijn-devires</a> and <a href="https://github.com/shikokuchuo" class="external-link">@shikokuchuo</a> respectively.</li>
+<ul><li>
+<code>autolink_html()</code> deprecated in 1.6.0 and <code>preview_page()</code> have been removed.</li>
+<li>New translations were add for Dutch (<code>nl</code>) and Japanese (<code>ja</code>), thanks to <a href="https://github.com/pepijn-devires" class="external-link">@pepijn-devires</a> and <a href="https://github.com/shikokuchuo" class="external-link">@shikokuchuo</a> respectively.</li>
 <li>New <code><a href="../reference/build_llm_docs.html">build_llm_docs()</a></code> generates a <code>llms.txt</code> at the root directory of your site, and provides a <code>.md</code> version of every page. You can disable by adding <code>llm-docs: false</code> to your <code>_pkgdown.yaml</code> (<a href="https://github.com/r-lib/pkgdown/issues/2914" class="external-link">#2914</a>, <a href="https://github.com/maelle" class="external-link">@maelle</a>)</li>
 <li>Links generated with <code>\code{\link{foo}()}</code> now have the <code>()</code> moved into the <code>&lt;a&gt;</code> in the generated output (<a href="https://github.com/maelle" class="external-link">@maelle</a>).</li>
 <li>Plots in dark mode are now transformed with a CSS filter to improve their visibility (thanks to <a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>).</li>
@@ -134,11 +136,11 @@
 <div class="section level3">
 <h3 id="lifecycle-changes-2-1-0">Lifecycle changes<a class="anchor" aria-label="anchor" href="#lifecycle-changes-2-1-0"></a></h3>
 <ul><li>
-<code><a href="../reference/autolink_html.html">autolink_html()</a></code> was deprecated in pkgdown 1.6.0 and now warns every time you use it. <code><a href="https://downlit.r-lib.org/reference/downlit_html_path.html" class="external-link">downlit::downlit_html_path()</a></code> should be used instead.</li>
+<code>autolink_html()</code> was deprecated in pkgdown 1.6.0 and now warns every time you use it. <code><a href="https://downlit.r-lib.org/reference/downlit_html_path.html" class="external-link">downlit::downlit_html_path()</a></code> should be used instead.</li>
 <li>
 <code>build_site(document)</code> and <code>build_reference(document)</code> has been removed after being deprecated in pkgdown 1.4.0. <code>devel</code> should be used instead.</li>
 <li>
-<code><a href="../reference/preview_page.html">preview_page()</a></code> has been deprecated (<a href="https://github.com/r-lib/pkgdown/issues/2650" class="external-link">#2650</a>).</li>
+<code>preview_page()</code> has been deprecated (<a href="https://github.com/r-lib/pkgdown/issues/2650" class="external-link">#2650</a>).</li>
 <li>Bootstrap 3 has been deprecated. It was superseded in December 2021, and now we’re starting to more directly encourage folks to move away from it.</li>
 </ul></div>
 <div class="section level3">
@@ -555,7 +557,7 @@
 <div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="at">  </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> main</span></span></code></pre></div>
 </li>
-<li><p><code><a href="../reference/autolink_html.html">autolink_html()</a></code> is (soft) deprecated. Please use <code><a href="https://downlit.r-lib.org/reference/downlit_html_path.html" class="external-link">downlit::downlit_html_path()</a></code> instead.</p></li>
+<li><p><code>autolink_html()</code> is (soft) deprecated. Please use <code><a href="https://downlit.r-lib.org/reference/downlit_html_path.html" class="external-link">downlit::downlit_html_path()</a></code> instead.</p></li>
 <li><p>Highlighting of empty expressions works once more (<a href="https://github.com/r-lib/pkgdown/issues/1310" class="external-link">#1310</a>).</p></li>
 <li><p>New <code>deploy$install_metadata</code> option in <code>_pkgdown.yml</code>. Setting it to <code>true</code> will store site metadata in the package itself, allowing offline access for packages that to autolink to the package’s website (<a href="https://github.com/mstr3336" class="external-link">@mstr3336</a>, <a href="https://github.com/r-lib/pkgdown/issues/1336" class="external-link">#1336</a>).</p></li>
 </ul></div>

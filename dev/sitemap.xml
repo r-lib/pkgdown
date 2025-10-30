@@ -23,7 +23,6 @@
 <url><loc>https://pkgdown.r-lib.org/dev/index.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/dev/news/index.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/dev/reference/as_pkgdown.html</loc></url>
-<url><loc>https://pkgdown.r-lib.org/dev/reference/autolink_html.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/dev/reference/build_articles.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/dev/reference/build_favicons.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/dev/reference/build_home.html</loc></url>
@@ -46,7 +45,6 @@
 <url><loc>https://pkgdown.r-lib.org/dev/reference/init_site.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/dev/reference/pkgdown-package.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/dev/reference/pkgdown_print.html</loc></url>
-<url><loc>https://pkgdown.r-lib.org/dev/reference/preview_page.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/dev/reference/preview_site.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/dev/reference/rd2html.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/dev/reference/render_page.html</loc></url>
