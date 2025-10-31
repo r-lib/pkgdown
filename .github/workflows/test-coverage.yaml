@@ -30,6 +30,8 @@ jobs:
           needs: coverage
 
       - uses: r-lib/actions/setup-tinytex@v2
+        env:
+          TINYTEX_INSTALLER: TinyTeX
 
       - name: Test coverage
         run: |
