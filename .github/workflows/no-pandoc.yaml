@@ -32,3 +32,5 @@ jobs:
       - run: rm -rf vignettes
 
       - uses: r-lib/actions/check-r-package@v2
+        env:
+          R_QUARTO_QUIET: false
