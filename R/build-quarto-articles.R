@@ -112,7 +112,6 @@ quarto_render <- function(pkg, path, quiet = TRUE, frame = caller_env()) {
   quarto::quarto_render(
     path,
     metadata_file = metadata_path,
-    execute_dir = output_dir,
     quarto_args = c("--output-dir", output_dir),
     quiet = quiet,
     as_job = FALSE
