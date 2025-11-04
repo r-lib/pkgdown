@@ -27,8 +27,12 @@ jobs:
           needs: check
 
       - uses: r-lib/actions/setup-tinytex@v2
+        env:
+          TINYTEX_INSTALLER: TinyTeX
 
       - run: sudo apt-get --purge remove pandoc
       - run: rm -rf vignettes
 
       - uses: r-lib/actions/check-r-package@v2
+        env:
+          R_QUARTO_QUIET: false

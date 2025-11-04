@@ -77,3 +77,5 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 SystemRequirements: pandoc
+Remotes:
+    quarto=quarto-dev/quarto-r
