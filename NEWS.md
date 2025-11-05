@@ -7,6 +7,7 @@
 ## New features
 
 * New `build_llm_docs()` generates a `llms.txt` at the root directory of your site, and provides a `.md` version of every page. You can disable by adding `llm-docs: false` to your `_pkgdown.yaml` (#2914, @maelle)
+* `build_articles()` now executes quarto vignettes in the same working directory as RMarkdown vignettes, namely the directory in which they live (#2877).
 
 ## Minor improvements and bug fixes
 
