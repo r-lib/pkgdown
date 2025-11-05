@@ -1,4 +1,4 @@
-# pkgdown (development version)
+# pkgdown 2.2.0
 
 ## Lifecycle changes
 
