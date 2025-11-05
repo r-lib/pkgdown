@@ -16,6 +16,10 @@
   `llm-docs: false` to your `_pkgdown.yaml`
   ([\#2914](https://github.com/r-lib/pkgdown/issues/2914),
   [@maelle](https://github.com/maelle))
+- [`build_articles()`](https://pkgdown.r-lib.org/dev/reference/build_articles.md)
+  now executes quarto vignettes in the same working directory as
+  RMarkdown vignettes, namely the directory in which they live
+  ([\#2877](https://github.com/r-lib/pkgdown/issues/2877)).
 
 ### Minor improvements and bug fixes
 

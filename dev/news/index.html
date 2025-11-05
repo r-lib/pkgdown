@@ -83,6 +83,8 @@
 <div class="section level3">
 <h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
 <ul><li>New <code><a href="../reference/build_llm_docs.html">build_llm_docs()</a></code> generates a <code>llms.txt</code> at the root directory of your site, and provides a <code>.md</code> version of every page. You can disable by adding <code>llm-docs: false</code> to your <code>_pkgdown.yaml</code> (<a href="https://github.com/r-lib/pkgdown/issues/2914" class="external-link">#2914</a>, <a href="https://github.com/maelle" class="external-link">@maelle</a>)</li>
+<li>
+<code><a href="../reference/build_articles.html">build_articles()</a></code> now executes quarto vignettes in the same working directory as RMarkdown vignettes, namely the directory in which they live (<a href="https://github.com/r-lib/pkgdown/issues/2877" class="external-link">#2877</a>).</li>
 </ul></div>
 <div class="section level3">
 <h3 id="minor-improvements-and-bug-fixes-development-version">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-development-version"></a></h3>
