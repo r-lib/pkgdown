@@ -4,4 +4,4 @@
 
 ## revdepcheck results
 
-This was a very minor addition, so I did not check revdeps.
+We checked 165 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package. We saw 0 new problems and only failed to check multinma.
