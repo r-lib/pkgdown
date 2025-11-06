@@ -1,0 +1,263 @@
+# pkgdown
+
+pkgdown is designed to make it quick and easy to build a website for
+your package. You can see pkgdown in action at
+<https://pkgdown.r-lib.org>: this is the output of pkgdown applied to
+the latest version of pkgdown. Learn more in
+[`vignette("pkgdown")`](https://pkgdown.r-lib.org/articles/pkgdown.md)
+or [`?build_site`](https://pkgdown.r-lib.org/reference/build_site.md).
+
+## Installation
+
+``` r
+# Install released version from CRAN
+install.packages("pkgdown")
+```
+
+## Usage
+
+Get started with [usethis](https://usethis.r-lib.org/):
+
+``` r
+# Run once to configure your package to use and deploy pkgdown
+usethis::use_pkgdown_github_pages()
+```
+
+``` r
+# Preview your site locally before publishing
+pkgdown::build_site()
+```
+
+This adds the necessary components and sets up GitHub Actions[¹](#fn1)
+for automatic site building when deploying. Your `README.md` becomes the
+homepage, documentation in `man/` generates a function reference, and
+vignettes will be rendered into `articles/`.
+
+### pkgdown 2.0.0 and Bootstrap 5
+
+pkgdown 2.0.0 includes an upgrade from Bootstrap 3 to Bootstrap 5, which
+is accompanied by a whole bunch of minor UI improvements. If you’ve
+heavily customised your site, there’s a small chance that this will
+break your site, so everyone needs to explicitly opt-in to the upgrade
+by adding the following to `_pkgdown.yml`:
+
+``` yaml
+template:
+  bootstrap: 5
+```
+
+Then learn about the many new ways to customise your site in
+[`vignette("customise")`](https://pkgdown.r-lib.org/articles/customise.md).
+
+## In the wild
+
+At last count, pkgdown is used [by over 12,000
+packages](https://github.com/search?q=path%3A_pkgdown.yml+language%3AYAML&type=code&l=YAML).
+Here are a few examples:
+
+- [bayesplot](http://mc-stan.org/bayesplot/index.md)
+  ([source](https://github.com/stan-dev/bayesplot/tree/gh-pages)):
+  plotting functions for posterior analysis, model checking, and MCMC
+  diagnostics.
+
+- [valr](https://rnabioco.github.io/valr/)
+  ([source](https://github.com/rnabioco/valr)): read and manipulate
+  genome intervals and signals.
+
+- [mkin](https://pkgdown.jrwb.de/mkin/)
+  ([source](https://github.com/jranke/mkin)): calculation routines based
+  on the FOCUS Kinetics Report
+
+- [NMF](http://renozao.github.io/NMF/master/index.md)
+  ([source](https://github.com/renozao/NMF)): a framework to perform
+  non-negative matrix factorization (NMF).
+
+- [tidyverse and r-lib packages
+  source](https://github.com/search?q=path%3A%22_pkgdown.yml%22+AND+%28org%3Atidyverse+OR+org%3Ar-lib%29&type=code)
+
+Comparing the source and output of these sites is a great way to learn
+new pkgdown techniques.
+
+## Code of conduct
+
+Please note that this project is released with a [Contributor Code of
+Conduct](https://pkgdown.r-lib.org/CODE_OF_CONDUCT.html). By
+participating in this project you agree to abide by its terms.
+
+------------------------------------------------------------------------
+
+1.  If you don’t use GitHub, you can use
+    [`usethis::use_pkgdown()`](https://usethis.r-lib.org/reference/use_pkgdown.html) +
+    [`pkgdown::build_site()`](https://pkgdown.r-lib.org/reference/build_site.md)
+    to create a website.
+
+# Package index
+
+## Build
+
+### Build the complete site
+
+- [`build_site()`](https://pkgdown.r-lib.org/reference/build_site.md) :
+  Build a complete pkgdown website
+
+- [`clean_site()`](https://pkgdown.r-lib.org/reference/clean.md)
+  [`clean_cache()`](https://pkgdown.r-lib.org/reference/clean.md) :
+  Clean site
+
+- [`preview_site()`](https://pkgdown.r-lib.org/reference/preview_site.md)
+  : Open site in browser
+
+- [`check_pkgdown()`](https://pkgdown.r-lib.org/reference/check_pkgdown.md)
+  [`pkgdown_sitrep()`](https://pkgdown.r-lib.org/reference/check_pkgdown.md)
+  :
+
+  Check `_pkgdown.yml`
+
+### Build part of a site
+
+These functions are useful for rapid iteration when you’re working on a
+specific part of your site.
+
+- [`build_articles()`](https://pkgdown.r-lib.org/reference/build_articles.md)
+  [`build_article()`](https://pkgdown.r-lib.org/reference/build_articles.md)
+  [`build_articles_index()`](https://pkgdown.r-lib.org/reference/build_articles.md)
+  : Build articles section
+- [`build_home()`](https://pkgdown.r-lib.org/reference/build_home.md)
+  [`build_home_index()`](https://pkgdown.r-lib.org/reference/build_home.md)
+  : Build home section
+- [`build_llm_docs()`](https://pkgdown.r-lib.org/reference/build_llm_docs.md)
+  : Build docs for LLMs
+- [`build_news()`](https://pkgdown.r-lib.org/reference/build_news.md) :
+  Build news section
+- [`build_reference()`](https://pkgdown.r-lib.org/reference/build_reference.md)
+  [`build_reference_index()`](https://pkgdown.r-lib.org/reference/build_reference.md)
+  : Build reference section
+- [`build_tutorials()`](https://pkgdown.r-lib.org/reference/build_tutorials.md)
+  : Build tutorials section
+- [`build_search()`](https://pkgdown.r-lib.org/reference/build_search.md)
+  : Build search index
+- [`build_redirects()`](https://pkgdown.r-lib.org/reference/build_redirects.md)
+  : Build redirects
+- [`init_site()`](https://pkgdown.r-lib.org/reference/init_site.md) :
+  Initialise site infrastructure
+
+### Customisation
+
+- [`template_navbar()`](https://pkgdown.r-lib.org/reference/templates.md)
+  [`template_reference()`](https://pkgdown.r-lib.org/reference/templates.md)
+  [`template_articles()`](https://pkgdown.r-lib.org/reference/templates.md)
+  : Generate YAML templates
+
+## For expert use
+
+### Deployment
+
+- [`deploy_to_branch()`](https://pkgdown.r-lib.org/reference/deploy_to_branch.md)
+  : Build and deploy a site locally
+- [`build_site_github_pages()`](https://pkgdown.r-lib.org/reference/build_site_github_pages.md)
+  : Build site for GitHub pages
+
+### Other helpers
+
+- [`rd2html()`](https://pkgdown.r-lib.org/reference/rd2html.md) :
+  Translate an Rd string to its HTML output
+- [`as_pkgdown()`](https://pkgdown.r-lib.org/reference/as_pkgdown.md) :
+  Generate pkgdown data structure
+- [`in_pkgdown()`](https://pkgdown.r-lib.org/reference/in_pkgdown.md) :
+  Determine if code is executed by pkgdown
+- [`render_page()`](https://pkgdown.r-lib.org/reference/render_page.md)
+  [`data_template()`](https://pkgdown.r-lib.org/reference/render_page.md)
+  : Render page with template
+- [`build_favicons()`](https://pkgdown.r-lib.org/reference/build_favicons.md)
+  : Initialise favicons from package logo
+
+## Regression tests
+
+- [`index`](https://pkgdown.r-lib.org/reference/index-topic.md)
+  [`test-index`](https://pkgdown.r-lib.org/reference/index-topic.md) :
+  Index
+- [`test-crayon`](https://pkgdown.r-lib.org/reference/test-crayon.md) :
+  Test case: crayon
+- [`test-dont`](https://pkgdown.r-lib.org/reference/test-dont.md) : Test
+  case: don't
+- [`test-figures`](https://pkgdown.r-lib.org/reference/test-figures.md)
+  : Test case: figures
+- [`test-links`](https://pkgdown.r-lib.org/reference/test-links.md) :
+  Test case: links
+- [`test-lists`](https://pkgdown.r-lib.org/reference/test-lists.md) :
+  Test case: lists
+- [`test-long-lines`](https://pkgdown.r-lib.org/reference/test-long-lines.md)
+  : Test case: long-lines
+- [`test-math-examples`](https://pkgdown.r-lib.org/reference/test-math-examples.md)
+  : Test case: math rendering in examples
+- [`test-output-styles`](https://pkgdown.r-lib.org/reference/test-output-styles.md)
+  : Test case: output styles
+- [`test-params`](https://pkgdown.r-lib.org/reference/test-params.md) :
+  Test case: params
+- [`test-sexpr-title`](https://pkgdown.r-lib.org/reference/test-sexpr-title.md)
+  : Test case: sexpr
+- [`test-tables`](https://pkgdown.r-lib.org/reference/test-tables.md) :
+  Test case: tables
+- [`test-verbatim`](https://pkgdown.r-lib.org/reference/test-verbatim.md)
+  : Test case: preformatted blocks & syntax highlighting
+
+## Deprecated functions
+
+# Articles
+
+### Customise your site
+
+- [Customise your
+  site](https://pkgdown.r-lib.org/articles/customise.md):
+
+  Learn how to change the look and feel of your pkgdown site.
+
+- [quarto vignettes](https://pkgdown.r-lib.org/articles/quarto.md):
+
+  Learn how quarto vignettes work with pkgdown, including currently
+  supported features and known limitations.
+
+- [Translations](https://pkgdown.r-lib.org/articles/translations.md):
+
+  If your documentation is written in a language other than English, you
+  can automatically translate the text generated by pkgdown by setting
+  the `lang` field. If your language isn’t currently supported, we’ll
+  show you how you can provide translations.
+
+- [Accessibility](https://pkgdown.r-lib.org/articles/accessibility.md):
+
+- [Auto-linking](https://pkgdown.r-lib.org/articles/linking.md):
+
+  Learn how pkgdown’s automatic linking works, and how you can customise
+  it.
+
+- [Metadata](https://pkgdown.r-lib.org/articles/metadata.md):
+
+  Customise metadata and social media cards for pkgdown websites.
+
+### Advanced techniques
+
+- [How to update a released
+  site](https://pkgdown.r-lib.org/articles/how-to-update-released-site.md):
+
+  A guide to updating the “released” version of your pkgdown site
+  without having to release a new version of your package.
+
+### Testing
+
+These articles are used to test various pkgdown features that can not
+easily be tested automatically.
+
+- [JSS article (PDF)](https://pkgdown.r-lib.org/articles/test/jss.pdf):
+- [Long TOC](https://pkgdown.r-lib.org/articles/test/long-toc.md):
+- [PDF (PDF)](https://pkgdown.r-lib.org/articles/test/pdf.pdf):
+- [quarto
+  features](https://pkgdown.r-lib.org/articles/test/quarto-features.md):
+- [Output
+  Rendering](https://pkgdown.r-lib.org/articles/test/rendering.md):
+- [A short page](https://pkgdown.r-lib.org/articles/test/short.md):
+- [HTML widgets](https://pkgdown.r-lib.org/articles/test/widgets.md):
+- [Test Quarto
+  article](https://pkgdown.r-lib.org/articles/test-quarto-article.md):
+- [Test Rmarkdown
+  article](https://pkgdown.r-lib.org/articles/test-rmarkdown-article.md):

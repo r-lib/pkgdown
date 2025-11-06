@@ -1,0 +1,132 @@
+# Translations
+
+If your documentation (`.Rd` and `.Rmd`) is written in a language other
+than English, declare it by setting setting `lang` to the [language
+code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for your
+language:
+
+``` yaml
+lang: es
+```
+
+This will be used to set the language of the web page and to translate
+the English words that pkgdown generates on your site. Current available
+translations are:
+
+- `ca`: Catalan
+- `de`: German
+- `dk`: Danish
+- `es`: Spanish
+- `fr`: French
+- `ja`: Japanese
+- `ko`: Korean
+- `pt`: Portuguese
+- `tr`: Turkish
+- `zh_CN`: Chinese (simplified)
+
+As you can see, most language codes are two letters, but if a language
+has multiple variants, it gets a longer form which can be used to
+disambiguate the options. For example, Chinese can use one of two forms:
+simplified (used in China and Singapore) or traditional (used in Taiwan
+and Hong Kong). Another example would be providing specific French
+Canadian translations by using code `fr_CN`.
+
+If you deploy your site on Github Actions, you will need to update the
+locale and set the `env` during
+[`pkgdown::build_site()`](https://pkgdown.r-lib.org/reference/build_site.md)
+to the same language code you set in `_pkgdown.yml`, including the
+country code. For example, for `lang: es`, you would use `es_ES.UTF-8`:
+
+``` yaml
+      - name: Set locale to Spanish
+        run: |
+          sudo locale-gen es_ES.UTF-8
+          sudo update-locale LANG=es_ES.UTF-8
+        shell: bash
+
+      - name: Build site
+        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+        shell: Rscript {0}
+        env:
+          LANG: es_ES.UTF-8
+```
+
+## Translations
+
+Translations are contributed by community members so if your language is
+not currently available, you could be the one to add it!
+
+To get started, first check the [pkgdown
+issues](https://github.com/r-lib/pkgdown/issues) to see if anyone has
+filed an existing issue. If so, the person who filed the issue might
+make for a great collaborator 😀.
+
+Next, install [potools](https://michaelchirico.github.io/potools/) and
+[usethis](https://usethis.r-lib.org):
+
+``` r
+install.packages(c("potools", "usethis"))
+```
+
+You’ll then need to familiarise yourself with the basics of
+[translations with
+potools](https://michaelchirico.github.io/potools/articles/translators.html)
+and [creating pull
+requests](https://usethis.r-lib.org/articles/pr-functions.html) with
+usethis.
+
+If you don’t already know it, you’ll need to look up the ISO 639-1
+abbreviation for [your
+language](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes).
+In the examples below, I’ll pretend I’m providing translations for Zulu,
+which has code `zu`.
+
+Start by initialising a pull request:
+
+``` r
+usethis::pr_init("translation-zu")
+```
+
+Then create the translation file by running `potools::po_create("zu")`,
+open `po/R-zu.po`, and starting filling in the translations.
+
+If you have access to Claude or similar, you can try prepopulating the
+translations, with a prompt like this:
+
+    You are an experienced translator. Create new a new translation for Hindi in po/R-hi.po. These are GNU gettext translations for pkgdown, a tool used to generate websites for R packages.
+
+    Translation advice:
+
+    - For languages that use genedered nouns, do your best to generate inclusive translations, e.g. "Beitragende:r" or "auteur·rice".
+    - If you need to change the order of substititions (e.g. %s) from English version, use %1$s to identify the first substituion %2$s, etc. Only use this form when the translated word order is different.
+    - You should choose to be succinct and contextually-correct even when there is not a precise translation.
+    - Use the "Last-Translator" field to document the tool (e.g. "Positron Assistant") and language model used for the translation (e.g. "Claude Sonnet 4.5")
+
+> You are an R developer who is fluent in English and Zulu. You love to
+> do careful, high quality translations in your spare time. Complete the
+> following po file for the R pkgdown package (which creates websites
+> for R packages) by supplying translations for Zulu. Use inclusive
+> gender forms where possible.
+
+Then copy and paste the complete contents of the `.po` file .
+
+You can check your work by adding `lang: zu` to your `_pkgdown.yml` then
+running:
+
+``` r
+potools::po_compile()
+devtools::load_all()
+build_site("~/path/to/your/site")
+```
+
+Once you’re happy with your work, make sure to compile the changes:
+
+``` r
+potools::po_compile()
+```
+
+Then commit your changes to Git and submit your pull request for review:
+
+``` r
+usethis::pr_push()
+```

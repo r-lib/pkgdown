@@ -5,7 +5,12 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Changelog"><meta property="og:image" content="https://pkgdown.r-lib.org/logo.png"><script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Changelog"><meta property="og:image" content="https://pkgdown.r-lib.org/logo.png"><script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body><p>"
+
+
+  
+
+  </p>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -13,7 +18,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,6 +42,7 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-news"><li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
+    <li><a class="external-link dropdown-item" href="https://tidyverse.org/blog/2025/11/pkgdown-2-2-0/">Version 2.2.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2024/07/pkgdown-2-1-0/">Version 2.1.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2021/12/pkgdown-2-0-0/">Version 2.0.0</a></li>
     <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/09/pkgdown-1-6-0/">Version 1.6.0</a></li>
@@ -69,7 +75,32 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.1.3" id="pkgdown-213">pkgdown 2.1.3<a class="anchor" aria-label="anchor" href="#pkgdown-213"></a></h2>
+<h2 class="pkg-version" data-toc-text="2.2.0" id="pkgdown-220">pkgdown 2.2.0<a class="anchor" aria-label="anchor" href="#pkgdown-220"></a></h2><p class="text-muted">CRAN release: 2025-11-06</p>
+<div class="section level3">
+<h3 id="lifecycle-changes-2-2-0">Lifecycle changes<a class="anchor" aria-label="anchor" href="#lifecycle-changes-2-2-0"></a></h3>
+<ul><li>
+<code>autolink_html()</code> deprecated in 1.6.0 and <code>preview_page()</code> have been removed.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="new-features-2-2-0">New features<a class="anchor" aria-label="anchor" href="#new-features-2-2-0"></a></h3>
+<ul><li>New <code><a href="../reference/build_llm_docs.html">build_llm_docs()</a></code> generates a <code>llms.txt</code> at the root directory of your site, and provides a <code>.md</code> version of every page. You can disable by adding <code>llm-docs: false</code> to your <code>_pkgdown.yaml</code> (<a href="https://github.com/r-lib/pkgdown/issues/2914" class="external-link">#2914</a>, <a href="https://github.com/maelle" class="external-link">@maelle</a>)</li>
+<li>
+<code><a href="../reference/build_articles.html">build_articles()</a></code> now executes quarto vignettes in the same working directory as RMarkdown vignettes, namely the directory in which they live (<a href="https://github.com/r-lib/pkgdown/issues/2877" class="external-link">#2877</a>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="minor-improvements-and-bug-fixes-2-2-0">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-2-2-0"></a></h3>
+<ul><li>
+<code><a href="../reference/build_site.html">build_site()</a></code> gained a <code>quiet</code> argument, which is propagated to other functions (e.g., <code><a href="../reference/build_articles.html">build_articles()</a></code>) and is useful for debugging build errors on GH actions.</li>
+<li>New translations were add for Dutch (<code>nl</code>) and Japanese (<code>ja</code>), thanks to <a href="https://github.com/pepijn-devires" class="external-link">@pepijn-devires</a> and <a href="https://github.com/shikokuchuo" class="external-link">@shikokuchuo</a> respectively.</li>
+<li>Links generated with <code>\code{\link{foo}()}</code> now have the <code>()</code> moved into the <code>&lt;a&gt;</code> in the generated output (<a href="https://github.com/maelle" class="external-link">@maelle</a>).</li>
+<li>Plots in dark mode are now transformed with a CSS filter to improve their visibility (thanks to <a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>).</li>
+<li>Updated the translations vignette with instructions for building non-English sites through Github Actions.</li>
+<li>Added documentation explaining how to solve incorrect rendering of plotmath expressions under ragg devices on Linux. (<a href="https://github.com/remlapmot" class="external-link">@remlapmot</a>, <a href="https://github.com/r-lib/pkgdown/issues/2908" class="external-link">#2908</a>)</li>
+<li>Improved the LaTeX syntax in one of the math rendering test cases (<a href="https://github.com/remlapmot" class="external-link">@remlapmot</a>)</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.1.3" id="pkgdown-213">pkgdown 2.1.3<a class="anchor" aria-label="anchor" href="#pkgdown-213"></a></h2><p class="text-muted">CRAN release: 2025-05-24</p>
 <ul><li>Menu items can now set <code>class</code> and <code>id</code>.</li>
 </ul></div>
     <div class="section level2">
@@ -117,11 +148,11 @@
 <div class="section level3">
 <h3 id="lifecycle-changes-2-1-0">Lifecycle changes<a class="anchor" aria-label="anchor" href="#lifecycle-changes-2-1-0"></a></h3>
 <ul><li>
-<code><a href="../reference/autolink_html.html">autolink_html()</a></code> was deprecated in pkgdown 1.6.0 and now warns every time you use it. <code><a href="https://downlit.r-lib.org/reference/downlit_html_path.html" class="external-link">downlit::downlit_html_path()</a></code> should be used instead.</li>
+<code>autolink_html()</code> was deprecated in pkgdown 1.6.0 and now warns every time you use it. <code><a href="https://downlit.r-lib.org/reference/downlit_html_path.html" class="external-link">downlit::downlit_html_path()</a></code> should be used instead.</li>
 <li>
 <code>build_site(document)</code> and <code>build_reference(document)</code> has been removed after being deprecated in pkgdown 1.4.0. <code>devel</code> should be used instead.</li>
 <li>
-<code><a href="../reference/preview_page.html">preview_page()</a></code> has been deprecated (<a href="https://github.com/r-lib/pkgdown/issues/2650" class="external-link">#2650</a>).</li>
+<code>preview_page()</code> has been deprecated (<a href="https://github.com/r-lib/pkgdown/issues/2650" class="external-link">#2650</a>).</li>
 <li>Bootstrap 3 has been deprecated. It was superseded in December 2021, and now we’re starting to more directly encourage folks to move away from it.</li>
 </ul></div>
 <div class="section level3">
@@ -538,7 +569,7 @@
 <div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">repo</span><span class="kw">:</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="at">  </span><span class="fu">branch</span><span class="kw">:</span><span class="at"> main</span></span></code></pre></div>
 </li>
-<li><p><code><a href="../reference/autolink_html.html">autolink_html()</a></code> is (soft) deprecated. Please use <code><a href="https://downlit.r-lib.org/reference/downlit_html_path.html" class="external-link">downlit::downlit_html_path()</a></code> instead.</p></li>
+<li><p><code>autolink_html()</code> is (soft) deprecated. Please use <code><a href="https://downlit.r-lib.org/reference/downlit_html_path.html" class="external-link">downlit::downlit_html_path()</a></code> instead.</p></li>
 <li><p>Highlighting of empty expressions works once more (<a href="https://github.com/r-lib/pkgdown/issues/1310" class="external-link">#1310</a>).</p></li>
 <li><p>New <code>deploy$install_metadata</code> option in <code>_pkgdown.yml</code>. Setting it to <code>true</code> will store site metadata in the package itself, allowing offline access for packages that to autolink to the package’s website (<a href="https://github.com/mstr3336" class="external-link">@mstr3336</a>, <a href="https://github.com/r-lib/pkgdown/issues/1336" class="external-link">#1336</a>).</p></li>
 </ul></div>
@@ -675,7 +706,7 @@
 <div class="section level4">
 <h4 id="front-end-1-4-0">Front end<a class="anchor" aria-label="anchor" href="#front-end-1-4-0"></a></h4>
 <ul><li><p>Links to online documentation for functions in code chunks are no longer displayed when printing (<a href="https://github.com/r-lib/pkgdown/issues/1135" class="external-link">#1135</a>, <a href="https://github.com/bisaloo" class="external-link">@bisaloo</a>).</p></li>
-<li><p>Updated fontawesome to v5.7.1. fontawesome 5 <a href="https://fontawesome.com/how-to-use/on-the-web/setup/upgrading-from-version-4#changes" class="external-link">deprecated the <code>fa</code> prefix</a>. If you have used custom icons in your navbar, you’ll should update them from (e.g.) <code>fa fa-home</code> to <code>fas fa-home</code>. Brands now have a separate prefix so <code>fa fa-github</code> becomes <code>fab fa-github</code> (<a href="https://github.com/r-lib/pkgdown/issues/953" class="external-link">#953</a>).</p></li>
+<li><p>Updated fontawesome to v5.7.1. fontawesome 5 deprecated the <code>fa</code> prefix. If you have used custom icons in your navbar, you’ll should update them from (e.g.) <code>fa fa-home</code> to <code>fas fa-home</code>. Brands now have a separate prefix so <code>fa fa-github</code> becomes <code>fab fa-github</code> (<a href="https://github.com/r-lib/pkgdown/issues/953" class="external-link">#953</a>).</p></li>
 <li><p>The navbar is now automatically hidden with <a href="https://wicky.nillia.ms/headroom.js/" class="external-link">headroom.js</a>.</p></li>
 <li><p>The sticky behaviour of the navbar is now implemented in pure CSS instead of relying a the 3rd party javascript library (<a href="https://github.com/r-lib/pkgdown/issues/1016" class="external-link">#1016</a>, <a href="https://github.com/bisaloo" class="external-link">@bisaloo</a>)</p></li>
 <li><p>Favicons are now automatically built from a package logo (<a href="https://github.com/r-lib/pkgdown/issues/949" class="external-link">#949</a>).</p></li>
@@ -826,7 +857,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>
@@ -835,5 +866,6 @@
 
 
 
-  </body></html>
+  
+</body></html>
 

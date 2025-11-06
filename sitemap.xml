@@ -24,10 +24,10 @@
 <url><loc>https://pkgdown.r-lib.org/index.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/news/index.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/as_pkgdown.html</loc></url>
-<url><loc>https://pkgdown.r-lib.org/reference/autolink_html.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/build_articles.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/build_favicons.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/build_home.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/build_llm_docs.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/build_news.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/build_redirects.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/build_reference.html</loc></url>
@@ -46,7 +46,6 @@
 <url><loc>https://pkgdown.r-lib.org/reference/init_site.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/pkgdown-package.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/pkgdown_print.html</loc></url>
-<url><loc>https://pkgdown.r-lib.org/reference/preview_page.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/preview_site.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/rd2html.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/render_page.html</loc></url>
