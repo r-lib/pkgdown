@@ -26,12 +26,12 @@ Source:
 
 Wickham H, Hesselberth J, Salmon M, Roy O, Brüggemann S (2025).
 *pkgdown: Make Static HTML Documentation for a Package*. R package
-version 2.1.3.9000, <https://pkgdown.r-lib.org/>.
+version 2.2.0.9000, <https://pkgdown.r-lib.org/>.
 
     @Manual{,
       title = {pkgdown: Make Static HTML Documentation for a Package},
       author = {Hadley Wickham and Jay Hesselberth and Maëlle Salmon and Olivier Roy and Salim Brüggemann},
       year = {2025},
-      note = {R package version 2.1.3.9000},
+      note = {R package version 2.2.0.9000},
       url = {https://pkgdown.r-lib.org/},
     }
