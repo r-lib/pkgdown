@@ -33,7 +33,7 @@ build_llm_docs <- function(pkg = ".") {
   })
 
   index <- c(
-    read_lines(path(pkg$dst_path, "index.md")),
+    read_file_if_exists(path(pkg$dst_path, "index.md")),
     "",
     read_file_if_exists(path(pkg$dst_path, "reference", "index.md")),
     "",
