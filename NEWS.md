@@ -2,6 +2,8 @@
 
 # pkgdown 2.2.0
 
+* Make `build_llm_docs()` more robust to the use of old Pandoc(@nanxstats, @galachad, #2952, #2954)
+
 ## Lifecycle changes
 
 * `autolink_html()` deprecated in 1.6.0 and `preview_page()` have been removed.

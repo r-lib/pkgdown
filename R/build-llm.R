@@ -76,11 +76,17 @@ convert_md <- function(src_path, dst_path, url = NULL) {
   xml2::write_html(main_html, path, format = FALSE)
   on.exit(file_delete(path), add = TRUE)
 
+  if (rmarkdown::pandoc_available("2.10.1")) {
+    to <- "gfm+definition_lists-raw_html"
+  } else {
+    to <- "gfm-raw_html"
+  }
+
   rmarkdown::pandoc_convert(
     input = path,
     output = dst_path,
     from = "html",
-    to = "gfm+definition_lists-raw_html",
+    to = to,
   )
 }
 
