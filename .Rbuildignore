@@ -26,3 +26,4 @@
 ^vignettes/articles$
 ^\.vscode$
 ^[\.]?air\.toml$
+^\.git-blame-ignore-revs$
