@@ -6,6 +6,14 @@
 
 CRAN release: 2025-11-06
 
+- Make
+  [`build_llm_docs()`](https://pkgdown.r-lib.org/dev/reference/build_llm_docs.md)
+  more robust to the use of old Pandoc
+  ([@nanxstats](https://github.com/nanxstats),
+  [@galachad](https://github.com/galachad),
+  [\#2952](https://github.com/r-lib/pkgdown/issues/2952),
+  [\#2954](https://github.com/r-lib/pkgdown/issues/2954))
+
 ### Lifecycle changes
 
 - `autolink_html()` deprecated in 1.6.0 and `preview_page()` have been
