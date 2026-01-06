@@ -78,6 +78,7 @@ files <- c(
 glue::glue("git checkout main -- {files}")
 ```
 
+Then run the git code generated above to actually backport the changes.
 If you backport `DESCRIPTION`, you'll also need undo the change to the `Version`:
 
 ```{r}
