@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+* `build_home()` now supports a `.pkgdownignore` file to exclude markdown files
+  from being rendered to HTML. The file can be placed in the package root,
+  `pkgdown/`, or `_pkgdown/` directories (@kyleGrealis, #2959).
+
 # pkgdown 2.2.0
 
 * Make `build_llm_docs()` more robust to the use of old Pandoc (@nanxstats, @galachad, #2952, #2954)
