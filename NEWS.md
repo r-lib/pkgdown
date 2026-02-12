@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* do not autolink code that is in a link (href) in Rd files (#2972)
+
 # pkgdown 2.2.0
 
 * Make `build_llm_docs()` more robust to the use of old Pandoc (@nanxstats, @galachad, #2952, #2954)
