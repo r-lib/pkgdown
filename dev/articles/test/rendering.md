@@ -121,7 +121,8 @@ Some text
 
 ``` r
 stop(cli::style_italic("This is italic"))
-#> Error: This is italic
+#> Error:
+#> ! This is italic
 ```
 
 Some more text

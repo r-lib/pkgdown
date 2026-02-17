@@ -2,6 +2,9 @@
 
 ## pkgdown (development version)
 
+- do not autolink code that is in a link (href) in Rd files
+  ([\#2972](https://github.com/r-lib/pkgdown/issues/2972))
+
 ## pkgdown 2.2.0
 
 CRAN release: 2025-11-06
