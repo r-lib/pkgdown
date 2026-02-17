@@ -160,7 +160,8 @@ as_html.tag_url <- function(x, ...) {
 }
 #' @export
 as_html.tag_href <- function(x, ...) {
-  a(flatten_text(x[[2]]), href = flatten_text(x[[1]]))
+  # don't link since we are in a link
+  a(flatten_text(x[[2]], auto_link = FALSE), href = flatten_text(x[[1]]))
 }
 #' @export
 as_html.tag_email <- function(x, ...) {

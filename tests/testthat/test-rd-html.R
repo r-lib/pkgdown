@@ -319,6 +319,13 @@ test_that("bad specs throw errors", {
   })
 })
 
+test_that("no autolink in href", {
+  expect_equal(
+    rd2html("\\href{https://example.com}{\\code{download.file()}}"),
+    "<a href='https://example.com'><code>download.file()</code></a>"
+  )
+})
+
 # Paragraphs --------------------------------------------------------------
 
 test_that("empty input gives empty output", {
