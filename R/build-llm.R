@@ -70,6 +70,7 @@ convert_md <- function(src_path, dst_path, url = NULL) {
   simplify_popovers_to_footnotes(main_html)
   simplify_lifecycle_badges(main_html)
   simplify_dls(main_html)
+  simplify_inline_images(main_html)
   create_absolute_links(main_html, url)
 
   path <- file_temp()
@@ -178,6 +179,22 @@ simplify_lifecycle_badges <- function(html) {
   )
   imgs <- xml2::xml_find_first(badges, ".//img")
   xml2::xml_replace(badges, "strong", tolower(xml2::xml_attr(imgs, "alt")))
+
+  invisible()
+}
+
+simplify_inline_images <- function(html) {
+  img_nodes <- xml2::xml_find_all(html, ".//img[contains(@src, 'data:')]")
+
+  purrr::walk(img_nodes, function(img) {
+    alt_text <- xml2::xml_attr(img, "alt")
+    replacement <- if (!is.na(alt_text) && nzchar(alt_text)) {
+      sprintf("[Image: %s]", alt_text)
+    } else {
+      "[Image]"
+    }
+    xml2::xml_replace(img, "span", replacement)
+  })
 
   invisible()
 }
