@@ -15,8 +15,7 @@ preview_site(pkg = ".", path = ".", preview = TRUE)
 freshly generated section in browser.}
 }
 \description{
-\code{preview_site()} opens your pkgdown site in your browser. pkgdown has been
-carefully designed to work even when served from the file system like
-this; the only part that doesn't work is search. You can use \code{servr::httw("docs/")}
-to create a server to make search work locally.
+\code{preview_site()} opens your pkgdown site in your browser, served via a
+local HTTP server. This enables dynamic features such as search to work
+correctly in preview.
 }

@@ -35,6 +35,7 @@ Imports:
     jsonlite,
     lifecycle,
     openssl,
+    nanonext (>= 1.8.0),
     purrr (>= 1.0.0),
     ragg (>= 1.4.0),
     rlang (>= 1.1.4),

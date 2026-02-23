@@ -18,3 +18,5 @@ release_bullets <- function() {
     "Update `vignette/translations.Rmd` with any new languages"
   )
 }
+
+the <- new.env(parent = emptyenv())
