@@ -64,11 +64,7 @@ build_sitemap <- function(pkg = ".") {
 #' search:
 #'   exclude: ['news/index.html']
 #' ```
-#' # Debugging and local testing
-#'
-#' Locally (as opposed to on GitHub Pages or Netlify for instance),
-#' search won't work if you simply use pkgdown preview of the static files.
-#' You can use `servr::httw("docs")` instead.
+#' # Debugging
 #'
 #' If search is not working, run `pkgdown::pkgdown_sitrep()` to eliminate
 #' common issues such as the absence of URL in the pkgdown configuration file
