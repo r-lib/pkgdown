@@ -3,7 +3,8 @@
 * do not autolink code that is in a link (href) in Rd files (#2972)
 
 * New `in_pkgdown_pkg()` function and new `IN_PKGDOWN_PKG` variable, to go with 
-`in_pkgdown()` and `IN_PKGDOWN`, but specific to the package whose site is being built (#2976). 
+  `in_pkgdown()` and `IN_PKGDOWN`. Returns/contains the name of the package
+  whose site is being built (#2976). 
 
 # pkgdown 2.2.0
 
