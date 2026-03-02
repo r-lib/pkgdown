@@ -44,6 +44,7 @@ preview_site <- function(pkg = ".", path = ".", preview = TRUE) {
 #' automatically stopped when previewing a new site or ending the R session.
 #'
 #' @export
+#' @keywords internal
 stop_preview <- function() {
   if (!is.null(the$server)) {
     the$server$close()

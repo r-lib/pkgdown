@@ -11,3 +11,4 @@ Stops the HTTP server started by \code{\link[=preview_site]{preview_site()}}, if
 called manually, but is not strictly necessary as the server is
 automatically stopped when previewing a new site or ending the R session.
 }
+\keyword{internal}
