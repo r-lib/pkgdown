@@ -63,6 +63,7 @@ reference:
   - build_site
   - clean_site
   - preview_site
+  - stop_preview
   - pkgdown_sitrep
 
 - subtitle: Build part of a site
