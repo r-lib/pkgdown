@@ -75,6 +75,19 @@ test_that("preview starts new server for different root", {
   expect_equal(the$server_root, pkg2$dst_path)
 })
 
+test_that("stop_preview stops server", {
+  pkg <- local_pkgdown_site()
+  local_preview_clean()
+  withr::local_options(browser = function(url) {})
+
+  preview_site(pkg, preview = TRUE)
+  expect_false(is.null(the$server))
+
+  stop_preview()
+  expect_null(the$server)
+  expect_null(the$server_root)
+})
+
 test_that("preview constructs correct URLs for sub-paths", {
   pkg <- local_pkgdown_site()
   local_preview_clean()

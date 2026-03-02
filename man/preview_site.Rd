@@ -19,3 +19,6 @@ freshly generated section in browser.}
 local HTTP server. This enables dynamic features such as search to work
 correctly in preview.
 }
+\seealso{
+\code{\link[=stop_preview]{stop_preview()}} to stop the server.
+}

@@ -4,6 +4,7 @@
 #' local HTTP server. This enables dynamic features such as search to work
 #' correctly in preview.
 #'
+#' @seealso [stop_preview()] to stop the server.
 #' @inheritParams build_article
 #' @param path Path relative to destination
 #' @export
@@ -31,6 +32,24 @@ preview_site <- function(pkg = ".", path = ".", preview = TRUE) {
     cli::cli_inform(c(i = "Previewing site"))
     url <- paste0(the$server$url, "/", if (path != ".") path)
     utils::browseURL(url)
+  }
+
+  invisible()
+}
+
+#' Stop HTTP preview
+#'
+#' Stops the HTTP server started by [preview_site()], if active. This can be
+#' called manually, but is not strictly necessary as the server is
+#' automatically stopped when previewing a new site or ending the R session.
+#'
+#' @export
+stop_preview <- function() {
+  if (!is.null(the$server)) {
+    the$server$close()
+    the$server <- NULL
+    the$server_root <- NULL
+    cli::cli_inform(c(i = "Stopped preview"))
   }
 
   invisible()
