@@ -2,6 +2,11 @@
 
 ## pkgdown (development version)
 
+- When previewing a site, it is now served via a local http server. This
+  enables dynamic features such as search to work correctly
+  ([@shikokuchuo](https://github.com/shikokuchuo),
+  [\#2975](https://github.com/r-lib/pkgdown/issues/2975)).
+
 - do not autolink code that is in a link (href) in Rd files
   ([\#2972](https://github.com/r-lib/pkgdown/issues/2972))
 
