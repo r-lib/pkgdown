@@ -2,9 +2,15 @@
 % Please edit documentation in R/pkgdown.R
 \name{in_pkgdown}
 \alias{in_pkgdown}
+\alias{in_pkgdown_pkg}
 \title{Determine if code is executed by pkgdown}
 \usage{
 in_pkgdown()
+
+in_pkgdown_pkg(pkg)
+}
+\arguments{
+\item{pkg}{Package name (a string)}
 }
 \description{
 This is occasionally useful when you need different behaviour by
@@ -12,4 +18,5 @@ pkgdown and regular documentation.
 }
 \examples{
 in_pkgdown()
+in_pkgdown_pkg("pkgdown")
 }
