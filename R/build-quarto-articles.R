@@ -107,12 +107,22 @@ quarto_render <- function(pkg, path, quiet = TRUE, frame = caller_env()) {
   )
   write_yaml(quarto_format(pkg), metadata_path)
 
-  output_dir <- withr::local_tempdir("pkgdown-quarto-", .local_envir = frame)
+  # Create the output dir inside the source directory so that we can pass a
+  # relative path to quarto. This avoids a Windows-specific bug where Quarto
+  # (Deno) appends absolute paths with drive letters to the project root
+  # instead of treating them as absolute (e.g. path.join("E:\\src", "C:\\tmp")
+  # yields "E:\\src\\C:\\tmp" rather than "C:\\tmp").
+  render_dir <- if (fs::is_dir(path)) path else fs::path_dir(path)
+  output_dir <- withr::local_tempdir(
+    "pkgdown-quarto-",
+    tmpdir = render_dir,
+    .local_envir = frame
+  )
 
   quarto::quarto_render(
     path,
     metadata_file = metadata_path,
-    quarto_args = c("--output-dir", output_dir),
+    quarto_args = c("--output-dir", fs::path_rel(output_dir, start = render_dir)),
     quiet = quiet,
     as_job = FALSE
   )
