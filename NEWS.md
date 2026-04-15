@@ -2,6 +2,8 @@
 
 * When previewing a site, it is now served via a local http server. This enables dynamic features such as search to work correctly (@shikokuchuo, #2975).
 
+* `build_site()` now checks vignettes for missing images and alt-text, and also flags empty `alt=""` as missing (#2985).
+
 * do not autolink code that is in a link (href) in Rd files (#2972)
 
 # pkgdown 2.2.0
