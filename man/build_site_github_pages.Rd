@@ -10,7 +10,8 @@ build_site_github_pages(
   dest_dir = "docs",
   clean = TRUE,
   install = FALSE,
-  new_process = FALSE
+  new_process = FALSE,
+  n_cores = 1L
 )
 }
 \arguments{
@@ -28,6 +29,13 @@ so it is available for vignettes.}
 \item{new_process}{If \code{TRUE}, will run \code{build_site()} in a separate process.
 This enhances reproducibility by ensuring nothing that you have loaded
 in the current process affects the build process.}
+
+\item{n_cores}{Number of workers to use when building articles in
+parallel. A positive integer (fractional values are rounded up), or
+\code{Inf} to use \code{parallel::detectCores()}. Defaults to \code{1L}, which keeps
+the traditional serial build and does not require the \pkg{mirai}
+package. Values greater than 1 require \pkg{mirai} and use
+\code{\link[purrr:in_parallel]{purrr::in_parallel()}}.}
 }
 \description{
 Designed to be run as part of automated workflows for deploying

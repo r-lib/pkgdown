@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* `build_articles()`, `build_site()`, and `build_site_github_pages()` gain an `n_cores` argument to build articles in parallel via `purrr::in_parallel()`. The default (`n_cores = 1L`) preserves the traditional serial build; values greater than 1 require the mirai package, and `Inf` autodetects via `parallel::detectCores()`.
+
 * When previewing a site, it is now served via a local http server. This enables dynamic features such as search to work correctly (@shikokuchuo, #2975).
 
 * do not autolink code that is in a link (href) in Rd files (#2972)

@@ -88,3 +88,31 @@
       Error:
       ! In _pkgdown.yml, 1 vignette missing from index: "c".
 
+# check_n_cores validates and resolves n_cores
+
+    Code
+      check_n_cores(0)
+    Condition
+      Error:
+      ! `0` must be a positive integer or `Inf`.
+    Code
+      check_n_cores(-1)
+    Condition
+      Error:
+      ! `-1` must be a positive integer or `Inf`.
+    Code
+      check_n_cores("two")
+    Condition
+      Error:
+      ! `"two"` must be a positive integer or `Inf`.
+    Code
+      check_n_cores(NA)
+    Condition
+      Error:
+      ! `NA` must be a positive integer or `Inf`.
+    Code
+      check_n_cores(c(1, 2))
+    Condition
+      Error:
+      ! `c(1, 2)` must be a positive integer or `Inf`.
+

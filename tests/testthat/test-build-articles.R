@@ -139,3 +139,18 @@ test_that("check doesn't include getting started vignette", {
 
   expect_no_error(data_articles_index(pkg))
 })
+
+test_that("check_n_cores validates and resolves n_cores", {
+  expect_snapshot(error = TRUE, {
+    check_n_cores(0)
+    check_n_cores(-1)
+    check_n_cores("two")
+    check_n_cores(NA)
+    check_n_cores(c(1, 2))
+  })
+
+  expect_identical(check_n_cores(1), 1L)
+  expect_identical(check_n_cores(2L), 2L)
+  expect_identical(check_n_cores(1.4), 2L)
+  expect_identical(check_n_cores(Inf), as.integer(parallel::detectCores()))
+})

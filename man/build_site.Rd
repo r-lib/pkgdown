@@ -10,6 +10,7 @@ build_site(
   run_dont_run = FALSE,
   seed = 1014L,
   lazy = FALSE,
+  n_cores = 1L,
   override = list(),
   preview = NA,
   devel = FALSE,
@@ -30,6 +31,13 @@ make article output reproducible. An integer scalar or \code{NULL} for no seed.}
 
 \item{lazy}{If \code{TRUE}, will only rebuild articles and reference pages
 if the source is newer than the destination.}
+
+\item{n_cores}{Number of workers to use when building articles in
+parallel. A positive integer (fractional values are rounded up), or
+\code{Inf} to use \code{parallel::detectCores()}. Defaults to \code{1L}, which keeps
+the traditional serial build and does not require the \pkg{mirai}
+package. Values greater than 1 require \pkg{mirai} and use
+\code{\link[purrr:in_parallel]{purrr::in_parallel()}}.}
 
 \item{override}{An optional named list used to temporarily override
 values in \verb{_pkgdown.yml}}

@@ -191,6 +191,12 @@
 #'   make article output reproducible. An integer scalar or `NULL` for no seed.
 #' @param preview If `TRUE`, or `is.na(preview) && interactive()`, will preview
 #'   freshly generated section in browser.
+#' @param n_cores Number of workers to use when building articles in
+#'   parallel. A positive integer (fractional values are rounded up), or
+#'   `Inf` to use `parallel::detectCores()`. Defaults to `1L`, which keeps
+#'   the traditional serial build and does not require the \pkg{mirai}
+#'   package. Values greater than 1 require \pkg{mirai} and use
+#'   [purrr::in_parallel()].
 #' @export
 #' @order 1
 build_articles <- function(
@@ -198,6 +204,7 @@ build_articles <- function(
   quiet = TRUE,
   lazy = TRUE,
   seed = 1014L,
+  n_cores = 1L,
   override = list(),
   preview = FALSE
 ) {
@@ -205,6 +212,7 @@ build_articles <- function(
   check_bool(quiet)
   check_bool(lazy)
   check_number_whole(seed, allow_null = TRUE)
+  n_cores <- check_n_cores(n_cores)
 
   if (nrow(pkg$vignettes) == 0L) {
     return(invisible())
@@ -213,17 +221,64 @@ build_articles <- function(
   cli::cli_rule("Building articles")
 
   build_articles_index(pkg)
-  unwrap_purrr_error(purrr::walk(
-    pkg$vignettes$name[pkg$vignettes$type == "rmd"],
-    build_article,
-    pkg = pkg,
-    lazy = lazy,
-    seed = seed,
-    quiet = quiet
-  ))
-  build_quarto_articles(pkg, quiet = quiet)
+  rmd_names <- pkg$vignettes$name[pkg$vignettes$type == "rmd"]
+  if (n_cores == 1L) {
+    unwrap_purrr_error(purrr::walk(
+      rmd_names,
+      build_article,
+      pkg = pkg,
+      lazy = lazy,
+      seed = seed,
+      quiet = quiet
+    ))
+  } else {
+    rlang::check_installed("mirai")
+    mirai::daemons(n_cores)
+    withr::defer(mirai::daemons(0))
+    unwrap_purrr_error(purrr::walk(
+      rmd_names,
+      purrr::in_parallel(
+        function(name, pkg, lazy, seed, quiet) {
+          pkgdown::build_article(
+            name,
+            pkg = pkg,
+            lazy = lazy,
+            seed = seed,
+            quiet = quiet
+          )
+        },
+        pkg = pkg,
+        lazy = lazy,
+        seed = seed,
+        quiet = quiet
+      )
+    ))
+  }
+  build_quarto_articles(pkg, quiet = quiet, n_cores = n_cores)
 
   preview_site(pkg, "articles", preview = preview)
+}
+
+check_n_cores <- function(
+  n_cores,
+  arg = rlang::caller_arg(n_cores),
+  call = rlang::caller_env()
+) {
+  if (
+    !is.numeric(n_cores) ||
+      length(n_cores) != 1L ||
+      is.na(n_cores) ||
+      n_cores < 1
+  ) {
+    cli::cli_abort(
+      "{.arg {arg}} must be a positive integer or {.code Inf}.",
+      call = call
+    )
+  }
+  if (is.infinite(n_cores)) {
+    return(as.integer(parallel::detectCores()))
+  }
+  as.integer(ceiling(n_cores))
 }
 
 # Articles index ----------------------------------------------------------
