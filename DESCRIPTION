@@ -57,6 +57,7 @@ Suggests:
     magick,
     methods,
     mirai,
+    parallel,
     pkgload (>= 1.0.2),
     quarto,
     rsconnect,
