@@ -80,6 +80,7 @@ build_quarto_articles <- function(
       qmds$file_out,
       purrr::in_parallel(
         function(input_file, output_file) {
+          .libPaths(libs)
           postprocess <- utils::getFromNamespace(
             "quarto_article_postprocess",
             "pkgdown"
@@ -92,7 +93,8 @@ build_quarto_articles <- function(
           )
         },
         pkg = pkg,
-        output_dir = output_dir
+        output_dir = output_dir,
+        libs = .libPaths()
       )
     ))
   }

@@ -239,6 +239,7 @@ build_articles <- function(
       rmd_names,
       purrr::in_parallel(
         function(name) {
+          .libPaths(libs)
           pkgdown::build_article(
             name,
             pkg = pkg,
@@ -250,7 +251,8 @@ build_articles <- function(
         pkg = pkg,
         lazy = lazy,
         seed = seed,
-        quiet = quiet
+        quiet = quiet,
+        libs = .libPaths()
       )
     ))
   }
