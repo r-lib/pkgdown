@@ -238,7 +238,7 @@ build_articles <- function(
     unwrap_purrr_error(purrr::walk(
       rmd_names,
       purrr::in_parallel(
-        function(name, pkg, lazy, seed, quiet) {
+        function(name) {
           pkgdown::build_article(
             name,
             pkg = pkg,

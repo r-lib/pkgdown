@@ -79,7 +79,7 @@ build_quarto_articles <- function(
       qmds$file_in,
       qmds$file_out,
       purrr::in_parallel(
-        function(input_file, output_file, pkg, output_dir) {
+        function(input_file, output_file) {
           postprocess <- utils::getFromNamespace(
             "quarto_article_postprocess",
             "pkgdown"
