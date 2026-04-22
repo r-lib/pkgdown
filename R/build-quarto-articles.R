@@ -72,7 +72,7 @@ build_quarto_articles <- function(
       output_dir = output_dir
     ))
   } else {
-    rlang::check_installed("mirai")
+    rlang::check_installed(c("mirai", "carrier"))
     mirai::daemons(n_cores)
     withr::defer(mirai::daemons(0))
     unwrap_purrr_error(purrr::walk2(
