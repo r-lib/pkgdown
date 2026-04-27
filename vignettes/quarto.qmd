@@ -39,6 +39,10 @@ The `setup-r-dependencies` action will [automatically](https://github.com/r-lib/
 
 * pkgdown will pass the `lang` setting on to quarto, but the set of available languages is not perfectly matched. Learn more in <https://quarto.org/docs/authoring/language.html>, including how to supply your own translations.
 
+```{r}
+cli::cli_alert_success("done")
+```
+
 ## Supported features
 
 The following sections demonstrate a bunch of useful quarto features so that we can make sure that they work. 
