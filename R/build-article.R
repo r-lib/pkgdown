@@ -260,11 +260,18 @@ copy_article_images <- function(built_path, input_path, output_path) {
   ext_src <- rmarkdown::find_external_resources(input_path)
 
   # temporarily copy the rendered html into the input path directory and scan
-  # again for additional external resources that may be been included by R code
-  tempfile <- path(path_dir(input_path), "--find-assets.html")
-  withr::defer(try(file_delete(tempfile)))
-  file_copy(built_path, tempfile)
-  ext_post <- rmarkdown::find_external_resources(tempfile)
+  # again for additional external resources that may be been included by R code.
+  # The probe file has to live next to the input Rmd so relative paths in the
+  # HTML resolve correctly; use tempfile() so concurrent workers in the same
+  # source directory don't race on a fixed filename.
+  probe_file <- tempfile(
+    pattern = "--find-assets-",
+    tmpdir = path_dir(input_path),
+    fileext = ".html"
+  )
+  withr::defer(try(file_delete(probe_file)))
+  file_copy(built_path, probe_file)
+  ext_post <- rmarkdown::find_external_resources(probe_file)
 
   ext <- rbind(ext_src, ext_post)
   ext <- ext[!duplicated(ext$path), ]
