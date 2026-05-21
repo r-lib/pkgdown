@@ -22,7 +22,8 @@ build_site_github_pages <- function(
   dest_dir = "docs",
   clean = TRUE,
   install = FALSE,
-  new_process = FALSE
+  new_process = FALSE,
+  n_cores = 1L
 ) {
   pkg <- as_pkgdown(pkg, override = list(destination = dest_dir))
 
@@ -36,6 +37,7 @@ build_site_github_pages <- function(
     preview = FALSE,
     install = install,
     new_process = new_process,
+    n_cores = n_cores,
     ...
   )
   build_github_pages(pkg)

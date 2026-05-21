@@ -1,5 +1,11 @@
-build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
+build_quarto_articles <- function(
+  pkg = ".",
+  article = NULL,
+  quiet = TRUE,
+  n_cores = 1L
+) {
   pkg <- as_pkgdown(pkg)
+  n_cores <- check_n_cores(n_cores)
 
   qmds <- pkg$vignettes[pkg$vignettes$type == "qmd", ]
   if (!is.null(article)) {
@@ -57,24 +63,41 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
   }
 
   # Read generated data from quarto template and render into pkgdown template
-  unwrap_purrr_error(purrr::walk2(
-    qmds$file_in,
-    qmds$file_out,
-    function(input_file, output_file) {
-      built_path <- path(output_dir, path_rel(output_file, "articles"))
-      if (!file_exists(built_path)) {
-        cli::cli_abort("No built file found for {.file {input_file}}")
-      }
-      if (path_ext(output_file) == "html") {
-        data <- data_quarto_article(pkg, built_path, input_file)
-        render_page(pkg, "quarto", data, output_file, quiet = TRUE)
-
-        update_html(path(pkg$dst_path, output_file), tweak_quarto_html)
-      } else {
-        file_copy(built_path, path(pkg$dst_path, output_file), overwrite = TRUE)
-      }
-    }
-  ))
+  if (n_cores == 1L) {
+    unwrap_purrr_error(purrr::walk2(
+      qmds$file_in,
+      qmds$file_out,
+      quarto_article_postprocess,
+      pkg = pkg,
+      output_dir = output_dir
+    ))
+  } else {
+    rlang::check_installed(c("mirai", "carrier"))
+    mirai::daemons(n_cores)
+    withr::defer(mirai::daemons(0))
+    unwrap_purrr_error(purrr::walk2(
+      qmds$file_in,
+      qmds$file_out,
+      purrr::in_parallel(
+        function(input_file, output_file) {
+          .libPaths(libs)
+          postprocess <- utils::getFromNamespace(
+            "quarto_article_postprocess",
+            "pkgdown"
+          )
+          postprocess(
+            input_file,
+            output_file,
+            pkg = pkg,
+            output_dir = output_dir
+          )
+        },
+        pkg = pkg,
+        output_dir = output_dir,
+        libs = .libPaths()
+      )
+    ))
+  }
 
   # Report on which files have changed
   new_digest <- purrr::map_chr(path(pkg$dst_path, qmds$file_out), file_digest)
@@ -97,6 +120,21 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
   )
 
   invisible()
+}
+
+quarto_article_postprocess <- function(input_file, output_file, pkg, output_dir) {
+  built_path <- path(output_dir, path_rel(output_file, "articles"))
+  if (!file_exists(built_path)) {
+    cli::cli_abort("No built file found for {.file {input_file}}")
+  }
+  if (path_ext(output_file) == "html") {
+    data <- data_quarto_article(pkg, built_path, input_file)
+    render_page(pkg, "quarto", data, output_file, quiet = TRUE)
+
+    update_html(path(pkg$dst_path, output_file), tweak_quarto_html)
+  } else {
+    file_copy(built_path, path(pkg$dst_path, output_file), overwrite = TRUE)
+  }
 }
 
 quarto_render <- function(pkg, path, quiet = TRUE, frame = caller_env()) {
