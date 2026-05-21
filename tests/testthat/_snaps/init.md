@@ -8,9 +8,9 @@
       Copying <pkgdown>/BS5/assets/lightswitch.js to lightswitch.js
       Copying <pkgdown>/BS5/assets/link.svg to link.svg
       Copying <pkgdown>/BS5/assets/pkgdown.js to pkgdown.js
-      Updating deps/bootstrap-5.3.1/bootstrap.bundle.min.js
-      Updating deps/bootstrap-5.3.1/bootstrap.bundle.min.js.map
-      Updating deps/bootstrap-5.3.1/bootstrap.min.css
+      Updating deps/bootstrap-5.3.8/bootstrap.bundle.min.js
+      Updating deps/bootstrap-5.3.8/bootstrap.bundle.min.js.map
+      Updating deps/bootstrap-5.3.8/bootstrap.min.css
       Updating deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js
       Updating deps/clipboard.js-2.0.11/clipboard.min.js
       Updating deps/font-awesome-6.5.2/css/all.css
