@@ -242,7 +242,10 @@ as_html.tag_Sexpr <- function(x, ...) {
     switch(
       results,
       text = as.character(res),
-      rd = flatten_text(rd_text(as.character(res))),
+      # tools::parse_Rd() appends a trailing newline TEXT node to fragments,
+      # which would introduce spurious whitespace after an inline \Sexpr
+      # (e.g. the \doi{} macro followed by punctuation), so strip it. #2809
+      rd = sub("\n$", "", flatten_text(rd_text(as.character(res)))),
       hide = "",
       cli::cli_abort(
         "unknown \\Sexpr option: results={results}",

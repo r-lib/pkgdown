@@ -198,6 +198,20 @@ test_that("can control \\Sexpr output", {
   )
 })
 
+test_that("inline \\Sexpr[results=rd] doesn't add trailing whitespace (#2809)", {
+  local_context_eval()
+  # parse_Rd() appends a trailing newline to the re-parsed fragment, which used
+  # to surface as a space between the rendered macro and following punctuation.
+  expect_equal(
+    rd2html("\\Sexpr[results=rd]{\"\\\\\\emph{x}\"}."),
+    "<em>x</em>."
+  )
+  expect_equal(
+    rd2html("\\doi{10.2307/2413326}."),
+    "<a href='https://doi.org/10.2307/2413326'>doi:10.2307/2413326</a>."
+  )
+})
+
 test_that("Sexpr can contain multiple expressions", {
   local_context_eval()
   expect_equal(rd2html("\\Sexpr{a <- 1; a}"), "1")
@@ -210,7 +224,9 @@ test_that("Sexprs with multiple args are parsed", {
 
 test_that("Sexprs in file share environment", {
   local_context_eval()
-  expect_equal(rd2html("\\Sexpr{x <- 1}\\Sexpr{x}"), c("1", "1"))
+  # Adjacent inline \Sexpr render flush ("11"); the second reading x proves
+  # the evaluation environment is shared.
+  expect_equal(rd2html("\\Sexpr{x <- 1}\\Sexpr{x}"), "11")
 
   local_context_eval()
   expect_snapshot(rd2html("\\Sexpr{x}"), error = TRUE)
