@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Inline `\Sexpr[results=rd]{}` (such as the `\doi{}` macro) no longer inserts spurious whitespace before following punctuation (#2809).
+
 * When previewing a site, it is now served via a local http server. This enables dynamic features such as search to work correctly (@shikokuchuo, #2975).
 
 * do not autolink code that is in a link (href) in Rd files (#2972)
