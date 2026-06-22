@@ -741,7 +741,7 @@ mark {
     line-height: 1.3;
 
     &:hover {
-      background-color: var(--bs-tertiary-bg);
+      background-color: RGBA(var(--bs-primary-rgb), 0.15);
       color: var(--bs-body-color);
     }
 
