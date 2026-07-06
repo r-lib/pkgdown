@@ -65,6 +65,7 @@ Next, install [potools](https://michaelchirico.github.io/potools/) and
 [usethis](https://usethis.r-lib.org):
 
 ``` r
+
 install.packages(c("potools", "usethis"))
 ```
 
@@ -84,6 +85,7 @@ which has code `zu`.
 Start by initialising a pull request:
 
 ``` r
+
 usethis::pr_init("translation-zu")
 ```
 
@@ -114,6 +116,7 @@ You can check your work by adding `lang: zu` to your `_pkgdown.yml` then
 running:
 
 ``` r
+
 potools::po_compile()
 devtools::load_all()
 build_site("~/path/to/your/site")
@@ -122,11 +125,13 @@ build_site("~/path/to/your/site")
 Once you’re happy with your work, make sure to compile the changes:
 
 ``` r
+
 potools::po_compile()
 ```
 
 Then commit your changes to Git and submit your pull request for review:
 
 ``` r
+
 usethis::pr_push()
 ```

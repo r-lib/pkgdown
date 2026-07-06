@@ -366,6 +366,7 @@ CRAN release: 2024-07-06
   ([\#2630](https://github.com/r-lib/pkgdown/issues/2630)).
 
   ``` r
+
   1 + 1
   ```
 

@@ -22,6 +22,7 @@ First, make sure you’re in the `main` branch, and you have the latest
 version:
 
 ``` r
+
 gert::git_branch_checkout("main")
 gert::git_pull()
 ```
@@ -29,12 +30,14 @@ gert::git_pull()
 Next figure out the released version that you’re updating:
 
 ``` r
+
 ver <- desc::desc_get_version()[1, 1:3]
 ```
 
 You will use this to create and checkout the branch that you’ll work in:
 
 ``` r
+
 gert::git_branch_create(
   branch = paste0("pkgdown-v", ver),
   ref = paste0("v", ver)
@@ -53,6 +56,7 @@ this R code to generate the git code to pull changes for the most common
 locations:
 
 ``` r
+
 files <- c(
   # overall site config
   "_pkgdown.yml",
@@ -73,12 +77,14 @@ If you backport `DESCRIPTION`, you’ll also need undo the change to the
 `Version`:
 
 ``` r
+
 desc::desc_set_version(ver)
 ```
 
 Now build the site locally and check that it looks as expected:
 
 ``` r
+
 pkgdown::build_site()
 ```
 
@@ -89,6 +95,7 @@ Make sure to commit these changes.
 Now you need to publish the site. First push your branch to GitHub:
 
 ``` r
+
 usethis:::git_push_first()
 ```
 

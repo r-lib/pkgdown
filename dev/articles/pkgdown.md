@@ -7,6 +7,7 @@ recommend setting up pkgdown and GitHub actions to automatically build
 and publish your site:
 
 ``` r
+
 # Run this once to publish your site regularly
 usethis::use_pkgdown_github_pages()
 ```
@@ -16,6 +17,7 @@ If you are not using GitHub, you will have to run
 manually everytime you want to update the site.
 
 ``` r
+
 # Run once
 # Remove docs/ from gitignore to ensure it is checked into git.
 usethis::use_pkgdown()
@@ -33,8 +35,8 @@ promote your site.
 ## Metadata
 
 You can override pkgdown’s defaults with a YAML file called
-`_pkgdown.yml`[¹](#fn1). The most important field is `url`, which gives
-the final location of the site:
+`_pkgdown.yml`[^1]. The most important field is `url`, which gives the
+final location of the site:
 
 ``` yaml
 url: https://pkgdown.r-lib.org
@@ -213,9 +215,7 @@ publicize its URL in a few places:
 
 3.  On social media (make sure to include `#rstats`).
 
-------------------------------------------------------------------------
-
-1.  You can also put it in `pkgdown/_pkgdown.yml` if you want to keep
+[^1]: You can also put it in `pkgdown/_pkgdown.yml` if you want to keep
     the package root clutter-free, or in `inst/_pkgdown.yml` if you want
     to make it available when your package is installed. You can also
     use `.yaml` as the extension if desired.

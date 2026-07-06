@@ -22,6 +22,7 @@ To learn about less important fields nested under `template`, see
 [`build_site()`](https://pkgdown.r-lib.org/dev/reference/build_site.md).
 
 ``` r
+
 library(pkgdown)
 ```
 
@@ -325,6 +326,7 @@ simple solutions to this:
   under ragg such as *Liberation Sans*, e.g.:
 
   ``` r
+
   systemfonts::register_variant("symbol", "Liberation Sans")
   ```
 
@@ -408,7 +410,7 @@ navbar:
 It makes use of the the following built-in components:
 
 - `intro`: “Get Started”, which links to a vignette or article with the
-  same name as the package[¹](#fn1).
+  same name as the package[^1].
 - `reference`: if there are any `.Rd` files.
 - `articles`: if there are any vignettes or articles.
 - `tutorials`: if there any tutorials.
@@ -679,9 +681,7 @@ pkgdown websites. Further work to improve user experience will involve:
 - Improving the contents of the individual articles and reference topics
   😉.
 
-------------------------------------------------------------------------
-
-1.  Note that dots (`.`) in the package name need to be replaced by
+[^1]: Note that dots (`.`) in the package name need to be replaced by
     hyphens (`-`) in the vignette filename to be recognized as the
     intro. That means for a package `foo.bar` the intro needs to be
     named `foo-bar.Rmd`.
