@@ -34,7 +34,7 @@ test_that("preview starts new server when none exists", {
   urls <- character()
   withr::local_options(browser = function(url) urls <<- c(urls, url))
 
-  preview_site(pkg, preview = TRUE)
+  suppressMessages(preview_site(pkg, preview = TRUE))
 
   expect_false(is.null(the$server))
   expect_equal(the$server_root, pkg$dst_path)
@@ -48,11 +48,11 @@ test_that("preview reuses server for same root", {
   urls <- character()
   withr::local_options(browser = function(url) urls <<- c(urls, url))
 
-  preview_site(pkg, preview = TRUE)
+  suppressMessages(preview_site(pkg, preview = TRUE))
   server1 <- the$server
 
   file_create(path(pkg$dst_path, "test.html"))
-  preview_site(pkg, path = "test.html", preview = TRUE)
+  suppressMessages(preview_site(pkg, path = "test.html", preview = TRUE))
 
   expect_identical(the$server, server1)
   expect_length(urls, 2)
@@ -66,10 +66,10 @@ test_that("preview starts new server for different root", {
   urls <- character()
   withr::local_options(browser = function(url) urls <<- c(urls, url))
 
-  preview_site(pkg1, preview = TRUE)
+  suppressMessages(preview_site(pkg1, preview = TRUE))
   server1 <- the$server
 
-  preview_site(pkg2, preview = TRUE)
+  suppressMessages(preview_site(pkg2, preview = TRUE))
 
   expect_false(identical(the$server, server1))
   expect_equal(the$server_root, pkg2$dst_path)
@@ -80,10 +80,10 @@ test_that("stop_preview stops server", {
   local_preview_clean()
   withr::local_options(browser = function(url) {})
 
-  preview_site(pkg, preview = TRUE)
+  suppressMessages(preview_site(pkg, preview = TRUE))
   expect_false(is.null(the$server))
 
-  stop_preview()
+  suppressMessages(stop_preview())
   expect_null(the$server)
   expect_null(the$server_root)
 })
@@ -97,12 +97,14 @@ test_that("preview constructs correct URLs for sub-paths", {
   dir_create(path(pkg$dst_path, "reference"))
   file_create(path(pkg$dst_path, "reference", "foo.html"))
 
-  preview_site(pkg, preview = TRUE)
+  suppressMessages(preview_site(pkg, preview = TRUE))
   base_url <- the$server$url
 
-  preview_site(pkg, path = "reference", preview = TRUE)
+  suppressMessages(preview_site(pkg, path = "reference", preview = TRUE))
   expect_equal(urls[[2]], paste0(base_url, "/reference"))
 
-  preview_site(pkg, path = "reference/foo.html", preview = TRUE)
+  suppressMessages(
+    preview_site(pkg, path = "reference/foo.html", preview = TRUE)
+  )
   expect_equal(urls[[3]], paste0(base_url, "/reference/foo.html"))
 })

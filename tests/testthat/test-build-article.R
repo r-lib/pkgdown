@@ -226,10 +226,10 @@ test_that("build_article yields useful error if pandoc fails", {
     )
   )
 
-  expect_error(
+  suppressMessages(expect_error(
     build_article("test", pkg, pandoc_args = "--fail-if-warnings"),
     "Note with key .+ defined at .+ but not used"
-  )
+  ))
 })
 
 test_that("build_article yields useful error if R fails", {
