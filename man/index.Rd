@@ -8,7 +8,7 @@
 Index
 }
 \seealso{
-Other tests: 
+Other tests:
 \code{\link{test-crayon}},
 \code{\link{test-dont}},
 \code{\link{test-figures}},

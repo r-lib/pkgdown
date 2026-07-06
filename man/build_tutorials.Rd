@@ -44,11 +44,11 @@ section. This should be a list where each element specifies:
 }
 
 \seealso{
-Other site components: 
-\code{\link{build_articles}()},
-\code{\link{build_home}()},
-\code{\link{build_llm_docs}()},
-\code{\link{build_news}()},
-\code{\link{build_reference}()}
+Other site components:
+\code{\link[=build_articles]{build_articles()}},
+\code{\link[=build_home]{build_home()}},
+\code{\link[=build_llm_docs]{build_llm_docs()}},
+\code{\link[=build_news]{build_news()}},
+\code{\link[=build_reference]{build_reference()}}
 }
 \concept{site components}

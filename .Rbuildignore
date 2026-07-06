@@ -25,5 +25,7 @@
 ^vignettes/articles/*_files$
 ^vignettes/articles$
 ^\.vscode$
-^[\.]?air\.toml$
 ^\.git-blame-ignore-revs$
+^AGENTS\.md$
+^\.claude$
+^[.]?air[.]toml$

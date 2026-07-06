@@ -23,11 +23,11 @@ adding the following to your \code{pkgdown.yml}:
 }\if{html}{\out{</div>}}
 }
 \seealso{
-Other site components: 
-\code{\link{build_articles}()},
-\code{\link{build_home}()},
-\code{\link{build_news}()},
-\code{\link{build_reference}()},
-\code{\link{build_tutorials}()}
+Other site components:
+\code{\link[=build_articles]{build_articles()}},
+\code{\link[=build_home]{build_home()}},
+\code{\link[=build_news]{build_news()}},
+\code{\link[=build_reference]{build_reference()}},
+\code{\link[=build_tutorials]{build_tutorials()}}
 }
 \concept{site components}

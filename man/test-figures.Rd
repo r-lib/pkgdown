@@ -17,7 +17,7 @@ text(2, 5, "Hello", srt = 30, cex = 2)
 plot(1:3, col = c("red", "green", "blue"), pch = 16, cex = 10)
 }
 \seealso{
-Other tests: 
+Other tests:
 \code{\link{index}},
 \code{\link{test-crayon}},
 \code{\link{test-dont}},

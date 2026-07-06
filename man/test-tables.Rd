@@ -10,7 +10,7 @@ Test case: tables
 gt::gt(head(mtcars))
 }
 \seealso{
-Other tests: 
+Other tests:
 \code{\link{index}},
 \code{\link{test-crayon}},
 \code{\link{test-dont}},
