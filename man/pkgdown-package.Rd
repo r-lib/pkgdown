@@ -24,6 +24,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Hadley Wickham \email{hadley@posit.co} (\href{https://orcid.org/0000-0003-4757-117X}{ORCID})
   \item Jay Hesselberth (\href{https://orcid.org/0000-0002-6299-179X}{ORCID})
   \item Maëlle Salmon (\href{https://orcid.org/0000-0002-2815-0399}{ORCID})
   \item Olivier Roy

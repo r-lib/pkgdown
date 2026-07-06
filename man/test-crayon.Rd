@@ -15,7 +15,7 @@ message(cli::col_green("This is green"))
 warning(cli::style_bold("This is bold"))
 }
 \seealso{
-Other tests: 
+Other tests:
 \code{\link{index}},
 \code{\link{test-dont}},
 \code{\link{test-figures}},

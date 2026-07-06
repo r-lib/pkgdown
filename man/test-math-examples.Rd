@@ -27,7 +27,7 @@ l >= (yj / tj) for all j in J &
 sum_i^I (xi * ci) <= B}
 }
 \seealso{
-Other tests: 
+Other tests:
 \code{\link{index}},
 \code{\link{test-crayon}},
 \code{\link{test-dont}},

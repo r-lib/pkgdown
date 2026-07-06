@@ -37,7 +37,7 @@ Non-R code in \verb{\preformatted{}}
 }
 
 \seealso{
-Other tests: 
+Other tests:
 \code{\link{index}},
 \code{\link{test-crayon}},
 \code{\link{test-dont}},

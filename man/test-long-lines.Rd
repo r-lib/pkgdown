@@ -16,7 +16,7 @@ cat(rep("x ", 100), sep = "")
 cat(rep("xy", 100), sep = "")
 }
 \seealso{
-Other tests: 
+Other tests:
 \code{\link{index}},
 \code{\link{test-crayon}},
 \code{\link{test-dont}},
