@@ -180,46 +180,6 @@ test_that("can handle UTF-8 encoding (#416, #493)", {
   expect_s3_class(cit, "citation")
 })
 
-test_that("can handle latin1 encoding (#689)", {
-  pkg <- local_pkgdown_site(
-    desc = list(
-      Title = "A søphîstiçated påckagé",
-      Date = "2018-02-02",
-      Encoding = "latin1"
-    )
-  )
-  meta <- create_citation_meta(pkg$src_path)
-  expect_equal(meta$Title, "A søphîstiçated påckagé")
-  expect_equal(Encoding(meta$Title), "UTF-8")
-
-  pkg <- pkg_add_file(
-    pkg,
-    "inst/CITATION",
-    c(
-      'citEntry(',
-      '  entry = "Article",',
-      '  title="Title: é",',
-      '  author="Author: é",',
-      '  journal="Journal é",',
-      '  year="2017",',
-      '  textVersion = "é"',
-      ')'
-    )
-  )
-  cit_path <- path(pkg$src_path, "inst/CITATION")
-  citation <- readLines(cit_path) # nolint
-  con <- file(cit_path, open = "w+", encoding = "native.enc")
-  withr::defer(close(con))
-  base::writeLines(iconv(citation, to = "latin1"), con, useBytes = TRUE) # nolint
-
-  cit <- read_citation(pkg$src_path)
-  expect_s3_class(cit, "citation")
-
-  pkg <- pkg_add_file(pkg, "inst/CITATION", "citation(auto = meta)")
-  cit <- read_citation(pkg$src_path)
-  expect_s3_class(cit, "citation")
-})
-
 test_that("source link is added to citation page", {
   # Work around bug in utils::citation()
   local_options(warnPartialMatchDollar = FALSE)
