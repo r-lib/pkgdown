@@ -27,3 +27,5 @@
 ^\.vscode$
 ^[\.]?air\.toml$
 ^\.git-blame-ignore-revs$
+^AGENTS\.md$
+^\.claude$
