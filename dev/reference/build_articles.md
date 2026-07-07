@@ -240,7 +240,7 @@ If the output format produces a PDF, you'll also need to specify the
 To work with pkgdown, the output format must accept `template`, `theme`,
 and `self_contained` arguments, and must work without any additional CSS
 or JSS files. Note that if you use
-[`_output.yml`](https://bookdown.org/yihui/rmarkdown/html-document.html#shared-options)
+[`_output.yml`](https://pkg.yihui.org/rmarkdown-book/html-document.html#shared-options)
 or
 [`_site.yml`](https://rmarkdown.rstudio.com/docs/reference/render_site.html)
 you'll still need to add `as_is: true` to each individual vignette.

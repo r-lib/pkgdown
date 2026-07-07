@@ -458,8 +458,8 @@ navbar:
 ```
 
 Components uses the same syntax as [RMarkdown
-menus](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
-The elements of `menu` can be:
+menus](https://pkg.yihui.org/rmarkdown-book/rmarkdown-site.html). The
+elements of `menu` can be:
 
 - Linked text (`text`, `href`, and optional `target`, `class`, and
   `id`.).
