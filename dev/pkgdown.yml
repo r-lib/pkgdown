@@ -1,5 +1,5 @@
 pandoc: 3.8.3
-pkgdown: 2.2.0.9000
+pkgdown: 2.2.1.9000
 pkgdown_sha: ~
 articles:
   accessibility: accessibility.html
@@ -19,7 +19,7 @@ articles:
   articles/test-rmarkdown-article: test-rmarkdown-article.html
   translations: translations.html
   test/widgets: test/widgets.html
-last_built: 2026-07-07T15:26Z
+last_built: 2026-07-07T19:29Z
 urls:
   reference: https://pkgdown.r-lib.org/reference
   article: https://pkgdown.r-lib.org/articles
