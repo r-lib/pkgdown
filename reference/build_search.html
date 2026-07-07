@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Build search index — build_search"><meta name="description" content="Generate a JSON search index from the built site. This is used by
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Build search index — build_search"><meta name="description" content="Generate a JSON search index from the built site. This is used by
 fuse.js to provide a javascript powered search for
 BS5 powered pkgdown sites.
 NB: build_search() is called automatically by build_site(); you don't
@@ -28,7 +28,7 @@ options."><meta property="og:image" content="https://pkgdown.r-lib.org/logo.png"
 
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,11 +120,8 @@ Below we exclude the changelog from the search index:</p>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">exclude</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'news/index.html'</span><span class="kw">]</span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
-    <h2 id="debugging-and-local-testing">Debugging and local testing<a class="anchor" aria-label="anchor" href="#debugging-and-local-testing"></a></h2>
-    <p>Locally (as opposed to on GitHub Pages or Netlify for instance),
-search won't work if you simply use pkgdown preview of the static files.
-You can use <code>servr::httw("docs")</code> instead.</p>
-<p>If search is not working, run <code><a href="check_pkgdown.html">pkgdown::pkgdown_sitrep()</a></code> to eliminate
+    <h2 id="debugging">Debugging<a class="anchor" aria-label="anchor" href="#debugging"></a></h2>
+    <p>If search is not working, run <code><a href="check_pkgdown.html">pkgdown::pkgdown_sitrep()</a></code> to eliminate
 common issues such as the absence of URL in the pkgdown configuration file
 of your package.</p>
     </div>
@@ -138,7 +135,7 @@ of your package.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

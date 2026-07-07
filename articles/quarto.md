@@ -58,11 +58,12 @@ that we can make sure that they work.
 
 - SMALL CAPS
 
-- Here is a footnote reference[¹](#fn1)
+- Here is a footnote reference[^1]
 
 ### Code
 
 ``` r
+
 1 + 1
 #> [1] 2
 2 + 2
@@ -121,6 +122,4 @@ Footnotes
 
 Callouts
 
-------------------------------------------------------------------------
-
-1.  And here is the footnote.
+[^1]: And here is the footnote.

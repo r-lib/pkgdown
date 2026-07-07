@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Changelog"><meta property="og:image" content="https://pkgdown.r-lib.org/logo.png"><script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body><p>"
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Changelog"><meta property="og:image" content="https://pkgdown.r-lib.org/logo.png"><script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body><p>"
 
 
   
@@ -18,7 +18,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,8 +75,15 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.2.1" id="pkgdown-221">pkgdown 2.2.1<a class="anchor" aria-label="anchor" href="#pkgdown-221"></a></h2>
+<ul><li>Test fix for <code>R CMD check</code>.</li>
+<li>When previewing a site, it is now served via a local http server. This enables dynamic features such as search to work correctly (<a href="https://github.com/shikokuchuo" class="external-link">@shikokuchuo</a>, <a href="https://github.com/r-lib/pkgdown/issues/2975" class="external-link">#2975</a>).</li>
+<li>Code in a link (href) is no longer autolinked (<a href="https://github.com/r-lib/pkgdown/issues/2972" class="external-link">#2972</a>)</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.2.0" id="pkgdown-220">pkgdown 2.2.0<a class="anchor" aria-label="anchor" href="#pkgdown-220"></a></h2><p class="text-muted">CRAN release: 2025-11-06</p>
-<div class="section level3">
+<ul><li>Make <code><a href="../reference/build_llm_docs.html">build_llm_docs()</a></code> more robust to the use of old Pandoc (<a href="https://github.com/nanxstats" class="external-link">@nanxstats</a>, <a href="https://github.com/galachad" class="external-link">@galachad</a>, <a href="https://github.com/r-lib/pkgdown/issues/2952" class="external-link">#2952</a>, <a href="https://github.com/r-lib/pkgdown/issues/2954" class="external-link">#2954</a>)</li>
+</ul><div class="section level3">
 <h3 id="lifecycle-changes-2-2-0">Lifecycle changes<a class="anchor" aria-label="anchor" href="#lifecycle-changes-2-2-0"></a></h3>
 <ul><li>
 <code>autolink_html()</code> deprecated in 1.6.0 and <code>preview_page()</code> have been removed.</li>
@@ -382,7 +389,7 @@
 <li>A skip link makes it easier to get directly to the page contents (<a href="https://github.com/r-lib/pkgdown/issues/1827" class="external-link">#1827</a>).</li>
 </ul></li>
 <li><p>In-line footnotes mean you can read asides next to the text they refer to.</p></li>
-<li><p>Articles support tabsets, <a href="https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html" class="external-link">as in R Markdown</a>. (<a href="https://github.com/JamesHWade" class="external-link">@JamesHWade</a>, <a href="https://github.com/r-lib/pkgdown/issues/1667" class="external-link">#1667</a>).</p></li>
+<li><p>Articles support tabsets, <a href="https://pkg.yihui.org/rmarkdown-cookbook/html-tabs.html" class="external-link">as in R Markdown</a>. (<a href="https://github.com/JamesHWade" class="external-link">@JamesHWade</a>, <a href="https://github.com/r-lib/pkgdown/issues/1667" class="external-link">#1667</a>).</p></li>
 <li>
 <p>Other minor styling improvements:</p>
 <ul><li>The active item in TOC is indicated with background colour, rather than a border.</li>
@@ -857,7 +864,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

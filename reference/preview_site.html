@@ -5,13 +5,11 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Open site in browser — preview_site"><meta name="description" content="preview_site() opens your pkgdown site in your browser. pkgdown has been
-carefully designed to work even when served from the file system like
-this; the only part that doesn't work is search. You can use servr::httw(&quot;docs/&quot;)
-to create a server to make search work locally."><meta property="og:description" content="preview_site() opens your pkgdown site in your browser. pkgdown has been
-carefully designed to work even when served from the file system like
-this; the only part that doesn't work is search. You can use servr::httw(&quot;docs/&quot;)
-to create a server to make search work locally."><meta property="og:image" content="https://pkgdown.r-lib.org/logo.png"><script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body><p>"
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Open site in browser — preview_site"><meta name="description" content="preview_site() opens your pkgdown site in your browser, served via a
+local HTTP server. This enables dynamic features such as search to work
+correctly in preview."><meta property="og:description" content="preview_site() opens your pkgdown site in your browser, served via a
+local HTTP server. This enables dynamic features such as search to work
+correctly in preview."><meta property="og:image" content="https://pkgdown.r-lib.org/logo.png"><script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="pkgdown.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body><p>"
 
 
   
@@ -24,7 +22,7 @@ to create a server to make search work locally."><meta property="og:image" conte
 
     <a class="navbar-brand me-2" href="../index.html">pkgdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,10 +80,9 @@ to create a server to make search work locally."><meta property="og:image" conte
     </div>
 
     <div class="ref-description section level2">
-    <p><code>preview_site()</code> opens your pkgdown site in your browser. pkgdown has been
-carefully designed to work even when served from the file system like
-this; the only part that doesn't work is search. You can use <code>servr::httw("docs/")</code>
-to create a server to make search work locally.</p>
+    <p><code>preview_site()</code> opens your pkgdown site in your browser, served via a
+local HTTP server. This enables dynamic features such as search to work
+correctly in preview.</p>
     </div>
 
     <div class="section level2">
@@ -110,6 +107,10 @@ to create a server to make search work locally.</p>
 freshly generated section in browser.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code><a href="stop_preview.html">stop_preview()</a></code> to stop the server.</p></div>
+    </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
@@ -120,7 +121,7 @@ freshly generated section in browser.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

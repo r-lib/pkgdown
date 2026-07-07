@@ -21,6 +21,9 @@ Useful links:
 
 Authors:
 
+- Hadley Wickham <hadley@posit.co>
+  ([ORCID](https://orcid.org/0000-0003-4757-117X))
+
 - Jay Hesselberth ([ORCID](https://orcid.org/0000-0002-6299-179X))
 
 - Maëlle Salmon ([ORCID](https://orcid.org/0000-0002-2815-0399))

@@ -10,6 +10,7 @@ or [`?build_site`](https://pkgdown.r-lib.org/reference/build_site.md).
 ## Installation
 
 ``` r
+
 # Install released version from CRAN
 install.packages("pkgdown")
 ```
@@ -19,17 +20,19 @@ install.packages("pkgdown")
 Get started with [usethis](https://usethis.r-lib.org/):
 
 ``` r
+
 # Run once to configure your package to use and deploy pkgdown
 usethis::use_pkgdown_github_pages()
 ```
 
 ``` r
+
 # Preview your site locally before publishing
 pkgdown::build_site()
 ```
 
-This adds the necessary components and sets up GitHub Actions[¹](#fn1)
-for automatic site building when deploying. Your `README.md` becomes the
+This adds the necessary components and sets up GitHub Actions[^1] for
+automatic site building when deploying. Your `README.md` becomes the
 homepage, documentation in `man/` generates a function reference, and
 vignettes will be rendered into `articles/`.
 
@@ -84,9 +87,7 @@ Please note that this project is released with a [Contributor Code of
 Conduct](https://pkgdown.r-lib.org/CODE_OF_CONDUCT.html). By
 participating in this project you agree to abide by its terms.
 
-------------------------------------------------------------------------
-
-1.  If you don’t use GitHub, you can use
+[^1]: If you don’t use GitHub, you can use
     [`usethis::use_pkgdown()`](https://usethis.r-lib.org/reference/use_pkgdown.html) +
     [`pkgdown::build_site()`](https://pkgdown.r-lib.org/reference/build_site.md)
     to create a website.

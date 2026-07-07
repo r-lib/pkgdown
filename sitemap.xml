@@ -1,5 +1,6 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://pkgdown.r-lib.org/404.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/AGENTS.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/CODE_OF_CONDUCT.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/CONTRIBUTING.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/LICENSE-text.html</loc></url>
@@ -49,6 +50,7 @@
 <url><loc>https://pkgdown.r-lib.org/reference/preview_site.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/rd2html.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/render_page.html</loc></url>
+<url><loc>https://pkgdown.r-lib.org/reference/stop_preview.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/templates.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/test-crayon.html</loc></url>
 <url><loc>https://pkgdown.r-lib.org/reference/test-dont.html</loc></url>

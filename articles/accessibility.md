@@ -6,6 +6,7 @@ vignette describes the additional details that can’t be automated away
 and you need to be aware of.
 
 ``` r
+
 library(pkgdown)
 ```
 

@@ -1,8 +1,26 @@
 # Changelog
 
+## pkgdown 2.2.1
+
+- Test fix for `R CMD check`.
+- When previewing a site, it is now served via a local http server. This
+  enables dynamic features such as search to work correctly
+  ([@shikokuchuo](https://github.com/shikokuchuo),
+  [\#2975](https://github.com/r-lib/pkgdown/issues/2975)).
+- Code in a link (href) is no longer autolinked
+  ([\#2972](https://github.com/r-lib/pkgdown/issues/2972))
+
 ## pkgdown 2.2.0
 
 CRAN release: 2025-11-06
+
+- Make
+  [`build_llm_docs()`](https://pkgdown.r-lib.org/reference/build_llm_docs.md)
+  more robust to the use of old Pandoc
+  ([@nanxstats](https://github.com/nanxstats),
+  [@galachad](https://github.com/galachad),
+  [\#2952](https://github.com/r-lib/pkgdown/issues/2952),
+  [\#2954](https://github.com/r-lib/pkgdown/issues/2954))
 
 ### Lifecycle changes
 
@@ -347,6 +365,7 @@ CRAN release: 2024-07-06
   ([\#2630](https://github.com/r-lib/pkgdown/issues/2630)).
 
   ``` r
+
   1 + 1
   ```
 
@@ -910,7 +929,7 @@ implementation of local search.
   to.
 
 - Articles support tabsets, [as in R
-  Markdown](https://bookdown.org/yihui/rmarkdown-cookbook/html-tabs.html).
+  Markdown](https://pkg.yihui.org/rmarkdown-cookbook/html-tabs.html).
   ([@JamesHWade](https://github.com/JamesHWade),
   [\#1667](https://github.com/r-lib/pkgdown/issues/1667)).
 

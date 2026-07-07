@@ -281,7 +281,7 @@ recommend getting the HTML directly from the tool:
           in_header: |
             <script defer data-domain="{YOUR DOMAIN}" src="https://plausible.io/js/plausible.js"></script>
 
-- [Google analytics](https://analytics.google.com/analytics/web/):
+- [Google analytics](https://developers.google.com/analytics):
 
       template:
         includes:

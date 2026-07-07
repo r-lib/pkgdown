@@ -26,6 +26,7 @@ The quickest way to set up minimal example package is with
 [`usethis::create_package()`](https://usethis.r-lib.org/reference/create_package.html):
 
 ``` r
+
 usethis::create_package("~/desktop/testpackage")
 # ... edit files ...
 pkgdown::build_site(tmp, new_process = FALSE, preview = FALSE)
@@ -44,6 +45,7 @@ If you encounter problems with Rd tags, please use
 a reprexes:
 
 ``` r
+
 library(pkgdown)
 
 rd2html("a\n%b\nc")
