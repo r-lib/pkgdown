@@ -1,5 +1,9 @@
 # pkgdown (development version)
 
+## Minor improvements and bug fixes
+
+* The ROR icon is now properly sized on boostrap 3 template, in line with the ORCID icon and with the behaviour on bootstrap 5 template (@Bisaloo, #3004).
+
 # pkgdown 2.2.1
 
 * Test fix for `R CMD check`.
