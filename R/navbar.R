@@ -211,8 +211,9 @@ navbar_articles <- function(pkg = ".") {
         )
         vig <- articles[idx, , drop = FALSE]
         vig <- vig[vig$name != pkg$package, , drop = FALSE]
+        is_first_section <- index == 1
         c(
-          if (!is.null(section$navbar) && index != 1) {
+          if (!is.null(section$navbar) && !is_first_section) {
             list(menu_separator(), menu_heading(section$navbar))
           },
           menu_links(vig$title, vig$href)
