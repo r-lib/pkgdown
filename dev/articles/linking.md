@@ -10,11 +10,14 @@ it’s possible to do unambiguously. This includes:
 - Calls to `?`, like
   [`?build_site`](https://pkgdown.r-lib.org/dev/reference/build_site.md)
   or
-  [`package?pkgdown`](https://pkgdown.r-lib.org/dev/reference/pkgdown-package.md).
+  [`package?pkgdown`](https://pkgdown.r-lib.org/dev/reference/pkgdown-package.md)
+  (in inline code).
 - Calls to [`help()`](https://rdrr.io/r/utils/help.html), like
-  [`help("pkgdown")`](https://pkgdown.r-lib.org/dev/reference/pkgdown-package.md).
+  [`help("pkgdown")`](https://pkgdown.r-lib.org/dev/reference/pkgdown-package.md)
+  (in inline code).
 - Calls to [`vignette()`](https://rdrr.io/r/utils/vignette.html), like
-  [`vignette("pkgdown")`](https://pkgdown.r-lib.org/dev/articles/pkgdown.md).
+  [`vignette("pkgdown")`](https://pkgdown.r-lib.org/dev/articles/pkgdown.md)
+  (in inline code).
 
 ## Across packages
 
@@ -27,7 +30,8 @@ adapt the call in the usual way:
   [`?MASS::addterm`](https://rdrr.io/pkg/MASS/man/addterm.html).
 - [`vignette("other-langs", package = "purrr")`](https://purrr.tidyverse.org/articles/other-langs.html),
   [`vignette("longintro", package = "rpart")`](https://cran.rstudio.com/web/packages/rpart/vignettes/longintro.pdf)
-- [purrr](https://purrr.tidyverse.org/)
+  (in inline code)
+- [purrr](https://purrr.tidyverse.org/) (in inline code)
 
 If pkgdown can find a pkgdown site for the remote package, it will link
 to it; otherwise, it will link to <https://rdrr.io/> for documentation

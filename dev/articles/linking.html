@@ -128,11 +128,11 @@ wherever it’s possible to do unambiguously. This includes:</p>
 <ul>
 <li>Bare function calls, like <code><a href="../reference/build_site.html">build_site()</a></code>.</li>
 <li>Calls to <code>?</code>, like <code><a href="../reference/build_site.html">?build_site</a></code> or
-<code><a href="../reference/pkgdown-package.html">package?pkgdown</a></code>.</li>
-<li>Calls to <code><a href="https://rdrr.io/r/utils/help.html" class="external-link">help()</a></code>, like
-<code><a href="../reference/pkgdown-package.html">help("pkgdown")</a></code>.</li>
+<code><a href="../reference/pkgdown-package.html">package?pkgdown</a></code> (in inline code).</li>
+<li>Calls to <code><a href="https://rdrr.io/r/utils/help.html" class="external-link">help()</a></code>, like <code><a href="../reference/pkgdown-package.html">help("pkgdown")</a></code> (in
+inline code).</li>
 <li>Calls to <code><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette()</a></code>, like
-<code><a href="../articles/pkgdown.html">vignette("pkgdown")</a></code>.</li>
+<code><a href="../articles/pkgdown.html">vignette("pkgdown")</a></code> (in inline code).</li>
 </ul>
 </div>
 <div class="section level2">
@@ -147,9 +147,10 @@ adapt the call in the usual way:</p>
 <code><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">?purrr::map</a></code>, <code><a href="https://rdrr.io/pkg/MASS/man/addterm.html" class="external-link">?MASS::addterm</a></code>.</li>
 <li>
 <code><a href="https://purrr.tidyverse.org/articles/other-langs.html" class="external-link">vignette("other-langs", package = "purrr")</a></code>,
-<code><a href="https://cran.rstudio.com/web/packages/rpart/vignettes/longintro.pdf" class="external-link">vignette("longintro", package = "rpart")</a></code>
-</li>
-<li><a href="https://purrr.tidyverse.org/" class="external-link">purrr</a></li>
+<code><a href="https://cran.rstudio.com/web/packages/rpart/vignettes/longintro.pdf" class="external-link">vignette("longintro", package = "rpart")</a></code> (in inline
+code)</li>
+<li>
+<a href="https://purrr.tidyverse.org/" class="external-link">purrr</a> (in inline code)</li>
 </ul>
 <p>If pkgdown can find a pkgdown site for the remote package, it will
 link to it; otherwise, it will link to <a href="https://rdrr.io/" class="external-link uri">https://rdrr.io/</a> for documentation and CRAN for

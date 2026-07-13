@@ -4,6 +4,8 @@
 
 ## pkgdown 2.2.1
 
+CRAN release: 2026-07-07
+
 - Test fix for `R CMD check`.
 - When previewing a site, it is now served via a local http server. This
   enables dynamic features such as search to work correctly
