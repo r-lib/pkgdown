@@ -23,9 +23,9 @@ knitr::opts_chunk$set(
 pkgdown will automatically link to documentation and articles wherever it's possible to do unambiguously. This includes:
 
 * Bare function calls, like `build_site()`.
-* Calls to `?`, like `?build_site` or `package?pkgdown`.
-* Calls to `help()`, like `help("pkgdown")`.
-* Calls to `vignette()`, like `vignette("pkgdown")`.
+* Calls to `?`, like `?build_site` or `package?pkgdown` (in inline code).
+* Calls to `help()`, like `help("pkgdown")` (in inline code).
+* Calls to `vignette()`, like `vignette("pkgdown")` (in inline code).
 
 ## Across packages
 
@@ -33,8 +33,8 @@ Linking to documentation in another package is straightforward. Just adapt the c
 
 * `purrr::map()`, `MASS::addterm()`.
 * `?purrr::map`, `?MASS::addterm`.
-* `vignette("other-langs", package = "purrr")`, `vignette("longintro", package = "rpart")`
-* `{purrr}`
+* `vignette("other-langs", package = "purrr")`, `vignette("longintro", package = "rpart")` (in inline code)
+* `{purrr}` (in inline code)
 
 If pkgdown can find a pkgdown site for the remote package, it will link to it; otherwise, it will link to <https://rdrr.io/> for documentation and CRAN for vignettes. In order for a pkgdown site to be findable, it needs to be listed in two places:
 
