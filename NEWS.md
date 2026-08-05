@@ -1,11 +1,12 @@
 # pkgdown (development version)
 
+* Ensure SVG favicons are parsed properly by fixing a bug in BS5 and BS3 favicon icon templates where curly/smart quotes (”…”, U+201D) were used instead of straight quotes("" or ''). This caused the SVG favicon to not be used and a fallback raster favicon to be used. If your fallback was low resolution, your favicon looked low quality (@njtierney, #3005).
+
 # pkgdown 2.2.1
 
 * Test fix for `R CMD check`.
 * When previewing a site, it is now served via a local http server. This enables dynamic features such as search to work correctly (@shikokuchuo, #2975).
 * Code in a link (href) is no longer autolinked (#2972)
-* Ensure SVG favicons are parsed properly by fixing a bug in BS5 and BS3 favicon icon templates where curly/smart quotes (”…”, U+201D) were used instead of straight quotes, which caused the SVG favicon to not be used and a fallback raster favicon to be used. If your fallback was low resolution, your favicon looked poor (@njtierney, #3005).
 
 # pkgdown 2.2.0
 
