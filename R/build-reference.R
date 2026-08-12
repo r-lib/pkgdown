@@ -223,11 +223,17 @@ examples_env <- function(
       pkg$src_path,
       export_all = FALSE,
       helpers = FALSE,
-      quiet = TRUE
+      quiet = TRUE,
+      attach = FALSE
     )
   } else {
-    library(pkg$package, character.only = TRUE)
+    loadNamespace(pkg$package)
   }
+  # Load, but don't attach: attaching would put the package's exports on
+  # the search path for the rest of the build, silently shadowing base
+  # functions (e.g. a package that exports `length()`) for unrelated
+  # code like navbar rendering (#2917)
+  pkg_env <- package_export_env(pkg$package)
 
   # Need to compute before changing working directory
   pre_path <- path_abs(path(pkg$src_path, "pkgdown", "pre-reference.R"))
@@ -241,7 +247,7 @@ examples_env <- function(
     htmlwidgets::setWidgetIdSeed(seed)
   }
 
-  examples_env <- child_env(globalenv())
+  examples_env <- child_env(pkg_env)
   if (file_exists(pre_path)) {
     sys.source(pre_path, envir = examples_env)
   }
@@ -250,6 +256,12 @@ examples_env <- function(
   }
 
   examples_env
+}
+
+package_export_env <- function(package) {
+  ns <- asNamespace(package)
+  exports <- getNamespaceExports(ns)
+  list2env(mget(exports, envir = ns), parent = globalenv())
 }
 
 #' @export
