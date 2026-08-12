@@ -8,7 +8,7 @@ test_that("examples_env runs pre and post code", {
   dir_create(path(dst_path, "reference"))
 
   pkg <- list(
-    package = "test",
+    package = "testpackage",
     src_path = test_path("assets/reference-pre-post"),
     dst_path = dst_path
   )
