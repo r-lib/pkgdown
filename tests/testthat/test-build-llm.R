@@ -31,6 +31,22 @@ test_that("replaces lifecycle badges with strong text", {
   )
 })
 
+test_that("replaces inline data URI images with text placeholders", {
+  html <- xml2::read_html(
+    '<img src="data:image/png;base64,abc123" alt="A plot">'
+  )
+  simplify_inline_images(html)
+  expect_equal(xpath_text(html, ".//span"), "[Image: A plot]")
+})
+
+test_that("replaces inline data URI images without alt text", {
+  html <- xml2::read_html(
+    '<img src="data:image/png;base64,abc123">'
+  )
+  simplify_inline_images(html)
+  expect_equal(xpath_text(html, ".//span"), "[Image]")
+})
+
 test_that("converts internal urls to absolute with .md ending", {
   html <- xml2::read_html(
     r"(
