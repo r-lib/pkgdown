@@ -26,21 +26,21 @@ ext_topics <- function(match_strings) {
   )
 }
 
-# Adapted from roxygen2::get_rd_from_help
+# Fetches the parsed Rd for an external package's topic
 get_rd_from_help <- function(package, alias) {
   call <- quote(build_reference_index())
   check_installed(package, "as it's used in the reference index.", call = call)
 
-  help <- utils::help((alias), (package))
-  if (length(help) == 0) {
-    fun <- paste0(package, "::", alias)
-    cli::cli_abort(
-      "Could not find documentation for {.fn {fun}}.",
-      call = call
-    )
-    return()
-  }
+  rd <- tryCatch(
+    rdtools::topic_rd(alias, package),
+    error = function(e) {
+      fun <- paste0(package, "::", alias)
+      cli::cli_abort(
+        "Could not find documentation for {.fn {fun}}.",
+        call = call
+      )
+    }
+  )
 
-  out <- get(".getHelpFile", envir = asNamespace("utils"))(help)
-  set_classes(out)
+  set_classes(rd)
 }
