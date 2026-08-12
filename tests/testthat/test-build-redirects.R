@@ -63,6 +63,21 @@ test_that("generates redirects only for non-name aliases", {
   )
 })
 
+test_that("index aliases use index-topic.html", {
+  pkg <- list(
+    meta = list(url = "http://foo.com"),
+    topics = list(
+      alias = list(c("foo", "index")),
+      name = "foo",
+      file_out = "foo.html"
+    )
+  )
+  expect_equal(
+    reference_redirects(pkg),
+    list(c("reference/index-topic.html", "reference/foo.html"))
+  )
+})
+
 test_that("doesn't generates redirect for aliases that can't be file names", {
   pkg <- list(
     meta = list(url = "http://foo.com"),
