@@ -116,7 +116,9 @@ yaml: [a, b, c]
 
 ```{r}
 cat(cli::col_red("This is red"), "\n")
-cat(cli::col_blue("This is blue\n"), "\n")
+
+# N.B. some blue colors are hard to see on a dark background
+cat(cli::col_cyan("This is cyan"), "\n")
 
 message(cli::col_green("This is green"))
 
