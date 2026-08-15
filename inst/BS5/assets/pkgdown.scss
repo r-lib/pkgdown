@@ -649,17 +649,22 @@ pre div.gt-table {
 // "Pop" code out of page margins on small screens to give a little more room
 @include media-breakpoint-down(sm) {
 
+  // Same radius to all blocks even if no space is added for consistency
+  div>pre {
+    border-radius: 0;
+  }
+
   // div.section div.sourceCode pre
-  // prevents matching <pre> inside (e.g.) a <li>
-  div>div>pre {
+  // prevents matching <pre> inside (e.g.) a <li> and <blockquote>
+  :not(li,blockquote)>div>pre {
     margin-left: calc(var(--bs-gutter-x) * -.5);
     margin-right: calc(var(--bs-gutter-x) * -.5);
-    border-radius: 0;
     padding-left: 1rem;
     padding-right: 1rem;
   }
 
-  .btn-copy-ex {
+  // Relocate button for selected elements
+  :not(li,blockquote)>div>.btn-copy-ex {
     right: calc(var(--bs-gutter-x) * -.5 + 5px);
   }
 }
