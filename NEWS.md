@@ -6,6 +6,8 @@
 * When previewing a site, it is now served via a local http server. This enables dynamic features such as search to work correctly (@shikokuchuo, #2975).
 * Code in a link (href) is no longer autolinked (#2972)
 
+* improve accessibility of navbar and search through increased contrast ratio of colours (#2999)
+
 # pkgdown 2.2.0
 
 * Make `build_llm_docs()` more robust to the use of old Pandoc (@nanxstats, @galachad, #2952, #2954)
