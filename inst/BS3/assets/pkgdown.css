@@ -239,6 +239,12 @@ nav[data-toggle='toc'] .nav .nav > .active:focus > a {
   vertical-align: middle;
 }
 
+/* ror -------------------------------------------------------------------- */
+.ror {
+  height: 16px;
+  margin-right: 4px;
+}
+
 /* Reference index & topics ----------------------------------------------- */
 
 .ref-index th {font-weight: normal;}
