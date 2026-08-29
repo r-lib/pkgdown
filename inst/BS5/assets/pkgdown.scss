@@ -740,7 +740,8 @@ mark {
     padding: 0.5rem 0.25rem;
     line-height: 1.3;
 
-    &:hover {
+    &:hover,
+    &.aa-cursor {
       background-color: var(--bs-tertiary-bg);
       color: var(--bs-body-color);
     }
