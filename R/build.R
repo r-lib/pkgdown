@@ -1,7 +1,7 @@
 #' Build a complete pkgdown website
 #'
 #' @description
-#' `build_site()` is a convenient wrapper around six functions:
+#' `build_site()` is a convenient wrapper around eight functions:
 #'
 #' * [init_site()]
 #' * [build_home()]
