@@ -139,3 +139,92 @@ test_that("can build quarto articles in articles folder", {
   expect_true(file_exists(path(pkg$dst_path, "articles/vig3.html")))
   expect_true(file_exists(path(pkg$dst_path, "articles/vig4.html")))
 })
+
+test_that("tweak_quarto_callouts rewrites degraded default-titled callouts", {
+  html <- xml2::read_html(paste(
+    "<html><body>",
+    "<div><blockquote><p><strong>Note</strong></p><p>Hello note</p></blockquote></div>",
+    "</body></html>"
+  ))
+
+  tweak_quarto_callouts(html)
+
+  callout <- xpath_xml(
+    html,
+    "//div[contains(concat(' ', @class, ' '), ' callout-style-default ')]"
+  )
+  expect_length(callout, 1)
+  expect_true(grepl("callout-note", xml2::xml_attr(callout, "class")))
+  expect_equal(
+    trimws(xpath_text(
+      callout,
+      ".//div[@class='callout-body-container callout-body']"
+    )),
+    "Hello note"
+  )
+})
+
+test_that("tweak_quarto_callouts leaves blockquotes untouched", {
+  html <- xml2::read_html(paste(
+    "<html><body>",
+    "<blockquote><p>This is a genuine quote.</p></blockquote>",
+    "</body></html>"
+  ))
+
+  tweak_quarto_callouts(html)
+
+  expect_length(
+    xpath_xml(
+      html,
+      "//div[contains(concat(' ', @class, ' '), ' callout-style-default ')]"
+    ),
+    0
+  )
+  expect_length(xpath_xml(html, "//blockquote"), 1)
+})
+
+test_that("tweak_quarto_callouts custom titles", {
+  html <- xml2::read_html(paste(
+    "<html><body>",
+    "<div><blockquote><p><strong>Custom title</strong></p><p>Body.</p></blockquote></div>",
+    "</body></html>"
+  ))
+
+  tweak_quarto_callouts(html)
+
+  callout <- xpath_xml(
+    html,
+    "//div[contains(concat(' ', @class, ' '), ' callout-style-default ')]"
+  )
+  expect_true(grepl("callout-note", xml2::xml_attr(callout, "class")))
+  expect_match(
+    xpath_text(callout, ".//div[contains(@class,'callout-title-container')]"),
+    "Custom title"
+  )
+})
+
+test_that("tweak_quarto_callouts recovers type from qmd source for custom titles", {
+  qmd <- withr::local_tempfile(fileext = ".qmd")
+  write_lines(
+    c(
+      "::: {.callout-warning}",
+      "## Careful now",
+      "Body.",
+      ":::"
+    ),
+    qmd
+  )
+  html <- xml2::read_html(paste(
+    "<html><body>",
+    "<div><blockquote><p><strong>Careful now</strong></p><p>Body.</p></blockquote></div>",
+    "</body></html>"
+  ))
+
+  tweak_quarto_callouts(html, qmd_path = qmd)
+
+  callout <- xpath_xml(
+    html,
+    "//div[contains(concat(' ', @class, ' '), ' callout-style-default ')]"
+  )
+  expect_true(grepl("callout-warning", xml2::xml_attr(callout, "class")))
+})
