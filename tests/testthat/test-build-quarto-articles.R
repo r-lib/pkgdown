@@ -205,7 +205,7 @@ test_that("tweak_quarto_callouts custom titles", {
 
 test_that("tweak_quarto_callouts recovers type from qmd source for custom titles", {
   qmd <- withr::local_tempfile(fileext = ".qmd")
-  writeLines(
+  write_lines(
     c(
       "::: {.callout-warning}",
       "## Careful now",
