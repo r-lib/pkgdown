@@ -69,7 +69,11 @@ build_quarto_articles <- function(pkg = ".", article = NULL, quiet = TRUE) {
         data <- data_quarto_article(pkg, built_path, input_file)
         render_page(pkg, "quarto", data, output_file, quiet = TRUE)
 
-        update_html(path(pkg$dst_path, output_file), tweak_quarto_html)
+        update_html(
+          path(pkg$dst_path, output_file),
+          tweak_quarto_html,
+          qmd_path = path(pkg$src_path, input_file)
+        )
       } else {
         file_copy(built_path, path(pkg$dst_path, output_file), overwrite = TRUE)
       }
@@ -168,10 +172,132 @@ data_quarto_article <- function(pkg, path, input_path) {
   )
 }
 
-tweak_quarto_html <- function(html) {
+tweak_quarto_html <- function(html, qmd_path = NULL) {
   # If top-level headings use h1, move everything down one level
   h1 <- xml2::xml_find_all(html, "//h1")
   if (length(h1) > 1) {
     tweak_section_levels(html)
   }
+
+  tweak_quarto_callouts(html, qmd_path = qmd_path)
+}
+
+# pkgdown renders `.qmd` articles with `theme: "none"` and `minimal: TRUE`
+# (see `quarto_format()`), which strips the CSS Quarto callouts rely on.
+# Under those settings, Quarto's callout Lua filter falls back to a plain,
+# class-less blockquote:
+#
+#   <div>
+#   <blockquote>
+#   <p><strong>Note</strong></p>
+#   <p>Hello note</p>
+#   </blockquote>
+#   </div>
+#
+# This finds that pattern and rewrites it into Quarto's native callout markup
+# (div.callout.callout-style-default.callout-<type>), so it can be styled by
+# pkgdown's own CSS. A hand-written blockquote is never wrapped in a bare
+# `<div>` by Pandoc, so this signature does not collide.
+#
+# A custom title is lost. If `qmd_path` is supplied we reconstruct the title
+# from the original `.qmd`.
+tweak_quarto_callouts <- function(html, qmd_path = NULL) {
+  divs <- xml2::xml_find_all(html, "//div[not(@*)]")
+  candidates <- list()
+  for (div in divs) {
+    children <- xml2::xml_children(div)
+    if (length(children) != 1 || xml2::xml_name(children) != "blockquote") {
+      next
+    }
+    bq_children <- xml2::xml_children(children)
+    if (length(bq_children) < 1 || xml2::xml_name(bq_children[[1]]) != "p") {
+      next
+    }
+    first_p <- bq_children[[1]]
+    if (length(xml2::xml_children(first_p)) != 1) {
+      next
+    }
+    strong <- xml2::xml_find_first(first_p, "./strong")
+    if (is.na(xml2::xml_name(strong))) {
+      next
+    }
+    candidates[[length(candidates) + 1L]] <- list(
+      div = div,
+      strong = strong,
+      bq_children = bq_children
+    )
+  }
+
+  if (length(candidates) == 0) {
+    return(invisible())
+  }
+
+  source_types <- if (!is.null(qmd_path) && file_exists(qmd_path)) {
+    callout_types_from_qmd(qmd_path)
+  } else {
+    character()
+  }
+  use_source_types <- length(source_types) == length(candidates)
+
+  for (i in seq_along(candidates)) {
+    cand <- candidates[[i]]
+    known_type <- if (use_source_types) source_types[[i]] else NA_character_
+    xml2::xml_replace(
+      cand$div,
+      quarto_callout_node(cand$strong, cand$bq_children, known_type)
+    )
+  }
+
+  invisible()
+}
+
+quarto_callout_types <- c("note", "tip", "warning", "caution", "important")
+
+callout_types_from_qmd <- function(qmd_path) {
+  lines <- paste(read_lines(qmd_path), collapse = "\n")
+  pattern <- ":::+\\s*\\{[^}]*\\.callout-(note|tip|warning|caution|important)[^}]*\\}"
+  full <- regmatches(lines, gregexpr(pattern, lines, perl = TRUE))[[1]]
+  sub(".*\\.callout-(note|tip|warning|caution|important).*", "\\1", full)
+}
+
+quarto_callout_node <- function(
+  strong,
+  bq_children,
+  known_type = NA_character_
+) {
+  title <- trimws(xml2::xml_text(strong))
+  type <- if (!is.na(known_type) && known_type %in% quarto_callout_types) {
+    known_type
+  } else {
+    guess <- tolower(title)
+    if (guess %in% quarto_callout_types) guess else "note"
+  }
+
+  body_nodes <- bq_children[-1]
+  body_html <- paste(
+    vapply(body_nodes, as.character, character(1)),
+    collapse = "\n"
+  )
+
+  callout_html <- sprintf(
+    '<div class="callout callout-style-default callout-%s callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container"><i class="callout-icon"></i></div>
+<div class="callout-title-container flex-fill">%s</div>
+</div>
+<div class="callout-body-container callout-body">
+%s
+</div>
+</div>',
+    type,
+    title,
+    body_html
+  )
+
+  frag <- xml2::read_html(paste0(
+    "<html><body>",
+    callout_html,
+    "</body></html>"
+  ))
+  xml2::xml_find_first(frag, "//body/div")
 }

@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* `build_articles()` now restores styled callout blocks in Quarto articles, which previously rendered as plain, unstyled blockquotes (@BjarkeHautop, #3019).
+
 # pkgdown 2.2.1
 
 * Test fix for `R CMD check`.

@@ -31,8 +31,6 @@ The `setup-r-dependencies` action will [automatically](https://github.com/r-lib/
 
 ## Limitations
 
-* Callouts are not currently supported (<https://github.com/quarto-dev/quarto-cli/issues/9963>).
-
 * pkgdown assumes that you're using [quarto vignette style](https://quarto-dev.github.io/quarto-r/articles/hello.html), or more generally an html format with [`minimal: true`](https://quarto.org/docs/output-formats/html-basics.html#minimal-html). Specifically, only HTML vignettes are currently supported.
 
 * You can't customise mermaid styles with quarto mermaid themes. If you want to change the colours, you'll need to provide your own custom CSS as shown in [the quarto docs](https://quarto.org/docs/authoring/diagrams.html#customizing-mermaid).
