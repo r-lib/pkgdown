@@ -16,6 +16,14 @@ package_mds <- function(path, in_dev = FALSE) {
 
   # Remove files handled elsewhere
   handled <- c("README.md", "LICENSE.md", "LICENCE.md", "NEWS.md")
+
+  # Append user-defined ignores from .pkgdownignore
+  user_ignores <- read_pkgdownignore(path)
+  if (length(user_ignores) > 0) {
+    cli::cli_inform("Ignoring: {user_ignores}")
+  }
+  handled <- c(handled, user_ignores)
+  # handled <- c(handled)
   mds <- mds[!path_file(mds) %in% handled]
 
   # Do not build 404 page if in-dev
@@ -58,4 +66,36 @@ render_md <- function(pkg, filename) {
   check_missing_images(pkg, filename, path)
 
   invisible()
+}
+
+#' Read .pkgdownignore file
+#'
+#' Searches for .pkgdownignore in standard pkgdown config locations.
+#' Returns filenames to exclude (one per line, with comments ignored).
+#'
+#' @param path Path to the package root
+#' @return Character vector of filenames to exclude
+#' @noRd
+read_pkgdownignore <- function(path) {
+  # Check standard pkgdown config locations:
+  candidates <- c(
+    path(path, ".pkgdownignore"),
+    path(path, "_pkgdown", ".pkgdownignore"),
+    path(path, "pkgdown", ".pkgdownignore")
+  )
+
+  # Read output from all ignore files
+  ignore_paths <- candidates[file_exists(candidates)]
+  if (length(ignore_paths) == 0) {
+    return(character())
+  }
+
+  # Combine lines from all ignore files
+  lines <- unlist(lapply(ignore_paths, readLines))
+
+  # Remove comments & empty lines and trim whitespace
+  lines <- lines[!grepl("^\\s*#", lines)]
+  lines <- lines[nzchar(trimws(lines))]
+
+  unique(trimws(lines))
 }
