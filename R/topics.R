@@ -268,7 +268,7 @@ section_topics <- function(
   pkg,
   match_strings,
   error_path,
-  error_call = error_call()
+  error_call = caller_env()
 ) {
   # Add rows for external docs
   ext_strings <- match_strings[grepl("::", match_strings, fixed = TRUE)]
