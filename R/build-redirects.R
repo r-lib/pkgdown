@@ -79,7 +79,7 @@ reference_redirects <- function(pkg) {
     return(list())
   }
 
-  names(redirects) <- paste0(names(redirects), ".html")
+  names(redirects) <- rd_output_path(paste0(names(redirects), ".html"))
 
   # Ensure we don't create an invalid file name
   redirects <- redirects[valid_filename(names(redirects))]
