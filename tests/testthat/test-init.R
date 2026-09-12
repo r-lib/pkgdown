@@ -62,6 +62,20 @@ test_that("site meta doesn't break unexpectedly", {
   expect_snapshot(yaml)
 })
 
+test_that("site meta includes template package metadata", {
+  local_pkgdown_template_pkg()
+  pkg <- local_pkgdown_site(
+    meta = list(
+      template = list(package = "templatepackage")
+    )
+  )
+
+  meta <- site_meta(pkg)
+  expect_equal(meta$template$package, "templatepackage")
+  expect_equal(meta$template$version, "1.0.0")
+  expect_null(meta$template$sha)
+})
+
 test_that("site meta includes vignette subdirectories", {
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(pkg, "vignettes/a/a.Rmd")

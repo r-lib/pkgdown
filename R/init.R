@@ -154,6 +154,16 @@ site_meta <- function(pkg) {
     last_built = timestamp()
   )
 
+  template_package <- config_pluck_string(pkg, "template.package")
+  if (!is.null(template_package)) {
+    desc <- utils::packageDescription(template_package)
+    yaml$template <- list(
+      package = template_package,
+      version = desc$Version,
+      sha = desc$RemoteSha %||% desc$GithubSHA1
+    )
+  }
+
   url <- config_pluck_string(pkg, "url")
   if (!is.null(url)) {
     yaml$urls <- list(
