@@ -64,6 +64,14 @@ test_that("validates math yaml", {
   })
 })
 
+test_that("uses --math-method with newer pandoc", {
+  expect_equal(
+    pandoc_math_arg("katex", math_method = TRUE),
+    "--math-method=katex"
+  )
+  expect_equal(pandoc_math_arg("katex", math_method = FALSE), "--katex")
+})
+
 test_that("preserves ANSI characters", {
   withr::local_options(cli.num_colors = 256)
   pkg <- local_pkgdown_site()

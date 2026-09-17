@@ -123,12 +123,24 @@ convert_markdown_to_html <- function(pkg, in_path, out_path, ...) {
       "--indented-code-classes=R",
       "--section-divs",
       "--wrap=none",
-      paste0("--", config_math_rendering(pkg)),
+      pandoc_math_arg(config_math_rendering(pkg)),
       ...
     ))
   )
 
   invisible()
+}
+
+# Pandoc 3.11 deprecated --mathml, --mathjax, etc. in favour of --math-method
+pandoc_math_arg <- function(
+  math,
+  math_method = rmarkdown::pandoc_available("3.11")
+) {
+  if (math_method) {
+    paste0("--math-method=", math)
+  } else {
+    paste0("--", math)
+  }
 }
 
 config_math_rendering <- function(pkg, call = caller_env()) {

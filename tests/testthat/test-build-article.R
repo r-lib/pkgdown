@@ -245,6 +245,14 @@ test_that("build_article yields useful error if R fails", {
   # https://github.com/yihui/knitr/issues/2399#issuecomment-2803554647
   skip_if(packageVersion('knitr') < '1.50.3')
 
+  # rmarkdown < 2.32.3 passes deprecated --mathjax, which pandoc >= 3.11 warns
+  # about in the captured output
+  # https://github.com/rstudio/rmarkdown/issues/2638
+  skip_if(
+    rmarkdown::pandoc_available("3.11") &&
+      packageVersion("rmarkdown") < "2.32.3"
+  )
+
   pkg <- local_pkgdown_site()
   pkg <- pkg_add_file(
     pkg,

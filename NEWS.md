@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Markdown is now converted with `--math-method` when Pandoc >= 3.11 is available, avoiding Pandoc's deprecation warnings for `--mathml`, `--mathjax`, and `--katex`.
+
 # pkgdown 2.2.1
 
 * Test fix for `R CMD check`.
