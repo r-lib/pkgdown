@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* `deploy_to_branch()` no longer collapses the `//` after the scheme of `url` when `subdir` is used (@taekop, #2816).
+
 # pkgdown 2.2.1
 
 * Test fix for `R CMD check`.
