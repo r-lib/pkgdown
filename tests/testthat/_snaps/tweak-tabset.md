@@ -21,3 +21,16 @@
     </div>
     </div>
 
+# Quarto panel tabsets are converted to tabsets
+
+    <div class="panel-tabset">
+          <ul class="nav nav-tabs" id="tabset-1" role="tablist">
+    <li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#tabset-1-1" id="tabset-1-1-tab" type="button" role="tab" aria-controls="tabset-1-1" aria-selected="true" class="nav-link active">Tab <code>1</code></button></li>
+    <li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#tabset-1-2" id="tabset-1-2-tab" type="button" role="tab" aria-controls="tabset-1-2" aria-selected="false" class="nav-link">Tab 2</button></li>
+    </ul>
+    <div class="tab-content">
+            <div id="tabset-1-1" class="active tab-pane" role="tabpanel" aria-labelledby="tabset-1-1-tab"><p>Contents 1</p></div>
+            <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab"><p>Contents 2</p></div>
+          </div>
+        </div>
+

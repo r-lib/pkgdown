@@ -540,7 +540,8 @@ a.footnote-ref {
   padding: 1rem;
 }
 
-.tabset-pills .tab-content {
+.tabset-pills .tab-content,
+.panel-tabset.nav-pills .tab-content {
   border: solid 1px #e5e5e5;
 }
 

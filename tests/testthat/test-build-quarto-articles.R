@@ -123,6 +123,36 @@ test_that("quarto headings get anchors", {
   )
 })
 
+test_that("quarto tabsets are converted to bootstrap tabs", {
+  skip_if_no_quarto()
+
+  pkg <- local_pkgdown_site()
+  pkg <- pkg_add_file(
+    pkg,
+    "vignettes/vig1.qmd",
+    pkg_vignette(
+      "::: {.panel-tabset}",
+      "## Tab 1\n\nContents 1\n",
+      "## Tab 2\n\nContents 2\n",
+      ":::\n",
+      "## Tabset {.tabset}\n",
+      "### Tab 3\n\nContents 3\n",
+      "### Tab 4\n\nContents 4"
+    )
+  )
+
+  suppressMessages(build_article("vig1", pkg))
+  html <- xml2::read_html(path(pkg$dst_path, "articles/vig1.html"))
+  expect_equal(
+    xpath_text(html, "//ul[@role = 'tablist']/li/button"),
+    paste("Tab", 1:4)
+  )
+  expect_equal(
+    xpath_attr(html, "//div[@class = 'tab-content']/*", "role"),
+    rep("tabpanel", 4)
+  )
+})
+
 test_that("can build quarto articles in articles folder", {
   skip_if_no_quarto()
 

@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* Tabsets now work in quarto articles, both with `::: {.panel-tabset}` and with `## Heading {.tabset}` (@roaldarbol, #2951).
+
 # pkgdown 2.2.1
 
 * Test fix for `R CMD check`.

@@ -37,6 +37,8 @@ The `setup-r-dependencies` action will [automatically](https://github.com/r-lib/
 
 * You can't customise mermaid styles with quarto mermaid themes. If you want to change the colours, you'll need to provide your own custom CSS as shown in [the quarto docs](https://quarto.org/docs/authoring/diagrams.html#customizing-mermaid).
 
+* Grouped tabsets (`::: {.panel-tabset group="..."}`) are displayed as ordinary tabsets: choosing a tab in one doesn't switch the other tabsets in the group.
+
 * pkgdown will pass the `lang` setting on to quarto, but the set of available languages is not perfectly matched. Learn more in <https://quarto.org/docs/authoring/language.html>, including how to supply your own translations.
 
 ## Supported features
@@ -86,10 +88,24 @@ See @fig-puppies for two cute puppies.
 
 Black-Scholes (@eq-black-scholes) is a mathematical model that seeks to explain the behavior of financial derivatives, most commonly options.
 
+### Tabsets
+
+::: {.panel-tabset}
+
+#### Tab 1
+
+Contents of the first tab.
+
+#### Tab 2
+
+Contents of the second tab.
+
+:::
+
 ## To do
 
 * [ ] Code annotations
-* [ ] Tabsets
+* [x] Tabsets
 * [x] Citations
 * [x] Task/to do lists
 * [x] Figures
