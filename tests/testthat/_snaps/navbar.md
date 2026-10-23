@@ -93,7 +93,6 @@
       articles:
         text: Articles
         menu:
-        - text: '---------'
         - text: Label
         - text: Title a
           href: a.html
@@ -115,6 +114,24 @@
         - text: '---------'
         - text: More articles...
           href: articles/index.html
+      
+
+---
+
+    Code
+      navbar_articles(pkg(articles = list(list(name = "a", contents = "a", navbar = "A"),
+      list(name = "b", contents = "b", navbar = "B"))))
+    Output
+      articles:
+        text: Articles
+        menu:
+        - text: A
+        - text: Title a
+          href: a.html
+        - text: '---------'
+        - text: B
+        - text: Title b
+          href: b.html
       
 
 # data_navbar() works by default

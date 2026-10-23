@@ -70,6 +70,18 @@ test_that("can control articles navbar through articles meta", {
       )
     )
   )
+
+  "navbar with two labelled sections"
+  expect_snapshot(
+    navbar_articles(
+      pkg(
+        articles = list(
+          list(name = "a", contents = "a", navbar = "A"),
+          list(name = "b", contents = "b", navbar = "B")
+        )
+      )
+    )
+  )
 })
 
 test_that("can control articles navbar through navbar meta", {

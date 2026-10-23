@@ -1,5 +1,7 @@
 # pkgdown (development version)
 
+* The Articles navbar menu no longer starts with an empty divider when the first `articles` section has a `navbar` heading (@schloerke, #3033).
+
 # pkgdown 2.2.1
 
 * Test fix for `R CMD check`.

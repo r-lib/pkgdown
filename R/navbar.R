@@ -213,7 +213,11 @@ navbar_articles <- function(pkg = ".") {
         vig <- vig[vig$name != pkg$package, , drop = FALSE]
         c(
           if (!is.null(section$navbar)) {
-            list(menu_separator(), menu_heading(section$navbar))
+            # No separator above the first section
+            c(
+              if (index > 1) list(menu_separator()),
+              list(menu_heading(section$navbar))
+            )
           },
           menu_links(vig$title, vig$href)
         )
